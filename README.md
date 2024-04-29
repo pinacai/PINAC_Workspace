@@ -2,9 +2,9 @@
 
 <div align="center">
 
-<img src="" alt="Made By Electron & React">
-<img src="" alt="Powered By Python">
-<img src="" alt="Maintained With Love">
+<img src="https://github.com/pinacai/pinac_workspace/blob/main/readme_assets/build-with-electron-%26-react.svg" alt="Made By Electron & React">
+<img src="https://github.com/pinacai/pinac_workspace/blob/main/readme_assets/powered-by-python.svg" alt="Powered By Python">
+<img src="https://github.com/pinacai/pinac_workspace/blob/main/readme_assets/maintained-with-love.svg" alt="Maintained With Love">
 <br>
 <br>
 <b>PINAC Workspace is a comprehensive AI-integrated</b> desktop application designed to automate and streamline tasks within <b>Google Workspace</b>. Utilizing the combination of Electron with React for responsive, <b>cross-platform</b> app design, along with the capabilities of Python PINAC-Workspace offers functionality that enhances productivity for tasks such as sending emails, managing tasks, and checking events directly from the desktop. This tool is ideal for individuals and teams looking to achieve high efficiency in their workflow.
@@ -33,8 +33,8 @@ Follow these steps to set up the PINAC-Workspace on your system:
 
 ### Clone the Repository
   ```bash
-  git clone https://github.com/RajeshTechForge/PINAC-Workspace_2.0.git
-  cd PINAC-Workspace_2.0
+  git clone https://github.com/pinacai/pinac_workspace.git
+  cd pinac_workspace
   ```
 
 ### Install
@@ -76,5 +76,5 @@ PINAC Workspace is licensed under the GPL-3.0 license. See the <a href="https://
 ## 🌐 Support
 For support inquiries or to report issues, please file an issue through the GitHub issue tracker associated with the repository.
 
-## Authors and Acknowledgement
+## ✍️  Authors and Acknowledgement
 Thank you to all the contributors who have helped in building and optimizing the PINAC Workspace from our previous repository `PINAC-Workspace`.
