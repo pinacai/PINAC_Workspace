@@ -1,0 +1,12 @@
+node_modules
+dist
+out
+.DS_Store
+*.log*
+venv
+.env
+.vscode
+__pycache__
+python_src/configs/.env
+python_src/configs/client_secret.json
+python_src/configs/google_token.json
