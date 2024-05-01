@@ -346,6 +346,12 @@ li:hover {
     align-items: center;
 }
 
+.welcome-text-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
 .msg-row {
     display: flex;
     align-items: flex-start;

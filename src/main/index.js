@@ -2,7 +2,7 @@ import { app, shell, BrowserWindow, screen, ipcMain } from 'electron'
 import { spawn } from 'child_process'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/icon.png?asset'
+import icon from '../resources/icon.png?asset'
 
 let pythonProcess = null
 
@@ -41,7 +41,7 @@ const createWindow = () => {
   }
 
   // Spawn the Python process
-  pythonProcess = spawn('python', ['python_src/main.py'])
+  pythonProcess = spawn('python', ['server/main.py'])
 
   pythonProcess.stdout.on('data', (data) => {
     console.log(data.toString())
@@ -93,11 +93,16 @@ app.on('window-all-closed', () => {
   }
 })
 
+//
+//
 // IPC btw React & Electron
-ipcMain.on('input-value', (event, data) => {
+ipcMain.on('user-query', (event, data) => {
   console.log(data)
-  socket.emit('message', 'Hello from Electron!')
-  event.reply('input-value-reply', 'Hello from main process!')
+  socket.emit('message', data)
+  socket.on('server-response', (response) => {
+    event.reply('ai-response', response)
+  })
+  // event.reply('ai-response', )
 })
 
 // Establishing Real time communication with Python using Socket
@@ -106,8 +111,4 @@ const socket = io('http://localhost:5000')
 
 socket.on('connect', () => {
   console.log('Connected to server')
-})
-
-socket.on('data_event', (data) => {
-  console.log(`Received data: ${JSON.stringify(data)}`)
 })

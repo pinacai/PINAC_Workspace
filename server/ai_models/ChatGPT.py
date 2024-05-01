@@ -7,7 +7,7 @@ from langchain.schema import BaseOutputParser
 from ai_models.data.training_data import dataset, findNameDataset
 
 
-load_dotenv(dotenv_path="python_src/configs/.env")
+load_dotenv(dotenv_path="server/configs/.env")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 # HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 

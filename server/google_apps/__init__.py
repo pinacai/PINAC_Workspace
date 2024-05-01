@@ -21,8 +21,8 @@ def createService(build_name, version):
         # The file google_token.json stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first time.
         
-        if os.path.exists("python_src/configs/google_token.json"):
-            creds = Credentials.from_authorized_user_file("python_src/configs/google_token.json", scopes)
+        if os.path.exists("server/configs/google_token.json"):
+            creds = Credentials.from_authorized_user_file("server/configs/google_token.json", scopes)
 
         # If there are no (valid) credentials available, let the user log in.
         if not creds or not creds.valid:
@@ -30,11 +30,11 @@ def createService(build_name, version):
                 creds.refresh(Request())
 
             else:
-                flow = InstalledAppFlow.from_client_secrets_file("python_src/configs/client_secret.json", scopes)
+                flow = InstalledAppFlow.from_client_secrets_file("server/configs/client_secret.json", scopes)
                 creds = flow.run_local_server(port=0)
 
             # Save the credentials for the next run
-            with open(f"python_src/configs/google_token.json", 'w') as token:
+            with open(f"server/configs/google_token.json", 'w') as token:
                 token.write(creds.to_json())
 
         service = build(build_name, version, credentials=creds)

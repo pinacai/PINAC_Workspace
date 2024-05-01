@@ -2,9 +2,9 @@
 
 <div align="center">
 
-<img src="https://github.com/pinacai/pinac_workspace/blob/main/readme_assets/build-with-electron-%26-react.svg" alt="Made By Electron & React">
-<img src="https://github.com/pinacai/pinac_workspace/blob/main/readme_assets/powered-by-python.svg" alt="Powered By Python">
-<img src="https://github.com/pinacai/pinac_workspace/blob/main/readme_assets/maintained-with-love.svg" alt="Maintained With Love">
+<img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/build-with-electron-&-react.svg" alt="Made By Electron & React">
+<img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/powered-by-python.svg" alt="Powered By Python">
+<img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/maintained-with-love.svg" alt="Maintained With Love">
 <br>
 <br>
 <b>PINAC Workspace is a comprehensive AI-integrated</b> desktop application designed to automate and streamline tasks within <b>Google Workspace</b>. Utilizing the combination of Electron with React for responsive, <b>cross-platform</b> app design, along with the capabilities of Python PINAC-Workspace offers functionality that enhances productivity for tasks such as sending emails, managing tasks, and checking events directly from the desktop. This tool is ideal for individuals and teams looking to achieve high efficiency in their workflow.
@@ -31,23 +31,34 @@ Follow these steps to set up the PINAC-Workspace on your system:
 ### Recommended IDE Setup
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-### Clone the Repository
+### 1. Clone the Repository
   ```bash
   git clone https://github.com/pinacai/pinac_workspace.git
   cd pinac_workspace
   ```
 
-### Install
+### 2. Install
   ```bash
   $ npm install
   ```
+### 3. Create virtualenv & activate it
+  ```bash
+  $ python -m venv .env
+  ```
+  ```bash
+  $ source .env/bin/activate
+  ```
+### 4. Install python dependencies
+  ```bash
+  $ pip install -r requirements.txt
+  ```
 
-### Development
+### 5. Start the App
   ```bash
   $ npm run dev
   ```
 
-### Build
+### Build (optional) // Not tested
   ```bash
   # For windows
   $ npm run build:win

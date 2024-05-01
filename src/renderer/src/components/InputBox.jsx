@@ -4,17 +4,14 @@ import addPdfIcon from '../img/add-pdf-light.png'
 import sendIcon from '../img/send-light.png'
 
 export const InputBox = () => {
-  const [inputValue, setInputValue] = useState('') // Declare state for input value
+  const [userQuery, setUserQuery] = useState('') // Declare state for input value
 
   const handleChange = (event) => {
-    setInputValue(event.target.value) // Update state on change
+    setUserQuery(event.target.value) // Update state on change
   }
 
   const submit = () => {
-    window.electron.ipcRenderer.send('input-value', inputValue)
-    window.electron.ipcRenderer.on('input-value-reply', (event, reply) => {
-      console.log(reply)
-    })
+    window.electron.ipcRenderer.send('user-query', userQuery)
   }
 
   return (
@@ -24,7 +21,7 @@ export const InputBox = () => {
           <input
             type="text"
             id="user-input"
-            value={inputValue}
+            value={userQuery}
             onChange={handleChange}
             placeholder="Tell me your task..."
           />
