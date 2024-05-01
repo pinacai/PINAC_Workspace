@@ -56,11 +56,15 @@ body:not(light-theme) {
 }
 
 body {
-    display: flex;
-    flex-direction: row;
+    font-family: 'Montserrat', sans-serif;
     background-color: var(--primary-color);
     color: var(--text2-color);
-    font-family: 'Montserrat', sans-serif;
+}
+
+.body-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
 /* Sidebar Styles */

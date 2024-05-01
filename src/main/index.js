@@ -1,7 +1,10 @@
-import { app, shell, BrowserWindow, ipcMain, screen } from 'electron'
+import { app, shell, BrowserWindow, screen, ipcMain } from 'electron'
+import { spawn } from 'child_process'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+
+let pythonProcess = null
 
 const createWindow = () => {
   // Get the primary display's work area size (usable area)
@@ -36,6 +39,21 @@ const createWindow = () => {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  // Spawn the Python process
+  pythonProcess = spawn('python', ['python_src/main.py'])
+
+  pythonProcess.stdout.on('data', (data) => {
+    console.log(data.toString())
+  })
+
+  pythonProcess.stderr.on('data', (data) => {
+    console.error(data.toString())
+  })
+
+  pythonProcess.on('close', (code) => {
+    console.log(`Python script exited with code ${code}`)
+  })
 }
 
 // This method will be called when Electron has finished
@@ -51,9 +69,6 @@ app.whenReady().then(() => {
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
-
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
 
@@ -71,7 +86,28 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+
+  // Terminate the Python process
+  if (pythonProcess) {
+    pythonProcess.kill()
+  }
 })
 
-// In this file you can include the rest of your app"s specific main process
-// code. You can also put them in separate files and require them here.
+// IPC btw React & Electron
+ipcMain.on('input-value', (event, data) => {
+  console.log(data)
+  socket.emit('message', 'Hello from Electron!')
+  event.reply('input-value-reply', 'Hello from main process!')
+})
+
+// Establishing Real time communication with Python using Socket
+const io = require('socket.io-client')
+const socket = io('http://localhost:5000')
+
+socket.on('connect', () => {
+  console.log('Connected to server')
+})
+
+socket.on('data_event', (data) => {
+  console.log(`Received data: ${JSON.stringify(data)}`)
+})

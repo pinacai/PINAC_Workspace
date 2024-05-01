@@ -1,10 +1,9 @@
 {
-  "name": "pinac",
+  "name": "pinac_workspace",
   "version": "1.0.0",
-  "description": "An Electron application with React",
+  "description": "An Electron application with React for frontend and python in backend to manage Google Workspace using AI and automation",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://electron-vite.org",
+  "author": "pinacai",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -20,13 +19,15 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
-    "electron-updater": "^6.1.7"
+    "electron-ipc": "^0.3.0",
+    "electron-updater": "^6.1.7",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.2",
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",
     "@vitejs/plugin-react": "^4.2.1",
-    "electron": "^28.2.0",
+    "electron": "^28.3.1",
     "electron-builder": "^24.9.1",
     "electron-vite": "^2.0.0",
     "eslint": "^8.56.0",

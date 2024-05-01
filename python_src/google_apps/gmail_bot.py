@@ -8,7 +8,7 @@ from email.mime.application import MIMEApplication
 from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
 from email.mime.audio import MIMEAudio
-from src.google.__init__ import createService
+from google_apps.__init__ import createService
 
 
 class GoogleGmailManager:

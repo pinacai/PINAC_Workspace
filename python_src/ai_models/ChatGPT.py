@@ -4,10 +4,10 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.prompts.chat import ChatPromptTemplate
 from langchain.schema import BaseOutputParser
-from src.ai_models.data.training_data import dataset, findNameDataset
+from ai_models.data.training_data import dataset, findNameDataset
 
 
-load_dotenv(dotenv_path="src/configs/.env")
+load_dotenv(dotenv_path="python_src/configs/.env")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 # HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 

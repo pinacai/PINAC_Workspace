@@ -1,5 +1,5 @@
 # import
-from src.google.__init__ import createService
+from google_apps.__init__ import createService
 
 
 class GoogleTaskManager:
