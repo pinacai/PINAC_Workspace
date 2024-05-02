@@ -1,9 +1,9 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from 'react'
-import addPdfIcon from '../../assets/img/add-pdf-light.png'
-import sendIcon from '../../assets/img/send-light.png'
-import userIcon from '../../assets/img/user_icon.png'
-import pinacLogo from '../../assets/img/pinac-logo.png'
+import './style/ChatBox.css'
+import { useState } from 'react'
+import addPdfIcon from '../../assets/icon/add_pdf.svg'
+import sendIcon from '../../assets/icon/send.svg'
+import userIcon from '../../assets/icon/user_icon.png'
+import pinacLogo from '../../assets/icon/pinac-logo.png'
 
 export const ChatBox = () => {
   const [welcomeBox, setWelcomeBox] = useState(
@@ -82,11 +82,11 @@ export const ChatBox = () => {
           />
           <div className="input-group-append">
             <label htmlFor="pdf-upload" className="pdf-upload-label">
-              <img src={addPdfIcon} alt="Upload PDF" className="pdf-icon" />
+              <img src={addPdfIcon} alt="Upload PDF" className="pdf-icon changeable-icon" />
             </label>
             <input type="file" id="pdf-upload" accept=".pdf" style={{ display: 'none' }} />
             <button id="submit-btn" onClick={() => submit(userInput)}>
-              <img src={sendIcon} alt="Submit" className="submit-icon" />
+              <img src={sendIcon} alt="Submit" className="submit-icon changeable-icon" />
             </button>
           </div>
         </div>

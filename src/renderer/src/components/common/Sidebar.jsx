@@ -1,11 +1,11 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from 'react'
-import userIcon from '../../assets/img/user_icon.png'
-import chevronRightIcon from '../../assets/img/chevron-right-light.png'
-import homeIcon from '../../assets/img/home-light.png'
-import groupIcon from '../../assets/img/group-light.png'
-import settingsIcon from '../../assets/img/settings-light.png'
-import themeIcon from '../../assets/img/theme-light.png'
+import './style/Sidebar.css'
+import { useState, useEffect } from 'react'
+import userIcon from '../../assets/icon/user_icon.png'
+import chevronRightIcon from '../../assets/icon/chevron_right.svg'
+import homeIcon from '../../assets/icon/home.svg'
+import groupIcon from '../../assets/icon/group.svg'
+import settingsIcon from '../../assets/icon/settings.svg'
+import themeIcon from '../../assets/icon/dark_mode.svg'
 
 export const Sidebar = () => {
   const [isActive, setIsActive] = useState(false)
@@ -49,7 +49,7 @@ export const Sidebar = () => {
           </div>
           <img
             id="sidebar-btn"
-            className="icon"
+            className="non-changeable-icon"
             src={chevronRightIcon}
             alt="Sidebar Toggle"
             onClick={toggleSidebar}
@@ -59,15 +59,15 @@ export const Sidebar = () => {
         <nav>
           <ul>
             <li title="Homepage" id="go-home">
-              <img className="icon" src={homeIcon} alt="Home" />
+              <img className="non-changeable-icon" src={homeIcon} alt="Home" />
               <span className="sidebar-text">Home</span>
             </li>
             <li title="About Us" id="go-about">
-              <img className="icon" src={groupIcon} alt="About Us" />
+              <img className="non-changeable-icon" src={groupIcon} alt="About Us" />
               <span className="sidebar-text">About Us</span>
             </li>
             <li title="Settings" id="go-settings">
-              <img className="icon" src={settingsIcon} alt="Settings" />
+              <img className="non-changeable-icon" src={settingsIcon} alt="Settings" />
               <span className="sidebar-text">Settings</span>
             </li>
           </ul>
@@ -75,7 +75,11 @@ export const Sidebar = () => {
       </div>
       <div className="lower-part">
         <div className="theme-toggle-container" title="Change Theme">
-          <img src={themeIcon} alt="Theme Icon" className="theme-toggle-icon sidebar-text" />
+          <img
+            src={themeIcon}
+            alt="Theme Icon"
+            className="theme-toggle-icon non-changeable-icon sidebar-text"
+          />
           <span className="theme-toggle-text sidebar-text">Theme</span>
           <div className="theme-toggle">
             <input

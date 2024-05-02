@@ -1,0 +1,242 @@
+.non-changeable-icon {
+    height: 25px;
+    filter: invert(100%);
+}
+
+/* Sidebar Styles */
+.sidebar {
+    height: 100vh;
+    width: 60px;
+    background: var(--sidebar-color);
+    border-radius: 0 10px 10px 0;
+    position: relative;
+    transition: width 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+
+.sidebar-text {
+    display: inline;
+    opacity: 0;
+    max-width: 0;
+    color: var(--text1-color);
+    overflow: hidden;
+    white-space: nowrap;
+    transition: opacity 0.3s ease-in-out, max-width 0.3s ease-in-out;
+}
+
+.sidebar.active {
+    width: 250px;
+}
+
+.sidebar.active .sidebar-text {
+    opacity: 1;
+    max-width: 200px;
+    padding-left: 10px;
+}
+
+.sidebar.active .top:hover {
+    background-image: var(--hover-color);
+    color: var(--hover-text-color);
+    border-radius: 10px;
+}
+
+.sidebar.active .profile {
+    width: 250px;
+    padding-left: 10%;
+    justify-content: flex-start;
+}
+
+.sidebar.active li {
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.sidebar.active .theme-toggle-text {
+    margin-right: 10px;
+}
+
+/* Sidebar Upper Part */
+.upper-part {
+    width: 100%;
+}
+
+.top {
+    display: flex;
+    padding: 10px 15px 10px 15px;
+    margin: 10px 0 10px 0;
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#user-image {
+    height: 35px;
+}
+
+#user-name {
+    font-size: medium;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#sidebar-btn {
+    margin-top: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.border-line {
+    border-bottom: 1px black solid;
+    margin: 0 15px 0 15px;
+}
+
+/* Sidebar Navigation */
+nav ul {
+    list-style: none;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 5px;
+    padding: 15px;
+    color: var(--text1-color);
+    transition: all 0.5s ease;
+}
+
+li:hover {
+    background: var(--hover-color);
+    border-radius: 10px;
+}
+
+/* Lower Part of Sidebar */
+/* Theme Toggle Button */
+.lower-part {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+}
+
+.theme-toggle-icon {
+    height: 20px;
+    margin-right: 10px;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.theme-switch {
+    appearance: none;
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar.collapsed .theme-switch {
+    width: 30px;
+    height: 15px;
+}
+
+.theme-switch:before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.sidebar.collapsed .theme-switch:before {
+    width: 10px;
+    height: 10px;
+}
+
+.theme-switch:checked {
+    background-color: #3c6382;
+}
+
+.theme-switch:checked:before {
+    transform: translateX(20px);
+}
+
+.sidebar.collapsed .theme-switch:checked:before {
+    transform: translateX(15px);
+}
+
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .sidebar.active {
+        width: 200px;
+    }
+
+    .sidebar.active .profile {
+        width: 200px;
+        padding-left: 5%;
+    }
+
+    .sidebar.active .sidebar-text {
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar.active {
+        width: 180px;
+    }
+
+    .sidebar.active .profile {
+        width: 180px;
+        padding-left: 5%;
+    }
+
+    .sidebar.active .sidebar-text {
+        max-width: 130px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sidebar.active {
+        width: 160px;
+    }
+
+    .sidebar.active .profile {
+        width: 160px;
+        padding-left: 5%;
+    }
+
+    .sidebar.active .sidebar-text {
+        max-width: 110px;
+    }
+}

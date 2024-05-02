@@ -1,3 +1,4 @@
+import './style/HomePage.css'
 import { Sidebar } from '../common/Sidebar'
 import { Header } from '../common/Header'
 import { ChatBox } from '../specific/ChatBox'

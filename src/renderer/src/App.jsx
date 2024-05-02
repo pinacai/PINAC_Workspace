@@ -1,4 +1,3 @@
-import './css/App.css'
 import { HomePage } from './components/pages/HomePage'
 import { ProfilePage } from './components/pages/ProfilePage'
 import { AboutPage } from './components/pages/AboutPage'

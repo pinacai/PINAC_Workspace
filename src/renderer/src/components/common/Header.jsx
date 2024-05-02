@@ -1,6 +1,5 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react'
-import addLogo from '../../assets/img/add-light.png'
+import './style/Header.css'
+import addLogo from '../../assets/icon/add_circle.svg'
 
 export const Header = () => {
   return (
@@ -11,7 +10,7 @@ export const Header = () => {
         </div>
         <div className="right-side">
           <button id="new-chat-btn">
-            <img id="new-chat-icon" src={addLogo} alt="" />
+            <img className="non-changeable-icon" src={addLogo} alt="" style={{ height: '32px' }} />
             <span id="new-chat-text">New Chat</span>
           </button>
         </div>
