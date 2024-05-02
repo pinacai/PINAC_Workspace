@@ -1,11 +1,26 @@
 .msg-box {
     width: 60%;
     height: calc(100vh - (60px + 12vh));
+    padding-top: 30px;
     background: transparent;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
 }
+
+.msg-box::-webkit-scrollbar {
+    width: 10px;
+}
+
+.msg-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.msg-box::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 50px;
+}
+
 
 /* Welcome Text Styles */
 .welcome-text {
@@ -14,7 +29,6 @@
     color: transparent;
     box-shadow: none;
     font: bold 4.5vw 'nasa';
-    margin-top: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,7 +37,6 @@
 .welcome-text-row {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 20px;
 }
 
 .msg-row {
@@ -166,11 +179,10 @@
 @media (max-width: 992px) {
     .msg-box {
         width: 90%;
-        height: calc(100vh - (60px + 10vh));
     }
 
-    .input-box {
-        height: 10vh;
+    .welcome-text {
+        font-size: 7vw;
     }
 
     .input-group {
@@ -185,15 +197,12 @@
 @media (max-width: 768px) {
     .msg-box {
         width: 95%;
-        height: calc(100vh - (60px + 10vh));
-    }
-
-    .input-box {
-        height: 10vh;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     .input-group {
-        width: 95%;
+        width: 90%;
     }
 
     #user-input {
@@ -221,15 +230,12 @@
 @media (max-width: 576px) {
     .msg-box {
         width: 100%;
-        height: calc(100vh - (60px + 10vh));
-    }
-
-    .input-box {
-        height: 10vh;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     .input-group {
-        width: 100%;
+        width: 90%;
     }
 
     #user-input {

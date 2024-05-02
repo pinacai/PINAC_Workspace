@@ -31,6 +31,10 @@
     align-items: center;
 }
 
+#new-chat-btn:hover {
+    background: var(--new-chat-hover-color);
+}
+
 #new-chat-text {
     padding-left: 5px;
     padding-right: 5px;

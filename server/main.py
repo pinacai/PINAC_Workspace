@@ -134,17 +134,9 @@ from flask_socketio import SocketIO
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-# @socketio.on('connect')
-# def handle_connect():
-#     print('Client connected')
-
-# @socketio.on('disconnect')
-# def handle_disconnect():
-#     print('Client disconnected')
-
 @socketio.on('message')
 def handle_message(data):
-    socketio.emit('server-response', 'Hello from Python!')
+    socketio.emit('server-response', ['Hello from Python!', 12])
 
 if __name__ == '__main__':
     socketio.run(app, allow_unsafe_werkzeug=True, debug=False)

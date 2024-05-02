@@ -15,14 +15,22 @@ export const ChatBox = () => {
       </div>
     </div>
   )
-  const [userResponse, setUserResponse] = useState(null) // For showing user query
-  const [aiResponse, setAiResponse] = useState(null) // For showing AI response
+  const [messages, setMessages] = useState(null) // For showing AI response
   const [userInput, setUserInput] = useState('') // Declare state for input value
 
+  //
   //
   // For Input Box
   const handleChange = (event) => {
     setUserInput(event.target.value) // Update state on change
+  }
+  // Adding enter key to submit
+  const handleKeyDown = (event) => {
+    if (event.shiftKey && event.key === 'Enter') {
+      setUserInput(userInput + '\n')
+    } else if (event.key === 'Enter') {
+      userInput !== '' ? submit(userInput) : {}
+    }
   }
 
   //
@@ -33,51 +41,52 @@ export const ChatBox = () => {
     if (welcomeBox !== null) {
       setWelcomeBox(null)
     }
-
-    // For user response
+    // For user & AI response
     window.electron.ipcRenderer.send('user-input', text)
-    setUserResponse(
-      <div className="msg-row">
-        <div className="msg-avatar">
-          <img src={userIcon} alt="User Avatar" />
-        </div>
-        <div className="msg-content">
-          <div className="msg-name">You</div>
-          <div className="msg-text human-msg">{text}</div>
-        </div>
-      </div>
-    )
-    // For AI response
     window.electron.ipcRenderer.on('ai-response', (event, response) => {
-      setAiResponse(
-        <div className="msg-row">
-          <div className="msg-avatar">
-            <img src={pinacLogo} alt="AI Avatar" />
+      setMessages(
+        <>
+          {messages}
+          <div className="msg-row">
+            <div className="msg-avatar">
+              <img src={userIcon} alt="User Avatar" />
+            </div>
+            <div className="msg-content">
+              <div className="msg-name">You</div>
+              <div className="msg-text human-msg">{text}</div>
+            </div>
           </div>
-          <div className="msg-content">
-            <div className="msg-name">PINAC</div>
-            <div className="msg-text ai-msg">{response}</div>
+
+          <div className="msg-row">
+            <div className="msg-avatar">
+              <img src={pinacLogo} alt="AI Avatar" />
+            </div>
+            <div className="msg-content">
+              <div className="msg-name">PINAC</div>
+              <div className="msg-text ai-msg">{response}</div>
+            </div>
           </div>
-        </div>
+        </>
       )
     })
+    // Clearing input box
+    setUserInput('')
   }
 
   return (
     <>
       <div className="msg-box">
         {welcomeBox}
-        {userResponse}
-        {aiResponse}
+        {messages}
       </div>
 
       <div className="input-box">
         <div className="input-group">
           <input
-            type="text"
             id="user-input"
             value={userInput}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             placeholder="Tell me your task..."
           />
           <div className="input-group-append">
@@ -85,7 +94,7 @@ export const ChatBox = () => {
               <img src={addPdfIcon} alt="Upload PDF" className="pdf-icon changeable-icon" />
             </label>
             <input type="file" id="pdf-upload" accept=".pdf" style={{ display: 'none' }} />
-            <button id="submit-btn" onClick={() => submit(userInput)}>
+            <button id="submit-btn" onClick={() => (userInput !== '' ? submit(userInput) : {})}>
               <img src={sendIcon} alt="Submit" className="submit-icon changeable-icon" />
             </button>
           </div>
