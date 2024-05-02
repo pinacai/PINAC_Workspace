@@ -1,21 +1,20 @@
 import './css/App.css'
-import { Header } from './components/Header'
-import { Sidebar } from './components/Sidebar'
-import { MsgBox } from './components/MsgBox'
-import { InputBox } from './components/InputBox'
+import { HomePage } from './components/pages/HomePage'
+import { ProfilePage } from './components/pages/ProfilePage'
+import { AboutPage } from './components/pages/AboutPage'
+import { SettingsPage } from './components/pages/SettingsPage'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 const App = () => {
   return (
-    <>
-      <Sidebar />
-      <main className="container">
-        <Header />
-        <div className="chat-container">
-          <MsgBox />
-          <InputBox />
-        </div>
-      </main>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/contact" element={<ProfilePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<SettingsPage />} />
+      </Routes>
+    </Router>
   )
 }
 

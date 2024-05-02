@@ -86,7 +86,6 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
-
   // Terminate the Python process
   if (pythonProcess) {
     pythonProcess.kill()
@@ -96,19 +95,17 @@ app.on('window-all-closed', () => {
 //
 //
 // IPC btw React & Electron
-ipcMain.on('user-query', (event, data) => {
-  console.log(data)
+ipcMain.on('user-input', (event, data) => {
   socket.emit('message', data)
   socket.on('server-response', (response) => {
     event.reply('ai-response', response)
   })
-  // event.reply('ai-response', )
 })
 
 // Establishing Real time communication with Python using Socket
 const io = require('socket.io-client')
 const socket = io('http://localhost:5000')
 
-socket.on('connect', () => {
-  console.log('Connected to server')
-})
+// socket.on('connect', () => {
+//   console.log('Connected to server')
+// })

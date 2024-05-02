@@ -1,16 +1,16 @@
 @font-face {
     font-family: 'nasa';
-    src: url('src/font/nasalization-rg.otf');
+    src: url('src/assets/font/nasalization-rg.otf');
 }
 
 @font-face {
     font-family: 'ai-text';
-    src: url('src/font/KodeMono-VariableFont_wght.ttf');
+    src: url('src/assets/font/KodeMono-VariableFont_wght.ttf');
 }
 
 @font-face {
     font-family: 'Helvetica';
-    src: url('src/font/Helvetica.ttf');
+    src: url('src/assets/font/Helvetica.ttf');
 }
 
 

@@ -21,6 +21,7 @@
     "@electron-toolkit/utils": "^3.0.0",
     "electron-ipc": "^0.3.0",
     "electron-updater": "^6.1.7",
+    "react-router-dom": "^6.23.0",
     "socket.io-client": "^4.7.5"
   },
   "devDependencies": {

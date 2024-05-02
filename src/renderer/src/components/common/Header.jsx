@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
-import addLogo from '../img/add-light.png'
+import addLogo from '../../assets/img/add-light.png'
 
 export const Header = () => {
   return (

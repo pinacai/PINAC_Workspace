@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react'
-import userIcon from '../img/user_icon.png'
-import chevronRightIcon from '../img/chevron-right-light.png'
-import homeIcon from '../img/home-light.png'
-import groupIcon from '../img/group-light.png'
-import settingsIcon from '../img/settings-light.png'
-import themeIcon from '../img/theme-light.png'
+import userIcon from '../../assets/img/user_icon.png'
+import chevronRightIcon from '../../assets/img/chevron-right-light.png'
+import homeIcon from '../../assets/img/home-light.png'
+import groupIcon from '../../assets/img/group-light.png'
+import settingsIcon from '../../assets/img/settings-light.png'
+import themeIcon from '../../assets/img/theme-light.png'
 
 export const Sidebar = () => {
   const [isActive, setIsActive] = useState(false)
