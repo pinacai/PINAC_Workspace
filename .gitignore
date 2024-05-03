@@ -7,4 +7,6 @@ venv
 .env
 .vscode
 __pycache__
-configs
+server/configs/google_token.json
+server/configs/client_secret.json
+server/configs/.env

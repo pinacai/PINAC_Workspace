@@ -49,7 +49,7 @@ Go to the **credentials** then:
 3. Don't change the application name. It can sometimes cause some unwanted error
 4. Click **OK**
 5. **Download the JSON file**,
-6. Change the JSON file name to exactly `client_secret.json` and place it in `src/configs/` folder of the project.
+6. Change the JSON file name to exactly `client_secret.json` and place it in `server/configs/` folder of the project.
 
 
 

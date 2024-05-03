@@ -27,6 +27,7 @@ Follow these steps to set up the PINAC-Workspace on your system:
 - _Node.js_
 - _Python_
 - _npm (Node Package Manager)_
+- _OPENAI API Key_
 
 ### Recommended IDE Setup
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
@@ -53,6 +54,9 @@ Follow these steps to set up the PINAC-Workspace on your system:
   $ pip install -r requirements.txt
   ```
 
+### 5. Get your Google secret token
+  Follow the steps in <a href='https://github.com/pinacai/pinac_workspace/blob/6314b7e2a4e41bb72c699fad18343d43eee1a320/Google%20API%20Guide.md'>Google API Guide</a> and get your Google secret key & don't forget to place your _OPENAI API Key_ in a `.env` file in the folder `server/configs`.
+
 ### 5. Start the App
   ```bash
   $ npm run dev
@@ -69,6 +73,11 @@ Follow these steps to set up the PINAC-Workspace on your system:
   # For Linux
   $ npm run build:linux
   ```
+
+> ### ⚠️ Warning
+> _No proper Google Sign In button added, you will automatically directed to SignIn page when you run a command related to Google App task, for only once, for first time._  
+>
+> **Soon we will add a signIn button...**
 
 ## 💁 Contributing
 Contributions to PINAC Workspace are welcome! Here’s how you can contribute:

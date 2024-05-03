@@ -15,7 +15,7 @@ export const ChatBox = () => {
       </div>
     </div>
   )
-  const [messages, setMessages] = useState(null) // For showing AI response
+  const [messages, setMessages] = useState([]) // For showing AI response
   const [userInput, setUserInput] = useState('') // Declare state for input value
 
   //
@@ -35,43 +35,55 @@ export const ChatBox = () => {
 
   //
   //
-  // Actions after clicking send button
+  // Actions after clicking send button or pressing Enter
   const submit = (text) => {
     // Removing welcome box
     if (welcomeBox !== null) {
       setWelcomeBox(null)
     }
-    // For user & AI response
-    window.electron.ipcRenderer.send('user-input', text)
-    window.electron.ipcRenderer.on('ai-response', (event, response) => {
-      setMessages(
-        <>
-          {messages}
-          <div className="msg-row">
-            <div className="msg-avatar">
-              <img src={userIcon} alt="User Avatar" />
-            </div>
-            <div className="msg-content">
-              <div className="msg-name">You</div>
-              <div className="msg-text human-msg">{text}</div>
-            </div>
-          </div>
 
-          <div className="msg-row">
-            <div className="msg-avatar">
-              <img src={pinacLogo} alt="AI Avatar" />
-            </div>
-            <div className="msg-content">
-              <div className="msg-name">PINAC</div>
-              <div className="msg-text ai-msg">{response}</div>
-            </div>
-          </div>
-        </>
-      )
-    })
+    // Update messages to include user response immediately
+    setMessages((prevMessages) => [...prevMessages, getHumanMessage(text)])
+
+    // For AI response
+    fetchAIResponse(text)
+
     // Clearing input box
     setUserInput('')
   }
+
+  const fetchAIResponse = async (userInput) => {
+    window.electron.ipcRenderer.send('user-input', userInput)
+    window.electron.ipcRenderer.once('ai-response', (event, response) => {
+      const aiMessage = getAiMessage(response[1])
+      setMessages((prevMessages) => [...prevMessages, aiMessage])
+    })
+  }
+
+  // Helper functions to create message objects
+  const getHumanMessage = (text, index) => (
+    <div className="msg-row" key={`human-${index}`}>
+      <div className="msg-avatar">
+        <img src={userIcon} alt="User Avatar" />
+      </div>
+      <div className="msg-content">
+        <div className="msg-name">You</div>
+        <div className="msg-text human-msg">{text}</div>
+      </div>
+    </div>
+  )
+
+  const getAiMessage = (response, index) => (
+    <div className="msg-row" key={`ai-${index}`}>
+      <div className="msg-avatar">
+        <img src={pinacLogo} alt="AI Avatar" />
+      </div>
+      <div className="msg-content">
+        <div className="msg-name">PINAC</div>
+        <div className="msg-text ai-msg">{response}</div>
+      </div>
+    </div>
+  )
 
   return (
     <>
