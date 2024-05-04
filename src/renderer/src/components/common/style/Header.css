@@ -76,6 +76,10 @@
         height: 60px;
     }
 
+    #title {
+        font-size: 30px;
+    }
+
     #new-chat-btn {
         padding: 3px 6px 3px 3px;
     }

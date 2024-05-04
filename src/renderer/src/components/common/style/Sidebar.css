@@ -23,6 +23,7 @@
     opacity: 0;
     max-width: 0;
     color: var(--text1-color);
+    text-decoration: none;
     overflow: hidden;
     white-space: nowrap;
     transition: opacity 0.3s ease-in-out, max-width 0.3s ease-in-out;
@@ -38,21 +39,14 @@
     padding-left: 10px;
 }
 
-.sidebar.active .top:hover {
-    background-image: var(--hover-color);
-    color: var(--hover-text-color);
-    border-radius: 10px;
-}
-
 .sidebar.active .profile {
     width: 250px;
     padding-left: 10%;
     justify-content: flex-start;
 }
 
-.sidebar.active li {
-    justify-content: center;
-    border-radius: 10px;
+.sidebar.active .present-page {
+    margin-left: 5px;
 }
 
 .sidebar.active .theme-toggle-text {
@@ -107,20 +101,35 @@ nav ul {
     list-style: none;
 }
 
-li {
+.li {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
-    margin-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
     padding: 15px;
     color: var(--text1-color);
     transition: all 0.5s ease;
 }
 
-li:hover {
+.li:hover {
     background: var(--hover-color);
     border-radius: 10px;
+}
+
+.present-page {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 5px;
+    margin-left: 3px;
+    border-radius: 10px 0 0 10px;
+    padding: 15px;
+    color: var(--text1-color);
+    background: var(--primary-color);
 }
 
 /* Lower Part of Sidebar */
