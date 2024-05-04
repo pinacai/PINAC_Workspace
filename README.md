@@ -20,6 +20,9 @@ Discover the Exciting Features of PINAC Workspace:
 - **High Customizability:** Tailor the workspace to meet your specific needs with our easy-to-customize options.
 - **Cross-Platform Compatibility:** Enjoy the flexibility to operate across various systems, courtesy of the Electron framework.
 
+## 📸 Screenshot
+<img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/screenshot.png" alt="app screenshot">
+
 ##  🚀 Project Setup
 Follow these steps to set up the PINAC-Workspace on your system:
 
