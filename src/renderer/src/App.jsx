@@ -1,4 +1,6 @@
+import './App.css'
 import { HomePage } from './components/pages/HomePage'
+// import { EmailComposerBox } from './components/common/EmailComposerBox'
 import { ProfilePage } from './components/pages/ProfilePage'
 import { AboutPage } from './components/pages/AboutPage'
 import { SettingsPage } from './components/pages/SettingsPage'

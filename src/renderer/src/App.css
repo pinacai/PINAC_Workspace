@@ -1,32 +1,32 @@
 @font-face {
     font-family: 'nasa';
-    src: url('src/assets/font/nasalization-rg.otf');
+    src: url('assets/font/nasalization-rg.otf');
 }
 
 @font-face {
     font-family: 'ai-text';
-    src: url('src/assets/font/KodeMono-VariableFont_wght.ttf');
+    src: url('assets/font/KodeMono-VariableFont_wght.ttf');
 }
 
 @font-face {
     font-family: 'Helvetica';
-    src: url('src/assets/font/Helvetica.ttf');
+    src: url('assets/font/Helvetica.ttf');
 }
 
 
 /*making root to control the dark and light modes */
 body:not(light-theme) {
     --primary-color: #121212;
-    --primary-accent-color: linear-gradient(135deg, #7b63ff, #0d00c7);
-    --hover-color: linear-gradient(135deg, #5e43f3, #382bf0);
+    --primary-accent-color: linear-gradient(125deg, #0026ff, #5b00af);
+    --hover-color: linear-gradient(125deg, #0026ff, #5b00af);
     --new-chat-hover-color: #5e43f3;
     --sidebar-color: #3C3C3C;
-    --text1-color: #FFFFFF;
-    --text2-color: #FFFFFF;
+    --text1-color: #ece2d5;
+    --text2-color: #ece2d5;
     --title-color: #F5F7FA;
     --welcome-text-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
-    --human-msg-bg: #3C3C3C;
-    --ai-msg-bg: #382bf0;
+    --human-msg-bg: linear-gradient(125deg, #0026ff, #5b00af);
+    --ai-msg-bg: rgba(109, 108, 108, 0.15);
     --input-group-bg: #3C3C3C;
     --shadow-color: 0 5px 5px rgba(0, 0, 0, 0.6);
     --changeable-icon-filter: invert(100%);

@@ -88,7 +88,7 @@
     background: var(--ai-msg-bg);
     color: var(--text1-color);
     font-family: 'ai-text', 'Montserrat', sans-serif;
-    box-shadow: var(--shadow-color);
+    box-shadow: 0 0 2px #ece2d5;
 }
 
 .input-box {
@@ -99,7 +99,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 0 0 10px 0;
+    padding-top: 10px;
 }
 
 .input-group {
@@ -196,7 +196,7 @@
 
 @media (max-width: 768px) {
     .msg-box {
-        width: 95%;
+        width: 90%;
         padding-left: 10px;
         padding-right: 10px;
     }
@@ -229,13 +229,13 @@
 
 @media (max-width: 576px) {
     .msg-box {
-        width: 100%;
+        width: 95%;
         padding-left: 10px;
         padding-right: 10px;
     }
 
     .input-group {
-        width: 90%;
+        width: 95%;
     }
 
     #user-input {

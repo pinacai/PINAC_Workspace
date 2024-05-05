@@ -1,0 +1,151 @@
+.compose-box {
+    width: 500px;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(109, 108, 108, 0.15);
+    box-shadow: 0 25px 45px;
+    border: 2px solid rgba(255, 255, 255, .1);
+    backdrop-filter: blur(10px);
+}
+
+.to {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: ai-text;
+    font-size: medium;
+    color: #ece2d5;
+    border: 2px;
+    border-radius: 8px;
+    background-color: transparent;
+}
+
+#to {
+    width: 100%;
+    margin-left: 60px;
+    border: none;
+    outline: none;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: medium;
+    color: #ece2d5;
+    background-color: transparent;
+}
+#to::placeholder {
+    font-family: ai-text;
+    color: #888785;
+}
+
+.subject {
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: ai-text;
+    font-size: medium;
+    color: #ece2d5;
+    border: 2px;
+    border-radius: 8px;
+    background-color: transparent;
+}
+
+#subject {
+    width: 100%;
+    margin-left: 10px;
+    border: none;
+    outline: none;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: medium;
+    color: #ece2d5;
+    background-color: transparent;
+}
+#subject::placeholder {
+    font-family: ai-text;
+    color: #888785;
+}
+
+.body {
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: ai-text;
+    font-size: medium;
+    border: 2px;
+    border-radius: 8px 8px 0 0;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+#body {
+    width: 100%;
+    min-height: 250px;
+    border: none;
+    outline: none;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: medium;
+    color: #ece2d5;
+    background-color: rgba(70, 68, 68, 0.15);
+}
+#body::placeholder {
+    font-family: ai-text;
+    color: #a5a4a3;
+}
+
+.extra-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 0 0 8px 8px;
+}
+
+#attachment-label {
+    padding: 10px;
+    padding-left: 15px;
+}
+
+#attach-icon {
+    width: 20px;
+}
+
+.actions {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+#send-button {
+    margin-left: 10px;
+    padding: 10px;
+    font-family: ai-text;
+    font-size: medium;
+    border: 0;
+    border-radius: 7px;
+    background-color: rgb(11, 1, 155);
+    color: white;
+}
+
+#save-draft-button {
+    margin-left: 10px;
+    padding: 10px;
+    font-family: ai-text;
+    font-size: medium;
+    border: 0;
+    border-radius: 7px;
+    background-color: rgb(11, 1, 155);
+    color: white;
+}
+
+#goBack-button {
+    margin-left: 10px;
+    padding: 10px;
+    font-family: ai-text;
+    font-size: medium;
+    border: 0;
+    border-radius: 7px;
+    background-color: rgb(212, 5, 74);
+    color: white;
+}
