@@ -1,5 +1,6 @@
 import './style/ChatBox.css'
 import { useState } from 'react'
+// import { EmailComposeBox } from '../common/EmailComposeBox'
 import addPdfIcon from '../../assets/icon/add_pdf.svg'
 import sendIcon from '../../assets/icon/send.svg'
 import userIcon from '../../assets/icon/user_icon.png'
@@ -62,27 +63,31 @@ export const ChatBox = () => {
 
   // Helper functions to create message objects
   const getHumanMessage = (text, index) => (
-    <div className="msg-row" key={`human-${index}`}>
-      <div className="msg-avatar">
-        <img src={userIcon} alt="User Avatar" />
+    <>
+      <div className="msg-row" key={`human-${index}`}>
+        <div className="msg-avatar">
+          <img src={userIcon} alt="User Avatar" />
+        </div>
+        <div className="msg-content">
+          <div className="msg-name">You</div>
+          <div className="msg-text human-msg">{text}</div>
+        </div>
       </div>
-      <div className="msg-content">
-        <div className="msg-name">You</div>
-        <div className="msg-text human-msg">{text}</div>
-      </div>
-    </div>
+    </>
   )
 
   const getAiMessage = (response, index) => (
-    <div className="msg-row" key={`ai-${index}`}>
-      <div className="msg-avatar">
-        <img src={pinacLogo} alt="AI Avatar" />
+    <>
+      <div className="msg-row" key={`ai-${index}`}>
+        <div className="msg-avatar">
+          <img src={pinacLogo} alt="AI Avatar" />
+        </div>
+        <div className="msg-content">
+          <div className="msg-name">PINAC</div>
+          <div className="msg-text ai-msg">{response}</div>
+        </div>
       </div>
-      <div className="msg-content">
-        <div className="msg-name">PINAC</div>
-        <div className="msg-text ai-msg">{response}</div>
-      </div>
-    </div>
+    </>
   )
 
   return (

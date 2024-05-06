@@ -1,10 +1,22 @@
+/*making root to control the dark and light modes */
+body:not(light-theme) {
+    --send-n-draft-button-color: linear-gradient(125deg, #0026ff, #5b00af);
+}
+
+/* the new light theme feature */
+.light-theme {
+    --send-n-draft-button-color: #000000;
+}
+
+
 .compose-box {
-    width: 500px;
+    width: 80%;
+    margin-left: 50px;
+    margin-bottom: 5px;
     padding: 10px;
-    border-radius: 8px;
-    background: rgba(109, 108, 108, 0.15);
-    box-shadow: 0 25px 45px;
-    border: 2px solid rgba(255, 255, 255, .1);
+    border-radius: 10px;
+    background: var(--ai-msg-bg);
+    box-shadow: 0 0 2px var(--text2-color);
     backdrop-filter: blur(10px);
 }
 
@@ -13,11 +25,11 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-family: ai-text;
+    font-family: 'ai-text', 'Montserrat', sans-serif;
     font-size: medium;
-    color: #ece2d5;
+    color: var(--text1-color);
     border: 2px;
-    border-radius: 8px;
+    border-radius: 10px;
     background-color: transparent;
 }
 
@@ -28,11 +40,11 @@
     outline: none;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: medium;
-    color: #ece2d5;
+    color: var(--text1-color);
     background-color: transparent;
 }
 #to::placeholder {
-    font-family: ai-text;
+    font-family: 'ai-text', 'Montserrat', sans-serif;
     color: #888785;
 }
 
@@ -42,9 +54,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-family: ai-text;
+    font-family: 'ai-text', 'Montserrat', sans-serif;
     font-size: medium;
-    color: #ece2d5;
+    color: var(--text1-color);
     border: 2px;
     border-radius: 8px;
     background-color: transparent;
@@ -57,11 +69,11 @@
     outline: none;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: medium;
-    color: #ece2d5;
+    color: var(--text1-color);
     background-color: transparent;
 }
 #subject::placeholder {
-    font-family: ai-text;
+    font-family: 'ai-text', 'Montserrat', sans-serif;
     color: #888785;
 }
 
@@ -71,10 +83,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: ai-text;
+    font-family: 'ai-text', 'Montserrat', sans-serift;
     font-size: medium;
     border: 2px;
-    border-radius: 8px 8px 0 0;
+    /* border-radius: 10px 10px 0 0; */
+    border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.15);
 }
 
@@ -85,11 +98,11 @@
     outline: none;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: medium;
-    color: #ece2d5;
+    color: var(--text1-color);
     background-color: rgba(70, 68, 68, 0.15);
 }
 #body::placeholder {
-    font-family: ai-text;
+    font-family: 'ai-text', 'Montserrat', sans-serif;
     color: #a5a4a3;
 }
 
@@ -120,32 +133,33 @@
 #send-button {
     margin-left: 10px;
     padding: 10px;
-    font-family: ai-text;
-    font-size: medium;
+    font-family: 'ai-text', 'Montserrat', sans-serif;
+    font-size: small;
     border: 0;
-    border-radius: 7px;
-    background-color: rgb(11, 1, 155);
+    border-radius: 10px;
+    background: var(--send-n-draft-button-color);
     color: white;
 }
 
 #save-draft-button {
     margin-left: 10px;
     padding: 10px;
-    font-family: ai-text;
-    font-size: medium;
+    font-family: 'ai-text', 'Montserrat', sans-serif;
+    font-size: small;
     border: 0;
-    border-radius: 7px;
-    background-color: rgb(11, 1, 155);
+    border-radius: 10px;
+    background: var(--send-n-draft-button-color);
     color: white;
 }
 
 #goBack-button {
     margin-left: 10px;
     padding: 10px;
-    font-family: ai-text;
-    font-size: medium;
+    font-family: 'ai-text', 'Montserrat', sans-serif;
+    font-size: small;
     border: 0;
-    border-radius: 7px;
+    border-radius: 10px;
     background-color: rgb(212, 5, 74);
+    background: linear-gradient(135deg, rgb(212, 5, 74), rgb(255, 0, 85));
     color: white;
 }
