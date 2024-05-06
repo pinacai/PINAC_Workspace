@@ -31,6 +31,7 @@ Follow these steps to set up the PINAC-Workspace on your system:
 - _Python_
 - _npm (Node Package Manager)_
 - _OPENAI API Key_
+- _Your Sweet Internet Connection_
 
 ### Recommended IDE Setup
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
@@ -78,9 +79,9 @@ Follow these steps to set up the PINAC-Workspace on your system:
   ```
 
 > ### ⚠️ Warning
-> _No proper Google Sign In button added, you will automatically directed to SignIn page when you run a command related to Google App task, for only once, for first time._  
+> _No proper Google Sign-In button added, you will automatically directed to the SignIn page when you run a command related to a Google App task, for only once, for the first time._  
 >
-> **Soon we will add a signIn button...**
+> **Soon we will add a Sign-In button...**
 
 ## 💁 Contributing
 Contributions to PINAC Workspace are welcome! Here’s how you can contribute:
@@ -97,7 +98,7 @@ Contributions to PINAC Workspace are welcome! Here’s how you can contribute:
 PINAC Workspace is licensed under the GPL-3.0 license. See the <a href="https://github.com/pinacai/pinac_workspace/blob/main/LICENSE">LICENSE</a> file for more details.
 
 ## 🌐 Support
-For support inquiries or to report issues, please file an issue through the GitHub issue tracker associated with the repository.
+If you have any support questions or to report issues, please file an issue through the GitHub issue tracker associated with the repository.
 
 ## ✍️  Authors and Acknowledgement
-Thank you to all the contributors who have helped in building and optimizing the PINAC Workspace from our previous repository `PINAC-Workspace`.
+Thank you to all the contributors who have helped build and optimise the PINAC Workspace from our previous repository `PINAC-Workspace`.
