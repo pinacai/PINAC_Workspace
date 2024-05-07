@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './style/EmailComposeBox.css'
 
 export const EmailComposeBox = (props) => {
-  const [to, setTo] = useState(null)
+  const [to, setTo] = useState('')
   const [subject, setSubject] = useState(props.emailSubject)
   const [body, setBody] = useState(props.emailBody)
   // const [attachment, setAttachment] = useState(null)
@@ -19,11 +19,22 @@ export const EmailComposeBox = (props) => {
   }
 
   const handleSendEmail = () => {
-    console.log('Send')
+    // window.electron.ipcRenderer.send('email-composer', ['send-email', to, subject, body])
+    console.log('Email sended')
   }
 
   const handleCreateDraft = () => {
-    console.log('Draft')
+    // if (to != '') {
+    //   window.electron.ipcRenderer.send('email-composer', [
+    //     'create-draft-with-RE',
+    //     to,
+    //     subject,
+    //     body
+    //   ])
+    // } else {
+    //   window.electron.ipcRenderer.send('email-composer', ['create-draft', subject, body])
+    // }
+    console.log('Created Draft')
   }
 
   return (

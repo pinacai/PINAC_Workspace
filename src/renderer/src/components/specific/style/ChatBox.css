@@ -65,6 +65,7 @@
 
 .msg-content {
     max-width: calc(100% - 50px);
+    white-space: pre-line;
 }
 
 .msg-name {

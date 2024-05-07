@@ -1,6 +1,6 @@
 import './style/ChatBox.css'
 import { useState } from 'react'
-// import { EmailComposeBox } from '../common/EmailComposeBox'
+import { EmailComposeBox } from '../common/EmailComposeBox'
 import addPdfIcon from '../../assets/icon/add_pdf.svg'
 import sendIcon from '../../assets/icon/send.svg'
 import userIcon from '../../assets/icon/user_icon.png'
@@ -42,27 +42,32 @@ export const ChatBox = () => {
     if (welcomeBox !== null) {
       setWelcomeBox(null)
     }
-
     // Update messages to include user response immediately
-    setMessages((prevMessages) => [...prevMessages, getHumanMessage(text)])
-
+    setMessages((prevMessages) => [...prevMessages, showHumanMessage(text)])
     // For AI response
     fetchAIResponse(text)
-
     // Clearing input box
     setUserInput('')
   }
 
   const fetchAIResponse = async (userInput) => {
-    window.electron.ipcRenderer.send('user-input', userInput)
+    let aiMessage
+    window.electron.ipcRenderer.send('user-input', ['use-input', userInput])
     window.electron.ipcRenderer.once('ai-response', (event, response) => {
-      const aiMessage = getAiMessage(response[1])
+      if (response[0] === 'email') {
+        let aiText = 'Here is your email, check it out:'
+        const subject = response[1]
+        const body = response[2]
+        aiMessage = showEmailMessage(aiText, subject, body)
+      } else {
+        aiMessage = showAiMessage(response[1])
+      }
       setMessages((prevMessages) => [...prevMessages, aiMessage])
     })
   }
 
   // Helper functions to create message objects
-  const getHumanMessage = (text, index) => (
+  const showHumanMessage = (text, index) => (
     <>
       <div className="msg-row" key={`human-${index}`}>
         <div className="msg-avatar">
@@ -76,7 +81,7 @@ export const ChatBox = () => {
     </>
   )
 
-  const getAiMessage = (response, index) => (
+  const showAiMessage = (response, index) => (
     <>
       <div className="msg-row" key={`ai-${index}`}>
         <div className="msg-avatar">
@@ -87,6 +92,21 @@ export const ChatBox = () => {
           <div className="msg-text ai-msg">{response}</div>
         </div>
       </div>
+    </>
+  )
+
+  const showEmailMessage = (response, subject, body, index) => (
+    <>
+      <div className="msg-row" key={`ai-${index}`}>
+        <div className="msg-avatar">
+          <img src={pinacLogo} alt="AI Avatar" />
+        </div>
+        <div className="msg-content">
+          <div className="msg-name">PINAC</div>
+          <div className="msg-text ai-msg">{response}</div>
+        </div>
+      </div>
+      <EmailComposeBox emailSubject={subject} emailBody={body} />
     </>
   )
 

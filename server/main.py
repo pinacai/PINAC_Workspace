@@ -1,4 +1,4 @@
-import os, datetime
+import datetime
 from flask import Flask
 from flask_socketio import SocketIO
 from functools import cache
@@ -10,6 +10,36 @@ from google_apps.calendar_bot import GoogleCalendarManager
 from google_apps.contact_bot import GoogleContactManager
 from google_apps.task_bot import GoogleTaskManager
 from langchain.schema import HumanMessage, AIMessage
+
+
+
+def validateEmail(emailId):
+    try:
+        validate_email(emailId)
+        return True
+    except:
+        return False
+
+
+def sendInstEmail(recipient_email, subject, body):
+    try:
+        gmail = GoogleGmailManager()
+        gmail.sendEmail(recipient_email, subject, body)
+        return True
+    except:
+        return False
+
+
+def createDraftEmail(subject, body, recipient_email=None):
+    try:
+        gmail = GoogleGmailManager()
+        if recipient_email != None:
+            gmail.createDraft(body=body, recipient_email=recipient_email, subject=subject)
+        else:
+            gmail.createDraft(body=body, subject=subject)
+        return True
+    except:
+        return False
 
 
 def decodeEmail(text):
@@ -51,9 +81,6 @@ def formatDatetime(timestamp: str):
     except: formatted_date, formatted_time = "...", "..."
     return formatted_date, formatted_time
 
-
-def clearMemory():
-    chatHistory = []
 
 chatHistory = []
 
@@ -136,8 +163,29 @@ socketio = SocketIO(app)
 
 @socketio.on('message')
 def handle_message(data):
-    response = giveResponseArray(data)
+    if data[0] == 'use-input':
+        response = giveResponseArray(data[1])
+
+    elif data[0] == 'send-email':
+        if validateEmail(data[1]):
+            response = sendInstEmail(data[1], data[2], data[3])
+        else:
+            response = [ "error", "Invalid email id" ]
+
+    elif data[0] == 'create-draft-with-RE':
+        if validateEmail(data[1]):
+            response = createDraftEmail(data[1], data[2], data[3])
+        else:
+            response = [ "error", "Invalid email id" ]
+
+    elif data[0] == 'create-draft':
+        response = createDraftEmail(None, data[1], data[2])
+
+    else:
+        response = [ "error", "Unknown client request type" ]
+
     socketio.emit('server-response', response)
+
 
 if __name__ == '__main__':
     socketio.run(app, allow_unsafe_werkzeug=True, debug=False)

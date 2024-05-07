@@ -102,10 +102,13 @@ ipcMain.on('user-input', (event, data) => {
   })
 })
 
+ipcMain.on('email-composer', (event, data) => {
+  socket.emit('message', data)
+  socket.on('server-response', (response) => {
+    event.reply('server-reply', response)
+  })
+})
+
 // Establishing Real time communication with Python using Socket
 const io = require('socket.io-client')
 const socket = io('http://localhost:5000')
-
-// socket.on('connect', () => {
-//   console.log('Connected to server')
-// })
