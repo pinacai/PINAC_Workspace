@@ -7,18 +7,24 @@
 <img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/maintained-with-love.svg" alt="Maintained With Love">
 <br>
 <br>
-<b>PINAC Workspace is a comprehensive AI-integrated</b> desktop application designed to automate and streamline tasks within <b>Google Workspace</b>. Utilizing the combination of Electron with React for responsive, <b>cross-platform</b> app design, along with the capabilities of Python PINAC-Workspace offers functionality that enhances productivity for tasks such as sending emails, managing tasks, and checking events directly from the desktop. This tool is ideal for individuals and teams looking to achieve high efficiency in their workflow.
+PINAC Workspace is a comprehensive AI-integrated cross-platform desktop application designed to automate and streamline tasks within Google Workspace
 </div>
 
-## 🌟 Present Features
-Discover the Exciting Features of PINAC Workspace:
+## But what's different in it 🤔 ?
+Our vision is to make one chat for all. For example, if you need to compose an email, you get your AI-powered template, edit it in the compose box within the chat and send it, or let you need to see your schedule, you can view it in calendar format within the chat, edit it or create a new event, all within the chat.
 
-- **Email Automation:** Effortlessly Manage All Your Emails with a Single Command: Send, Receive, and Organize!
-- **Task Management:** Effortlessly Monitor and Stay Current with Your Tasks Right from Your Desktop!
-- **Event Scheduling:** Seamlessly View and Manage Your Calendar Events with Ease.
-- **User-Friendly Interface:** Experience the sleek, intuitive design powered by React, enhancing your user interaction.
-- **High Customizability:** Tailor the workspace to meet your specific needs with our easy-to-customize options.
-- **Cross-Platform Compatibility:** Enjoy the flexibility to operate across various systems, courtesy of the Electron framework.
+This minimizes window switching, boosting your productivity and saving time.
+
+## 🌟 Current Progress
+|       |Task 1|    |Task 2|    |Task 3|    |
+| ------|--------------------------------|----|-----------------|----|-----------------|----|
+| Gmail | Recieving & Viewing email | ❌ | sending email & creating draft | ✅ | searching email | ❌ |
+| Calendar | viewing events | ✅ | creating events | ❌ | searching event | ❌ |
+| Task | viewing task | ✅ | creating task | ❌ | searching task | ❌ |
+| Contact | --- |  | creating contact | ❌ | searching contact | ✅ |
+| Drive | viewing files | ❌ | uploading & downloding files | 1/2 ✅ | searching files | ✅ |
+
+_Other apps are coming soon..._
 
 ## 📸 Screenshot
 <img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/screenshot.png" alt="app screenshot">
