@@ -8,6 +8,7 @@ export const EmailComposeBox = (props) => {
   const [subject, setSubject] = useState(props.emailSubject)
   const [body, setBody] = useState(props.emailBody)
   // const [attachment, setAttachment] = useState(null)
+  const [buttonsDisabled, setButtonsDisabled] = useState(false) // For disabling buttons
 
   EmailComposeBox.propTypes = {
     emailSubject: PropTypes.string.isRequired, // Required string
@@ -15,25 +16,28 @@ export const EmailComposeBox = (props) => {
   }
 
   const handleGoBack = () => {
+    setButtonsDisabled(true)
     console.log(null)
   }
 
   const handleSendEmail = () => {
-    // window.electron.ipcRenderer.send('email-composer', ['send-email', to, subject, body])
+    setButtonsDisabled(true)
+    window.electron.ipcRenderer.send('client-request', ['send-email', to, subject, body])
     console.log('Email sended')
   }
 
   const handleCreateDraft = () => {
-    // if (to != '') {
-    //   window.electron.ipcRenderer.send('email-composer', [
-    //     'create-draft-with-RE',
-    //     to,
-    //     subject,
-    //     body
-    //   ])
-    // } else {
-    //   window.electron.ipcRenderer.send('email-composer', ['create-draft', subject, body])
-    // }
+    setButtonsDisabled(true)
+    if (to != '') {
+      window.electron.ipcRenderer.send('client-request', [
+        'create-draft-with-RE',
+        to,
+        subject,
+        body
+      ])
+    } else {
+      window.electron.ipcRenderer.send('client-request', ['create-draft', subject, body])
+    }
     console.log('Created Draft')
   }
 
@@ -82,13 +86,13 @@ export const EmailComposeBox = (props) => {
         </label>
       </div> */}
       <div className="actions">
-        <button id="goBack-button" onClick={handleGoBack}>
+        <button id="goBack-button" onClick={handleGoBack} disabled={buttonsDisabled}>
           Cancel
         </button>
-        <button id="send-button" onClick={handleSendEmail}>
+        <button id="send-button" onClick={handleSendEmail} disabled={buttonsDisabled}>
           Send
         </button>
-        <button id="save-draft-button" onClick={handleCreateDraft}>
+        <button id="save-draft-button" onClick={handleCreateDraft} disabled={buttonsDisabled}>
           Save Draft
         </button>
       </div>

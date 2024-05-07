@@ -168,23 +168,23 @@ def handle_message(data):
 
     elif data[0] == 'send-email':
         if validateEmail(data[1]):
-            response = sendInstEmail(data[1], data[2], data[3])
+            response = sendInstEmail(recipient_email=data[1], subject=data[2], body=data[3])
         else:
             response = [ "error", "Invalid email id" ]
 
     elif data[0] == 'create-draft-with-RE':
         if validateEmail(data[1]):
-            response = createDraftEmail(data[1], data[2], data[3])
+            response = createDraftEmail(recipient_email=data[1], subject=data[2], body=data[3])
         else:
             response = [ "error", "Invalid email id" ]
 
     elif data[0] == 'create-draft':
-        response = createDraftEmail(None, data[1], data[2])
+        response = createDraftEmail(subject=data[1], body=data[2])
 
     else:
         response = [ "error", "Unknown client request type" ]
 
-    socketio.emit('server-response', response)
+    socketio.emit('message-reply', response)
 
 
 if __name__ == '__main__':

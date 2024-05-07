@@ -95,17 +95,10 @@ app.on('window-all-closed', () => {
 //
 //
 // IPC btw React & Electron
-ipcMain.on('user-input', (event, data) => {
+ipcMain.on('client-request', (event, data) => {
   socket.emit('message', data)
-  socket.on('server-response', (response) => {
-    event.reply('ai-response', response)
-  })
-})
-
-ipcMain.on('email-composer', (event, data) => {
-  socket.emit('message', data)
-  socket.on('server-response', (response) => {
-    event.reply('server-reply', response)
+  socket.on('message-reply', (response) => {
+    event.reply('server-response', response)
   })
 })
 

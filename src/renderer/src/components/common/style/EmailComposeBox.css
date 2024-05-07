@@ -1,16 +1,17 @@
 /*making root to control the dark and light modes */
 body:not(light-theme) {
     --send-n-draft-button-color: linear-gradient(125deg, #0026ff, #5b00af);
+    --send-n-draft-button-hover-color: linear-gradient(125deg, #2747fd, #621ba5);
 }
 
 /* the new light theme feature */
 .light-theme {
-    --send-n-draft-button-color: #000000;
+    --send-n-draft-button-color: #175ab8;
+    --send-n-draft-button-hover-color: #6081af;
 }
 
 
 .compose-box {
-    width: 80%;
     margin-left: 50px;
     margin-bottom: 5px;
     padding: 10px;
@@ -94,6 +95,7 @@ body:not(light-theme) {
 #body {
     width: 100%;
     min-height: 250px;
+    resize: none;
     border: none;
     outline: none;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -104,6 +106,19 @@ body:not(light-theme) {
 #body::placeholder {
     font-family: 'ai-text', 'Montserrat', sans-serif;
     color: #a5a4a3;
+}
+
+#body::-webkit-scrollbar {
+    width: 5px;
+}
+
+#body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#body::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 50px;
 }
 
 .extra-buttons {
@@ -141,6 +156,10 @@ body:not(light-theme) {
     color: white;
 }
 
+#send-button:hover {
+    background: var(--send-n-draft-button-hover-color); 
+}
+
 #save-draft-button {
     margin-left: 10px;
     padding: 10px;
@@ -150,6 +169,10 @@ body:not(light-theme) {
     border-radius: 10px;
     background: var(--send-n-draft-button-color);
     color: white;
+}
+
+#save-draft-button:hover {
+    background: var(--send-n-draft-button-hover-color); 
 }
 
 #goBack-button {
@@ -162,4 +185,8 @@ body:not(light-theme) {
     background-color: rgb(212, 5, 74);
     background: linear-gradient(135deg, rgb(212, 5, 74), rgb(255, 0, 85));
     color: white;
+}
+
+#goBack-button:hover {
+    background: linear-gradient(135deg, rgb(204, 49, 101), rgb(255, 20, 98)); 
 }

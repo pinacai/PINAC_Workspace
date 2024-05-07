@@ -1,7 +1,6 @@
 import './style/ChatBox.css'
 import { useState } from 'react'
 import { EmailComposeBox } from '../common/EmailComposeBox'
-import addPdfIcon from '../../assets/icon/add_pdf.svg'
 import sendIcon from '../../assets/icon/send.svg'
 import userIcon from '../../assets/icon/user_icon.png'
 import pinacLogo from '../../assets/icon/pinac-logo.png'
@@ -18,6 +17,7 @@ export const ChatBox = () => {
   )
   const [messages, setMessages] = useState([]) // For showing AI response
   const [userInput, setUserInput] = useState('') // Declare state for input value
+  const [buttonsDisabled, setButtonsDisabled] = useState(false) // For disabling send button
 
   //
   //
@@ -38,6 +38,8 @@ export const ChatBox = () => {
   //
   // Actions after clicking send button or pressing Enter
   const submit = (text) => {
+    // Disable send button
+    setButtonsDisabled(true)
     // Removing welcome box
     if (welcomeBox !== null) {
       setWelcomeBox(null)
@@ -48,12 +50,14 @@ export const ChatBox = () => {
     fetchAIResponse(text)
     // Clearing input box
     setUserInput('')
+    // Enable send button
+    setButtonsDisabled(false)
   }
 
   const fetchAIResponse = async (userInput) => {
     let aiMessage
-    window.electron.ipcRenderer.send('user-input', ['use-input', userInput])
-    window.electron.ipcRenderer.once('ai-response', (event, response) => {
+    window.electron.ipcRenderer.send('client-request', ['use-input', userInput])
+    window.electron.ipcRenderer.once('server-response', (event, response) => {
       if (response[0] === 'email') {
         let aiText = 'Here is your email, check it out:'
         const subject = response[1]
@@ -125,13 +129,14 @@ export const ChatBox = () => {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="Tell me your task..."
+            disabled={buttonsDisabled}
           />
           <div className="input-group-append">
-            <label htmlFor="pdf-upload" className="pdf-upload-label">
-              <img src={addPdfIcon} alt="Upload PDF" className="pdf-icon changeable-icon" />
-            </label>
-            <input type="file" id="pdf-upload" accept=".pdf" style={{ display: 'none' }} />
-            <button id="submit-btn" onClick={() => (userInput !== '' ? submit(userInput) : {})}>
+            <button
+              id="submit-btn"
+              onClick={() => (userInput !== '' ? submit(userInput) : {})}
+              disabled={buttonsDisabled}
+            >
               <img src={sendIcon} alt="Submit" className="submit-icon changeable-icon" />
             </button>
           </div>
