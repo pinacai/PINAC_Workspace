@@ -1,6 +1,7 @@
 import './style/ChatBox.css'
 import { useState } from 'react'
-import { EmailComposeBox } from '../common/EmailComposeBox'
+import { EmailComposeBox } from './EmailComposeBox'
+import { Calendar } from './Calendar'
 import sendIcon from '../../assets/icon/send.svg'
 import userIcon from '../../assets/icon/user_icon.png'
 import pinacLogo from '../../assets/icon/pinac-logo.png'
@@ -119,6 +120,7 @@ export const ChatBox = () => {
       <div className="msg-box">
         {welcomeBox}
         {messages}
+        {/* <Calendar />*/} {/* Just for testing */}
       </div>
 
       <div className="input-box">
