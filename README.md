@@ -1,4 +1,4 @@
-<img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/Automate%20Your%20Workflow-modified.png" alt="">
+<img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/header.png" alt="">
 
 <div align="center">
 
