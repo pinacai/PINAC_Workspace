@@ -19,10 +19,10 @@ This minimizes window switching, boosting your productivity and saving time.
 |       |Task 1|    |Task 2|    |Task 3|    |
 | ------|--------------------------------|----|-----------------|----|-----------------|----|
 | Gmail | Recieving & Viewing email | ❌ | sending email & creating draft | ✅ | searching email | ❌ |
-| Calendar | viewing events | ✅ | creating events | ❌ | searching event | ❌ |
-| Task | viewing task | ✅ | creating task | ❌ | searching task | ❌ |
+| Calendar | viewing events | 🏗️ | creating events | ❌ | searching event | ❌ |
+| Task | viewing task | 🏗️ | creating task | ❌ | searching task | ❌ |
 | Contact | --- |  | creating contact | ❌ | searching contact | ✅ |
-| Drive | viewing files | ❌ | uploading & downloding files | 1/2 ✅ | searching files | ✅ |
+| Drive | viewing files | ❌ | uploading & downloding files | 🏗️ | searching files | 🏗️ |
 
 _Other apps are coming soon..._
 
