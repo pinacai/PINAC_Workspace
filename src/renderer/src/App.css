@@ -13,41 +13,58 @@
     src: url('assets/font/Exo2-VariableFont_wght.ttf');
 }
 
-/*making root to control the dark and light modes */
-body:not(light-theme) {
-    --primary-color: #0c0a18;
-    --primary-accent-color: linear-gradient(125deg, #0026ff, #5b00af);
-    --hover-color: linear-gradient(125deg, #0026ff, #5b00af);
-    --new-chat-hover-color: #5e43f3;
-    --sidebar-color: #001f3f;
-    --text1-color: #ece2d5;
-    --text2-color: #ece2d5;
-    --title-color: #ece2d5;
-    --welcome-text-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
-    --human-msg-bg: linear-gradient(125deg, #0026ff, #5b00af);
-    --ai-msg-bg: rgba(109, 108, 108, 0.15);
-    --input-group-bg: #3C3C3C;
-    --shadow-color: 0 5px 5px rgba(0, 0, 0, 0.6);
-    --changeable-icon-filter: invert(100%);
-}
-
-/* the new light theme feature */
-.light-theme {
+/* Theme 1: Dawn_n_Dusk */
+.Dawn_n_Dusk-light {
     --primary-color: #F5F7FA;
     --primary-accent-color: #1F2937;
-    --hover-color: rgba(255, 255, 255, 0.1);
-    --new-chat-hover-color: #40454e;
-    --hover-text-color: #FFFFFF;
-    --sidebar-color: #1F2937;
     --text1-color: #FFFFFF;
     --text2-color: #1F2937;
-    --title-color: #1F2937;
     --welcome-text-gradient: linear-gradient(125deg, #ff7300, #F12B6D, #0026ff);
     --human-msg-bg: #FFFFFF;
     --ai-msg-bg: #1F2937;
     --input-group-bg: #FFFFFF;
     --shadow-color: 0px 1px 3px rgba(0, 0, 0, 0.2);
     --changeable-icon-filter: none;
+}
+
+.Dawn_n_Dusk-dark {
+    --primary-color: #121212;
+    --primary-accent-color: linear-gradient(135deg, #7b63ff, #0d00c7);
+    --text1-color: #FFFFFF;
+    --text2-color: #FFFFFF;
+    --welcome-text-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
+    --human-msg-bg: #3C3C3C;
+    --ai-msg-bg: #382bf0;
+    --input-group-bg: #3C3C3C;
+    --shadow-color: 0 5px 5px rgba(0, 0, 0, 0.6);
+    --changeable-icon-filter: invert(100%);
+}
+
+/*  Theme 2: Cyber_Tech_01 */
+.Cyber_Tech_01-light {
+    --primary-color: #F5F7FA;
+    --primary-accent-color: #1F2937;
+    --text1-color: #FFFFFF;
+    --text2-color: #1F2937;
+    --welcome-text-gradient: linear-gradient(125deg, #ff7300, #F12B6D, #0026ff);
+    --human-msg-bg: #FFFFFF;
+    --ai-msg-bg: #1F2937;
+    --input-group-bg: #FFFFFF;
+    --shadow-color: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    --changeable-icon-filter: none;
+}
+
+.Cyber_Tech_01-dark {
+    --primary-color: #0c0a18;
+    --primary-accent-color: linear-gradient(125deg, #0026ff, #5b00af);
+    --text1-color: #ece2d5;
+    --text2-color: #ece2d5;
+    --welcome-text-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
+    --human-msg-bg: linear-gradient(125deg, #0026ff, #5b00af);
+    --ai-msg-bg: rgba(109, 108, 108, 0.15);
+    --input-group-bg: #3C3C3C;
+    --shadow-color: 0 5px 5px rgba(0, 0, 0, 0.6);
+    --changeable-icon-filter: invert(100%);
 }
 
 

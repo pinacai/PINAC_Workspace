@@ -48,8 +48,8 @@
     width: 300px;
     height: 200px;
     background: transparent;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+    border-radius: 10px;
+    border: 1px black solid;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -65,8 +65,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    justify-content: center;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.card-content span {
+    padding-left: 10px;
 }
 
 

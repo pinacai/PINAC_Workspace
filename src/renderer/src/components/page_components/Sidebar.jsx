@@ -34,7 +34,20 @@ export const Sidebar = () => {
   }, [])
 
   useEffect(() => {
-    document.body.classList.toggle('light-theme', !isDarkTheme)
+    const body = document.body
+    const preferredThemePair = localStorage.getItem('preferred-theme-pair')
+    // Remove all theme classes first
+    body.classList.remove(
+      'Dawn_n_Dusk-light',
+      'Dawn_n_Dusk-dark',
+      'Cyber_Tech_01-light',
+      'Cyber_Tech_01-dark'
+    )
+    if (isDarkTheme) {
+      body.classList.add(`${preferredThemePair}-dark`) // Add 'dark-theme' class if isDarkTheme is true
+    } else {
+      body.classList.add(`${preferredThemePair}-light`) // Add 'light-theme' class if isDarkTheme is false
+    }
   }, [isDarkTheme])
 
   return (

@@ -1,13 +1,21 @@
-/*making root to control the dark and light modes */
-body:not(light-theme) {
-    --send-n-draft-button-color: linear-gradient(125deg, #0026ff, #5b00af);
-    --send-n-draft-button-hover-color: linear-gradient(125deg, #2747fd, #621ba5);
-}
-
-/* the new light theme feature */
-.light-theme {
+.Dawn_n_Dusk-light {
     --send-n-draft-button-color: #175ab8;
     --send-n-draft-button-hover-color: #6081af;
+}
+
+.Dawn_n_Dusk-dark {
+    --send-n-draft-button-color: #382bf0;
+    --send-n-draft-button-hover-color: #594efc;
+}
+
+.Cyber_Tech_01-light {
+    --send-n-draft-button-color: #175ab8;
+    --send-n-draft-button-hover-color: #6081af;
+}
+
+.Cyber_Tech_01-dark {
+    --send-n-draft-button-color: linear-gradient(125deg, #0026ff, #5b00af);
+    --send-n-draft-button-hover-color: linear-gradient(125deg, #2747fd, #621ba5);
 }
 
 

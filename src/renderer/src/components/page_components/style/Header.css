@@ -1,3 +1,25 @@
+.Dawn_n_Dusk-light {
+    --title-color: #1F2937;
+    --new-chat-hover-color: #40454e;
+}
+
+.Dawn_n_Dusk-dark {
+    --title-color: #F5F7FA;
+    --new-chat-hover-color: #5e43f3;
+}
+
+.Cyber_Tech_01-light {
+    --title-color: #1F2937;
+    --new-chat-hover-color: #40454e;
+}
+
+.Cyber_Tech_01-dark {
+    --title-color: #ece2d5;
+    --new-chat-hover-color: #5e43f3;
+}
+
+
+/* header */
 .header {
     height: 60px;
     width: 100%;

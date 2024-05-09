@@ -1,12 +1,19 @@
-/*making root to control the dark and light modes */
-body:not(light-theme) {
+.Dawn_n_Dusk-light {
+    --send-button-hover-color: #b9b9b9;
+}
+
+.Dawn_n_Dusk-dark {
     --send-button-hover-color: #6e6e6e;
 }
 
-/* the new light theme feature */
-.light-theme {
+.Cyber_Tech_01-light {
     --send-button-hover-color: #b9b9b9;
 }
+
+.Cyber_Tech_01-dark {
+    --send-button-hover-color: #6e6e6e;
+}
+
 
 .msg-box {
     width: 100%;
