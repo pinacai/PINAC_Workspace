@@ -1,7 +1,7 @@
 import './style/ChatBox.css'
 import { useState } from 'react'
 import { EmailComposeBox } from './EmailComposeBox'
-import { Calendar } from './Calendar'
+// import { Calendar } from './Calendar'
 import sendIcon from '../../assets/icon/send.svg'
 import userIcon from '../../assets/icon/user_icon.png'
 import pinacLogo from '../../assets/icon/pinac-logo.png'

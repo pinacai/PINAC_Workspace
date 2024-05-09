@@ -1,4 +1,4 @@
-import { Sidebar } from '../common/Sidebar'
+import { Sidebar } from '../page_components/Sidebar'
 
 export const ProfilePage = () => {
   return (

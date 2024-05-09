@@ -2,7 +2,6 @@ import { app, shell, BrowserWindow, screen, ipcMain } from 'electron'
 import { spawn } from 'child_process'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../resources/icon.png?asset'
 
 let pythonProcess = null
 
@@ -16,7 +15,6 @@ const createWindow = () => {
     height: height,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
