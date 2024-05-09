@@ -1,9 +1,19 @@
+import PropTypes from 'prop-types'
 import './style/Header.css'
 
-export const Header = () => {
+export const Header = (props) => {
+  Header.propTypes = {
+    title: PropTypes.string.isRequired // Required string
+  }
+
   return (
     <>
-      <header className="header"></header>
+      <div className="header">
+        <div className="titleText">
+          <span>{props.title}</span>
+          <div className="bottom-line"></div>
+        </div>
+      </div>
     </>
   )
 }

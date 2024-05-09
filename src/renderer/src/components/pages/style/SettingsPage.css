@@ -1,0 +1,83 @@
+.setting-container {
+    width: 100%;
+    height: calc(100vh - 60px);
+    padding-top: 20px;
+    font-family: 'Exo2';
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.setting-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.setting-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.setting-container::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 50px;
+}
+
+.section {
+    width: 90%;
+    margin: 10px 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px rgb(204, 203, 203) solid;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    font: normal 20px;
+    padding-bottom: 20px;
+}
+
+.themeCard-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    width: 300px;
+    height: 200px;
+    background: transparent;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .themeCard-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .card {
+        width: 150px;
+        height: 200px;
+    }
+}

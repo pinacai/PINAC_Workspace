@@ -8,7 +8,7 @@ export const HomePage = () => {
     <>
       <Sidebar />
       <main className="container">
-        <header className="header">
+        <header className="homeHeader">
           <div className="left-side">
             <h1 id="title">PINAC</h1>
           </div>

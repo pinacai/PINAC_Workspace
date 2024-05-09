@@ -8,6 +8,11 @@
     src: url('assets/font/KodeMono-VariableFont_wght.ttf');
 }
 
+@font-face {
+    font-family: 'exo2';
+    src: url('assets/font/Exo2-VariableFont_wght.ttf');
+}
+
 /*making root to control the dark and light modes */
 body:not(light-theme) {
     --primary-color: #0c0a18;
@@ -51,4 +56,25 @@ body:not(light-theme) {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--primary-color);
+    color: var(--text2-color);
+}
+
+.body-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+/* Main Content */
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
