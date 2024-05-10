@@ -2,6 +2,8 @@ import './style/SettingsPage.css'
 import { useState, useEffect } from 'react'
 import { Sidebar } from '../page_components/Sidebar'
 import { Header } from '../page_components/Header'
+import Cyber_Tech_o1_darkPreview from '../../assets/img/Cyber_Tech_01_darkPreview.png'
+import Dawn_n_Dusk_darkPreview from '../../assets/img/Dawn_n_Dusk_darkPreview.png'
 
 export const SettingsPage = () => {
   const [Dawn_n_Dusk, setDawn_n_Dusk] = useState(false)
@@ -59,7 +61,7 @@ export const SettingsPage = () => {
             <div className="themeCard-container">
               {/* Theme 1 */}
               <div className="card">
-                <img src="image.jpg" alt="Card Image" />
+                <img src={Dawn_n_Dusk_darkPreview} alt="Dawn & Dusk Preview" />
                 <div className="card-content">
                   <input type="checkbox" checked={Dawn_n_Dusk} onChange={changeToDawn_n_Dusk} />
                   <span>Dawn & Dusk</span>
@@ -67,7 +69,7 @@ export const SettingsPage = () => {
               </div>
               {/* Theme 2 */}
               <div className="card">
-                <img src="image.jpg" alt="Card Image" />
+                <img src={Cyber_Tech_o1_darkPreview} alt="Cyber Tech 01 Preview" />
                 <div className="card-content">
                   <input type="checkbox" checked={Cyber_Tech_01} onChange={changeToCyber_Tech_01} />
                   <span>Cyber Tech 01</span>
@@ -75,8 +77,16 @@ export const SettingsPage = () => {
               </div>
               {/* Theme 3 */}
               <div className="card">
-                <img src="" alt="" />
-                <div className="card-content">
+                {/* Adding temporary style for this card */}
+                <div
+                  className="card-content"
+                  style={{
+                    height: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                >
                   <span>Coming soon...</span>
                 </div>
               </div>

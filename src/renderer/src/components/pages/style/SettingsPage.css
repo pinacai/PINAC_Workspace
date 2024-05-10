@@ -1,3 +1,30 @@
+/* Theme 1: Dawn_n_Dusk */
+.Dawn_n_Dusk-light {
+    --border-line-color: #cccccc;
+    --card-bg: transparent;
+    --card-shadow: 0 0 10px #cccccc;
+}
+
+.Dawn_n_Dusk-dark {
+    --border-line-color: #3C3C3C;
+    --card-bg: #3C3C3C;
+    --card-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+/* Theme 2: Cyber_Tech_01 */
+.Cyber_Tech_01-light {
+    --border-line-color: #cccccc;
+    --card-bg: transparent;
+    --card-shadow: 0 0 10px #cccccc;
+}
+
+.Cyber_Tech_01-dark {
+    --border-line-color:#3C3C3C;
+    --card-bg: rgba(109, 108, 108, 0.15);
+    --card-shadow: 0 0 2px #ece2d5;
+}
+
+
 .setting-container {
     width: 100%;
     height: calc(100vh - 60px);
@@ -28,7 +55,7 @@
     margin: 10px 10px;
     padding-top: 20px;
     padding-bottom: 20px;
-    border-bottom: 2px rgb(204, 203, 203) solid;
+    border-bottom: 2px var(--border-line-color) solid;
     display: flex;
     flex-direction: column;
 }
@@ -47,9 +74,9 @@
 .card {
     width: 300px;
     height: 200px;
-    background: transparent;
     border-radius: 10px;
-    border: 1px black solid;
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -57,7 +84,7 @@
 
 .card img {
     width: 100%;
-    height: 200px;
+    height: 80%;
     object-fit: cover;
 }
 

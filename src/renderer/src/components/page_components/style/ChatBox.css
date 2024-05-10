@@ -1,17 +1,25 @@
 .Dawn_n_Dusk-light {
+    --input-group-bg: #FFFFFF;
     --send-button-hover-color: #b9b9b9;
+    --shadow-color: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .Dawn_n_Dusk-dark {
+    --input-group-bg: #3C3C3C;
     --send-button-hover-color: #6e6e6e;
+    --shadow-color: 0 5px 5px rgba(0, 0, 0, 0.6);
 }
 
 .Cyber_Tech_01-light {
+    --input-group-bg: #FFFFFF;
     --send-button-hover-color: #b9b9b9;
+    --shadow-color: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .Cyber_Tech_01-dark {
+    --input-group-bg: #3C3C3C;
     --send-button-hover-color: #6e6e6e;
+    --shadow-color: 0 5px 5px rgba(0, 0, 0, 0.6);
 }
 
 
