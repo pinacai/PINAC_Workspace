@@ -29,6 +29,33 @@ _Other apps are coming soon..._
 ## 📸 Screenshot
 <img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/screenshot.png" alt="app screenshot">
 
+## 📁 File Structure
+Just the important part you need to get started
+
+    .
+    ├── server /               # Contains Python code for the backend
+    |    ├── ai_models /
+    |    ├── google /          # Google API automation files
+    |    ├── configs /         # to store your secrets
+    |    └── main.py           # final python script (communicate with electron's main.js)
+    |
+    └── src /                  # Client side files
+         ├── main /            # Contains main.js file of Electron
+         ├── preload /         
+         └── renderer /                    # Stores React frontend files
+              └── src /
+                   ├── App.jsx
+                   ├── App.css                     # Common styles for the whole App
+                   ├── assets /                    # App's assets
+                   └── Components /                # App's components
+                         ├── page_components /  
+                         └── pages /
+
+> **Note**:
+  > - `App.jsx` contains code for initializing pages for a specific URL like `/home`.
+  > - `pages/` contains Jsx file for specific pages
+  > - Each `pages/` & `page_components/` has its own `style/` folder to store its styling.
+
 ##  🚀 Project Setup
 Follow these steps to set up the PINAC-Workspace on your system:
 
