@@ -19,15 +19,23 @@ This minimizes window switching, boosting your productivity and saving time.
 We are seeking contributions for this project's development as we aim to take it to the big stage. We value all contributors and strive to make the contribution process easy for everyone.
 
 ## 🌟 Current Progress
+### Google Intregation:
 |       |Task 1|    |Task 2|    |Task 3|    |
 | ------|--------------------------------|----|-----------------|----|-----------------|----|
-| Gmail | Recieving & Viewing email | ❌ | sending email & creating draft | ✅ | searching email | ❌ |
+| Gmail | Receiving & Viewing email | ❌ | sending email & creating draft | ✅ | searching email | ❌ |
 | Calendar | viewing events | 🏗️ | creating events | ❌ | searching event | ❌ |
 | Task | viewing task | 🏗️ | creating task | ❌ | searching task | ❌ |
 | Contact | --- |  | creating contact | ❌ | searching contact | ✅ |
-| Drive | viewing files | ❌ | uploading & downloding files | 🏗️ | searching files | 🏗️ |
+| Drive | viewing files | ❌ | uploading & downloading files | 🏗️ | searching files | 🏗️ |
+> _Other apps are coming soon..._
 
-_Other apps are coming soon..._
+### App UI(overall) :
+|       | status |
+| ------|---------------------------|
+| Home Page | ✅ Almost completed(functional) |
+| Profile Page | ❌ Not started yet |
+| About Page | ❌ Not started yet|
+| Settings Page | ✅ Just theme style options added (functional) |
 
 ## 📸 Screenshot
 <img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/screenshot.png" alt="app screenshot">
