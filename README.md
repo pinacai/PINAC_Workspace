@@ -11,9 +11,12 @@ PINAC Workspace is a comprehensive AI-integrated cross-platform desktop applicat
 </div>
 
 ## But what's different in it 🤔 ?
-Our vision is to make one chat for all. For example, if you need to compose an email, you get your AI-powered template, edit it in the compose box within the chat and send it, or let you need to see your schedule, you can view it in calendar format within the chat, edit it or create a new event, all within the chat.
+Our vision is to make one chat for all. For example, suppose you need to compose an email. In that case, you get your AI-powered template, edit it in the compose box within the chat and send it, or let you need to see your schedule, you can view it in calendar format within the chat, edit it or create a new event, all within the chat.
 
 This minimizes window switching, boosting your productivity and saving time.
+
+## Why should I contribute to this Project ?
+We are seeking contributions for this project's development as we aim to take it to the big stage. We value all contributors and strive to make the contribution process easy for everyone.
 
 ## 🌟 Current Progress
 |       |Task 1|    |Task 2|    |Task 3|    |
