@@ -1,0 +1,130 @@
+/* Theme 1: Dawn_n_Dusk */
+.Dawn_n_Dusk-light {
+    --input-border: 1px solid #AAAAAA;
+    --input-bg: #f6f8fa;
+    --outline-color: #868686;
+    --scrollbar-color: ;
+}
+
+.Dawn_n_Dusk-dark {
+    --input-border: 1px solid #3C3C3C;
+    --input-bg: #161616;
+    --outline-color: #6b6b6b;
+    --scrollbar-color: ;
+}
+
+/* Theme 2: Cyber_Tech_01 */
+.Cyber_Tech_01-light {
+    --input-border: 1px solid #AAAAAA;
+    --input-bg: #f6f8fa;
+    --outline-color: #868686;
+    --scrollbar-color: ;
+}
+
+.Cyber_Tech_01-dark {
+    --input-border: 1px solid #3C3C3C;
+    --input-bg: rgba(37, 37, 37, 0.15);
+    --outline-color: #6b6b6b;
+    --scrollbar-color: ;
+}
+
+.profile-container {
+    width: 100%;
+    height: calc(100vh - 60px);
+    padding-top: 20px;
+    font-family: 'Exo2';
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.profile-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.profile-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.profile-container::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 50px;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.user-details {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sec {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* justify-content: center; */
+}
+
+.sec span {
+    margin-bottom: 10px;
+}
+
+.sec input {
+    width: 300px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: var(--input-border);
+    outline-color: var(--outline-color);
+    border-radius: 10px;
+    background: var(--input-bg);
+    font-size: medium;
+    font-family: 'Exo2';
+    color: var(--text2-color);
+}
+
+.sec textarea {
+    width: 300px;
+    height: 200px;
+    padding: 10px;
+    resize: none;
+    border: var(--input-border);
+    outline-color: var(--outline-color);
+    border-radius: 10px;
+    background: var(--input-bg);
+    font-size: medium;
+    font-family: 'Exo2';
+    color: var(--text2-color);
+}
+
+.sec textarea::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sec textarea::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sec textarea::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 50px;
+}

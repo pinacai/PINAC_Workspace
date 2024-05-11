@@ -19,7 +19,7 @@ This minimizes window switching, boosting your productivity and saving time.
 We are seeking contributions for this project's development as we aim to take it to the big stage. We value all contributors and strive to make the contribution process easy for everyone.
 
 ## 🌟 Current Progress
-### Google Intregation:
+### Google Integration:
 |       |Task 1|    |Task 2|    |Task 3|    |
 | ------|--------------------------------|----|-----------------|----|-----------------|----|
 | Gmail | Receiving & Viewing email | ❌ | sending email & creating draft | ✅ | searching email | ❌ |
@@ -33,7 +33,7 @@ We are seeking contributions for this project's development as we aim to take it
 |       | status |
 | ------|---------------------------|
 | Home Page | ✅ Almost completed(functional) |
-| Profile Page | ❌ Not started yet |
+| Profile Page | 🏗️ Under development |
 | About Page | ❌ Not started yet|
 | Settings Page | ✅ Just theme style options added (functional) |
 
