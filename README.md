@@ -1,17 +1,17 @@
-<img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/header.png" alt="">
+<img src="https://github.com/RajeshTechForge/PINAC_Workspace-2.0/blob/main/assets/header.png" alt="">
 
 <div align="center">
 
-<img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/build-with-electron-&-react.svg" alt="Made By Electron & React">
-<img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/powered-by-python.svg" alt="Powered By Python">
-<img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/maintained-with-love.svg" alt="Maintained With Love">
+<img src="https://github.com/RajeshTechForge/PINAC_Workspace-2.0/blob/main/assets/build-with-electron-&-react.svg" alt="Made By Electron & React">
+<img src="https://github.com/RajeshTechForge/PINAC_Workspace-2.0/blob/main/assets/powered-by-python.svg" alt="Powered By Python">
+<img src="https://github.com/RajeshTechForge/PINAC_Workspace-2.0/blob/main/assets/maintained-with-love.svg" alt="Maintained With Love">
 <br>
 <br>
 PINAC Workspace is a comprehensive AI-integrated cross-platform desktop application designed to automate and streamline tasks within Google Workspace
 </div>
 
 ## But what's different in it 🤔 ?
-Our vision is to make one chat for all. For example, suppose you need to compose an email. In that case, you get your AI-powered template, edit it in the compose box within the chat and send it, or let you need to see your schedule, you can view it in calendar format within the chat, edit it or create a new event, all within the chat.
+Our vision is to make one chat for all. For example, suppose you need to compose an email. In that case, you get your AI-powered template, edit it in the compose box within the chat and send it, or if you need to see your schedule, you can view it in calendar format within the chat, edit it or create a new event, all within the chat.
 
 This minimizes window switching, boosting your productivity and saving time.
 
@@ -38,7 +38,7 @@ We are seeking contributions for this project's development as we aim to take it
 | Settings Page | ✅ Just theme style options added (functional) |
 
 ## 📸 Screenshot
-<img src="https://github.com/pinacai/pinac_workspace/blob/main/assets/screenshot.png" alt="app screenshot">
+<img src="https://github.com/RajeshTechForge/PINAC_Workspace-2.0/blob/main/assets/screenshot.png" alt="app screenshot">
 
 ## 📁 File Structure
 Just the important part you need to get started
@@ -64,7 +64,7 @@ Just the important part you need to get started
 
 > **Note**:
   > - `App.jsx` contains code for initializing pages for a specific URL like `/home`.
-  > - `pages/` contains Jsx file for specific pages
+  > - `pages/` contains Jsx file for particular pages
   > - Each `pages/` & `page_components/` has its own `style/` folder to store its styling.
 
 ##  🚀 Project Setup
@@ -82,7 +82,7 @@ Follow these steps to set up the PINAC-Workspace on your system:
 
 ### 1. Clone the Repository
   ```bash
-  git clone https://github.com/pinacai/pinac_workspace.git
+  git clone https://github.com/RajeshTechForge/PINAC_Workspace-2.0.git
   cd pinac_workspace
   ```
 
@@ -103,7 +103,7 @@ Follow these steps to set up the PINAC-Workspace on your system:
   ```
 
 ### 5. Get your Google secret token
-  Follow the steps in <a href='https://github.com/pinacai/pinac_workspace/blob/6314b7e2a4e41bb72c699fad18343d43eee1a320/Google%20API%20Guide.md'>Google API Guide</a> and get your Google secret key & don't forget to place your _OPENAI API Key_ in a `.env` file in the folder `server/configs`.
+  Follow the steps in <a href='https://github.com/RajeshTechForge/PINAC_Workspace-2.0/blob/main/Google%20API%20Guide.md'>Google API Guide</a> and get your Google secret key & don't forget to place your _OPENAI API Key_ in a `.env` file in the folder `server/configs`.
 
 ### 6. Start the App
   ```bash
@@ -139,10 +139,10 @@ Contributions to PINAC Workspace are welcome! Here’s how you can contribute:
 7. Please ensure your commits adhere to the project's coding style and all tests pass.
 
 ## 📄 License
-PINAC Workspace is licensed under the GPL-3.0 license. See the <a href="https://github.com/pinacai/pinac_workspace/blob/main/LICENSE">LICENSE</a> file for more details.
+PINAC Workspace is licensed under the GPL-3.0 license. See the <a href="https://github.com/RajeshTechForge/PINAC_Workspace-2.0/blob/main/LICENSE">LICENSE</a> file for more details.
 
 ## 🌐 Support
 If you have any support questions or to report issues, please file an issue through the GitHub issue tracker associated with the repository.
 
 ## ✍️  Authors and Acknowledgement
-Thank you to all the contributors who have helped build and optimise the PINAC Workspace from our previous repository `PINAC-Workspace`.
+Thank you to all the contributors who have helped build and optimise the PINAC Workspace from our previous repository '<a href="https://github.com/RajeshTechForge/PINAC_Workspace">PINAC_Workspace</a>'.
