@@ -20,7 +20,7 @@ class GoogleDriveManager:
             Exception: If an error occurs during Google API service creation.
         """
         try:
-            self.service = createService('drive', 'v3')
+            self.service = createService("drive", "v3")
         except Exception as e:
             raise e
 
@@ -34,13 +34,12 @@ class GoogleDriveManager:
             amount (int): The maximum number of files to list.
         """
         results = self.service.files().list(pageSize=amount).execute()
-        files = results.get('files', [])
+        files = results.get("files", [])
         file_list = []
         for file in files:
-            file_list.append(file['name'])
+            file_list.append(file["name"])
 
         return file_list
-
 
     def searchFile(self, file_name: str):
         """
@@ -52,16 +51,19 @@ class GoogleDriveManager:
             file_name (str): The name fragment to search for (case-sensitive).
         """
         query = f"name contains '{file_name}'"
-        results = self.service.files().list(pageSize=10, q=query).execute()  # Removed pageSize
-        files = results.get('files', [])
+        results = (
+            self.service.files().list(pageSize=10, q=query).execute()
+        )  # Removed pageSize
+        files = results.get("files", [])
         file_list = []
         for file in files:
-            file_list.append([file['id'], file['name']])
+            file_list.append([file["id"], file["name"]])
 
         return file_list
 
-    
-    def downloadFile(self, file_id: str, file_name: str):  # actual file's name with it's file extension
+    def downloadFile(
+        self, file_id: str, file_name: str
+    ):  # actual file's name with it's file extension
         """
         Downloads a file from your Google Drive by its ID.
 
@@ -85,13 +87,12 @@ class GoogleDriveManager:
                 status, done = downloader.next_chunk()
             fh.seek(0)
             # Write the received data to the file
-            with open(file_name, 'wb') as f:
+            with open(file_name, "wb") as f:
                 shutil.copyfileobj(fh, f)
             return True
-        
+
         except:
             return False
-        
 
     def uploadFile(self, filepath: str):
         """
@@ -105,13 +106,15 @@ class GoogleDriveManager:
         Raises:
             Exception: If an error occurs during upload. Raises a specific exception for clarity.
         """
-        name = filepath.split('/')[-1]
+        name = filepath.split("/")[-1]
         mimetype = MimeTypes().guess_type(name)[0]
-        file_metadata = {'name': name}
+        file_metadata = {"name": name}
         try:
             media = MediaFileUpload(filepath, mimetype=mimetype)
             # Create a new file in the Drive storage
-            self.service.files().create(body=file_metadata, media_body=media, fields='id').execute()
+            self.service.files().create(
+                body=file_metadata, media_body=media, fields="id"
+            ).execute()
             return True
 
         except:

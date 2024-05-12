@@ -1,3 +1,4 @@
+/* Fonts */
 @font-face {
     font-family: 'nasa';
     src: url('assets/font/nasalization-rg.otf');
@@ -19,9 +20,6 @@
     --primary-accent-color: #1F2937;
     --text1-color: #FFFFFF;
     --text2-color: #1F2937;
-    --welcome-text-gradient: linear-gradient(125deg, #ff7300, #F12B6D, #0026ff);
-    --human-msg-bg: #FFFFFF;
-    --ai-msg-bg: #1F2937;
     --changeable-icon-filter: none;
 }
 
@@ -30,9 +28,6 @@
     --primary-accent-color: linear-gradient(135deg, #7b63ff, #0d00c7);
     --text1-color: #FFFFFF;
     --text2-color: #FFFFFF;
-    --welcome-text-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
-    --human-msg-bg: #3C3C3C;
-    --ai-msg-bg: #382bf0;
     --changeable-icon-filter: invert(100%);
 }
 
@@ -42,9 +37,6 @@
     --primary-accent-color: #1F2937;
     --text1-color: #FFFFFF;
     --text2-color: #1F2937;
-    --welcome-text-gradient: linear-gradient(125deg, #ff7300, #F12B6D, #0026ff);
-    --human-msg-bg: #FFFFFF;
-    --ai-msg-bg: #1F2937;
     --changeable-icon-filter: none;
 }
 
@@ -53,9 +45,6 @@
     --primary-accent-color: linear-gradient(125deg, #0026ff, #5b00af);
     --text1-color: #ece2d5;
     --text2-color: #ece2d5;
-    --welcome-text-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
-    --human-msg-bg: linear-gradient(125deg, #0026ff, #5b00af);
-    --ai-msg-bg: rgba(109, 108, 108, 0.15);
     --changeable-icon-filter: invert(100%);
 }
 

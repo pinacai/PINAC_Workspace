@@ -1,11 +1,15 @@
 import './App.css'
 import { HomePage } from './components/pages/HomePage'
-// import { EmailComposerBox } from './components/common/EmailComposerBox'
 import { ProfilePage } from './components/pages/ProfilePage'
 import { AboutPage } from './components/pages/AboutPage'
 import { SettingsPage } from './components/pages/SettingsPage'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
+/**
+ * Renders the main application component.
+ *
+ * @return {JSX.Element} The rendered application component.
+ */
 const App = () => {
   return (
     <Router>

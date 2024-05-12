@@ -7,4 +7,4 @@ venv
 .env
 .vscode
 __pycache__
-configs
+configs/

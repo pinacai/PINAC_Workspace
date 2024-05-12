@@ -1,7 +1,6 @@
 import './style/ChatBox.css'
 import { useState } from 'react'
 import { EmailComposeBox } from './EmailComposeBox'
-// import { Calendar } from './Calendar'
 import sendIcon from '../../assets/icon/send.svg'
 import userIcon from '../../assets/icon/user_icon.png'
 import pinacLogo from '../../assets/icon/pinac-logo.png'
@@ -26,12 +25,15 @@ export const ChatBox = () => {
   const handleChange = (event) => {
     setUserInput(event.target.value) // Update state on change
   }
-  // Adding enter key to submit
+  // Handles key down events to allow message submission with Enter key
   const handleKeyDown = (event) => {
-    if (event.shiftKey && event.key === 'Enter') {
-      setUserInput(userInput + '\n')
-    } else if (event.key === 'Enter') {
-      userInput !== '' ? submit(userInput) : {}
+    if (event.key === 'Enter') {
+      event.preventDefault() // Prevent default Enter behavior
+      if (!event.shiftKey && userInput.trim()) {
+        submit(userInput)
+      } else if (event.shiftKey) {
+        setUserInput((prevInput) => prevInput + '\n')
+      }
     }
   }
 
@@ -57,29 +59,40 @@ export const ChatBox = () => {
 
   const fetchAIResponse = async (userInput) => {
     let aiMessage
+    // Send user input to main process for AI processing
     window.electron.ipcRenderer.send('client-request', ['use-input', userInput])
+
+    // Listen for a single response from the main process
     window.electron.ipcRenderer.once('server-response', (event, response) => {
+      // Check if the response is an email
       if (response[0] === 'email') {
-        let aiText = 'Here is your email, check it out:'
+        const aiText = 'Here is your email, check it out:'
         const subject = response[1]
         const body = response[2]
+        // Display email message
         aiMessage = showEmailMessage(aiText, subject, body)
       } else {
+        // Display standard AI message
         aiMessage = showAiMessage(response[1])
       }
+      // Update the state to include the new AI message
       setMessages((prevMessages) => [...prevMessages, aiMessage])
     })
   }
 
-  // Helper functions to create message objects
   const showHumanMessage = (text, index) => (
     <>
+      {/* Message row container */}
       <div className="msg-row" key={`human-${index}`}>
+        {/* Avatar of the user */}
         <div className="msg-avatar">
           <img src={userIcon} alt="User Avatar" />
         </div>
+        {/* Content of the message including name and text */}
         <div className="msg-content">
+          {/* Displaying 'You' as the name for the user */}
           <div className="msg-name">You</div>
+          {/* The actual message text */}
           <div className="msg-text human-msg">{text}</div>
         </div>
       </div>
@@ -88,12 +101,17 @@ export const ChatBox = () => {
 
   const showAiMessage = (response, index) => (
     <>
+      {/* Message row container */}
       <div className="msg-row" key={`ai-${index}`}>
+        {/* Avatar for the AI */}
         <div className="msg-avatar">
           <img src={pinacLogo} alt="AI Avatar" />
         </div>
+        {/* Content of the message */}
         <div className="msg-content">
+          {/* AI name label */}
           <div className="msg-name">PINAC</div>
+          {/* Message text */}
           <div className="msg-text ai-msg">{response}</div>
         </div>
       </div>
@@ -102,15 +120,21 @@ export const ChatBox = () => {
 
   const showEmailMessage = (response, subject, body, index) => (
     <>
-      <div className="msg-row" key={`ai-${index}`}>
+      {/* Message row container */}
+      <div className="msg-row" key={`email-${index}`}>
+        {/* Avatar for the AI */}
         <div className="msg-avatar">
           <img src={pinacLogo} alt="AI Avatar" />
         </div>
+        {/* Content of the message */}
         <div className="msg-content">
+          {/* AI name label */}
           <div className="msg-name">PINAC</div>
+          {/* Message text */}
           <div className="msg-text ai-msg">{response}</div>
         </div>
       </div>
+      {/* Email compose box with subject and body pre-filled */}
       <EmailComposeBox emailSubject={subject} emailBody={body} />
     </>
   )
@@ -120,7 +144,6 @@ export const ChatBox = () => {
       <div className="msg-box">
         {welcomeBox}
         {messages}
-        {/* <Calendar />*/} {/* Just for testing */}
       </div>
 
       <div className="input-box">

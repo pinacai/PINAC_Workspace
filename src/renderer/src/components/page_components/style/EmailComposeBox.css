@@ -1,3 +1,4 @@
+/* Theme 1: Dawn_n_Dusk */
 .Dawn_n_Dusk-light {
     --send-n-draft-button-color: #175ab8;
     --send-n-draft-button-hover-color: #6081af;
@@ -8,6 +9,7 @@
     --send-n-draft-button-hover-color: #594efc;
 }
 
+/* Theme 2: Cyber_Tech_01 */
 .Cyber_Tech_01-light {
     --send-n-draft-button-color: #175ab8;
     --send-n-draft-button-hover-color: #6081af;
@@ -52,6 +54,7 @@
     color: var(--text1-color);
     background-color: transparent;
 }
+
 #to::placeholder {
     font-family: 'ai-text', 'Montserrat', sans-serif;
     color: #888785;
@@ -81,6 +84,7 @@
     color: var(--text1-color);
     background-color: transparent;
 }
+
 #subject::placeholder {
     font-family: 'ai-text', 'Montserrat', sans-serif;
     color: #888785;
@@ -111,6 +115,7 @@
     color: var(--text1-color);
     background-color: rgba(70, 68, 68, 0.15);
 }
+
 #body::placeholder {
     font-family: 'ai-text', 'Montserrat', sans-serif;
     color: #a5a4a3;
@@ -165,7 +170,7 @@
 }
 
 #send-button:hover {
-    background: var(--send-n-draft-button-hover-color); 
+    background: var(--send-n-draft-button-hover-color);
 }
 
 #save-draft-button {
@@ -180,7 +185,7 @@
 }
 
 #save-draft-button:hover {
-    background: var(--send-n-draft-button-hover-color); 
+    background: var(--send-n-draft-button-hover-color);
 }
 
 #goBack-button {
@@ -196,5 +201,5 @@
 }
 
 #goBack-button:hover {
-    background: linear-gradient(135deg, rgb(204, 49, 101), rgb(255, 20, 98)); 
+    background: linear-gradient(135deg, rgb(204, 49, 101), rgb(255, 20, 98));
 }

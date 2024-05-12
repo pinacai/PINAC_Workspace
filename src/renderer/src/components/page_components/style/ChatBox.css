@@ -1,22 +1,36 @@
+/* Theme 1: Dawn_n_Dusk */
 .Dawn_n_Dusk-light {
+    --welcome-text-gradient: linear-gradient(125deg, #ff7300, #F12B6D, #0026ff);
+    --human-msg-bg: #FFFFFF;
+    --ai-msg-bg: #1F2937;
     --input-group-bg: #FFFFFF;
     --send-button-hover-color: #b9b9b9;
     --shadow-color: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .Dawn_n_Dusk-dark {
+    --welcome-text-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
+    --human-msg-bg: #3C3C3C;
+    --ai-msg-bg: #382bf0;
     --input-group-bg: #3C3C3C;
     --send-button-hover-color: #6e6e6e;
     --shadow-color: 0 5px 5px rgba(0, 0, 0, 0.6);
 }
 
+/* Theme 2: Cyber_Tech_01 */
 .Cyber_Tech_01-light {
+    --welcome-text-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
+    --human-msg-bg: #FFFFFF;
+    --ai-msg-bg: #1F2937;
     --input-group-bg: #FFFFFF;
     --send-button-hover-color: #b9b9b9;
     --shadow-color: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .Cyber_Tech_01-dark {
+    --welcome-text-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
+    --human-msg-bg: linear-gradient(125deg, #0026ff, #5b00af);
+    --ai-msg-bg: rgba(109, 108, 108, 0.15);
     --input-group-bg: #3C3C3C;
     --send-button-hover-color: #6e6e6e;
     --shadow-color: 0 5px 5px rgba(0, 0, 0, 0.6);
@@ -66,6 +80,7 @@
     align-items: flex-start;
 }
 
+/* Message Styles (Conversations) */
 .msg-row {
     display: flex;
     align-items: flex-start;
@@ -119,6 +134,7 @@
     box-shadow: 0 0 2px #ece2d5;
 }
 
+/* Lower part of ChatBox */
 .input-box {
     width: 100%;
     height: 12vh;
@@ -130,6 +146,7 @@
     padding-top: 10px;
 }
 
+/* User Input Styles */
 .input-group {
     width: 60%;
     min-height: 60px;

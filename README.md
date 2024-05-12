@@ -103,7 +103,7 @@ Follow these steps to set up the PINAC-Workspace on your system:
   ```
 
 ### 5. Get your Google secret token & OPENAI API Key
-  Follow the steps in <a href='https://github.com/RajeshTechForge/PINAC_Workspace-2.0/blob/main/Google%20API%20Guide.md'>Google API Guide</a> and get your Google secret key & place it in `server/configs` with the name exactly as `client_secret.json`.  
+  Follow the steps in <a href='https://github.com/RajeshTechForge/PINAC_Workspace-2.0/blob/main/Google%20API%20GUIDE.md'>Google API Guide</a> and get your Google secret key & place it in `server/configs` with the name exactly as `client_secret.json`.  
     
   Now to place your _OPENAI API Key_ create `.env` file in the folder `server/configs` and copy-paste the below line in `.env`:
   ```python

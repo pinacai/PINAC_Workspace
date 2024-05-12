@@ -1,3 +1,4 @@
+/* Theme 1: Dawn_n_Dusk */
 .Dawn_n_Dusk-light {
     --title-color: #1F2937;
     --new-chat-hover-color: #40454e;
@@ -8,6 +9,7 @@
     --new-chat-hover-color: #5e43f3;
 }
 
+/* Theme 2: Cyber_Tech_01 */
 .Cyber_Tech_01-light {
     --title-color: #1F2937;
     --new-chat-hover-color: #40454e;
