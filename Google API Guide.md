@@ -51,12 +51,4 @@ Go to the **credentials** then:
 5. **Download the JSON file**,
 6. Change the JSON file name to exactly `client_secret.json` and place it in `server/configs/` folder of the project.
 
-
-
-## 4. Install the Client Library
-
-```bash
-pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
-```
-
-## 5. Done!
+## 4. Done!
