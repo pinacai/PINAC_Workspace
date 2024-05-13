@@ -205,9 +205,16 @@ def giveResponseArray(query: str):
             AIMessage(content="order is fetching today's event and task from Calendar")
         )
 
+    elif "order is web scraping" in task_category:
+        response = ["web scraping", "Web searching feature is not available yet"]
+
+    elif "order is general conversation" in task_category:
+        ans = ChatGPT.generalAssistant(query)
+        response = ["order is general conversation", ans]
+        chatHistory.append(AIMessage(content=ans))
+
     else:
-        response = ["others", task_category]
-        chatHistory.append(AIMessage(content=task_category))
+        response = ["others", "Sorry something went wrong..."]
 
     # except:
     #     response = "Sorry something went wrong, please try again"

@@ -195,11 +195,18 @@
     font-size: small;
     border: 0;
     border-radius: 10px;
-    background-color: rgb(212, 5, 74);
+    /* background-color: rgb(212, 5, 74); */
     background: linear-gradient(135deg, rgb(212, 5, 74), rgb(255, 0, 85));
     color: white;
 }
 
 #goBack-button:hover {
     background: linear-gradient(135deg, rgb(204, 49, 101), rgb(255, 20, 98));
+}
+
+/* Change the color when disabled and */
+/* Change the cursor to indicate the button is disabled */
+button.disabled {
+    background-color: rgb(88, 88, 88);
+    cursor: not-allowed;
 }

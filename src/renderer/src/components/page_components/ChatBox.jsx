@@ -150,6 +150,7 @@ export const ChatBox = () => {
         <div className="input-group">
           <input
             id="user-input"
+            className={buttonsDisabled ? 'disabled' : ''}
             value={userInput}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
@@ -159,6 +160,7 @@ export const ChatBox = () => {
           <div className="input-group-append">
             <button
               id="submit-btn"
+              className={buttonsDisabled ? 'disabled' : ''}
               onClick={() => (userInput !== '' ? submit(userInput) : {})}
               disabled={buttonsDisabled}
             >

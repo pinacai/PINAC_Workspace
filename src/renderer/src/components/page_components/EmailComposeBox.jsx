@@ -86,13 +86,28 @@ export const EmailComposeBox = (props) => {
         </label>
       </div> */}
       <div className="actions">
-        <button id="goBack-button" onClick={handleGoBack} disabled={buttonsDisabled}>
+        <button
+          id="goBack-button"
+          className={buttonsDisabled ? 'disabled' : ''}
+          onClick={handleGoBack}
+          disabled={buttonsDisabled}
+        >
           Cancel
         </button>
-        <button id="send-button" onClick={handleSendEmail} disabled={buttonsDisabled}>
+        <button
+          id="send-button"
+          className={buttonsDisabled ? 'disabled' : ''}
+          onClick={handleSendEmail}
+          disabled={buttonsDisabled}
+        >
           Send
         </button>
-        <button id="save-draft-button" onClick={handleCreateDraft} disabled={buttonsDisabled}>
+        <button
+          id="save-draft-button"
+          className={buttonsDisabled ? 'disabled' : ''}
+          onClick={handleCreateDraft}
+          disabled={buttonsDisabled}
+        >
           Save Draft
         </button>
       </div>
