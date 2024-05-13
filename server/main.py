@@ -122,26 +122,27 @@ def giveResponseArray(query: str):
             - ["contact", text]: If the query contains the order to fetch contact information, the response array contains the text describing the contact information.
             - ["calendar task", text]: If the query contains the order to fetch tasks from the calendar, the response array contains the text describing the due tasks.
             - ["calendar all", text]: If the query contains the order to fetch today's event and task from the calendar, the response array contains the text indicating that this feature is not available.
-            - ["others", raw_response]: If none of the above conditions are met, the response array contains the raw response from the ChatGPT model.
+            - ["others", task_category]: If none of the above conditions are met, the response array contains the raw response from the ChatGPT model.
     """
     # try:
     # print(chatHistory)
-    chatHistory.append(HumanMessage(content=query))
-    raw_response = ChatGPT.askAI(query, chatHistory)
+    # chatHistory.append(HumanMessage(content=query))
+    task_category = ChatGPT.classifyTask(query)
 
-    if "order is composing email" in raw_response:
-        body, subject = decodeEmail(raw_response)
+    if "order is composing email" in task_category:
+        email_template = ChatGPT.generalAssistant(query)
+        body, subject = decodeEmail(email_template)
         response = ["email", subject, body]
-        chatHistory.append(AIMessage(content=raw_response))
+        chatHistory.append(AIMessage(content=task_category))
 
-    elif "order is to fetch upcoming events from Calendar" in raw_response:
+    elif "order is to fetch upcoming events from Calendar" in task_category:
         calendar = GoogleCalendarManager()
         amount = 10
         chatHistory.append(
             AIMessage(content="order is to fetch upcoming events from Calendar")
         )
-        if "order is to fetch upcoming events from Calendar (amount: " in raw_response:
-            amount = int(raw_response.split("amount: ", 1)[1].split(")", 1)[0])
+        if "order is to fetch upcoming events from Calendar (amount: " in task_category:
+            amount = int(task_category.split("amount: ", 1)[1].split(")", 1)[0])
         event_list = calendar.upcomingEvent(amount)
         if event_list:
             text = "Sure, here are your upcoming events: \n\n" + "\n".join(
@@ -153,7 +154,7 @@ def giveResponseArray(query: str):
         response = ["calendar event", text]
         chatHistory.append(AIMessage(content=text))
 
-    elif "order is to fetch today's events from Calendar" in raw_response:
+    elif "order is to fetch today's events from Calendar" in task_category:
         calendar = GoogleCalendarManager()
         event_list = calendar.todaysEvent()
         chatHistory.append(
@@ -169,7 +170,7 @@ def giveResponseArray(query: str):
         response = ["calendar today's events", text]
         chatHistory.append(AIMessage(content=text))
 
-    elif "order is fetching contact from Contact" in raw_response:
+    elif "order is fetching contact from Contact" in task_category:
         name = ChatGPT.findName(query)
         contact = GoogleContactManager()
         contact_info = contact.phoneNumber(name)
@@ -183,7 +184,7 @@ def giveResponseArray(query: str):
         response = ["contact", text]
         chatHistory.append(AIMessage(content=text))
 
-    elif "order is to fetch task from Calendar" in raw_response:
+    elif "order is to fetch task from Calendar" in task_category:
         task = GoogleTaskManager()
         task_list = task.dueTask()
         chatHistory.append(AIMessage(content="order is to fetch task from Calendar"))
@@ -197,7 +198,7 @@ def giveResponseArray(query: str):
         response = ["calendar task", text]
         chatHistory.append(AIMessage(content=text))
 
-    elif "order is fetching today's event and task from Calendar" in raw_response:
+    elif "order is fetching today's event and task from Calendar" in task_category:
         text = "Sorry, this feature is still not available, waiting for the next update"
         response = ["calendar all", text]
         chatHistory.append(
@@ -205,8 +206,8 @@ def giveResponseArray(query: str):
         )
 
     else:
-        response = ["others", raw_response]
-        chatHistory.append(AIMessage(content=raw_response))
+        response = ["others", task_category]
+        chatHistory.append(AIMessage(content=task_category))
 
     # except:
     #     response = "Sorry something went wrong, please try again"

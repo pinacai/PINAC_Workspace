@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.prompts.chat import ChatPromptTemplate
 from langchain.schema import BaseOutputParser
-from ai_models.data.training_data import dataset, findNameDataset
+from ai_models.data.training_data import taskClassification_dataset, assistant_dataset, findName_dataset
 
 
 load_dotenv(dotenv_path="server/configs/.env")
@@ -19,16 +19,19 @@ llm = ChatOpenAI(
     openai_api_key=OPENAI_API_KEY, temperature=0.7, model_name="gpt-3.5-turbo"
 )
 
-chat_prompt = ChatPromptTemplate.from_messages(dataset)
-chain = chat_prompt | llm | MyOutputParser()
+taskClassify_prompt = ChatPromptTemplate.from_messages(taskClassification_dataset)
+taskClassificationChain = taskClassify_prompt | llm | MyOutputParser()
 
-namePrompt = ChatPromptTemplate.from_messages(findNameDataset)
-nameChain = namePrompt | llm | MyOutputParser()
+assistantPrompt = ChatPromptTemplate.from_messages(assistant_dataset)
+assistantChain = assistantPrompt | llm | MyOutputParser()
+
+findNamePrompt = ChatPromptTemplate.from_messages(findName_dataset)
+findNameChain = findNamePrompt | llm | MyOutputParser()
 
 print("chain created")
 
 
-def askAI(query: str, chatHistory: list):
+def classifyTask(query: str):
     # Extend the chat prompt with the previous chat history
     # chat_prompt.extend(chatHistory)
 
@@ -36,13 +39,19 @@ def askAI(query: str, chatHistory: list):
     # chat_prompt.append(query)
 
     # Invoke the AI model with the query to generate a response
-    response = chain.invoke({"text": query})
-
+    response = taskClassificationChain.invoke({"text": query})
     # Return the AI-generated response
+    return response
+
+
+def generalAssistant(user_input):
+    # Invoke the assistantChain with the user input to generate a response
+    response = assistantChain.invoke({"text": user_input})
+    # Return the response back to the caller
     return response
 
 
 def findName(user_input):
     # Invoke the nameChain with the user input to find a name
-    response = nameChain.invoke({"text": user_input})
+    response = findNameChain.invoke({"text": user_input})
     return response
