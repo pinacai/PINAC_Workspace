@@ -15,27 +15,18 @@ Our vision is to make one chat for all. For example, suppose you need to compose
 
 This minimizes window switching, boosting your productivity and saving time.
 
-## Why should I contribute to this Project ?
-We are seeking contributions for this project's development as we aim to take it to the big stage. We value all contributors and strive to make the contribution process easy for everyone.
 
-## 🌟 Current Progress
-### Google Integration:
-|       |Task 1|    |Task 2|    |Task 3|    |
-| ------|--------------------------------|----|-----------------|----|-----------------|----|
-| Gmail | Receiving & Viewing email | ❌ | sending email & creating draft | ✅ | searching email | ❌ |
-| Calendar | viewing events | 🏗️ | creating events | ❌ | searching event | ❌ |
-| Task | viewing task | 🏗️ | creating task | ❌ | searching task | ❌ |
-| Contact | --- |  | creating contact | ❌ | searching contact | ✅ |
-| Drive | viewing files | ❌ | uploading & downloading files | 🏗️ | searching files | 🏗️ |
-> _Other apps are coming soon..._
+## 🌟 Harness the Power of AI
+### Current features
 
-### App UI(overall) :
-|       | status |
-| ------|---------------------------|
-| Home Page | ✅ Almost completed(functional) |
-| Profile Page | 🏗️ Under development |
-| About Page | ❌ Not started yet|
-| Settings Page | ✅ Just theme style options added (functional) |
+- **Effortless Email Management**: Seamlessly send emails and create drafts with the power of AI, making your communication smoother than ever.
+- **Schedule Mastery**: Stay on top of your commitments. With AI integrated into PINAC Workspace, managing your schedule has never been easier.
+- **Task Reminders**: Keep yourself updated and complete tasks on time. Let AI in PINAC Workspace manage and remind you of all your to-dos.
+- **Smart Contact Management**: Instantly access and manage your Google contacts. AI ensures you can find any contact in a flash.
+- **Google Drive at Your Fingertips**: Effortlessly keep your Google Drive files organized and accessible. AI makes finding and managing your documents a breeze.
+- **Engaging Conversations**: Need a break or some friendly advice? Chat with AI in PINAC Workspace for a relaxing conversation whenever you need it.
+
+Discover the seamless integration of AI into every aspect of your daily tasks with PINAC Workspace!  
 
 ## 📸 Screenshot
 <img src="https://github.com/RajeshTechForge/PINAC_Workspace-2.0/blob/main/assets/screenshot.png" alt="app screenshot">
