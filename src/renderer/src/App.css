@@ -1,4 +1,7 @@
-/* Fonts */
+/* ====================================================*/
+/*             All Fonts used in the App               */
+/* ====================================================*/
+
 @font-face {
     font-family: 'nasa';
     src: url('assets/font/nasalization-rg.otf');
@@ -14,40 +17,192 @@
     src: url('assets/font/Exo2-VariableFont_wght.ttf');
 }
 
+/* ====================================================*/
+/*              Whole App's Theme Color                */
+/* ====================================================*/
+
 /* Theme 1: Dawn_n_Dusk */
 .Dawn_n_Dusk-light {
+
+    /* Common */
     --primary-color: #F5F7FA;
     --primary-accent-color: #1F2937;
     --text1-color: #FFFFFF;
     --text2-color: #1F2937;
     --changeable-icon-filter: none;
+
+    /* Sidebar */
+    --hover-color: rgba(255, 255, 255, 0.1);
+    --sidebar-color: #1F2937;
+
+    /* Header */
+    --title-color: #1F2937;
+    --new-chat-hover-color: #40454e;
+
+    /* EmailComposeBox */
+    --send-n-draft-button-color: #175ab8;
+    --send-n-draft-button-hover-color: #6081af;
+
+    /* HomePage */
+    --welcome-text-gradient: linear-gradient(125deg, #ff7300, #F12B6D, #0026ff);
+    --human-msg-bg: #FFFFFF;
+    --ai-msg-bg: #1F2937;
+    --ai-msg-bg-shadow: none;
+    --input-group-bg: #FFFFFF;
+    --send-button-hover-color: #b9b9b9;
+    --shadow-color: 0 0 10px rgba(0, 0, 0, 0.2);
+
+    /* ProfilePage */
+    --input-border: 1px solid #AAAAAA;
+    --input-bg: #f6f8fa;
+    --outline-color: #868686;
+
+    /* AboutPage */
+
+    /* SettingsPage */
+    --border-line-color: #cccccc;
+    --card-bg: transparent;
+    --card-shadow: 0 0 10px #cccccc;
+    --card-hover-shadow: 0 0 20px #777777;
 }
 
 .Dawn_n_Dusk-dark {
+
+    /* Common */
     --primary-color: #121212;
     --primary-accent-color: linear-gradient(135deg, #7b63ff, #0d00c7);
     --text1-color: #FFFFFF;
     --text2-color: #FFFFFF;
     --changeable-icon-filter: invert(100%);
+
+    /* Sidebar */
+    --hover-color: linear-gradient(135deg, #5e43f3, #382bf0);
+    --sidebar-color: #3C3C3C;
+
+    /* Header */
+    --title-color: #F5F7FA;
+    --new-chat-hover-color: #5e43f3;
+
+    /* EmailComposeBox */
+    --send-n-draft-button-color: #382bf0;
+    --send-n-draft-button-hover-color: #594efc;
+
+    /* HomePage */
+    --welcome-text-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
+    --human-msg-bg: #3C3C3C;
+    --ai-msg-bg: #382bf0;
+    --ai-msg-bg-shadow: none;
+    --input-group-bg: #3C3C3C;
+    --send-button-hover-color: #6e6e6e;
+    --shadow-color: 0 5px 5px rgba(0, 0, 0, 0.6);
+
+    /* ProfilePage */
+    --input-border: 1px solid #3C3C3C;
+    --input-bg: #161616;
+    --outline-color: #6b6b6b;
+
+    /* AboutPage */
+
+    /* SettingsPage */
+    --border-line-color: #3C3C3C;
+    --card-bg: #3C3C3C;
+    --card-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    --card-hover-shadow: 0 0 25px #000000;
 }
 
 /*  Theme 2: Cyber_Tech_01 */
 .Cyber_Tech_01-light {
+
+    /* Common */
     --primary-color: #F5F7FA;
     --primary-accent-color: #1F2937;
     --text1-color: #FFFFFF;
     --text2-color: #1F2937;
     --changeable-icon-filter: none;
+
+    /* Sidebar */
+    --hover-color: rgba(255, 255, 255, 0.1);
+    --sidebar-color: #1F2937;
+
+    /* Header */
+    --title-color: #1F2937;
+    --new-chat-hover-color: #40454e;
+
+    /* EmailComposeBox */
+    --send-n-draft-button-color: #175ab8;
+    --send-n-draft-button-hover-color: #6081af;
+
+    /* HomePage */
+    --welcome-text-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
+    --human-msg-bg: #FFFFFF;
+    --ai-msg-bg: #1F2937;
+    --ai-msg-bg-shadow: none;
+    --input-group-bg: #FFFFFF;
+    --send-button-hover-color: #b9b9b9;
+    --shadow-color: 0 0 10px rgba(0, 0, 0, 0.2);
+
+    /* ProfilePage */
+    --input-border: 1px solid #AAAAAA;
+    --input-bg: #f6f8fa;
+    --outline-color: #868686;
+
+    /* AboutPage */
+
+    /* SettingsPage */
+    --border-line-color: #cccccc;
+    --card-bg: transparent;
+    --card-shadow: 0 0 10px #cccccc;
+    --card-hover-shadow: 0 0 20px #777777;
 }
 
 .Cyber_Tech_01-dark {
+
+    /* Common */
     --primary-color: #0c0a18;
     --primary-accent-color: linear-gradient(125deg, #0026ff, #5b00af);
     --text1-color: #ece2d5;
     --text2-color: #ece2d5;
     --changeable-icon-filter: invert(100%);
+
+    /* Sidebar */
+    --hover-color: linear-gradient(125deg, #0026ff, #5b00af);
+    --sidebar-color: #001f3f;
+
+    /* Header */
+    --title-color: #ece2d5;
+    --new-chat-hover-color: #5e43f3;
+
+    /* EmailComposeBox */
+    --send-n-draft-button-color: linear-gradient(125deg, #0026ff, #5b00af);
+    --send-n-draft-button-hover-color: linear-gradient(125deg, #2747fd, #621ba5);
+
+    /* HomePage */
+    --welcome-text-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
+    --human-msg-bg: linear-gradient(125deg, #0026ff, #5b00af);
+    --ai-msg-bg: rgba(109, 108, 108, 0.15);
+    --ai-msg-bg-shadow: 0 0 2px #ece2d5;
+    --input-group-bg: rgba(109, 108, 108, 0.15);
+    --send-button-hover-color: #6e6e6e;
+    --shadow-color: 0 0 2px #ece2d5;
+
+    /* ProfilePage */
+    --input-border: 1px solid #3C3C3C;
+    --input-bg: rgba(37, 37, 37, 0.15);
+    --outline-color: #6b6b6b;
+
+    /* AboutPage */
+
+    /* SettingsPage */
+    --border-line-color:#3C3C3C;
+    --card-bg: rgba(109, 108, 108, 0.15);
+    --card-shadow: 0 0 2px #ece2d5;
+    --card-hover-shadow: 0 0 10px #857e76;
 }
 
+
+/* ====================================================*/
+/*              Few others common styles               */
+/* ====================================================*/
 
 /* Reset and Base Styles */
 * {
@@ -65,7 +220,6 @@ body {
 .body-container {
     width: 100%;
     display: flex;
-    flex-direction: row;
 }
 
 

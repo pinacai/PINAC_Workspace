@@ -1,4 +1,4 @@
-## Contributing to PINAC Workspace 🚀
+## Contributing to PINAC Workspace 2.0 🚀
 
 We love your input! We want to make contributing to PINAC as easy and transparent as possible, whether it's:
 

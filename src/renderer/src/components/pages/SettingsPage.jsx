@@ -2,6 +2,8 @@ import './style/SettingsPage.css'
 import { useState, useEffect } from 'react'
 import { Sidebar } from '../page_components/Sidebar'
 import { Header } from '../page_components/Header'
+
+// Icons
 import Cyber_Tech_o1_darkPreview from '../../assets/img/Cyber_Tech_01_darkPreview.png'
 import Dawn_n_Dusk_darkPreview from '../../assets/img/Dawn_n_Dusk_darkPreview.png'
 
@@ -9,6 +11,7 @@ export const SettingsPage = () => {
   const [Dawn_n_Dusk, setDawn_n_Dusk] = useState(false)
   const [Cyber_Tech_01, setCyber_Tech_01] = useState(true) // default theme is Cyber_Tech_01
 
+  // Function to select the Dawn_n_Dusk theme
   const changeToDawn_n_Dusk = () => {
     setDawn_n_Dusk(!Dawn_n_Dusk)
     if (!Dawn_n_Dusk) {
@@ -17,6 +20,7 @@ export const SettingsPage = () => {
     }
   }
 
+  // Function to select the Cyber_Tech_01 theme
   const changeToCyber_Tech_01 = () => {
     setCyber_Tech_01(!Cyber_Tech_01)
     if (!Cyber_Tech_01) {
@@ -25,12 +29,15 @@ export const SettingsPage = () => {
     }
   }
 
+  // Set the theme selection based on the value stored in local storage
   useEffect(() => {
     const preferredThemePair = localStorage.getItem('preferred-theme-pair')
     setDawn_n_Dusk(preferredThemePair === 'Dawn_n_Dusk')
     setCyber_Tech_01(preferredThemePair === 'Cyber_Tech_01')
   }, [])
 
+  // Updates the body's classList with the selected
+  // theme pair and the user's preferred light/dark mode
   useEffect(() => {
     const body = document.body
     const preferredTheme = localStorage.getItem('preferred-theme')
@@ -49,7 +56,7 @@ export const SettingsPage = () => {
   return (
     <>
       <Sidebar />
-      <main className="container">
+      <div className="container">
         <Header title="Settings" />
         <div className="setting-container">
           {/* ------------------- */}
@@ -93,7 +100,7 @@ export const SettingsPage = () => {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </>
   )
 }

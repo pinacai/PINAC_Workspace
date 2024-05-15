@@ -1,34 +1,3 @@
-/* Theme 1: Dawn_n_Dusk */
-.Dawn_n_Dusk-light {
-    --border-line-color: #cccccc;
-    --card-bg: transparent;
-    --card-shadow: 0 0 10px #cccccc;
-    --card-hover-shadow: 0 0 20px #777777;
-}
-
-.Dawn_n_Dusk-dark {
-    --border-line-color: #3C3C3C;
-    --card-bg: #3C3C3C;
-    --card-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-    --card-hover-shadow: 0 0 25px #000000;
-}
-
-/* Theme 2: Cyber_Tech_01 */
-.Cyber_Tech_01-light {
-    --border-line-color: #cccccc;
-    --card-bg: transparent;
-    --card-shadow: 0 0 10px #cccccc;
-    --card-hover-shadow: 0 0 20px #777777;
-}
-
-.Cyber_Tech_01-dark {
-    --border-line-color:#3C3C3C;
-    --card-bg: rgba(109, 108, 108, 0.15);
-    --card-shadow: 0 0 2px #ece2d5;
-    --card-hover-shadow: 0 0 10px #857e76;
-}
-
-
 .setting-container {
     width: 100%;
     height: calc(100vh - 60px);

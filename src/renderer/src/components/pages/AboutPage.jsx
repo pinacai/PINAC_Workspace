@@ -23,9 +23,9 @@ export const AboutPage = () => {
   return (
     <>
       <Sidebar />
-      <main className="container">
+      <div className="container">
         <Header title="About Us" />
-      </main>
+      </div>
     </>
   )
 }

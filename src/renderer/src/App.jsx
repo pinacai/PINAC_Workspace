@@ -5,11 +5,6 @@ import { AboutPage } from './components/pages/AboutPage'
 import { SettingsPage } from './components/pages/SettingsPage'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-/**
- * Renders the main application component.
- *
- * @return {JSX.Element} The rendered application component.
- */
 const App = () => {
   return (
     <Router>

@@ -1,6 +1,8 @@
 import './style/Sidebar.css'
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+
+// Icons
 import userIcon from '../../assets/icon/user_icon.png'
 import chevronRightIcon from '../../assets/icon/chevron_right.svg'
 import homeIcon from '../../assets/icon/home.svg'
@@ -14,10 +16,12 @@ export const Sidebar = () => {
   const [isActive, setIsActive] = useState(false)
   const [isDarkTheme, setIsDarkTheme] = useState(false)
 
+  // Function to handle page navigation
   const changePage = (path) => {
     navigate(path)
   }
 
+  // Function to toggle the sidebar's activation state
   const toggleSidebar = () => {
     setIsActive(!isActive)
   }
@@ -28,6 +32,7 @@ export const Sidebar = () => {
     localStorage.setItem('preferred-theme', isDarkTheme ? 'light' : 'dark')
   }
 
+  // Retrieve the preferred theme from local storage and set that theme
   useEffect(() => {
     const preferredTheme = localStorage.getItem('preferred-theme')
     setIsDarkTheme(preferredTheme === 'dark')

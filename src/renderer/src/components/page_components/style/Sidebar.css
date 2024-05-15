@@ -1,26 +1,3 @@
-/* Theme 1: Dawn_n_Dusk */
-.Dawn_n_Dusk-light {
-    --hover-color: rgba(255, 255, 255, 0.1);
-    --sidebar-color: #1F2937;
-}
-
-.Dawn_n_Dusk-dark {
-    --hover-color: linear-gradient(135deg, #5e43f3, #382bf0);
-    --sidebar-color: #3C3C3C;
-}
-
-/* Theme 2: Cyber_Tech_01 */
-.Cyber_Tech_01-light {
-    --hover-color: rgba(255, 255, 255, 0.1);
-    --sidebar-color: #1F2937;
-}
-
-.Cyber_Tech_01-dark {
-    --hover-color: linear-gradient(125deg, #0026ff, #5b00af);
-    --sidebar-color: #001f3f;
-}
-
-
 .non-changeable-icon {
     height: 25px;
     filter: invert(100%);

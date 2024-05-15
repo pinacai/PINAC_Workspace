@@ -1,26 +1,3 @@
-/* Theme 1: Dawn_n_Dusk */
-.Dawn_n_Dusk-light {
-    --send-n-draft-button-color: #175ab8;
-    --send-n-draft-button-hover-color: #6081af;
-}
-
-.Dawn_n_Dusk-dark {
-    --send-n-draft-button-color: #382bf0;
-    --send-n-draft-button-hover-color: #594efc;
-}
-
-/* Theme 2: Cyber_Tech_01 */
-.Cyber_Tech_01-light {
-    --send-n-draft-button-color: #175ab8;
-    --send-n-draft-button-hover-color: #6081af;
-}
-
-.Cyber_Tech_01-dark {
-    --send-n-draft-button-color: linear-gradient(125deg, #0026ff, #5b00af);
-    --send-n-draft-button-hover-color: linear-gradient(125deg, #2747fd, #621ba5);
-}
-
-
 .compose-box {
     margin-left: 50px;
     margin-bottom: 5px;

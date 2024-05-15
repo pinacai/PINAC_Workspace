@@ -23,7 +23,7 @@ export const ProfilePage = () => {
   return (
     <>
       <Sidebar />
-      <main className="container">
+      <div className="container">
         <Header title="Profile" />
 
         <div className="profile-container">
@@ -45,7 +45,7 @@ export const ProfilePage = () => {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </>
   )
 }

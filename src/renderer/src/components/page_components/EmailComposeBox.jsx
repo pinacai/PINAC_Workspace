@@ -1,31 +1,35 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
-// import attachIcon from '../../assets/icon/attachment.svg'
 import './style/EmailComposeBox.css'
 
 export const EmailComposeBox = (props) => {
   const [to, setTo] = useState('')
   const [subject, setSubject] = useState(props.emailSubject)
   const [body, setBody] = useState(props.emailBody)
-  // const [attachment, setAttachment] = useState(null)
   const [buttonsDisabled, setButtonsDisabled] = useState(false) // For disabling buttons
 
+  // Ensure emailSubject prop and emailBody prop
+  // is a required string
   EmailComposeBox.propTypes = {
-    emailSubject: PropTypes.string.isRequired, // Required string
-    emailBody: PropTypes.string.isRequired // Required string
+    emailSubject: PropTypes.string.isRequired,
+    emailBody: PropTypes.string.isRequired
   }
 
+  // Disables email-composer buttons if user click cancel
   const handleGoBack = () => {
     setButtonsDisabled(true)
-    console.log(null)
   }
 
+  // Sends a meg back to server(python) with user modified email
+  // and server sends that email to recipient
   const handleSendEmail = () => {
     setButtonsDisabled(true)
     window.electron.ipcRenderer.send('client-request', ['send-email', to, subject, body])
     console.log('Email sended')
   }
 
+  // Sends a meg back to server(python) with user modified email
+  // and server creates a draft email
   const handleCreateDraft = () => {
     setButtonsDisabled(true)
     if (to != '') {
@@ -79,12 +83,6 @@ export const EmailComposeBox = (props) => {
           }}
         />
       </div>
-      {/* <div className="extra-buttons">
-        <input type="file" id="attachment" hidden />
-        <label htmlFor="attachment" id="attachment-label">
-          <img id="attach-icon" alt="attachment" />
-        </label>
-      </div> */}
       <div className="actions">
         <button
           id="goBack-button"

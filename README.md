@@ -11,7 +11,7 @@ PINAC Workspace is a comprehensive AI-integrated cross-platform desktop applicat
 </div>
 
 ## But what's different in it 🤔 ?
-Our vision is to make one chat for all. For example, suppose you need to compose an email. In that case, you get your AI-powered template, edit it in the compose box within the chat and send it, or if you need to see your schedule, you can view it in calendar format within the chat, edit it or create a new event, all within the chat.
+Our vision is "**One Chat for All**". For example, suppose you need to compose an email. In that case, you get your AI-powered template, edit it in the compose box within the chat and send it, or if you need to see your schedule, you can view it in calendar format within the chat, edit it or create a new event, all within the chat.
 
 This minimizes window switching, boosting your productivity and saving time.
 
@@ -47,8 +47,8 @@ Just the important part you need to get started
          └── renderer /                    # Stores React frontend files
               └── src /
                    ├── App.jsx
-                   ├── App.css                     # Common styles for the whole App
-                   ├── assets /                    # App's assets
+                   ├── App.css                     # All Theme's colors
+                   ├── assets /                    # Img, Icons, Fonts
                    └── Components /                # App's components
                          ├── page_components /  
                          └── pages /
