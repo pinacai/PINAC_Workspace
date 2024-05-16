@@ -5,7 +5,6 @@ import './style/Header.css'
 import addLogo from '../../assets/icon/add_circle.svg'
 
 export const Header = (props) => {
-  //
   // Title prop is a required string
   Header.propTypes = {
     title: PropTypes.string.isRequired

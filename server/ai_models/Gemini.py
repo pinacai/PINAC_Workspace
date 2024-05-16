@@ -1,17 +1,17 @@
 import os
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
 from langchain.prompts.chat import ChatPromptTemplate
 from langchain.schema import BaseOutputParser
+from langchain.schema import SystemMessage, HumanMessage
+from langchain_google_genai import ChatGoogleGenerativeAI
 from ai_models.data.training_data import (
     taskClassification_dataset,
     assistant_dataset,
     findName_dataset,
 )
 
-
 load_dotenv(dotenv_path="server/configs/.env")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 
 class MyOutputParser(BaseOutputParser):
@@ -19,17 +19,30 @@ class MyOutputParser(BaseOutputParser):
         return text
 
 
-llm = ChatOpenAI(
-    openai_api_key=OPENAI_API_KEY, temperature=0.7, model_name="gpt-3.5-turbo"
-)
+# Since Google AI lacks support for SystemMessage, we are
+# transforming it into HumanMessage instead.
+def filterDataset(dataset):
+    filtered_dataset = []
+    for message in dataset:
+        if isinstance(message, SystemMessage):
+            message = HumanMessage(content=message.content)
+        filtered_dataset.append(message)
+    return filtered_dataset
 
-taskClassify_prompt = ChatPromptTemplate.from_messages(taskClassification_dataset)
+
+llm = ChatGoogleGenerativeAI(model="gemini-pro", api_key=GOOGLE_API_KEY)
+
+taskClassify_prompt = ChatPromptTemplate.from_messages(
+    filterDataset(taskClassification_dataset)
+)
 taskClassificationChain = taskClassify_prompt | llm | MyOutputParser()
 
 assistantPrompt = ChatPromptTemplate.from_messages(assistant_dataset)
-assistantChain = assistantPrompt | llm | MyOutputParser()
+assistantChain = (
+    assistantPrompt | llm | MyOutputParser(filterDataset(assistant_dataset))
+)
 
-findNamePrompt = ChatPromptTemplate.from_messages(findName_dataset)
+findNamePrompt = ChatPromptTemplate.from_messages(filterDataset(findName_dataset))
 findNameChain = findNamePrompt | llm | MyOutputParser()
 
 print("chain created")
@@ -37,11 +50,6 @@ print("chain created")
 
 # For classifying the user query into specific category
 def classifyTask(query: str):
-    # Extend the chat prompt with the previous chat history
-    # chat_prompt.extend(chatHistory)
-    # Append the current query to the chat prompt
-    # chat_prompt.append(query)
-
     response = taskClassificationChain.invoke({"text": query})
     return response
 

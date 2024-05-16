@@ -11,6 +11,21 @@ export const SettingsPage = () => {
   const [Dawn_n_Dusk, setDawn_n_Dusk] = useState(false)
   const [Cyber_Tech_01, setCyber_Tech_01] = useState(true) // default theme is Cyber_Tech_01
 
+  const card = (title, cardImage, checkedFunc, onChangeFunc) => {
+    return (
+      <div className="themeCard">
+        <img src={cardImage} alt="Cyber Tech 01 Preview" />
+        <div className="themeCard-desc">
+          <label className="check-wrapper">
+            <input type="checkbox" checked={checkedFunc} onChange={onChangeFunc} />
+            <div className="checkmark"></div>
+          </label>
+          <span>{title}</span>
+        </div>
+      </div>
+    )
+  }
+
   // Function to select the Dawn_n_Dusk theme
   const changeToDawn_n_Dusk = () => {
     setDawn_n_Dusk(!Dawn_n_Dusk)
@@ -67,26 +82,21 @@ export const SettingsPage = () => {
             </div>
             <div className="themeCard-container">
               {/* Theme 1 */}
-              <div className="card">
-                <img src={Dawn_n_Dusk_darkPreview} alt="Dawn & Dusk Preview" />
-                <div className="card-content">
-                  <input type="checkbox" checked={Dawn_n_Dusk} onChange={changeToDawn_n_Dusk} />
-                  <span>Dawn & Dusk</span>
-                </div>
-              </div>
+              {card('Dawn & Dusk', Dawn_n_Dusk_darkPreview, Dawn_n_Dusk, changeToDawn_n_Dusk)}
+
               {/* Theme 2 */}
-              <div className="card">
-                <img src={Cyber_Tech_o1_darkPreview} alt="Cyber Tech 01 Preview" />
-                <div className="card-content">
-                  <input type="checkbox" checked={Cyber_Tech_01} onChange={changeToCyber_Tech_01} />
-                  <span>Cyber Tech 01</span>
-                </div>
-              </div>
+              {card(
+                'Cyber Tech 01',
+                Cyber_Tech_o1_darkPreview,
+                Cyber_Tech_01,
+                changeToCyber_Tech_01
+              )}
+
               {/* Theme 3 */}
-              <div className="card">
+              <div className="themeCard">
                 {/* Adding temporary style for this card */}
                 <div
-                  className="card-content"
+                  className="themeCard-desc"
                   style={{
                     height: '100%',
                     display: 'flex',
