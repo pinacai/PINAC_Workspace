@@ -25,9 +25,9 @@ export const Header = (props) => {
   const newChatBtn = () => {
     return (
       <>
-        <button id="new-chat-btn">
-          <img className="non-changeable-icon" src={addLogo} alt="" style={{ height: '32px' }} />
-          <span id="new-chat-text">New Chat</span> {/* New chat btn text */}
+        <button className="newChatButton">
+          <img src={addLogo} className="non-changeable-icon" />
+          <span>New Chat</span>
         </button>
       </>
     )

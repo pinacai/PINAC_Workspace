@@ -30,16 +30,16 @@ def filterDataset(dataset):
     return filtered_dataset
 
 
-llm = ChatGoogleGenerativeAI(model="gemini-pro", api_key=GOOGLE_API_KEY)
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", api_key=GOOGLE_API_KEY)
 
 taskClassify_prompt = ChatPromptTemplate.from_messages(
     filterDataset(taskClassification_dataset)
 )
 taskClassificationChain = taskClassify_prompt | llm | MyOutputParser()
 
-assistantPrompt = ChatPromptTemplate.from_messages(assistant_dataset)
+assistantPrompt = ChatPromptTemplate.from_messages(filterDataset(assistant_dataset))
 assistantChain = (
-    assistantPrompt | llm | MyOutputParser(filterDataset(assistant_dataset))
+    assistantPrompt | llm | MyOutputParser()
 )
 
 findNamePrompt = ChatPromptTemplate.from_messages(filterDataset(findName_dataset))

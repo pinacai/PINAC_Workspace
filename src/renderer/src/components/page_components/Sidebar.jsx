@@ -100,7 +100,7 @@ export const Sidebar = () => {
                   location.pathname === '/'
                     ? isDarkTheme
                       ? {}
-                      : { color: 'var(--text2-color)' }
+                      : { color: 'var(--text-color2)' }
                     : {}
                 }
               >
@@ -131,7 +131,7 @@ export const Sidebar = () => {
                   location.pathname === '/about'
                     ? isDarkTheme
                       ? {}
-                      : { color: 'var(--text2-color)' }
+                      : { color: 'var(--text-color2)' }
                     : {}
                 }
               >
@@ -162,7 +162,7 @@ export const Sidebar = () => {
                   location.pathname === '/settings'
                     ? isDarkTheme
                       ? {}
-                      : { color: 'var(--text2-color)' }
+                      : { color: 'var(--text-color2)' }
                     : {}
                 }
               >
@@ -173,26 +173,25 @@ export const Sidebar = () => {
         </nav>
       </div>
       <div className="lower-part">
-        <div className="theme-toggle-container" title="Change Theme">
-          <img
-            src={themeIcon}
-            alt="Theme Icon"
-            className="theme-toggle-icon non-changeable-icon sidebar-text"
-          />
-          <span className="theme-toggle-text sidebar-text">Theme</span>
-          <div className="theme-toggle">
-            <input
-              type="checkbox"
-              id="theme-switch"
-              className="theme-switch"
-              checked={isDarkTheme}
-              onChange={changeTheme}
-            />
-            <label htmlFor="theme-switch" className="toggle-label">
-              <span className="toggle-ball"></span>
-            </label>
-          </div>
-        </div>
+        <nav>
+          <ul>
+            <li>
+              <img src={themeIcon} alt="Theme Icon" className="non-changeable-icon" />
+              <div>
+                <input
+                  type="checkbox"
+                  id="theme-switch"
+                  className="theme-switch"
+                  checked={isDarkTheme}
+                  onChange={changeTheme}
+                />
+                <label htmlFor="theme-switch" className="toggle-label">
+                  <span className="toggle-ball"></span>
+                </label>
+              </div>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   )

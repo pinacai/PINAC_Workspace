@@ -2,7 +2,7 @@
 .pageHeader {
     height: 60px;
     width: 100%;
-    color: var(--title-color);
+    color: var(--headerTitle-color);
     background-color: transparent;
     padding: 10px 20px 10px 20px;
     display: flex;
@@ -22,32 +22,66 @@
 
 .bottom-line {
     margin-top: 3px;
-    border-bottom: 2px blue solid;
+    border-bottom: 2px solid var(--headerTitle-underline-color);
 }
 
 /* New Chat Button Styles */
-#new-chat-btn {
+.pageHeader .newChatButton {
     width: auto;
     height: auto;
-    background: var(--primary-accent-color);
-    color: var(--text1-color);
-    border: none;
+    background: var(--secondary-color);
+    color: var(--text-color1);
+    border: var(--newChatBtn-border);
     padding: 5px 15px 5px 5px;
     border-radius: 50px;
     cursor: pointer;
-    font-weight: bold;
+    position: relative;
+    overflow: hidden;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-#new-chat-btn:hover {
-    background: var(--new-chat-hover-color);
+.pageHeader .newChatButton img {
+    height: 32px;
 }
 
-#new-chat-text {
+.pageHeader .newChatButton span {
     padding-left: 5px;
     padding-right: 5px;
+    position: relative;
+    font: normal 20px 'Exo2';
+    z-index: 10;
+    transition: color 0.4s;
+    display: inline-flex;
+    align-items: center;
+}
+
+.pageHeader .newChatButton::before,
+.pageHeader .newChatButton::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.pageHeader .newChatButton::before {
+    content: "";
+    background: var(--newChatBtn-color);
+    width: 120%;
+    left: -10%;
+    transform: skew(30deg);
+    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+}
+
+.pageHeader .newChatButton:hover::before {
+    transform: translate3d(100%, 0, 0);
+}
+
+.pageHeader .newChatButton:active {
+    transform: scale(0.95);
 }
 
 
@@ -58,12 +92,12 @@
         padding: 10px;
     }
 
-    #new-chat-btn {
+    .pageHeader .newChatButton {
         padding: 5px 10px 5px 5px;
     }
 
-    #new-chat-text {
-        font-size: 14px;
+    .pageHeader .newChatButton span {
+        font-size: 17px;
     }
 }
 
@@ -72,12 +106,12 @@
         height: 60px;
     }
 
-    #new-chat-btn {
+    .pageHeader .newChatButton {
         padding: 5px 8px 5px 5px;
     }
 
-    #new-chat-text {
-        font-size: 12px;
+    .pageHeader .newChatButton span {
+        font-size: 18px;
     }
 }
 
@@ -86,19 +120,16 @@
         height: 60px;
     }
 
-    .title {
+    .title,
+    .home-title {
         font-size: 30px;
     }
 
-    #new-chat-btn {
+    .pageHeader .newChatButton {
         padding: 3px 6px 3px 3px;
     }
 
-    #new-chat-text {
+    .pageHeader .newChatButton span {
         display: none;
-    }
-
-    #new-chat-icon {
-        height: 24px;
     }
 }

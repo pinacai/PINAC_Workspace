@@ -69,7 +69,7 @@
     background: var(--input-bg);
     font-size: medium;
     font-family: 'Exo2';
-    color: var(--text2-color);
+    color: var(--text-color2);
 }
 
 .sec textarea {
@@ -83,7 +83,7 @@
     background: var(--input-bg);
     font-size: medium;
     font-family: 'Exo2';
-    color: var(--text2-color);
+    color: var(--text-color2);
 }
 
 .sec textarea::-webkit-scrollbar {

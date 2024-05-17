@@ -9,6 +9,9 @@
     width: 60px;
     background: var(--sidebar-color);
     border-radius: 0 10px 10px 0;
+    border: var(--sidebar-border);
+    font: normal 17px 'Exo2', sans-serif;
+    letter-spacing: 1.5px;
     position: relative;
     transition: width 0.3s ease-in-out;
     display: flex;
@@ -22,7 +25,7 @@
     display: inline;
     opacity: 0;
     max-width: 0;
-    color: var(--text1-color);
+    color: var(--text-color1);
     text-decoration: none;
     overflow: hidden;
     white-space: nowrap;
@@ -31,6 +34,10 @@
 
 .sidebar.active {
     width: 250px;
+}
+
+.sidebar.active .non-changeable-icon {
+    height: 20px;
 }
 
 .sidebar.active .sidebar-text {
@@ -49,8 +56,17 @@
     margin-left: 5px;
 }
 
-.sidebar.active .theme-toggle-text {
-    margin-right: 10px;
+.sidebar.active .lower-part li {
+    padding: 15px 15px 5px 15px;
+}
+
+.sidebar.active .lower-part img {
+    opacity: 1;
+    max-width: 200px;
+}
+
+.sidebar.active .lower-part div {
+    padding-left: 20px;
 }
 
 /* Sidebar Upper Part */
@@ -110,12 +126,12 @@ nav ul {
     margin-bottom: 10px;
     border-radius: 10px;
     padding: 15px;
-    color: var(--text1-color);
+    color: var(--text-color1);
     transition: all 0.5s ease;
 }
 
 .li:hover {
-    background: var(--hover-color);
+    background: var(--sidebar-hover-color);
     border-radius: 10px;
 }
 
@@ -128,33 +144,41 @@ nav ul {
     margin-left: 3px;
     border-radius: 10px 0 0 10px;
     padding: 15px;
-    color: var(--text1-color);
-    background: var(--primary-color);
+    color: var(--text-color1);
+    background: var(--sidebar-present-page-color);
+    box-shadow: var(--sidebar-present-page-shadow);
 }
 
 /* Lower Part of Sidebar */
 /* Theme Toggle Button */
 .lower-part {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0;
+    width: 100%;
 }
 
-.theme-toggle-container {
+.lower-part li {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 15px 15px 5px 5px;
+    transition: all 0.5s ease;
 }
 
-.theme-toggle-icon {
-    height: 20px;
-    margin-right: 10px;
+.lower-part li:hover {
+    background: none;
 }
 
-.theme-toggle {
+.lower-part img {
+    display: inline;
+    opacity: 0;
+    max-width: 0;
+    transition: opacity 0.3s ease-in-out, max-width 0.3s ease-in-out;
+}
+
+.lower-part div {
     display: flex;
     align-items: center;
-    margin-right: 10px;
 }
 
 .theme-switch {
@@ -167,11 +191,6 @@ nav ul {
     cursor: pointer;
     outline: none;
     transition: background-color 0.3s ease;
-}
-
-.sidebar.collapsed .theme-switch {
-    width: 30px;
-    height: 15px;
 }
 
 .theme-switch:before {
@@ -222,7 +241,7 @@ nav ul {
 
 @media (max-width: 768px) {
     .sidebar.active {
-        width: 180px;
+        width: 200px;
     }
 
     .sidebar.active .profile {

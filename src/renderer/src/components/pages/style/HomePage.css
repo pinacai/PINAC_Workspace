@@ -40,7 +40,7 @@
 
 /* Welcome Text Styles */
 .welcome-text {
-    background: var(--welcome-text-gradient);
+    background: var(--welcomeText-gradient);
     background-clip: text;
     color: transparent;
     box-shadow: none;
@@ -95,18 +95,18 @@
     padding: 10px 15px;
     border-radius: 20px;
     word-wrap: break-word;
-    box-shadow: var(--shadow-color);
 }
 
 .human-msg {
-    background: var(--human-msg-bg);
+    background: var(--humanMsg-bg);
+    box-shadow: var(--humanMsg-bg-shadow);
 }
 
 .ai-msg {
-    background: var(--ai-msg-bg);
-    color: var(--text1-color);
+    background: var(--aiMsg-bg);
+    color: var(--text-color1);
     font-family: 'ai-text', 'Montserrat', sans-serif;
-    box-shadow: var(--ai-msg-bg-shadow);
+    box-shadow: var(--aiMsg-bg-shadow);
 }
 
 /* Lower part of ChatBox */
@@ -127,10 +127,10 @@
     min-height: 60px;
     display: flex;
     align-items: center;
-    background: var(--input-group-bg);
+    background: var(--inputGroup-bg);
     border-radius: 10px;
     padding: 5px;
-    box-shadow: var(--shadow-color);
+    box-shadow: var(--inputGroup-shadow);
 }
 
 #user-input {
@@ -141,12 +141,12 @@
     outline: none;
     padding: 0 20px;
     background-color: transparent;
-    color: var(--text2-color);
+    color: var(--text-color2);
     flex-grow: 1;
 }
 
 #user-input::placeholder {
-    color: var(--text2-color);
+    color: var(--text-color2);
     font: normal medium 'ai-text';
 }
 
@@ -172,7 +172,7 @@
 }
 
 #submit-btn:hover {
-    background-color: var(--send-button-hover-color);
+    background-color: var(--inputGroupBtn-hover-color);
 }
 
 /* Change the color when disabled and */
