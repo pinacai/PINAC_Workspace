@@ -1,9 +1,9 @@
 {
   "name": "pinac_workspace",
-  "version": "1.0.0",
-  "description": "An Electron application with React for frontend and python in backend to manage Google Workspace using AI and automation",
+  "version": "2.0",
+  "description": "An Electron application with React for frontend and python in backend to manage Google Workspace using AI",
   "main": "./out/main/index.js",
-  "author": "pinacai",
+  "author": "RajeshTechForge",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -21,7 +21,9 @@
     "@electron-toolkit/utils": "^3.0.0",
     "electron-ipc": "^0.3.0",
     "electron-updater": "^6.1.8",
+    "react-markdown": "^9.0.1",
     "react-router-dom": "^6.23.0",
+    "remark-gfm": "^4.0.0",
     "socket.io-client": "^4.7.5"
   },
   "devDependencies": {

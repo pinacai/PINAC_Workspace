@@ -108,9 +108,9 @@
 
     /* HomePage */
     --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
-    --humanMsg-bg: #3C3C3C;
+    --humanMsg-bg: #382bf0;
     --humanMsg-bg-shadow: 0 5px 5px rgba(0, 0, 0, 0.6);
-    --aiMsg-bg: #382bf0;
+    --aiMsg-bg: #3C3C3C;
     --aiMsg-bg-shadow: none;
     --inputGroup-bg: #3C3C3C;
     --inputGroupBtn-hover-color: #6e6e6e;

@@ -1,0 +1,20 @@
+/* ------------------------------ */
+/* Customizing the Markdown View  */
+/* ------------------------------ */
+.text ol{
+    padding-left: 40px;
+}
+
+.text ul {
+    padding-left: 30px;
+}
+
+/* Reduce vertical spacing around headings */
+.text h1,
+.text h2,
+.text h3,
+.text h4,
+.text h5,
+.text h6 {
+  font-weight: bold;
+}

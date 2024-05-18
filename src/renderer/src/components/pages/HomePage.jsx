@@ -2,6 +2,7 @@ import './style/HomePage.css'
 import { useState, useEffect } from 'react'
 import { Sidebar } from '../page_components/Sidebar'
 import { Header } from '../page_components/Header'
+import { MarkdownStyle } from '../page_components/MarkdownStyle'
 import { EmailComposeBox } from '../page_components/EmailComposeBox'
 
 // Icons
@@ -85,7 +86,9 @@ export const HomePage = () => {
         </div>
         <div className="msg-content">
           <div className="msg-name">You</div>
-          <div className="msg-text human-msg">{text}</div>
+          <div className="msg-text human-msg">
+            <MarkdownStyle text={text} />
+          </div>
         </div>
       </div>
     </>
@@ -99,7 +102,9 @@ export const HomePage = () => {
         </div>
         <div className="msg-content">
           <div className="msg-name">PINAC</div>
-          <div className="msg-text ai-msg">{response}</div>
+          <div className="msg-text ai-msg">
+            <MarkdownStyle text={response} />
+          </div>
         </div>
       </div>
     </>

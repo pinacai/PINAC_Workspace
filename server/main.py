@@ -206,7 +206,9 @@ def giveResponseArray(query: str):
         )
 
     elif "order is web scraping" in task_category:
-        response = ["web scraping", "Web searching feature is not available yet"]
+        ans = ChatGPT.generalAssistant(query)
+        response = ["web scraping", ans]
+        chatHistory.append(AIMessage(content=ans))
 
     elif "order is general conversation" in task_category:
         ans = ChatGPT.generalAssistant(query)
@@ -214,7 +216,7 @@ def giveResponseArray(query: str):
         chatHistory.append(AIMessage(content=ans))
 
     else:
-        response = ["others", "Sorry something went wrong..."]
+        response = ["others", task_category]
 
     # except:
     #     response = "Sorry something went wrong, please try again"
