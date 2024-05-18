@@ -31,7 +31,8 @@
     height: auto;
     background: var(--secondary-color);
     color: var(--text-color1);
-    border: var(--newChatBtn-border);
+    border: none;
+    box-shadow: var(--newChatBtn-shadow);
     padding: 5px 15px 5px 5px;
     border-radius: 50px;
     cursor: pointer;

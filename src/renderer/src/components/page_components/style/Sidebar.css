@@ -9,7 +9,8 @@
     width: 60px;
     background: var(--sidebar-color);
     border-radius: 0 10px 10px 0;
-    border: var(--sidebar-border);
+    border: none;
+    box-shadow: var(--sidebar-shadow);
     font: normal 17px 'Exo2', sans-serif;
     letter-spacing: 1.5px;
     position: relative;

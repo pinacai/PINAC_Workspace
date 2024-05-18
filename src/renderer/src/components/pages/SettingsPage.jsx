@@ -2,6 +2,7 @@ import './style/SettingsPage.css'
 import { useState, useEffect } from 'react'
 import { Sidebar } from '../page_components/Sidebar'
 import { Header } from '../page_components/Header'
+import { DropdownMenu } from '../page_components/DropdownMenu'
 
 // Icons
 import Cyber_Tech_o1_darkPreview from '../../assets/img/Cyber_Tech_01_darkPreview.png'
@@ -76,6 +77,22 @@ export const SettingsPage = () => {
         <div className="setting-container">
           {/* ------------------- */}
           {/* Section 1 ( Theme ) */}
+          <div className="section">
+            <div className="section-title">
+              <span>AI Model</span>
+            </div>
+            <DropdownMenu
+              optionList={[
+                'ChatGPT-3.5 turbo',
+                'ChatGPT-4',
+                'Gemini Flash 1.5',
+                'Gemini Pro',
+                'Gemini Nano'
+              ]}
+            />
+          </div>
+
+          {/* Section 2 ( Theme ) */}
           <div className="section">
             <div className="section-title">
               <span>Theme</span>
