@@ -1,0 +1,64 @@
+/* ======  Themes   ====== */
+.Dawn_n_Dusk-light {
+  --codeBlocks-bg: #1f2937;
+  --codeBlocks-border: 1px solid #cccccc;
+  --inlineCode-bg: #4d4f53;
+  --inlineCode-shadow: none;
+}
+
+.Dawn_n_Dusk-dark {
+  --codeBlocks-bg: #222222;
+  --codeBlocks-border: none;
+  --inlineCode-bg: #2b2b2b;
+  --inlineCode-shadow: none;
+}
+
+.Cyber_Tech_01-light {
+  --codeBlocks-bg: #1f2937;
+  --codeBlocks-border: 1px solid #cccccc;
+  --inlineCode-bg: #4d4f53;
+  --inlineCode-shadow: none;
+}
+
+.Cyber_Tech_01-dark {
+  --codeBlocks-bg: #282c34;
+  --codeBlocks-border: none;
+  --inlineCode-bg: rgba(37, 37, 37, 0.3);
+  --inlineCode-shadow: 0 0 2px #ece2d5;
+}
+
+/* ------------------------------ */
+/* Customizing the Markdown View  */
+/* ------------------------------ */
+
+/* for List */
+.markdownText ol {
+  margin: 0;
+  padding-left: 40px;
+}
+
+.markdownText ul {
+  margin: 0;
+  padding-left: 30px;
+}
+
+/* for code blocks */
+.markdownText pre code {
+  font-size: 15px;
+  background-color: var(--codeBlocks-bg);
+  border-radius: 10px;
+  border: var(--codeBlocks-border) ;
+}
+
+.markdownText pre code::-webkit-scrollbar {
+  display: none;
+}
+
+/* for inline code */
+.markdownText code {
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 13.5px;
+  background-color: var(--inlineCode-bg);
+  box-shadow: var(--inlineCode-shadow);
+}
