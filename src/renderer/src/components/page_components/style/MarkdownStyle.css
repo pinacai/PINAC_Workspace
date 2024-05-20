@@ -2,7 +2,7 @@
 .Dawn_n_Dusk-light {
   --codeBlocks-bg: #1f2937;
   --codeBlocks-border: 1px solid #cccccc;
-  --inlineCode-bg: #4d4f53;
+  --inlineCode-bg: #333f50;
   --inlineCode-shadow: none;
 }
 
@@ -16,7 +16,7 @@
 .Cyber_Tech_01-light {
   --codeBlocks-bg: #1f2937;
   --codeBlocks-border: 1px solid #cccccc;
-  --inlineCode-bg: #4d4f53;
+  --inlineCode-bg: #333f50;
   --inlineCode-shadow: none;
 }
 
@@ -44,14 +44,11 @@
 
 /* for code blocks */
 .markdownText pre code {
+  white-space: pre-wrap;
   font-size: 15px;
   background-color: var(--codeBlocks-bg);
   border-radius: 10px;
   border: var(--codeBlocks-border) ;
-}
-
-.markdownText pre code::-webkit-scrollbar {
-  display: none;
 }
 
 /* for inline code */

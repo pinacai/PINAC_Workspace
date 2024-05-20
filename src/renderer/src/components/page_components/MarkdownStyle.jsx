@@ -7,13 +7,10 @@ import 'highlight.js/styles/github-dark.css'
 import './style/MarkdownStyle.css'
 
 export const MarkdownStyle = (props) => {
+  // for syntax highlighting
   useEffect(() => {
-    // hljs.configure({ classPrefix: 'dark-hljs-' })
     hljs.highlightAll()
   }, [])
-
-  // Remove unwanted newlines from the Markdown content
-  // const formattedText = props.text.replace(/\n\s*\n/g, '\n')
 
   return (
     <p className="markdownText">
