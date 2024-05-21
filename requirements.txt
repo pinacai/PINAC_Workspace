@@ -66,7 +66,7 @@ python-engineio==4.9.0
 python-socketio==5.11.2
 PyYAML==6.0.1
 regex==2024.5.15
-requests==2.31.0
+requests==2.32.0
 requests-oauthlib==2.0.0
 rsa==4.9
 simple-websocket==1.0.0
