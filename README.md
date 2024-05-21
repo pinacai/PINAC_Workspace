@@ -18,20 +18,19 @@ In today's world, **AI has become ubiquitous and indispensable**. However, manag
 **Imagine a world where everything you need is in one chat**. We have created the **Next Gen AI Chat**, allowing you to ditch the app switching! With this innovative feature, you can effortlessly manage your Google Workspace tasks, perform AI powered web searches, engage in friendly conversations with AI, tackle coding problems, and access a wide range of office tools – all within a single, convenient application.
 
 ### Key Objectives
-- **Effortless Gmail Management**: Create official or personalized email templates using AI, modify or improve them within the chat, and then create drafts or send emails directly from the chat. Additionally, receive notifications for priority emails.
-- **Schedule Master:** You can add events or task in google from the chat and can view your schedule in a calendar, also it can remind you your task on time!
-- **Contact Search:** Search for Google contacts and create new contacts effortlessly.
-- **Google Drive Integration:** Search for files in Google Drive, upload or download documents, and leverage AI capabilities to summarize, take notes, or generate question-answer pairs based on your files – all within PINAC Workspace.
+- **Effortless Gmail Management**: Create official or personalized email templates using AI, modify or improve them within the chat, and then create drafts or send emails directly from the chat. Additionally, search any email and receive notifications for priority emails.
+- **Schedule Master:** Optimize your schedule effortlessly with AI assistance! Simply communicate your needs, and the AI will craft personalized timetables, vacation plans, or task lists that seamlessly integrate with your existing commitments. Easily add events or tasks to Google Calendar via voice commands directly from the chat.
+- **Google Drive Integration:** You can summarize, modify, take notes, or ask questions from Google Drive files, even without downloading them! Additionally search for files, download or upload documents.
+- **Contact Search:** Effortlessly manage your Google contacts with ease. Instantly search for existing contacts or seamlessly create new ones, all simply by asking!
 - **Google Form Designer:** Create professional-looking Google Forms by simply describing your needs to the AI, which will generate the form for you.
-- **AI Web Searching:** Browse the internet, conduct product research, and perform web searches with the assistance of AI, simplifying the process.
-- **Automate Office Works:** Generate letters, writings, product descriptions, and more using the AI capabilities within PINAC Workspace.
+- **AI Web Searching:** Elevate your online research with AI-powered precision! Dive into internet searches or product research with AI as your guide, streamlining every step. Experience tailored search results, meticulously filtered by content relevance rather than mere titles, ensuring that you find exactly what you’re looking for with ease
+- **Automate Office Works:** Unleash the power of AI with PINAC Workspace to craft compelling content! Effortlessly generate professional letters, engaging articles, detailed product descriptions, and more.
 - **Friendly Conversation:**  Whether you need advice or want to engage in casual conversation during breaks, the AI is here to assist you.
 
 With its comprehensive feature set and AI-driven capabilities, PINAC Workspace aims to streamline your workflow, boost productivity, and provide a seamless experience for managing your Google Workspace tasks and beyond.
 
 
 ## 💠 Current Progress
-
 - Craft and send emails seamlessly with the assistance of AI. Modify or enhance your drafts within the chat, and send them directly from the chat interface.
 - View your upcoming events and due tasks from Google Calendar by simply asking the AI in the chat. We are currently working on implementing the calendar view feature.
 - search for contacts from your Google Contacts directory and retrieve it immediately,
@@ -39,7 +38,7 @@ With its comprehensive feature set and AI-driven capabilities, PINAC Workspace a
 -  You can engage in conversations with an AI to tap into LLM's extensive knowledge and receive assistance on a wide range of topics.  
 
 
-## 📸 Screenshot
+## 🎨 UI Design
 <img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/app_theme.png" alt="app screenshot">
 
 ## 📁 File Structure
