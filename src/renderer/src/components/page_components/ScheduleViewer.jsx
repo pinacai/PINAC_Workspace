@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import moment from 'moment'
-import './style/CalendarView.css'
+import PropTypes from 'prop-types'
+import './style/ScheduleViewer.css'
 
 // Icons
 import leftArrow from '../../assets/icon/chevron_left.svg'
 import rightArrow from '../../assets/icon/chevron_right.svg'
+import pinacLogo from '../../assets/icon/pinac-logo.png'
 
-export const CalendarView = () => {
+export const ScheduleViewer = (props) => {
   const [currentDate, setCurrentDate] = useState(moment())
   const [currentView, setCurrentView] = useState('month')
 
@@ -131,32 +133,61 @@ export const CalendarView = () => {
   }
 
   return (
-    <div className="calendar">
-      <div className="calendar-header">
-        <button onClick={handlePreviousMonth}>
-          <img src={leftArrow} alt="Previous" className="changeable-icon" />
-        </button>
-        <h2>{currentDate.format('MMMM YYYY')}</h2>
-        <button onClick={handleNextMonth}>
-          <img src={rightArrow} alt="Next" className="changeable-icon" />
-        </button>
+    <div className="msg-row" key={`ai-${props.index}`}>
+      <div className="msg-avatar">
+        <img src={pinacLogo} alt="AI Avatar" />
       </div>
-      <div className="calendar-view-buttons">
-        <button onClick={() => handleViewChange('month')}>Month</button>
-        <button onClick={() => handleViewChange('week')}>Week</button>
-        <button onClick={() => handleViewChange('day-grid')}>Day Grid</button>
-      </div>
-      <div className="calendar-body">
-        {currentView === 'month' && renderMonthView()}
-        {currentView === 'week' && (
-          <>
-            <button onClick={handlePreviousWeek}>Previous</button>
-            {renderWeekView()}
-            <button onClick={handleNextWeek}>Next</button>
-          </>
-        )}
-        {currentView === 'day-grid' && renderDayGridView()}
+      <div className="msg-content">
+        <div className="msg-name">PINAC</div>
+        <div className="schedule-content">
+          {/* Calendar */}
+          <div className="calendar-container">
+            <div className="calendar-view-buttons">
+              <button onClick={() => handleViewChange('month')}>Month</button>
+              <button onClick={() => handleViewChange('week')}>Week</button>
+              <button onClick={() => handleViewChange('day-grid')}>Day Grid</button>
+            </div>
+            <div className="calendar">
+              <div className="calendar-header">
+                <div className="header-left">
+                  <span>{currentDate.format('MMMM YYYY')}</span>
+                </div>
+
+                <div className="header-right">
+                  <button onClick={handlePreviousMonth}>
+                    <img src={leftArrow} alt="Previous" className="non-changeable-icon" />
+                  </button>
+                  <button onClick={handleNextMonth}>
+                    <img src={rightArrow} alt="Next" className="non-changeable-icon" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="border-line"></div>
+
+              <div className="calendar-body">
+                {currentView === 'month' && renderMonthView()}
+                {currentView === 'week' && (
+                  <>
+                    <button onClick={handlePreviousWeek}>Previous</button>
+                    {renderWeekView()}
+                    <button onClick={handleNextWeek}>Next</button>
+                  </>
+                )}
+                {currentView === 'day-grid' && renderDayGridView()}
+              </div>
+            </div>
+          </div>
+
+          {/* Schedule Description */}
+          <div className="schedule-desc msg-text ai-msg">{props.response}</div>
+        </div>
       </div>
     </div>
   )
+}
+
+ScheduleViewer.propTypes = {
+  index: PropTypes.string.isRequired,
+  response: PropTypes.string.isRequired
 }

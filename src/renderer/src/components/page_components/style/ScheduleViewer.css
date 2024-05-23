@@ -1,0 +1,194 @@
+.schedule-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.schedule-content .calendar-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ================================================ */
+/*         Schedule Viewer Description Part         */
+/* =================================================*/
+
+.schedule-desc {
+    margin-left: 10px;
+    margin-top: calc(15px + 10px + 7px + 2px);
+    border-radius: 10px;
+}
+
+/* ============================================ */
+/*         Calendar of Schedule Viewer          */
+/* =============================================*/
+
+.calendar {
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    color: var(--text-color1);
+    background: var(--calendarView-bg);
+    box-shadow: var(--calendarView-shadow);
+}
+
+/* Calendar Header */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 5px;
+}
+
+.calendar-header .header-left span {
+    font: normal x-large 'Exo2', sans-serif;
+}
+
+.calendar-header .header-right {
+    display: flex;
+}
+
+.calendar-header .header-right button {
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background: transparent;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-header .header-right button img {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+}
+
+.calendar-header .header-right button:hover {
+    background: skyblue;
+}
+
+/* Upper Part Border Line */
+.calendar .border-line {
+    margin: 5px 5px;
+    border-bottom: 1.2px rgb(189, 189, 189) solid;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* --------------------------- */
+/*    Calendar View Buttons    */
+/* ----------------------------*/
+.calendar-view-buttons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 7px;
+}
+
+.calendar-view-buttons button {
+    border: none;
+    border-radius: 7px;
+    color: var(--text-color1);
+    font: normal 15px 'Exo2', sans-serif;
+    background: var(--calendarView-bg);
+    box-shadow: var(--calendarView-shadow);
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 5px 10px;
+}
+
+/* ----------------------- */
+/*        Month View       */
+/* ---------- -------------*/
+.calendar-month {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-gap: 5px;
+}
+
+.month-day-names {
+    display: grid;
+    text-align: center;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.month-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 5px;
+}
+
+.month-day {
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.month-day.empty {
+    background-color: transparent;
+}
+
+/* ----------------------- */
+/*        Week View        */
+/* ---------- -------------*/
+.calendar-week {
+    margin-bottom: 10px;
+}
+
+.week-day {
+    background-color: #f00e0e;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.week-day.empty {
+    background-color: transparent;
+}
+
+
+/* ----------------------- */
+/*      Day Grid View      */
+/* ---------- -------------*/
+.calendar-week {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.dayGrid-day {
+    background-color: #f00e0e;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.dayGrid-day.empty {
+    background-color: transparent;
+}
+
+
+/* Responsive Styles */
+@media (min-width: 1200px) {
+    .schedule-desc {
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .schedule-content {
+        justify-content: left;
+        flex-direction: column;
+    }
+
+    .schedule-desc {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}

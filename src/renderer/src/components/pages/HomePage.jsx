@@ -4,7 +4,7 @@ import { Sidebar } from '../page_components/Sidebar'
 import { Header } from '../page_components/Header'
 import { MarkdownStyle } from '../page_components/MarkdownStyle'
 import { EmailComposeBox } from '../page_components/EmailComposeBox'
-// import { CalendarView } from '../page_components/CalendarView'
+// import { ScheduleViewer } from '../page_components/ScheduleViewer'
 
 // Icons
 import sendIcon from '../../assets/icon/send.svg'
@@ -149,7 +149,7 @@ export const HomePage = () => {
         <Header title="PINAC" />
         <div className="chat-container">
           <div className="msg-box">
-            {/* <CalendarView /> */}
+            {/* <ScheduleViewer index="1" response="Sample Schedule text" /> */}
             {welcomeBox}
             {messages}
           </div>

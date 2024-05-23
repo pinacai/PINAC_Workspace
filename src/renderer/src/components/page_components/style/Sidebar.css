@@ -108,7 +108,7 @@
     cursor: pointer;
 }
 
-.border-line {
+.upper-part .border-line {
     border-bottom: 1px black solid;
     margin: 0 15px 0 15px;
 }

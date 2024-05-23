@@ -48,10 +48,10 @@
     --composeBoxBtn-color: #175ab8;
     --composeBoxBtn-hover-color: #6081af;
 
-    /* CalendarView */
+    /* ScheduleViewer */
     --calendarView-bg: #1F2937;
-    --calendarView-border: none;
     --calendarView-shadow: none;
+    --dimmed-text-color: ;
 
     /* DropdownMenu */
     --dropdownMenu-bg-color: #E0E4E8;
@@ -107,10 +107,10 @@
     --composeBoxBtn-color: #382bf0;
     --composeBoxBtn-hover-color: #594efc;
 
-    /* CalendarView */
+    /* ScheduleViewer */
     --calendarView-bg: #3C3C3C;
-    --calendarView-border: none;
     --calendarView-shadow: none;
+    --dimmed-text-color: ;
 
     /* DropdownMenu */
     --dropdownMenu-bg-color: #3C3C3C;
@@ -167,10 +167,10 @@
     --composeBoxBtn-color: #175ab8;
     --composeBoxBtn-hover-color: #6081af;
 
-    /* CalendarView */
-    --calendarView-bg: #FFFFFF;
-    --calendarView-border: #1F2937;
+    /* ScheduleViewer */
+    --calendarView-bg: #1F2937;
     --calendarView-shadow: none;
+    --dimmed-text-color: ;
 
     /* DropdownMenu */
     --dropdownMenu-bg-color: #E0E4E8;
@@ -226,10 +226,10 @@
     --composeBoxBtn-color: linear-gradient(125deg, #0026ff, #5b00af);
     --composeBoxBtn-hover-color: linear-gradient(125deg, #2747fd, #621ba5);
 
-    /* CalendarView */
+    /* ScheduleViewer */
     --calendarView-bg: rgba(37, 37, 37, 0.15);
-    --calendarView-border: none;
     --calendarView-shadow: 0 0 2px #ece2d5;
+    --dimmed-text-color: ;
 
     /* DropdownMenu */
     --dropdownMenu-bg-color: rgba(37, 37, 37, 0.15);
