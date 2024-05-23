@@ -1,0 +1,124 @@
+.calendar {
+    max-width: calc(100% - 50px);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Calendar Header */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-header button {
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-header button img {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+}
+
+.calendar-header button:hover {
+    background: skyblue;
+}
+
+/* Calendar View (Month, Week, Day Grid) Buttons */
+.calendar-view-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.calendar-view-buttons button {
+    border: none;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    padding: 8px 16px;
+    margin: 0 5px;
+}
+
+/* ----------------------- */
+/*        Month View       */
+/* ---------- -------------*/
+.calendar-month {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-gap: 5px;
+}
+
+.month-day-names {
+    display: grid;
+    text-align: center;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.month-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 5px;
+}
+
+.month-day {
+    background-color: #f00e0e;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.month-day.empty {
+    background-color: transparent;
+}
+
+/* ----------------------- */
+/*        Week View        */
+/* ---------- -------------*/
+.calendar-week {
+    margin-bottom: 10px;
+}
+
+.week-day {
+    background-color: #f00e0e;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.week-day.empty {
+    background-color: transparent;
+}
+
+
+/* ----------------------- */
+/*      Day Grid View      */
+/* ---------- -------------*/
+.calendar-week {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.dayGrid-day {
+    background-color: #f00e0e;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.dayGrid-day.empty {
+    background-color: transparent;
+}
