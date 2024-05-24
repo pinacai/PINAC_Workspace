@@ -72,12 +72,11 @@
     background: skyblue;
 }
 
-/* Upper Part Border Line */
+/* Calendar Upper Part Border Line */
 .calendar .border-line {
     margin: 5px 5px;
-    border-bottom: 1.2px rgb(189, 189, 189) solid;
+    border-bottom: 1px solid rgb(160, 160, 160);
     margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 /* --------------------------- */
@@ -92,14 +91,30 @@
 
 .calendar-view-buttons button {
     border: none;
-    border-radius: 7px;
     color: var(--text-color1);
     font: normal 15px 'Exo2', sans-serif;
     background: var(--calendarView-bg);
     box-shadow: var(--calendarView-shadow);
     cursor: pointer;
-    margin-right: 10px;
     padding: 5px 10px;
+}
+
+.month-view {
+    border-radius: 10px 0 0 10px;
+    background: var(--calendarView-bg);
+}
+
+.month-view.active {
+    background: black;
+}
+
+.week-view {
+    border-radius: 0 10px 10px 0;
+    background: var(--calendarView-bg);
+}
+
+.week-view.active {
+    background: black;
 }
 
 /* ----------------------- */
@@ -109,12 +124,22 @@
     display: grid;
     grid-template-rows: auto 1fr;
     grid-gap: 5px;
+    margin-top: 20px;
+}
+
+
+/* for highlighting current day name */
+.month-day-name.current {
+    border: 0 solid red;
+    border-width: 0 0 2px 0;
+    margin: 0 5px 0 5px;
 }
 
 .month-day-names {
     display: grid;
     text-align: center;
     grid-template-columns: repeat(7, 1fr);
+    color: var(--dimmed-text-color);
 }
 
 .month-days {
@@ -130,6 +155,23 @@
     text-align: center;
 }
 
+/* for highlighting current date */
+.month-day.current {
+    background-color: blueviolet;
+    border-radius: 50%;
+}
+
+/* for highlighting event and task */
+.month-day.has-event {
+    background-color: green;
+    border-radius: 50%;
+}
+
+.month-day.has-task {
+    background-color: red;
+    border-radius: 50%;
+}
+
 .month-day.empty {
     background-color: transparent;
 }
@@ -138,14 +180,53 @@
 /*        Week View        */
 /* ---------- -------------*/
 .calendar-week {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+/* Week View header btn */
+.calendar-body .week-header-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.calendar-body .week-header-btn button {
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.calendar-body .week-header-btn button img {
+    width: 20px;
+    background: transparent;
+}
+
+/* Rest Part of Week View */
+.calendar-week {
     margin-bottom: 10px;
 }
 
 .week-day {
-    background-color: #f00e0e;
+    width: 50px;
     padding: 10px;
+    margin-right: 10px;
     border-radius: 4px;
     text-align: center;
+    background: var(--calendarView-bg);
+    box-shadow: var(--calendarView-shadow);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.week-day.current {
+    background: black;
 }
 
 .week-day.empty {
@@ -153,41 +234,32 @@
 }
 
 
-/* ----------------------- */
-/*      Day Grid View      */
-/* ---------- -------------*/
-.calendar-week {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.dayGrid-day {
-    background-color: #f00e0e;
-    padding: 10px;
-    border-radius: 4px;
-    text-align: center;
-}
-
-.dayGrid-day.empty {
-    background-color: transparent;
-}
-
-
 /* Responsive Styles */
 @media (min-width: 1200px) {
-    .schedule-desc {
+    .schedule-content .schedule-desc {
         margin-left: 20px;
     }
 }
 
-@media (max-width: 768px) {
-    .schedule-content {
+@media (max-width: 992px) {
+    .schedule-content.type2 {
         justify-content: left;
         flex-direction: column;
     }
 
-    .schedule-desc {
+    .schedule-content.type2 .schedule-desc {
+        margin-left: 0;
+        margin-top: 10px;
+    } 
+}
+
+@media (max-width: 768px) {
+    .schedule-content.type1 {
+        justify-content: left;
+        flex-direction: column;
+    }
+
+    .schedule-content.type1 .schedule-desc {
         margin-left: 0;
         margin-top: 10px;
     }

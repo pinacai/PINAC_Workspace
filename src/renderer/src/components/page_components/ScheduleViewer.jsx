@@ -47,8 +47,13 @@ export const ScheduleViewer = (props) => {
     const dayNames = []
     const weekdays = moment.weekdaysShort()
     weekdays.forEach((name, index) => {
+      const isCurrentDayName = index === moment().day()
+
       dayNames.push(
-        <div key={`day-name-${index}`} className="month-day-name">
+        <div
+          key={`day-name-${index}`}
+          className={`month-day-name ${isCurrentDayName ? 'current' : ''}`}
+        >
           {name}
         </div>
       )
@@ -61,10 +66,24 @@ export const ScheduleViewer = (props) => {
 
     // Add days for the current month
     for (let i = 1; i <= daysInMonth; i++) {
-      // const date = startOfMonth.clone().date(i)
+      const date = startOfMonth.clone().date(i)
+      const isCurrentDate = date.isSame(moment(), 'day')
+      const eventsForDay = props.events.filter(
+        (event) =>
+          moment(event.start).isSame(date, 'day') ||
+          (moment(event.start).isBefore(date) && moment(event.end).isAfter(date))
+      )
+      const hasEvents = eventsForDay.some((event) => event.type === 'event')
+      const hasTasks = eventsForDay.some((event) => event.type === 'task')
+
       days.push(
-        <div key={`day-${i}`} className="month-day">
-          {i}
+        <div
+          key={`day-${i}`}
+          className={`month-day ${isCurrentDate ? 'current' : ''} ${
+            hasEvents ? 'has-event' : ''
+          } ${hasTasks ? 'has-task' : ''}`}
+        >
+          <div className="month-day-number">{i}</div>
         </div>
       )
     }
@@ -83,8 +102,10 @@ export const ScheduleViewer = (props) => {
 
     for (let i = 0; i < 7; i++) {
       const date = startOfWeek.clone().add(i, 'days')
+      const isCurrentDate = date.isSame(moment(), 'day')
+
       days.push(
-        <div key={`day-${i}`} className="week-day">
+        <div key={`day-${i}`} className={`week-day ${isCurrentDate ? 'current' : ''}`}>
           {date.format('ddd')}
           <br />
           {date.format('DD')}
@@ -95,43 +116,6 @@ export const ScheduleViewer = (props) => {
     return <div className="calendar-week">{days}</div>
   }
 
-  const renderDayGridView = () => {
-    const startOfMonth = currentDate.clone().startOf('month')
-    const endOfMonth = currentDate.clone().endOf('month')
-    const weeks = []
-    let currentWeek = []
-    let currentDay = startOfMonth.clone()
-
-    while (currentDay <= endOfMonth) {
-      currentWeek.push(
-        <div key={`day-${currentDay.format('YYYY-MM-DD')}`} className="dayGrid-day">
-          {currentDay.format('DD')}
-        </div>
-      )
-
-      if (currentWeek.length === 7) {
-        weeks.push(
-          <div key={`week-${currentDay.format('YYYY-MM')}`} className="dayGrid-week">
-            {currentWeek}
-          </div>
-        )
-        currentWeek = []
-      }
-
-      currentDay.add(1, 'day')
-    }
-
-    if (currentWeek.length > 0) {
-      weeks.push(
-        <div key={`week-${currentDay.format('YYYY-MM')}`} className="dayGrid-week">
-          {currentWeek}
-        </div>
-      )
-    }
-
-    return <div className="calendar-day-grid">{weeks}</div>
-  }
-
   return (
     <div className="msg-row" key={`ai-${props.index}`}>
       <div className="msg-avatar">
@@ -139,13 +123,23 @@ export const ScheduleViewer = (props) => {
       </div>
       <div className="msg-content">
         <div className="msg-name">PINAC</div>
-        <div className="schedule-content">
+        <div className={`schedule-content ${currentView === 'month' ? 'type1' : 'type2'}`}>
           {/* Calendar */}
           <div className="calendar-container">
+            {/* Calendar View Buttons */}
             <div className="calendar-view-buttons">
-              <button onClick={() => handleViewChange('month')}>Month</button>
-              <button onClick={() => handleViewChange('week')}>Week</button>
-              <button onClick={() => handleViewChange('day-grid')}>Day Grid</button>
+              <button
+                className={`month-view ${currentView == 'month' ? 'active' : ''}`}
+                onClick={() => handleViewChange('month')}
+              >
+                Month
+              </button>
+              <button
+                className={`week-view ${currentView == 'week' ? 'active' : ''}`}
+                onClick={() => handleViewChange('week')}
+              >
+                Week
+              </button>
             </div>
             <div className="calendar">
               <div className="calendar-header">
@@ -166,15 +160,23 @@ export const ScheduleViewer = (props) => {
               <div className="border-line"></div>
 
               <div className="calendar-body">
-                {currentView === 'month' && renderMonthView()}
+                {currentView === 'month' && renderMonthView(props.events)}
                 {currentView === 'week' && (
                   <>
-                    <button onClick={handlePreviousWeek}>Previous</button>
+                    <div className="week-header-btn">
+                      <button onClick={handlePreviousWeek}>
+                        {' '}
+                        <img src={leftArrow} alt="Previous" className="non-changeable-icon" />
+                      </button>
+                      <button onClick={handleNextWeek}>
+                        {' '}
+                        <img src={rightArrow} alt="Next" className="non-changeable-icon" />
+                      </button>
+                    </div>
                     {renderWeekView()}
-                    <button onClick={handleNextWeek}>Next</button>
+                    {'\nWe will add this view very soon...'}
                   </>
                 )}
-                {currentView === 'day-grid' && renderDayGridView()}
               </div>
             </div>
           </div>
@@ -189,5 +191,17 @@ export const ScheduleViewer = (props) => {
 
 ScheduleViewer.propTypes = {
   index: PropTypes.string.isRequired,
-  response: PropTypes.string.isRequired
+  response: PropTypes.string.isRequired,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      start: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
+      end: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
+    })
+  )
+}
+
+ScheduleViewer.defaultProps = {
+  events: []
 }

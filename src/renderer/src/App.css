@@ -51,7 +51,7 @@
     /* ScheduleViewer */
     --calendarView-bg: #1F2937;
     --calendarView-shadow: none;
-    --dimmed-text-color: ;
+    --dimmed-text-color: #c0c0c0;
 
     /* DropdownMenu */
     --dropdownMenu-bg-color: #E0E4E8;
@@ -170,7 +170,7 @@
     /* ScheduleViewer */
     --calendarView-bg: #1F2937;
     --calendarView-shadow: none;
-    --dimmed-text-color: ;
+    --dimmed-text-color: #c0c0c0;
 
     /* DropdownMenu */
     --dropdownMenu-bg-color: #E0E4E8;
@@ -229,7 +229,7 @@
     /* ScheduleViewer */
     --calendarView-bg: rgba(37, 37, 37, 0.15);
     --calendarView-shadow: 0 0 2px #ece2d5;
-    --dimmed-text-color: ;
+    --dimmed-text-color: #8f8f8f;
 
     /* DropdownMenu */
     --dropdownMenu-bg-color: rgba(37, 37, 37, 0.15);

@@ -6,5 +6,6 @@ out
 venv
 .env
 .vscode
+testing.jsx
 __pycache__
 configs/

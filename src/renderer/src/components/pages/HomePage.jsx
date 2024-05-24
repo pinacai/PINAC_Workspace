@@ -12,6 +12,38 @@ import userIcon from '../../assets/icon/user_icon.png'
 import pinacLogo from '../../assets/icon/pinac-logo.png'
 
 export const HomePage = () => {
+  // // Example event data
+  // const events = [
+  //   {
+  //     id: 1,
+  //     title: 'Birthday Party',
+  //     start: '2024-05-15',
+  //     end: '2024-05-15',
+  //     type: 'event'
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'Team Meeting',
+  //     start: '2024-05-20',
+  //     end: '2024-05-20',
+  //     type: 'event'
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'Finish Report',
+  //     start: '2024-06-25',
+  //     end: '2024-06-25',
+  //     type: 'task'
+  //   },
+  //   {
+  //     id: 4,
+  //     title: 'Vacation',
+  //     start: '2024-06-25',
+  //     end: '2024-06-30',
+  //     type: 'event'
+  //   }
+  // ]
+
   //
   // State for welcome message
   const [welcomeBox, setWelcomeBox] = useState(
@@ -149,7 +181,7 @@ export const HomePage = () => {
         <Header title="PINAC" />
         <div className="chat-container">
           <div className="msg-box">
-            {/* <ScheduleViewer index="1" response="Sample Schedule text" /> */}
+            {/* <ScheduleViewer index="1" response="Sample Schedule text" events={events} /> */}
             {welcomeBox}
             {messages}
           </div>
