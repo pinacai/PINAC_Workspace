@@ -9,33 +9,62 @@ import rightArrow from '../../assets/icon/chevron_right.svg'
 import pinacLogo from '../../assets/icon/pinac-logo.png'
 
 export const ScheduleViewer = (props) => {
+  // Initialize state variables
   const [currentDate, setCurrentDate] = useState(moment())
   const [currentView, setCurrentView] = useState('month')
+  const [isScheduleDesc, setScheduleDesc] = useState(null)
+  const [isAvatarVisible, setIsAvatarVisible] = useState(window.innerWidth > 576)
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 786)
 
   useEffect(() => {
     // Perform any necessary side effects when the current date or view changes
   }, [currentDate, currentView])
 
+  // Handle window resize and update avatar visibility
+  useEffect(() => {
+    const handleResize = () => {
+      setIsAvatarVisible(window.innerWidth > 576)
+      setIsSmallScreen(window.innerWidth <= 768)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // Set the schedule description based on the current view
+  useEffect(() => {
+    currentView === 'month'
+      ? setScheduleDesc(<div className="schedule-desc msg-text ai-msg">{props.response}</div>)
+      : setScheduleDesc(null)
+  })
+
+  // Handle previous month navigation
   const handlePreviousMonth = () => {
     setCurrentDate(currentDate.clone().subtract(1, 'month'))
   }
 
+  // Handle next month navigation
   const handleNextMonth = () => {
     setCurrentDate(currentDate.clone().add(1, 'month'))
   }
 
+  // Handle previous week navigation
   const handlePreviousWeek = () => {
     setCurrentDate(currentDate.clone().subtract(1, 'week'))
   }
 
+  // Handle next week navigation
   const handleNextWeek = () => {
     setCurrentDate(currentDate.clone().add(1, 'week'))
   }
 
+  // Handle view change
   const handleViewChange = (view) => {
     setCurrentView(view)
   }
 
+  //
+  //
+  // Render the month view
   const renderMonthView = () => {
     const startOfMonth = currentDate.clone().startOf('month')
     const endOfMonth = currentDate.clone().endOf('month')
@@ -48,13 +77,14 @@ export const ScheduleViewer = (props) => {
     const weekdays = moment.weekdaysShort()
     weekdays.forEach((name, index) => {
       const isCurrentDayName = index === moment().day()
+      const dayNameText = isSmallScreen ? name.charAt(0) : name
 
       dayNames.push(
         <div
           key={`day-name-${index}`}
           className={`month-day-name ${isCurrentDayName ? 'current' : ''}`}
         >
-          {name}
+          {dayNameText}
         </div>
       )
     })
@@ -96,6 +126,9 @@ export const ScheduleViewer = (props) => {
     )
   }
 
+  //
+  //
+  // Render the Week view
   const renderWeekView = () => {
     const startOfWeek = currentDate.clone().startOf('week')
     const days = []
@@ -106,9 +139,8 @@ export const ScheduleViewer = (props) => {
 
       days.push(
         <div key={`day-${i}`} className={`week-day ${isCurrentDate ? 'current' : ''}`}>
-          {date.format('ddd')}
-          <br />
-          {date.format('DD')}
+          <div id="upper">{isSmallScreen ? date.format('dd') : date.format('ddd')}</div>
+          <div id="lower">{date.format('DD')}</div>
         </div>
       )
     }
@@ -117,10 +149,12 @@ export const ScheduleViewer = (props) => {
   }
 
   return (
-    <div className="msg-row" key={`ai-${props.index}`}>
-      <div className="msg-avatar">
-        <img src={pinacLogo} alt="AI Avatar" />
-      </div>
+    <div className="msg-row">
+      {isAvatarVisible && (
+        <div className="msg-avatar">
+          <img src={pinacLogo} alt="AI Avatar" />
+        </div>
+      )}
       <div className="msg-content">
         <div className="msg-name">PINAC</div>
         <div className={`schedule-content ${currentView === 'month' ? 'type1' : 'type2'}`}>
@@ -182,7 +216,7 @@ export const ScheduleViewer = (props) => {
           </div>
 
           {/* Schedule Description */}
-          <div className="schedule-desc msg-text ai-msg">{props.response}</div>
+          {isScheduleDesc}
         </div>
       </div>
     </div>
@@ -190,7 +224,6 @@ export const ScheduleViewer = (props) => {
 }
 
 ScheduleViewer.propTypes = {
-  index: PropTypes.string.isRequired,
   response: PropTypes.string.isRequired,
   events: PropTypes.arrayOf(
     PropTypes.shape({

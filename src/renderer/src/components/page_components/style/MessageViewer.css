@@ -1,0 +1,60 @@
+/* Message Styles (Conversations) */
+.msg-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.msg-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.msg-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.msg-content {
+    max-width: calc(100% - 50px);
+    white-space: pre-line;
+}
+
+.msg-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: 'ai-text', 'Montserrat', sans-serif;
+}
+
+.msg-text {
+    padding: 10px 10px;
+    border-radius: 20px;
+    word-wrap: break-word;
+}
+
+.human-msg {
+    background: var(--humanMsg-bg);
+    box-shadow: var(--humanMsg-bg-shadow);
+}
+
+.ai-msg {
+    background: var(--aiMsg-bg);
+    color: var(--text-color1);
+    font-family: 'ai-text', 'Montserrat', sans-serif;
+    box-shadow: var(--aiMsg-bg-shadow);
+}
+
+
+@media (max-width: 576px) {
+    .msg-content {
+        max-width: 100%;
+    }
+}

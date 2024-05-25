@@ -10,7 +10,7 @@
 }
 
 /* ================================================ */
-/*         Schedule Viewer Description Part         */
+/*      Description Part of Schedule Viewer         */
 /* =================================================*/
 
 .schedule-desc {
@@ -28,8 +28,8 @@
     padding: 20px;
     border-radius: 10px;
     color: var(--text-color1);
-    background: var(--calendarView-bg);
-    box-shadow: var(--calendarView-shadow);
+    background: var(--scheduleViewer-bg);
+    box-shadow: var(--scheduleViewer-shadow);
 }
 
 /* Calendar Header */
@@ -69,7 +69,7 @@
 }
 
 .calendar-header .header-right button:hover {
-    background: skyblue;
+    background: var(--scheduleViewer-hover-color);
 }
 
 /* Calendar Upper Part Border Line */
@@ -93,15 +93,15 @@
     border: none;
     color: var(--text-color1);
     font: normal 15px 'Exo2', sans-serif;
-    background: var(--calendarView-bg);
-    box-shadow: var(--calendarView-shadow);
+    background: var(--scheduleViewer-bg);
+    box-shadow: var(--scheduleViewer-shadow);
     cursor: pointer;
     padding: 5px 10px;
 }
 
 .month-view {
     border-radius: 10px 0 0 10px;
-    background: var(--calendarView-bg);
+    background: var(--scheduleViewer-bg);
 }
 
 .month-view.active {
@@ -110,7 +110,7 @@
 
 .week-view {
     border-radius: 0 10px 10px 0;
-    background: var(--calendarView-bg);
+    background: var(--scheduleViewer-bg);
 }
 
 .week-view.active {
@@ -125,6 +125,7 @@
     grid-template-rows: auto 1fr;
     grid-gap: 5px;
     margin-top: 20px;
+    font-size: medium;
 }
 
 
@@ -139,7 +140,7 @@
     display: grid;
     text-align: center;
     grid-template-columns: repeat(7, 1fr);
-    color: var(--dimmed-text-color);
+    color: var(--scheduleViewer-dimmed-text-color);
 }
 
 .month-days {
@@ -196,7 +197,8 @@
 .calendar-body .week-header-btn button {
     background: transparent;
     border: none;
-    border-radius: 50%;
+    border-radius: 5px;
+    padding: 0 5px 0 5px;
     margin-right: 10px;
     margin-bottom: 10px;
 }
@@ -204,6 +206,10 @@
 .calendar-body .week-header-btn button img {
     width: 20px;
     background: transparent;
+}
+
+.calendar-body .week-header-btn button:hover {
+    background: var(--scheduleViewer-hover-color);
 }
 
 /* Rest Part of Week View */
@@ -217,12 +223,17 @@
     margin-right: 10px;
     border-radius: 4px;
     text-align: center;
-    background: var(--calendarView-bg);
-    box-shadow: var(--calendarView-shadow);
+    background: var(--scheduleViewer-bg);
+    box-shadow: var(--scheduleViewer-shadow);
 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.week-day #lower {
+    margin-top: 5px;
 }
 
 .week-day.current {
@@ -250,10 +261,45 @@
     .schedule-content.type2 .schedule-desc {
         margin-left: 0;
         margin-top: 10px;
-    } 
+    }
 }
 
 @media (max-width: 768px) {
+    /* Making the Calendar smaller */
+    .calendar-header .header-left span {
+        font-size: 20px;
+    }
+
+    .calendar-header .header-right button {
+        width: 20;
+        height: 30px;
+    }
+
+    .calendar-header .header-right button img {
+        width: 20;
+        height: 20px;
+    }
+
+    .calendar .border-line {
+        margin-top: 10px;
+    }
+
+    .calendar {
+        padding: 5px 15px 10px 15px;
+    }
+
+    .month-day {
+        padding: 5px;
+    }
+
+    /* Making the Week View compatible */
+    /* with screen size */
+    .week-day {
+        margin-right: 5px;
+    }
+}
+
+@media (max-width: 480px) {
     .schedule-content.type1 {
         justify-content: left;
         flex-direction: column;
@@ -262,5 +308,4 @@
     .schedule-content.type1 .schedule-desc {
         margin-left: 0;
         margin-top: 10px;
-    }
-}
+    }}

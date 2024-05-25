@@ -2,48 +2,12 @@ import './style/HomePage.css'
 import { useState, useEffect } from 'react'
 import { Sidebar } from '../page_components/Sidebar'
 import { Header } from '../page_components/Header'
-import { MarkdownStyle } from '../page_components/MarkdownStyle'
-import { EmailComposeBox } from '../page_components/EmailComposeBox'
-// import { ScheduleViewer } from '../page_components/ScheduleViewer'
+import { HumanMessage, AiMessage, EmailMessage } from '../page_components/MessageViewer'
 
 // Icons
 import sendIcon from '../../assets/icon/send.svg'
-import userIcon from '../../assets/icon/user_icon.png'
-import pinacLogo from '../../assets/icon/pinac-logo.png'
 
 export const HomePage = () => {
-  // // Example event data
-  // const events = [
-  //   {
-  //     id: 1,
-  //     title: 'Birthday Party',
-  //     start: '2024-05-15',
-  //     end: '2024-05-15',
-  //     type: 'event'
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'Team Meeting',
-  //     start: '2024-05-20',
-  //     end: '2024-05-20',
-  //     type: 'event'
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'Finish Report',
-  //     start: '2024-06-25',
-  //     end: '2024-06-25',
-  //     type: 'task'
-  //   },
-  //   {
-  //     id: 4,
-  //     title: 'Vacation',
-  //     start: '2024-06-25',
-  //     end: '2024-06-30',
-  //     type: 'event'
-  //   }
-  // ]
-
   //
   // State for welcome message
   const [welcomeBox, setWelcomeBox] = useState(
@@ -83,7 +47,10 @@ export const HomePage = () => {
     if (welcomeBox !== null) {
       setWelcomeBox(null)
     }
-    setMessages((prevMessages) => [...prevMessages, showHumanMessage(text)])
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      <HumanMessage key={'we will solve this key error in future'} response={text} />
+    ])
     fetchAIResponse(text)
     setUserInput('')
     setButtonsDisabled(false)
@@ -101,62 +68,15 @@ export const HomePage = () => {
         const subject = response[1]
         const body = response[2]
         // Display email message
-        aiMessage = showEmailMessage(aiText, subject, body)
+        aiMessage = <EmailMessage response={aiText} subject={subject} body={body} />
       } else {
         // Display standard AI message
-        aiMessage = showAiMessage(response[1])
+        aiMessage = <AiMessage response={response[1]} />
       }
       // Update the state to include the new AI message
       setMessages((prevMessages) => [...prevMessages, aiMessage])
     })
   }
-
-  const showHumanMessage = (text, index) => (
-    <>
-      <div className="msg-row" key={`human-${index}`}>
-        <div className="msg-avatar">
-          <img src={userIcon} alt="User Avatar" />
-        </div>
-        <div className="msg-content">
-          <div className="msg-name">You</div>
-          <div className="msg-text human-msg">
-            <MarkdownStyle text={text} />
-          </div>
-        </div>
-      </div>
-    </>
-  )
-
-  const showAiMessage = (response, index) => (
-    <>
-      <div className="msg-row" key={`ai-${index}`}>
-        <div className="msg-avatar">
-          <img src={pinacLogo} alt="AI Avatar" />
-        </div>
-        <div className="msg-content">
-          <div className="msg-name">PINAC</div>
-          <div className="msg-text ai-msg">
-            <MarkdownStyle text={response} />
-          </div>
-        </div>
-      </div>
-    </>
-  )
-
-  const showEmailMessage = (response, subject, body, index) => (
-    <>
-      <div className="msg-row" key={`email-${index}`}>
-        <div className="msg-avatar">
-          <img src={pinacLogo} alt="AI Avatar" />
-        </div>
-        <div className="msg-content">
-          <div className="msg-name">PINAC</div>
-          <div className="msg-text ai-msg">{response}</div>
-        </div>
-      </div>
-      <EmailComposeBox emailSubject={subject} emailBody={body} />
-    </>
-  )
 
   // For smooth applying of current theme
   useEffect(() => {
@@ -181,7 +101,6 @@ export const HomePage = () => {
         <Header title="PINAC" />
         <div className="chat-container">
           <div className="msg-box">
-            {/* <ScheduleViewer index="1" response="Sample Schedule text" events={events} /> */}
             {welcomeBox}
             {messages}
           </div>
