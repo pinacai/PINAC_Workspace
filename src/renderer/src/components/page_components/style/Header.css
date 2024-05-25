@@ -10,6 +10,24 @@
     justify-content: space-between;
 }
 
+.left-side {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Menu button */
+.left-side button {
+    border: none;
+    margin-right: 15px;
+    background: transparent;
+}
+
+.left-side button img {
+    height: 25px;
+    background: transparent;
+}
+
 /* for other page titles */
 .title {
     font: normal 30px 'Exo2', sans-serif;
@@ -103,10 +121,6 @@
 }
 
 @media (max-width: 768px) {
-    .header {
-        height: 60px;
-    }
-
     .pageHeader .newChatButton {
         padding: 5px 8px 5px 5px;
     }
@@ -117,20 +131,27 @@
 }
 
 @media (max-width: 576px) {
-    .header {
-        height: 60px;
-    }
-
     .title,
     .home-title {
         font-size: 30px;
     }
 
     .pageHeader .newChatButton {
-        padding: 3px 6px 3px 3px;
+        padding: 3px 3px 3px 3px;
     }
 
     .pageHeader .newChatButton span {
         display: none;
+    }
+}
+
+@media (max-width: 320px) {
+    .title,
+    .home-title {
+        font-size: 25px;
+    }
+
+    .pageHeader .newChatButton img {
+        height: 25px;
     }
 }

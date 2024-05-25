@@ -49,10 +49,18 @@
     --composeBoxBtn-hover-color: #6081af;
 
     /* ScheduleViewer */
-    --scheduleViewer-bg: #1F2937;
-    --scheduleViewer-shadow: none;
-    --scheduleViewer-dimmed-text-color: #c0c0c0;
-    --scheduleViewer-hover-color: rgba(255, 255, 255, 0.1);
+    --calendar-bg: #1F2937;
+    --calendar-shadow: none;
+    --calendar-dimmed-text-color: #c0c0c0;
+    --calendar-hover-color: rgba(255, 255, 255, 0.1);
+    --calendar-weekView-header-box-bg: rgba(255, 255, 255, 0.1);
+    --calendar-weekView-header-box-shadow: none;
+
+    /* MessageViewer */
+    --humanMsg-bg: #FFFFFF;
+    --humanMsg-bg-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    --aiMsg-bg: #1F2937;
+    --aiMsg-bg-shadow: none;
 
     /* DropdownMenu */
     --dropdownMenu-bg-color: #E0E4E8;
@@ -60,10 +68,6 @@
 
     /* HomePage */
     --welcomeText-gradient: linear-gradient(125deg, #ff7300, #F12B6D, #0026ff);
-    --humanMsg-bg: #FFFFFF;
-    --humanMsg-bg-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    --aiMsg-bg: #1F2937;
-    --aiMsg-bg-shadow: none;
     --inputGroup-bg: #FFFFFF;
     --inputGroupBtn-hover-color: #b9b9b9;
     --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -109,10 +113,18 @@
     --composeBoxBtn-hover-color: #594efc;
 
     /* ScheduleViewer */
-    --scheduleViewer-bg: #3C3C3C;
-    --scheduleViewer-shadow: none;
-    --scheduleViewer-dimmed-text-color: #8f8f8f;
-    --scheduleViewer-hover-color: #6e6e6e;
+    --calendar-bg: #3C3C3C;
+    --calendar-shadow: none;
+    --calendar-dimmed-text-color: #8f8f8f;
+    --calendar-hover-color: #6e6e6e;
+    --calendar-weekView-header-box-bg:  #6e6e6e;
+    --calendar-weekView-header-box-shadow: none;
+
+    /* MessageViewer */
+    --humanMsg-bg: #382bf0;
+    --humanMsg-bg-shadow: 0 5px 5px rgba(0, 0, 0, 0.6);
+    --aiMsg-bg: #3C3C3C;
+    --aiMsg-bg-shadow: none;
 
     /* DropdownMenu */
     --dropdownMenu-bg-color: #3C3C3C;
@@ -120,10 +132,6 @@
 
     /* HomePage */
     --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
-    --humanMsg-bg: #382bf0;
-    --humanMsg-bg-shadow: 0 5px 5px rgba(0, 0, 0, 0.6);
-    --aiMsg-bg: #3C3C3C;
-    --aiMsg-bg-shadow: none;
     --inputGroup-bg: #3C3C3C;
     --inputGroupBtn-hover-color: #6e6e6e;
     --inputGroup-shadow: 0 5px 5px rgba(0, 0, 0, 0.6);
@@ -170,10 +178,18 @@
     --composeBoxBtn-hover-color: #6081af;
 
     /* ScheduleViewer */
-    --scheduleViewer-bg: #1F2937;
-    --scheduleViewer-shadow: none;
-    --scheduleViewer-dimmed-text-color: #c0c0c0;
-    --scheduleViewer-hover-color: rgba(255, 255, 255, 0.1);
+    --calendar-bg: #1F2937;
+    --calendar-shadow: none;
+    --calendar-dimmed-text-color: #c0c0c0;
+    --calendar-hover-color: rgba(255, 255, 255, 0.1);
+    --calendar-weekView-header-box-bg: rgba(255, 255, 255, 0.1);
+    --calendar-weekView-header-box-shadow: none;
+
+    /* MessageViewer */
+    --humanMsg-bg: #FFFFFF;
+    --humanMsg-bg-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    --aiMsg-bg: #1F2937;
+    --aiMsg-bg-shadow: none;
 
     /* DropdownMenu */
     --dropdownMenu-bg-color: #E0E4E8;
@@ -181,10 +197,6 @@
 
     /* HomePage */
     --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
-    --humanMsg-bg: #FFFFFF;
-    --humanMsg-bg-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    --aiMsg-bg: #1F2937;
-    --aiMsg-bg-shadow: none;
     --inputGroup-bg: #FFFFFF;
     --inputGroupBtn-hover-color: #b9b9b9;
     --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -230,10 +242,18 @@
     --composeBoxBtn-hover-color: linear-gradient(125deg, #2747fd, #621ba5);
 
     /* ScheduleViewer */
-    --scheduleViewer-bg: rgba(37, 37, 37, 0.15);
-    --scheduleViewer-shadow: 0 0 2px #ece2d5;
-    --scheduleViewer-dimmed-text-color: #8f8f8f;
-    --scheduleViewer-hover-color: rgba(109, 108, 108, 0.2);
+    --calendar-bg: rgba(37, 37, 37, 0.15);
+    --calendar-shadow: 0 0 2px #ece2d5;
+    --calendar-dimmed-text-color: #8f8f8f;
+    --calendar-hover-color: rgba(109, 108, 108, 0.2);
+    --calendar-weekView-header-box-bg: rgba(37, 37, 37, 0.15);
+    --calendar-weekView-header-box-shadow: 0 0 2px #ece2d5;
+
+    /* MessageViewer */
+    --humanMsg-bg: linear-gradient(125deg, #0026ff, #5b00af);
+    --humanMsg-bg-shadow: none;
+    --aiMsg-bg: rgba(109, 108, 108, 0.15);
+    --aiMsg-bg-shadow: 0 0 2px #ece2d5;
 
     /* DropdownMenu */
     --dropdownMenu-bg-color: rgba(37, 37, 37, 0.15);
@@ -241,10 +261,6 @@
 
     /* HomePage */
     --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
-    --humanMsg-bg: linear-gradient(125deg, #0026ff, #5b00af);
-    --humanMsg-bg-shadow: none;
-    --aiMsg-bg: rgba(109, 108, 108, 0.15);
-    --aiMsg-bg-shadow: 0 0 2px #ece2d5;
     --inputGroup-bg: rgba(109, 108, 108, 0.15);
     --inputGroupBtn-hover-color: rgba(109, 108, 108, 0.2);
     --inputGroup-shadow: 0 0 2px #ece2d5;

@@ -28,8 +28,8 @@
     padding: 20px;
     border-radius: 10px;
     color: var(--text-color1);
-    background: var(--scheduleViewer-bg);
-    box-shadow: var(--scheduleViewer-shadow);
+    background: var(--calendar-bg);
+    box-shadow: var(--calendar-shadow);
 }
 
 /* Calendar Header */
@@ -69,7 +69,7 @@
 }
 
 .calendar-header .header-right button:hover {
-    background: var(--scheduleViewer-hover-color);
+    background: var(--calendar-hover-color);
 }
 
 /* Calendar Upper Part Border Line */
@@ -93,15 +93,15 @@
     border: none;
     color: var(--text-color1);
     font: normal 15px 'Exo2', sans-serif;
-    background: var(--scheduleViewer-bg);
-    box-shadow: var(--scheduleViewer-shadow);
+    background: var(--calendar-bg);
+    box-shadow: var(--calendar-shadow);
     cursor: pointer;
     padding: 5px 10px;
 }
 
 .month-view {
     border-radius: 10px 0 0 10px;
-    background: var(--scheduleViewer-bg);
+    background: var(--calendar-bg);
 }
 
 .month-view.active {
@@ -110,7 +110,7 @@
 
 .week-view {
     border-radius: 0 10px 10px 0;
-    background: var(--scheduleViewer-bg);
+    background: var(--calendar-bg);
 }
 
 .week-view.active {
@@ -140,7 +140,7 @@
     display: grid;
     text-align: center;
     grid-template-columns: repeat(7, 1fr);
-    color: var(--scheduleViewer-dimmed-text-color);
+    color: var(--calendar-dimmed-text-color);
 }
 
 .month-days {
@@ -209,7 +209,7 @@
 }
 
 .calendar-body .week-header-btn button:hover {
-    background: var(--scheduleViewer-hover-color);
+    background: var(--calendar-hover-color);
 }
 
 /* Rest Part of Week View */
@@ -223,8 +223,8 @@
     margin-right: 10px;
     border-radius: 4px;
     text-align: center;
-    background: var(--scheduleViewer-bg);
-    box-shadow: var(--scheduleViewer-shadow);
+    background: var(--calendar-weekView-header-box-bg);
+    box-shadow: var(--calendar-weekView-header-box-shadow);
 
     display: flex;
     flex-direction: column;

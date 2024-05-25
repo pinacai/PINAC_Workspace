@@ -1,14 +1,29 @@
+import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import './style/Header.css'
 
 // Icons
 import addLogo from '../../assets/icon/add_circle.svg'
+import menuLogo from '../../assets/icon/menu.svg'
 
 export const Header = (props) => {
-  // Title prop is a required string
-  Header.propTypes = {
-    title: PropTypes.string.isRequired
-  }
+  const [isSidebarToggleVisible, setIsSidebarToggleVisible] = useState(false)
+
+  //
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 576) {
+        setIsSidebarToggleVisible(false)
+      } else {
+        setIsSidebarToggleVisible(true)
+      }
+    }
+    window.addEventListener('resize', handleResize)
+    handleResize()
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   // adds border line below the page title
   // except HomePage
@@ -37,11 +52,25 @@ export const Header = (props) => {
     <>
       <div className="pageHeader">
         <div className="left-side">
-          <span className={location.pathname == '/' ? 'home-title' : 'title'}>{props.title}</span>
-          {location.pathname !== '/' ? borderLine() : null}
+          {/* Render the sidebar button */}
+          {window.innerWidth < 576 && (
+            <div>
+              <button onClick={() => setIsSidebarToggleVisible(!isSidebarToggleVisible)}>
+                <img src={menuLogo} alt="Menu" className="changeable-icon" />
+              </button>
+            </div>
+          )}
+          <div>
+            <span className={location.pathname == '/' ? 'home-title' : 'title'}>{props.title}</span>
+            {location.pathname !== '/' ? borderLine() : null}
+          </div>
         </div>
         <div className="right-side">{location.pathname == '/' ? newChatBtn() : null}</div>
       </div>
     </>
   )
+}
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired
 }
