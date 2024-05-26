@@ -6,17 +6,17 @@
 <img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/powered-by-python.svg" alt="Powered By Python">
 <br>
 <br>
-PINAC Workspace is a comprehensive, AI-integrated cross-platform desktop application designed to manage all your tasks in Google Workspace Apps. It also includes AI web searching, office work management, and friendly conversations with AI. Build with Electron and React, with a powerful backend using Python.  
+PINAC Workspace is a versatile, AI-powered desktop application that operates seamlessly across platforms. Crafted with Electron and React, with a powerful backend using Python.  
 </div>
 
 
 ## 🔮 Vision
 
-In today's world, AI is everywhere and become a necessity. However, managing various tasks requires separate AI applications, and this constant switching between windows consumes excessive time and reduces productivity.
+In today's world, AI is everywhere. However, managing various tasks requires separate AI applications, and this constant switching between windows consumes excessive time and reduces productivity.
 
-**Imagine a world where everything you need is in one chat**. Experience the **Next Gen AI Chat** —your all-in-one chat for Google Workspace tasks, web searches, coding problems, a wide range of office tools and more, without switching apps!
+Experience the **Next Gen AI Chat** —your all-in-one chat for Google apps, web searches, document summarising, coding problems, wide range of office tools and more, without switching apps!
 
-### Key Objectives
+### Key Features
 - **Effortless Gmail Management**: Create and modify email templates using AI, send emails directly from the chat, and receive notifications for priority emails.
 - **Schedule Master:** Just communicate your needs, and the AI will craft personalized timetables, vacation plans, or task lists that seamlessly integrate with your existing commitments. Easily add events or tasks to Google Calendar directly from the chat.
 - **Google Drive Integration:** You can summarize, modify, take notes, or ask questions from Google Drive files, even without downloading them! Additionally, search for files, and download or upload documents.
@@ -72,7 +72,7 @@ Then it's super easy with just 3 steps!
 ### 1. Clone the Repository
   ```bash
   git clone https://github.com/pinacai/PINAC_Workspace-2.0.git
-  cd pinac_workspace
+  cd 'PINAC_Workspace-2.0'
   ```
 
 ### 2. Install
@@ -102,23 +102,23 @@ Then it's super easy with just 3 steps!
 ### 1. Clone the Repository
   ```bash
   git clone https://github.com/pinacai/PINAC_Workspace-2.0.git
-  cd pinac_workspace
+  cd 'PINAC_Workspace-2.0'
   ```
 
 ### 2. Install
   ```bash
-  $ npm install
+  npm install
   ```
 ### 3. Create virtualenv & activate it
   ```bash
-  $ python -m venv .env
+  python -m venv .env
   ```
   ```bash
-  $ source .env/bin/activate
+  source .env/bin/activate
   ```
 ### 4. Install python dependencies
   ```bash
-  $ pip install -r requirements.txt
+  pip install -r requirements.txt
   ```
 
 ### 5. Get your Google secret token & OPENAI API Key

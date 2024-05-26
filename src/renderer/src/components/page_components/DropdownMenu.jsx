@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import './style/DropdownMenu.css'
 
 // Icon
-import arrowDownSvg from '../../assets/icon/arrow_down.svg'
+import downArrow from '../../assets/icon/arrow_down.svg'
+import upArrow from '../../assets/icon/arrow_up.svg'
 
 export const DropdownMenu = (props) => {
   const [isActive, setIsActive] = useState(false)
@@ -25,7 +26,7 @@ export const DropdownMenu = (props) => {
       <div className="selector">
         <span>Dropdown</span>
         <button onClick={openMenu}>
-          <img src={arrowDownSvg} className="changeable-icon" />
+          <img src={isActive ? upArrow : downArrow} className="changeable-icon" />
         </button>
       </div>
       <div className={`dropdown-menu ${isActive ? 'active' : ''}`}>

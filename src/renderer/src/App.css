@@ -39,6 +39,7 @@
     --sidebar-present-page-shadow: none;
 
     /* Header */
+    --headerMenu-hover-bg: #cccccc;
     --headerTitle-color: #1F2937;
     --headerTitle-underline-color: #6c82ff;
     --newChatBtn-color: #40454e;
@@ -63,8 +64,10 @@
     --aiMsg-bg-shadow: none;
 
     /* DropdownMenu */
-    --dropdownMenu-bg-color: #E0E4E8;
-    --dropdownMenu-shadow: 3px 3px 5px #cccccc;
+    --dropdownBtn-bg-color: #E0E4E8;
+    --dropdownBtn-shadow: 3px 3px 5px #cccccc;
+    --dropdownMenu-bg-color: #1F2937;
+    --dropdownMenu-shadow: 0 0 10px #afafaf;
 
     /* HomePage */
     --welcomeText-gradient: linear-gradient(125deg, #ff7300, #F12B6D, #0026ff);
@@ -103,6 +106,7 @@
     --sidebar-present-page-shadow: none;
 
     /* Header */
+    --headerMenu-hover-bg: #3C3C3C;
     --headerTitle-color: #F5F7FA;
     --headerTitle-underline-color: #5e43f3;
     --newChatBtn-color: #3C3C3C;
@@ -127,8 +131,10 @@
     --aiMsg-bg-shadow: none;
 
     /* DropdownMenu */
+    --dropdownBtn-bg-color: #3C3C3C;
+    --dropdownBtn-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
     --dropdownMenu-bg-color: #3C3C3C;
-    --dropdownMenu-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+    --dropdownMenu-shadow: 0 0 20px #000;
 
     /* HomePage */
     --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
@@ -168,6 +174,7 @@
     --sidebar-present-page-shadow: none;
 
     /* Header */
+    --headerMenu-hover-bg: #cccccc;
     --headerTitle-color: #1F2937;
     --headerTitle-underline-color: #6c82ff;
     --newChatBtn-color: #40454e;
@@ -192,8 +199,10 @@
     --aiMsg-bg-shadow: none;
 
     /* DropdownMenu */
-    --dropdownMenu-bg-color: #E0E4E8;
-    --dropdownMenu-shadow: 3px 3px 5px #cccccc;
+    --dropdownBtn-bg-color: #E0E4E8;
+    --dropdownBtn-shadow: 3px 3px 5px #cccccc;
+    --dropdownMenu-bg-color: #1F2937;
+    --dropdownMenu-shadow: 0 0 10px #afafaf;
 
     /* HomePage */
     --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
@@ -232,6 +241,7 @@
     --sidebar-present-page-shadow: 0 0 2px #ece2d5;
 
     /* Header */
+    --headerMenu-hover-bg: rgba(109, 108, 108, 0.2);
     --headerTitle-color: #ece2d5;
     --headerTitle-underline-color: #5e43f3;
     --newChatBtn-color: #1a1924;
@@ -242,11 +252,11 @@
     --composeBoxBtn-hover-color: linear-gradient(125deg, #2747fd, #621ba5);
 
     /* ScheduleViewer */
-    --calendar-bg: rgba(37, 37, 37, 0.15);
+    --calendar-bg: rgba(109, 108, 108, 0.15);
     --calendar-shadow: 0 0 2px #ece2d5;
     --calendar-dimmed-text-color: #8f8f8f;
     --calendar-hover-color: rgba(109, 108, 108, 0.2);
-    --calendar-weekView-header-box-bg: rgba(37, 37, 37, 0.15);
+    --calendar-weekView-header-box-bg: rgba(109, 108, 108, 0.15);
     --calendar-weekView-header-box-shadow: 0 0 2px #ece2d5;
 
     /* MessageViewer */
@@ -256,7 +266,9 @@
     --aiMsg-bg-shadow: 0 0 2px #ece2d5;
 
     /* DropdownMenu */
-    --dropdownMenu-bg-color: rgba(37, 37, 37, 0.15);
+    --dropdownBtn-bg-color: rgba(109, 108, 108, 0.15);
+    --dropdownBtn-shadow: 0 0 2px #ece2d5;
+    --dropdownMenu-bg-color: rgba(26, 25, 36, 0.7);
     --dropdownMenu-shadow: 0 0 2px #ece2d5;
 
     /* HomePage */

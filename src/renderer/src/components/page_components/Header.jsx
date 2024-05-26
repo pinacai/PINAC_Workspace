@@ -1,21 +1,26 @@
 import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { useLocation, useNavigate } from 'react-router-dom'
 import './style/Header.css'
 
 // Icons
 import addLogo from '../../assets/icon/add_circle.svg'
-import menuLogo from '../../assets/icon/menu.svg'
+import downArrow from '../../assets/icon/arrow_down.svg'
+import upArrow from '../../assets/icon/arrow_up.svg'
 
 export const Header = (props) => {
-  const [isSidebarToggleVisible, setIsSidebarToggleVisible] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [isMenuVisible, setIsMenuVisible] = useState(false)
+  const [isDropdownActive, setIsDropdownActive] = useState(false)
 
   //
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 576) {
-        setIsSidebarToggleVisible(false)
+        setIsMenuVisible(true)
       } else {
-        setIsSidebarToggleVisible(true)
+        setIsMenuVisible(false)
       }
     }
     window.addEventListener('resize', handleResize)
@@ -24,6 +29,11 @@ export const Header = (props) => {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
+
+  // Function to handle page navigation
+  const changePage = (path) => {
+    navigate(path)
+  }
 
   // adds border line below the page title
   // except HomePage
@@ -48,22 +58,50 @@ export const Header = (props) => {
     )
   }
 
+  //
+  const openMenu = () => {
+    setIsDropdownActive(!isDropdownActive)
+  }
+
   return (
     <>
       <div className="pageHeader">
         <div className="left-side">
-          {/* Render the sidebar button */}
-          {window.innerWidth < 576 && (
-            <div>
-              <button onClick={() => setIsSidebarToggleVisible(!isSidebarToggleVisible)}>
-                <img src={menuLogo} alt="Menu" className="changeable-icon" />
-              </button>
-            </div>
-          )}
           <div>
             <span className={location.pathname == '/' ? 'home-title' : 'title'}>{props.title}</span>
             {location.pathname !== '/' ? borderLine() : null}
           </div>
+          {/* Render the sidebar button */}
+          {isMenuVisible && (
+            <div className="header-menu">
+              <div>
+                <button
+                  className={location.pathname == '/' ? 'home' : ''}
+                  onClick={() => openMenu()}
+                >
+                  <img
+                    src={isDropdownActive ? upArrow : downArrow}
+                    alt="Menu"
+                    className="changeable-icon"
+                  />
+                </button>
+              </div>
+              <div className={`dropdown-menu ${isDropdownActive ? 'active' : ''}`}>
+                <ul>
+                  {location.pathname !== '/' && <li onClick={() => changePage('/')}>Home</li>}
+                  {location.pathname !== '/profile' && (
+                    <li onClick={() => changePage('/profile')}>Profile</li>
+                  )}
+                  {location.pathname !== '/about' && (
+                    <li onClick={() => changePage('/about')}>About Us</li>
+                  )}
+                  {location.pathname !== '/settings' && (
+                    <li onClick={() => changePage('/settings')}>Settings</li>
+                  )}
+                </ul>
+              </div>
+            </div>
+          )}
         </div>
         <div className="right-side">{location.pathname == '/' ? newChatBtn() : null}</div>
       </div>

@@ -16,18 +16,71 @@
     justify-content: space-between;
 }
 
-/* Menu button */
+/* ------------------------------------------------- */
+/*    Header Dropdown Menu for Sidebar functions     */
+/* ------------------------------------------------- */
+
 .left-side button {
     border: none;
-    margin-right: 15px;
+    margin-left: 10px;
+    margin-top: 10px;
     background: transparent;
+}
+
+.left-side button.home {
+    margin-top: 3px;
+}
+
+.left-side button:hover {
+    border-radius: 7px;
+    background: var(--headerMenu-hover-bg);
 }
 
 .left-side button img {
-    height: 25px;
+    height: 30px;
     background: transparent;
 }
 
+.header-menu .dropdown-menu {
+    display: none;
+}
+
+.header-menu .dropdown-menu.active {
+    display: block;
+    position: absolute;
+
+    width: 140px;
+    margin-top: 5px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 7px;
+    font: normal medium 'Exo2';
+    color: var(--text-color1);
+    backdrop-filter: blur(5px);
+    background: var(--dropdownMenu-bg-color);
+    box-shadow: var(--dropdownMenu-shadow);
+}
+
+.header-menu .dropdown-menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.header-menu .dropdown-menu ul li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 7px;
+    padding: 10px 10px;
+}
+
+.header-menu .dropdown-menu ul li:hover {
+    background: var(--sidebar-hover-color);
+}
+
+
+/* --------------------- */
 /* for other page titles */
 .title {
     font: normal 30px 'Exo2', sans-serif;
@@ -131,9 +184,8 @@
 }
 
 @media (max-width: 576px) {
-    .title,
     .home-title {
-        font-size: 30px;
+        font-size: 35px;
     }
 
     .pageHeader .newChatButton {
@@ -148,10 +200,24 @@
 @media (max-width: 320px) {
     .title,
     .home-title {
+        font-size: 30px;
+    }
+
+    .title {
         font-size: 25px;
     }
 
     .pageHeader .newChatButton img {
         height: 25px;
+    }
+
+    .header-menu .dropdown-menu.active {
+        width: 120px;
+    }
+}
+
+@media (max-width: 280px) {
+    .header-menu .dropdown-menu.active {
+        width: 100px;
     }
 }
