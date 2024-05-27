@@ -8,13 +8,7 @@ export const EmailComposeBox = (props) => {
   const [body, setBody] = useState(props.emailBody)
   const [buttonsDisabled, setButtonsDisabled] = useState(false) // For disabling buttons
 
-  // Ensure emailSubject prop and emailBody prop
-  // is a required string
-  EmailComposeBox.propTypes = {
-    emailSubject: PropTypes.string.isRequired,
-    emailBody: PropTypes.string.isRequired
-  }
-
+  //
   // Disables email-composer buttons if user click cancel
   const handleGoBack = () => {
     setButtonsDisabled(true)
@@ -85,7 +79,7 @@ export const EmailComposeBox = (props) => {
       </div>
       <div className="actions">
         <button
-          id="goBack-button"
+          id="cancel-button"
           className={buttonsDisabled ? 'disabled' : ''}
           onClick={handleGoBack}
           disabled={buttonsDisabled}
@@ -111,4 +105,9 @@ export const EmailComposeBox = (props) => {
       </div>
     </div>
   )
+}
+
+EmailComposeBox.propTypes = {
+  emailSubject: PropTypes.string.isRequired,
+  emailBody: PropTypes.string.isRequired
 }

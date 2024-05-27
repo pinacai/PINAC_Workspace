@@ -13,10 +13,6 @@ export const DropdownMenu = (props) => {
     setIsActive(!isActive)
   }
 
-  DropdownMenu.propTypes = {
-    optionList: PropTypes.array.isRequired
-  }
-
   const showEachOption = () => {
     return props.optionList.map((option, index) => <li key={index}>{option}</li>)
   }
@@ -34,4 +30,8 @@ export const DropdownMenu = (props) => {
       </div>
     </div>
   )
+}
+
+DropdownMenu.propTypes = {
+  optionList: PropTypes.array.isRequired
 }

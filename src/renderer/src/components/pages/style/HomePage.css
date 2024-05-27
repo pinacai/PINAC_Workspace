@@ -79,6 +79,12 @@
     box-shadow: var(--inputGroup-shadow);
 }
 
+.input-group:focus {
+    /* border: 2px solid blue; */
+    border-width: 5px;
+    border-color: red;
+}
+
 #user-input {
     height: 70%;
     min-width: 300px;
@@ -93,7 +99,8 @@
 
 #user-input::placeholder {
     color: var(--text-color2);
-    font: normal medium 'ai-text';
+    font: normal large 'Exo2';
+    letter-spacing: 2px;
 }
 
 .input-group-append {
@@ -187,7 +194,15 @@ button.disabled {
 @media (max-width: 576px) {
     .msg-box {
         padding-left: calc(2.5% + 10px);
-        padding-right: calc(2.5% + 10px);
+        padding-right: 2%;
+    }
+
+    .msg-box::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    .welcome-text {
+        font-size: 35px;
     }
 
     .input-group {
@@ -195,11 +210,48 @@ button.disabled {
     }
 
     #user-input {
-        min-width: 120px;
-        /* font-size: 12px; */
+        padding: 0 5px;
     }
 
     .input-group-append {
         align-items: center;
+    }
+}
+
+@media (max-width: 320px) {
+    .msg-box::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    .msg-box::-webkit-scrollbar-thumb {
+        background: #999;
+        border-radius: 2px;
+    }
+
+    .welcome-text {
+        font-size: 10vw;
+    }
+
+    .input-group {
+        padding: 0 0 0 5px;
+    }
+
+    #user-input {
+        height: 100%;
+        padding: 0 5px;
+    }
+
+    #user-input::placeholder {
+        font: normal medium 'Exo2';
+        letter-spacing: 2px;
+    }
+
+    #submit-btn {
+        height: 35px;
+        width: 35px;
+    }
+
+    #submit-btn img {
+        height: 25px;
     }
 }

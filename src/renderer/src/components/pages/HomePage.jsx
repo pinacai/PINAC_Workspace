@@ -21,6 +21,7 @@ export const HomePage = () => {
   )
   const [messages, setMessages] = useState([]) // For showing AI response
   const [userInput, setUserInput] = useState('') // Declare state for input value
+  const [isUserInputActive, setUserInputActive] = useState(false) // Declare state for input value
   const [buttonsDisabled, setButtonsDisabled] = useState(false) // For disabling send button
 
   //
@@ -106,13 +107,16 @@ export const HomePage = () => {
           </div>
 
           <div className="input-box">
-            <div className="input-group">
+            <div className={`input-group ${isUserInputActive ? 'active' : ''}`}>
               <input
                 id="user-input"
                 className={buttonsDisabled ? 'disabled' : ''}
                 value={userInput}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
+                onClick={() => {
+                  setUserInputActive(true)
+                }}
                 placeholder="Tell me your task..."
                 disabled={buttonsDisabled}
               />

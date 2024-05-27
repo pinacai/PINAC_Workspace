@@ -89,7 +89,7 @@
 
 /* Theme Card Title */
 .themeCard-desc span {
-    padding-left: 10px;
+    margin-left: 10px;
 }
 
 /* Checkbox */
@@ -155,5 +155,26 @@
     .themeCard {
         width: 150px;
         height: 200px;
+    }
+}
+
+@media (max-width: 320px) {
+    .themeCard-container {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .themeCard {
+        width: 120px;
+        height: 180px;
+    }
+
+    .check-wrapper {
+        margin-left: 5px;
+    }
+
+    .themeCard-desc span {
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: small;
     }
 }

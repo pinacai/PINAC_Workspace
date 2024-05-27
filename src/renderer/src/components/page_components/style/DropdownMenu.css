@@ -64,3 +64,11 @@
   justify-content: flex-start;
   padding: 5px 5px;
 }
+
+
+/* Responsive Styles */
+@media (max-width: 320px) {
+  .dropdown .selector {
+    width: 200px;
+  }
+}

@@ -1,4 +1,5 @@
 .compose-box {
+    width: 70%;
     margin-left: 50px;
     margin-bottom: 5px;
     padding: 10px;
@@ -13,8 +14,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-family: 'ai-text', 'Montserrat', sans-serif;
-    font-size: medium;
+    font: normal large 'Exo2', 'Montserrat', sans-serif;
     color: var(--text-color1);
     border: 2px;
     border-radius: 10px;
@@ -33,7 +33,7 @@
 }
 
 #to::placeholder {
-    font-family: 'ai-text', 'Montserrat', sans-serif;
+    font: normal large 'Exo2', 'Montserrat', sans-serif;
     color: #888785;
 }
 
@@ -43,8 +43,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-family: 'ai-text', 'Montserrat', sans-serif;
-    font-size: medium;
+    font: normal large 'Exo2', 'Montserrat', sans-serif;
     color: var(--text-color1);
     border: 2px;
     border-radius: 8px;
@@ -63,7 +62,7 @@
 }
 
 #subject::placeholder {
-    font-family: 'ai-text', 'Montserrat', sans-serif;
+    font: normal large 'Exo2', 'Montserrat', sans-serif;
     color: #888785;
 }
 
@@ -73,8 +72,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'ai-text', 'Montserrat', sans-serift;
-    font-size: medium;
+    font: normal large 'Exo2', 'Montserrat', sans-serif;
     border: 2px;
     /* border-radius: 10px 10px 0 0; */
     border-radius: 10px;
@@ -94,7 +92,7 @@
 }
 
 #body::placeholder {
-    font-family: 'ai-text', 'Montserrat', sans-serif;
+    font: normal large 'Exo2', 'Montserrat', sans-serif;
     color: #a5a4a3;
 }
 
@@ -138,10 +136,9 @@
 #send-button {
     margin-left: 10px;
     padding: 10px;
-    font-family: 'ai-text', 'Montserrat', sans-serif;
-    font-size: small;
+    font: normal medium 'Exo2', 'Montserrat', sans-serif;
     border: 0;
-    border-radius: 10px;
+    border-radius: 7px;
     background: var(--composeBoxBtn-color);
     color: white;
 }
@@ -153,10 +150,9 @@
 #save-draft-button {
     margin-left: 10px;
     padding: 10px;
-    font-family: 'ai-text', 'Montserrat', sans-serif;
-    font-size: small;
+    font: normal medium 'Exo2', 'Montserrat', sans-serif;
     border: 0;
-    border-radius: 10px;
+    border-radius: 7px;
     background: var(--composeBoxBtn-color);
     color: white;
 }
@@ -165,19 +161,18 @@
     background: var(--composeBoxBtn-hover-color);
 }
 
-#goBack-button {
+#cancel-button {
     margin-left: 10px;
     padding: 10px;
-    font-family: 'ai-text', 'Montserrat', sans-serif;
-    font-size: small;
+    font: normal medium 'Exo2', 'Montserrat', sans-serif;
     border: 0;
-    border-radius: 10px;
+    border-radius: 7px;
     /* background-color: rgb(212, 5, 74); */
     background: linear-gradient(135deg, rgb(212, 5, 74), rgb(255, 0, 85));
     color: white;
 }
 
-#goBack-button:hover {
+#cancel-button:hover {
     background: linear-gradient(135deg, rgb(204, 49, 101), rgb(255, 20, 98));
 }
 
@@ -186,4 +181,64 @@
 button.disabled {
     background-color: rgb(88, 88, 88);
     cursor: not-allowed;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .compose-box {
+        width: 85%;
+    }
+}
+
+@media (max-width: 576px) {
+    .compose-box {
+        width: auto;
+        margin-left: 0;
+    }
+
+    .to {
+        padding: 5px;
+    }
+
+    .subject {
+        padding: 5px;
+        margin-top: 0px;
+    }
+
+    #send-button {
+        padding: 5px 10px 7px 10px;
+    }
+
+    #save-draft-button {
+        padding: 5px 10px 7px 10px;
+    }
+
+    #cancel-button {
+        padding: 5px 10px 7px 10px;
+    }
+}
+
+@media (max-width: 320px) {
+    .body {
+        padding: 7px;
+        margin-top: 5px;
+        border-radius: 5px;
+    }
+
+    #body::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    #send-button {
+        margin-left: 5px;
+    }
+
+    #save-draft-button {
+        margin-left: 0;
+    }
+
+    #cancel-button {
+        margin-left: 5px;
+    }
 }

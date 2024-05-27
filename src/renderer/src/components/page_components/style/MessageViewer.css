@@ -48,13 +48,28 @@
 .ai-msg {
     background: var(--aiMsg-bg);
     color: var(--text-color1);
-    font-family: 'ai-text', 'Montserrat', sans-serif;
+    font: normal large 'Exo2', 'Montserrat', sans-serif;
+    line-height: 1.4;
+    letter-spacing: 0.3px;
+    word-spacing: 2px;
     box-shadow: var(--aiMsg-bg-shadow);
 }
 
-
+/* Responsiveness */
 @media (max-width: 576px) {
     .msg-content {
         max-width: 100%;
+    }
+
+    .ai-msg {
+        font: normal 16.6px 'Exo2', 'Montserrat', sans-serif;
+        line-height: 1.4;
+    }
+}
+
+@media (max-width: 320px) {
+    .ai-msg {
+        font: normal medium 'Exo2', 'Montserrat', sans-serif;
+        line-height: 1.3;
     }
 }
