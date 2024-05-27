@@ -37,17 +37,17 @@ print("chain created")
 
 # For classifying the user query into specific category
 def classifyTask(query: str):
-    # Extend the chat prompt with the previous chat history
-    # chat_prompt.extend(chatHistory)
-    # Append the current query to the chat prompt
-    # chat_prompt.append(query)
-
     response = taskClassificationChain.invoke({"text": query})
     return response
 
 
 # For normal conversation and email writing
-def generalAssistant(user_input):
+# with chat history
+def generalAssistant(user_input, chatHistory):
+    assistantPrompt.extend(
+        chatHistory
+    )  # Extend the chat prompt with the previous chat history
+    assistantPrompt.append(user_input)  # Append the current query to the chat prompt
     response = assistantChain.invoke({"text": user_input})
     return response
 

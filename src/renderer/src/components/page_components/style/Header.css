@@ -58,8 +58,8 @@
     font: normal medium 'Exo2';
     color: var(--text-color1);
     backdrop-filter: blur(5px);
-    background: var(--dropdownMenu-bg-color);
-    box-shadow: var(--dropdownMenu-shadow);
+    background: var(--headerMenu-bg-color);
+    box-shadow: var(--headerMenu-shadow);
 }
 
 .header-menu .dropdown-menu ul {

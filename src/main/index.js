@@ -8,10 +8,10 @@ let pythonProcess = null
 const createWindow = () => {
   // Get the primary display's work area size (usable area)
   const primaryDisplay = screen.getPrimaryDisplay()
-  const { height } = primaryDisplay.workAreaSize
+  const { width, height } = primaryDisplay.workAreaSize
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 320,
+    width: Math.floor(width * 0.45),
     height: height,
     show: false,
     autoHideMenuBar: true,

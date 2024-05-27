@@ -40,6 +40,8 @@
 
     /* Header */
     --headerMenu-hover-bg: #cccccc;
+    --headerMenu-bg-color: #1F2937;
+    --headerMenu-shadow: 0 0 10px #afafaf;
     --headerTitle-color: #1F2937;
     --headerTitle-underline-color: #6c82ff;
     --newChatBtn-color: #40454e;
@@ -64,10 +66,12 @@
     --aiMsg-bg-shadow: none;
 
     /* DropdownMenu */
-    --dropdownBtn-bg-color: #E0E4E8;
-    --dropdownBtn-shadow: 3px 3px 5px #cccccc;
-    --dropdownMenu-bg-color: #1F2937;
-    --dropdownMenu-shadow: 0 0 10px #afafaf;
+    --dropdownBtn-bg: #E0E4E8;
+    --dropdownBtn-hover-bg: rgba(0, 0, 0, 0.3);
+    --dropdownBtn-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    --dropdownMenu-bg: #E0E4E8;
+    --dropdownMenu-selected-bg: rgba(0, 0, 0, 0.3);
+    --dropdownMenu-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 
     /* HomePage */
     --welcomeText-gradient: linear-gradient(125deg, #ff7300, #F12B6D, #0026ff);
@@ -107,6 +111,8 @@
 
     /* Header */
     --headerMenu-hover-bg: #3C3C3C;
+    --headerMenu-bg-color: #3C3C3C;
+    --headerMenu-shadow: 0 0 20px #000;
     --headerTitle-color: #F5F7FA;
     --headerTitle-underline-color: #5e43f3;
     --newChatBtn-color: #3C3C3C;
@@ -131,9 +137,11 @@
     --aiMsg-bg-shadow: none;
 
     /* DropdownMenu */
-    --dropdownBtn-bg-color: #3C3C3C;
+    --dropdownBtn-bg: #3C3C3C;
+    --dropdownBtn-hover-bg: rgba(255, 255, 255, 0.1);
     --dropdownBtn-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
-    --dropdownMenu-bg-color: #3C3C3C;
+    --dropdownMenu-bg: #3C3C3C;
+    --dropdownMenu-selected-bg: linear-gradient(135deg, #5e43f3, #382bf0);
     --dropdownMenu-shadow: 0 0 20px #000;
 
     /* HomePage */
@@ -175,6 +183,8 @@
 
     /* Header */
     --headerMenu-hover-bg: #cccccc;
+    --headerMenu-bg-color: #1F2937;
+    --headerMenu-shadow: 0 0 10px #afafaf;
     --headerTitle-color: #1F2937;
     --headerTitle-underline-color: #6c82ff;
     --newChatBtn-color: #40454e;
@@ -199,10 +209,12 @@
     --aiMsg-bg-shadow: none;
 
     /* DropdownMenu */
-    --dropdownBtn-bg-color: #E0E4E8;
-    --dropdownBtn-shadow: 3px 3px 5px #cccccc;
-    --dropdownMenu-bg-color: #1F2937;
-    --dropdownMenu-shadow: 0 0 10px #afafaf;
+    --dropdownBtn-bg: #E0E4E8;
+    --dropdownBtn-hover-bg: rgba(0, 0, 0, 0.3);
+    --dropdownBtn-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    --dropdownMenu-bg: #E0E4E8;
+    --dropdownMenu-selected-bg: rgba(0, 0, 0, 0.3);
+    --dropdownMenu-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 
     /* HomePage */
     --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
@@ -242,6 +254,8 @@
 
     /* Header */
     --headerMenu-hover-bg: rgba(109, 108, 108, 0.2);
+    --headerMenu-bg-color: rgba(26, 25, 36, 0.7);
+    --headerMenu-shadow: 0 0 2px #ece2d5;
     --headerTitle-color: #ece2d5;
     --headerTitle-underline-color: #5e43f3;
     --newChatBtn-color: #1a1924;
@@ -266,9 +280,11 @@
     --aiMsg-bg-shadow: 0 0 2px #ece2d5;
 
     /* DropdownMenu */
-    --dropdownBtn-bg-color: rgba(109, 108, 108, 0.15);
+    --dropdownBtn-bg: rgba(109, 108, 108, 0.15);
+    --dropdownBtn-hover-bg: rgba(255, 255, 255, 0.1);
     --dropdownBtn-shadow: 0 0 2px #ece2d5;
-    --dropdownMenu-bg-color: rgba(26, 25, 36, 0.7);
+    --dropdownMenu-bg: rgba(26, 25, 36, 0.8);
+    --dropdownMenu-selected-bg: linear-gradient(125deg, #0026ff, #5b00af);
     --dropdownMenu-shadow: 0 0 2px #ece2d5;
 
     /* HomePage */
