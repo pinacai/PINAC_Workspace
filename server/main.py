@@ -126,16 +126,16 @@ def giveResponseArray(AiModel, query):
     chatHistory.append(HumanMessage(content=query))
     task_category = AiModel.classifyTask(query)
 
-    if "order is composing email" in task_category:
+    if "composing email" in task_category:
         email_template = AiModel.generalAssistant(query, chatHistory)
         body, subject = decodeEmail(email_template)
         response = ["email", subject, body]
         chatHistory.append(AIMessage(content=email_template))
 
-    elif "order is to fetch upcoming events from Calendar" in task_category:
+    elif "upcoming events" in task_category:
         calendar = GoogleCalendarManager()
         amount = 10
-        if "order is to fetch upcoming events from Calendar (amount: " in task_category:
+        if "amount: " in task_category:
             amount = int(task_category.split("amount: ", 1)[1].split(")", 1)[0])
         event_list = calendar.upcomingEvent(amount)
         if event_list:
@@ -148,7 +148,7 @@ def giveResponseArray(AiModel, query):
         response = ["calendar event", text]
         chatHistory.append(AIMessage(content=text))
 
-    elif "order is to fetch today's events from Calendar" in task_category:
+    elif "today's events" in task_category:
         calendar = GoogleCalendarManager()
         event_list = calendar.todaysEvent()
         if event_list:
@@ -161,7 +161,7 @@ def giveResponseArray(AiModel, query):
         response = ["calendar today's events", text]
         chatHistory.append(AIMessage(content=text))
 
-    elif "order is fetching contact from Contact" in task_category:
+    elif "contact" in task_category:
         name = AiModel.findName(query)
         contact = GoogleContactManager()
         contact_info = contact.phoneNumber(name)
@@ -174,7 +174,7 @@ def giveResponseArray(AiModel, query):
         response = ["contact", text]
         chatHistory.append(AIMessage(content="I have shown contact on screen"))
 
-    elif "order is to fetch task from Calendar" in task_category:
+    elif "task todo" in task_category:
         task = GoogleTaskManager()
         task_list = task.dueTask()
         if task_list:
@@ -187,23 +187,15 @@ def giveResponseArray(AiModel, query):
         response = ["calendar task", text]
         chatHistory.append(AIMessage(content=text))
 
-    elif "order is fetching today's event and task from Calendar" in task_category:
+    elif "complete schedule" in task_category:
         text = "Sorry, this feature is still not available, waiting for the next update"
         response = ["calendar all", text]
         chatHistory.append(AIMessage(content=text))
 
-    elif "order is web scraping" in task_category:
-        ans = AiModel.generalAssistant(query, chatHistory)
-        response = ["web scraping", ans]
-        chatHistory.append(AIMessage(content=ans))
-
-    elif "order is general conversation" in task_category:
-        ans = AiModel.generalAssistant(query, chatHistory)
-        response = ["order is general conversation", ans]
-        chatHistory.append(AIMessage(content=ans))
-
     else:
-        response = ["others", task_category]
+        ans = AiModel.generalAssistant(query, chatHistory)
+        response = ["others", ans]
+        chatHistory.append(AIMessage(content=ans))
 
     return response
 

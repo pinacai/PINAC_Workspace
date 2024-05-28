@@ -3,11 +3,8 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.prompts.chat import ChatPromptTemplate
 from langchain.schema import BaseOutputParser
-from ai_models.data.training_data import (
-    taskClassification_dataset,
-    assistant_dataset,
-    findName_dataset,
-)
+from ai_models.dataset.training_data import taskClassification_dataset, findName_dataset
+from ai_models.dataset.assistant_dataset import dataset
 
 
 load_dotenv(dotenv_path="server/configs/.env")
@@ -20,13 +17,13 @@ class MyOutputParser(BaseOutputParser):
 
 
 llm = ChatOpenAI(
-    openai_api_key=OPENAI_API_KEY, temperature=0.7, model_name="gpt-3.5-turbo"
+    openai_api_key=OPENAI_API_KEY, temperature=0.5, model_name="gpt-3.5-turbo"
 )
 
 taskClassify_prompt = ChatPromptTemplate.from_messages(taskClassification_dataset)
 taskClassificationChain = taskClassify_prompt | llm | MyOutputParser()
 
-assistantPrompt = ChatPromptTemplate.from_messages(assistant_dataset)
+assistantPrompt = ChatPromptTemplate.from_messages(dataset)
 assistantChain = assistantPrompt | llm | MyOutputParser()
 
 findNamePrompt = ChatPromptTemplate.from_messages(findName_dataset)

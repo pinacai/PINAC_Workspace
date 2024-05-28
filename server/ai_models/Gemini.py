@@ -4,11 +4,8 @@ from langchain.prompts.chat import ChatPromptTemplate
 from langchain.schema import BaseOutputParser
 from langchain.schema import SystemMessage, HumanMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
-from ai_models.data.training_data import (
-    taskClassification_dataset,
-    assistant_dataset,
-    findName_dataset,
-)
+from ai_models.dataset.training_data import taskClassification_dataset, findName_dataset
+from ai_models.dataset.assistant_dataset import dataset
 
 load_dotenv(dotenv_path="server/configs/.env")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
@@ -37,10 +34,8 @@ taskClassify_prompt = ChatPromptTemplate.from_messages(
 )
 taskClassificationChain = taskClassify_prompt | llm | MyOutputParser()
 
-assistantPrompt = ChatPromptTemplate.from_messages(filterDataset(assistant_dataset))
-assistantChain = (
-    assistantPrompt | llm | MyOutputParser()
-)
+assistantPrompt = ChatPromptTemplate.from_messages(filterDataset(dataset))
+assistantChain = assistantPrompt | llm | MyOutputParser()
 
 findNamePrompt = ChatPromptTemplate.from_messages(filterDataset(findName_dataset))
 findNameChain = findNamePrompt | llm | MyOutputParser()

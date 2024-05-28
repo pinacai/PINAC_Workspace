@@ -92,8 +92,7 @@ Then it's super easy with just 3 steps!
 ### Prerequisites
 - _Node.js_
 - _Python_
-- _npm (Node Package Manager)_
-- _OPENAI API Key_
+- _OPENAI API Key_ or _GOOGLE API KEY_ (which Model you want to use)
 - _Internet Connection_
 
 ### Recommended IDE Setup
@@ -105,7 +104,7 @@ Then it's super easy with just 3 steps!
   cd 'PINAC_Workspace-2.0'
   ```
 
-### 2. Install
+### 2. Install Node dependencies
   ```bash
   npm install
   ```
@@ -116,22 +115,23 @@ Then it's super easy with just 3 steps!
   ```bash
   source .env/bin/activate
   ```
-### 4. Install python dependencies
+### 4. Install Python dependencies
   ```bash
   pip install -r requirements.txt
   ```
 
-### 5. Get your Google secret token & OPENAI API Key
+### 5. Get your Google secret token & API Key
   Follow the steps in <a href='https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/Google%20API%20GUIDE.md'>Google API Guide</a> and get your Google secret key & place it in `server/configs` with the name exactly as `client_secret.json`.  
     
-  Now to place your _OPENAI API Key_ create `.env` file in the folder `server/configs` and copy-paste the below line in `.env`:
+  Now to place your _OPENAI API Key_ and _GOOGLE API KEY_, create `.env` file in the folder `server/configs` and copy-paste the below line in `.env`:
   ```python
   OPENAI_API_KEY = "<Place your OPENAI API Key here>"
+  GOOGLE_API_KEY = "<Place your OPENAI API Key here>"
   ```
 
 ### 6. Start the App
   ```bash
-  $ npm run dev
+  npm run dev
   ```
 
 ### Build (optional) // Not tested
