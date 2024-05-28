@@ -3,7 +3,7 @@ from flask import Flask
 from flask_socketio import SocketIO
 from functools import cache
 from email_validator import validate_email
-from ai_models import ChatGPT
+from ai_models import ChatGPT, Gemini
 from google_apps.__init__ import createService
 from google_apps.gmail_bot import GoogleGmailManager
 from google_apps.calendar_bot import GoogleCalendarManager
@@ -107,108 +107,104 @@ chatHistory = []
 
 
 @cache
-def giveResponseArray(query: str):
+def giveResponseArray(AiModel, query):
     """
-    A function that takes a query string and returns a response array based on the query.
+    A function that takes in an AI model and a query and returns a response array.
 
     Parameters:
-        query (str): The query string entered by the user.
+        AiModel (object): The AI model used for task classification and general assistant.
+        query (str): The user query.
 
     Returns:
-        response (list): A response array containing different types of responses based on the query. The response array can have the following formats:
-            - ["email", subject, body]: If the query contains the order to compose an email, the response array contains the subject and body of the email.
-            - ["calendar event", text]: If the query contains the order to fetch upcoming events from the calendar, the response array contains the text describing the upcoming events.
-            - ["calendar today's events", text]: If the query contains the order to fetch today's events from the calendar, the response array contains the text describing the events for today.
-            - ["contact", text]: If the query contains the order to fetch contact information, the response array contains the text describing the contact information.
-            - ["calendar task", text]: If the query contains the order to fetch tasks from the calendar, the response array contains the text describing the due tasks.
-            - ["calendar all", text]: If the query contains the order to fetch today's event and task from the calendar, the response array contains the text indicating that this feature is not available.
-            - ["others", task_category]: If none of the above conditions are met, the response array contains the raw response from the ChatGPT model.
-        """
-    try:
-        chatHistory.append(HumanMessage(content=query))
-        task_category = ChatGPT.classifyTask(query)
+        list: A response array containing different types of responses based on the task category.
+            The response array has the following structure:
+            [
+                response_type (str): The type of response, such as "email", "calendar event", "contact", etc.
+                response_text (str): The actual response text.
+            ]
+    """
+    chatHistory.append(HumanMessage(content=query))
+    task_category = AiModel.classifyTask(query)
 
-        if "order is composing email" in task_category:
-            email_template = ChatGPT.generalAssistant(query, chatHistory)
-            body, subject = decodeEmail(email_template)
-            response = ["email", subject, body]
-            chatHistory.append(AIMessage(content=email_template))
+    if "order is composing email" in task_category:
+        email_template = AiModel.generalAssistant(query, chatHistory)
+        body, subject = decodeEmail(email_template)
+        response = ["email", subject, body]
+        chatHistory.append(AIMessage(content=email_template))
 
-        elif "order is to fetch upcoming events from Calendar" in task_category:
-            calendar = GoogleCalendarManager()
-            amount = 10
-            if "order is to fetch upcoming events from Calendar (amount: " in task_category:
-                amount = int(task_category.split("amount: ", 1)[1].split(")", 1)[0])
-            event_list = calendar.upcomingEvent(amount)
-            if event_list:
-                text = "Sure, here are your upcoming events: \n\n" + "\n".join(
-                    f"{formatDatetime(item[1])[0]}, {formatDatetime(item[1])[1]} : {item[2]}"
-                    for item in event_list
-                )
-            else:
-                text = "Unfortunately, the event you are searching for does not appear to be exist"
-            response = ["calendar event", text]
-            chatHistory.append(AIMessage(content=text))
-
-        elif "order is to fetch today's events from Calendar" in task_category:
-            calendar = GoogleCalendarManager()
-            event_list = calendar.todaysEvent()
-            if event_list:
-                text = "Sure, here are your upcoming events for today: \n\n" + "\n".join(
-                    f"{formatDatetime(item[1])[0]}, {formatDatetime(item[1])[1]} - {item[2]}"
-                    for item in event_list
-                )
-            else:
-                text = "I am unable to locate any event for today in Google Calendar"
-            response = ["calendar today's events", text]
-            chatHistory.append(AIMessage(content=text))
-
-        elif "order is fetching contact from Contact" in task_category:
-            name = ChatGPT.findName(query)
-            contact = GoogleContactManager()
-            contact_info = contact.phoneNumber(name)
-            if contact_info:
-                text = "Sure, here is your contact: \n\n" + "\n".join(
-                    f"{item[0]} : {item[1]}" for item in contact_info
-                )
-            else:
-                text = "I am unable to locate any contact number you are searching for in Google Contact"
-            response = ["contact", text]
-            chatHistory.append(AIMessage(content="I have shown contact on screen"))
-
-        elif "order is to fetch task from Calendar" in task_category:
-            task = GoogleTaskManager()
-            task_list = task.dueTask()
-            if task_list:
-                text = "Sure, here are your due tasks: \n\n" + "\n".join(
-                    f"{formatDatetime(item[1])[0]}, {formatDatetime(item[1])[1]} - {item[0]}"
-                    for item in task_list
-                )
-            else:
-                text = "Hooray! 🎉 you don't have any due tasks !"
-            response = ["calendar task", text]
-            chatHistory.append(AIMessage(content=text))
-
-        elif "order is fetching today's event and task from Calendar" in task_category:
-            text = "Sorry, this feature is still not available, waiting for the next update"
-            response = ["calendar all", text]
-            chatHistory.append(AIMessage(content=text))
-
-        elif "order is web scraping" in task_category:
-            ans = ChatGPT.generalAssistant(query, chatHistory)
-            response = ["web scraping", ans]
-            chatHistory.append(AIMessage(content=ans))
-
-        elif "order is general conversation" in task_category:
-            ans = ChatGPT.generalAssistant(query, chatHistory)
-            response = ["order is general conversation", ans]
-            chatHistory.append(AIMessage(content=ans))
-
+    elif "order is to fetch upcoming events from Calendar" in task_category:
+        calendar = GoogleCalendarManager()
+        amount = 10
+        if "order is to fetch upcoming events from Calendar (amount: " in task_category:
+            amount = int(task_category.split("amount: ", 1)[1].split(")", 1)[0])
+        event_list = calendar.upcomingEvent(amount)
+        if event_list:
+            text = "Sure, here are your upcoming events: \n\n" + "\n".join(
+                f"{formatDatetime(item[1])[0]}, {formatDatetime(item[1])[1]} : {item[2]}"
+                for item in event_list
+            )
         else:
-            response = ["others", task_category]
+            text = "Unfortunately, the event you are searching for does not appear to be exist"
+        response = ["calendar event", text]
+        chatHistory.append(AIMessage(content=text))
 
-    except:
-        response = "Apologies for the inconvenience. There seems to be an issue. Could you kindly attempt the process once more?"
+    elif "order is to fetch today's events from Calendar" in task_category:
+        calendar = GoogleCalendarManager()
+        event_list = calendar.todaysEvent()
+        if event_list:
+            text = "Sure, here are your upcoming events for today: \n\n" + "\n".join(
+                f"{formatDatetime(item[1])[0]}, {formatDatetime(item[1])[1]} - {item[2]}"
+                for item in event_list
+            )
+        else:
+            text = "I am unable to locate any event for today in Google Calendar"
+        response = ["calendar today's events", text]
+        chatHistory.append(AIMessage(content=text))
+
+    elif "order is fetching contact from Contact" in task_category:
+        name = AiModel.findName(query)
+        contact = GoogleContactManager()
+        contact_info = contact.phoneNumber(name)
+        if contact_info:
+            text = "Sure, here is your contact: \n\n" + "\n".join(
+                f"{item[0]} : {item[1]}" for item in contact_info
+            )
+        else:
+            text = "I am unable to locate any contact number you are searching for in Google Contact"
+        response = ["contact", text]
+        chatHistory.append(AIMessage(content="I have shown contact on screen"))
+
+    elif "order is to fetch task from Calendar" in task_category:
+        task = GoogleTaskManager()
+        task_list = task.dueTask()
+        if task_list:
+            text = "Sure, here are your due tasks: \n\n" + "\n".join(
+                f"{formatDatetime(item[1])[0]}, {formatDatetime(item[1])[1]} - {item[0]}"
+                for item in task_list
+            )
+        else:
+            text = "Hooray! 🎉 you don't have any due tasks !"
+        response = ["calendar task", text]
+        chatHistory.append(AIMessage(content=text))
+
+    elif "order is fetching today's event and task from Calendar" in task_category:
+        text = "Sorry, this feature is still not available, waiting for the next update"
+        response = ["calendar all", text]
+        chatHistory.append(AIMessage(content=text))
+
+    elif "order is web scraping" in task_category:
+        ans = AiModel.generalAssistant(query, chatHistory)
+        response = ["web scraping", ans]
+        chatHistory.append(AIMessage(content=ans))
+
+    elif "order is general conversation" in task_category:
+        ans = AiModel.generalAssistant(query, chatHistory)
+        response = ["order is general conversation", ans]
+        chatHistory.append(AIMessage(content=ans))
+
+    else:
+        response = ["others", task_category]
+
     return response
 
 
@@ -231,7 +227,11 @@ def handle_message(data):
         None
     """
     if data[0] == "use-input":
-        response = giveResponseArray(data[1])
+        AiModel = data[1]
+        if AiModel == "ChatGPT-3.5 turbo":
+            response = giveResponseArray(ChatGPT, data[2])
+        elif AiModel == "Gemini Flash 1.5":
+            response = giveResponseArray(Gemini, data[2])
 
     elif data[0] == "send-email":
         if validateEmail(data[1]):

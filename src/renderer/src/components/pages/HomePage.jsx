@@ -60,7 +60,8 @@ export const HomePage = () => {
   const fetchAIResponse = async (userInput) => {
     let aiMessage
     // Sends user input to main.js (main.js to server(python)) for AI processing
-    window.electron.ipcRenderer.send('client-request', ['use-input', userInput])
+    const preferredModel = localStorage.getItem('preferred-model')
+    window.electron.ipcRenderer.send('client-request', ['use-input', preferredModel, userInput])
     // Listen for a single response from the main process
     window.electron.ipcRenderer.once('server-response', (event, response) => {
       // Check if the response is an email

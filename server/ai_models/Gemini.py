@@ -55,7 +55,11 @@ def classifyTask(query: str):
 
 
 # For normal conversation and email writing
-def generalAssistant(user_input):
+def generalAssistant(user_input, chatHistory):
+    assistantPrompt.extend(
+        chatHistory
+    )  # Extend the chat prompt with the previous chat history
+    assistantPrompt.append(user_input)  # Append the current query to the chat prompt
     response = assistantChain.invoke({"text": user_input})
     return response
 
