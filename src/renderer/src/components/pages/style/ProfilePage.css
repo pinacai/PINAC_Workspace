@@ -2,7 +2,7 @@
     width: 100%;
     height: calc(100vh - 60px);
     padding-top: 20px;
-    font-family: 'Exo2';
+    font-family: 'Exo2', 'Montserrat', sans-serif;
     background: transparent;
     display: flex;
     flex-direction: column;
@@ -68,7 +68,7 @@
     border-radius: 10px;
     background: var(--input-bg);
     font-size: medium;
-    font-family: 'Exo2';
+    font-family: 'Exo2', 'Montserrat', sans-serif;
     color: var(--text-color2);
 }
 
@@ -82,7 +82,7 @@
     border-radius: 10px;
     background: var(--input-bg);
     font-size: medium;
-    font-family: 'Exo2';
+    font-family: 'Exo2', 'Montserrat', sans-serif;
     color: var(--text-color2);
 }
 

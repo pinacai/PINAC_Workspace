@@ -41,7 +41,7 @@
 }
 
 .calendar-header .header-left span {
-    font: normal x-large 'Exo2', sans-serif;
+    font: normal x-large 'Exo2', 'Montserrat', sans-serif;
 }
 
 .calendar-header .header-right {
@@ -92,7 +92,7 @@
 .calendar-view-buttons button {
     border: none;
     color: var(--text-color1);
-    font: normal 15px 'Exo2', sans-serif;
+    font: normal 15px 'Exo2', 'Montserrat', sans-serif;
     background: var(--calendar-bg);
     box-shadow: var(--calendar-shadow);
     cursor: pointer;

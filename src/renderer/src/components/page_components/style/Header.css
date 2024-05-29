@@ -34,7 +34,7 @@
 
 .left-side button:hover {
     border-radius: 7px;
-    background: var(--headerMenu-hover-bg);
+    background: var(--headerMenu-btn-hover-bg);
 }
 
 .left-side button img {
@@ -55,11 +55,12 @@
     margin-left: 10px;
     border: none;
     border-radius: 7px;
-    font: normal medium 'Exo2';
-    color: var(--text-color1);
+    font: normal medium 'Exo2', 'Montserrat', sans-serif;
+    color: var(--text-color2);
     backdrop-filter: blur(5px);
-    background: var(--headerMenu-bg-color);
+    background: var(--headerMenu-bg);
     box-shadow: var(--headerMenu-shadow);
+    z-index: 1;
 }
 
 .header-menu .dropdown-menu ul {
@@ -74,17 +75,18 @@
     justify-content: flex-start;
     border-radius: 7px;
     padding: 10px 10px;
+    cursor: pointer;
 }
 
 .header-menu .dropdown-menu ul li:hover {
-    background: var(--sidebar-hover-color);
+    background: var(--headerMenu-opt-hover-bg);
 }
 
 
 /* --------------------- */
 /* for other page titles */
 .title {
-    font: normal 30px 'Exo2', sans-serif;
+    font: normal 30px 'Exo2', 'Montserrat', sans-serif;
 }
 
 /* for PINAC Logo */
@@ -123,7 +125,7 @@
     padding-left: 5px;
     padding-right: 5px;
     position: relative;
-    font: normal 20px 'Exo2';
+    font: normal 20px 'Exo2', 'Montserrat', sans-serif;
     z-index: 10;
     transition: color 0.4s;
     display: inline-flex;
@@ -154,7 +156,7 @@
 }
 
 .pageHeader .newChatButton:active {
-    transform: scale(0.95);
+    transform: scale(0.95)
 }
 
 
@@ -190,7 +192,7 @@
     }
 
     .pageHeader .newChatButton {
-        padding: 3px 3px 3px 3px;
+        padding: 3px;
     }
 
     .pageHeader .newChatButton span {

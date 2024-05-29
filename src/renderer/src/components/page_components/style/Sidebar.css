@@ -11,7 +11,7 @@
     border-radius: 0 10px 10px 0;
     border: none;
     box-shadow: var(--sidebar-shadow);
-    font: normal 17px 'Exo2', sans-serif;
+    font: normal 17px 'Exo2', 'Montserrat', sans-serif;
     letter-spacing: 1.5px;
     position: relative;
     transition: width 0.3s ease-in-out;

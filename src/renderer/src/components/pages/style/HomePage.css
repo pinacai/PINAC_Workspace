@@ -5,12 +5,13 @@
 /* Chat Container */
 .chat-container {
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(100vh - 60px);
     background-color: transparent;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    flex-grow: 1;
 }
 
 .msg-box {
@@ -23,6 +24,7 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    flex-grow: 1;
 }
 
 .msg-box::-webkit-scrollbar {
@@ -58,54 +60,64 @@
 /* Lower part of ChatBox */
 .input-box {
     width: 100%;
-    height: 12vh;
     background-color: transparent;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding-top: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 /* User Input Styles */
 .input-group {
     width: 60%;
-    min-height: 60px;
     display: flex;
     align-items: center;
-    background: var(--inputGroup-bg);
-    border-radius: 10px;
     padding: 5px;
+    background: var(--inputGroup-bg);
+    border-radius: 0.8rem;
+    border: 3px;
+    border-bottom-style: solid;
+    border-color: transparent;
     box-shadow: var(--inputGroup-shadow);
+    flex-grow: 1;
 }
 
-.input-group:focus {
-    /* border: 2px solid blue; */
-    border-width: 5px;
-    border-color: red;
+.input-group.active {
+    border-bottom-color: var(--inputGroup-border-color);
 }
 
 #user-input {
-    height: 70%;
+    height: 50px;
+    max-height: 200px;
     min-width: 300px;
-    font-size: medium;
-    border: none;
+    padding: 15px 10px 10px 10px;
     outline: none;
-    padding: 0 20px;
-    background-color: transparent;
+    resize: none;
+    border: none;
     color: var(--text-color2);
+    font: normal medium 'Montserrat', sans-serif;
+    background: transparent;
     flex-grow: 1;
 }
 
 #user-input::placeholder {
-    color: var(--text-color2);
-    font: normal large 'Exo2';
+    color: var(--placeholder-text-color);
+    align-items: center;
+    font: normal large 'Exo2', 'Montserrat', sans-serif;
     letter-spacing: 2px;
+}
+
+#user-input::-webkit-scrollbar {
+    width: 0px;
 }
 
 .input-group-append {
     display: flex;
-    align-items: center;
+    flex-direction: column-reverse;
+    align-items:flex-start;
+    justify-content: flex-start;
 }
 
 /* Send Button Styles */
@@ -180,6 +192,7 @@ button.disabled {
 
     .input-group {
         width: 90%;
+        padding: 3px;
     }
 
     #user-input {
@@ -188,6 +201,10 @@ button.disabled {
 
     .input-group-append {
         align-items: center;
+    }
+
+    #submit-btn {
+        margin-right: 10px;
     }
 }
 
@@ -209,8 +226,9 @@ button.disabled {
         width: 95%;
     }
 
-    #user-input {
-        padding: 0 5px;
+    #user-input::placeholder {
+        font: normal medium 'Exo2', 'Montserrat', sans-serif;
+        letter-spacing: 2px;
     }
 
     .input-group-append {
@@ -232,23 +250,10 @@ button.disabled {
         font-size: 10vw;
     }
 
-    .input-group {
-        padding: 0 0 0 5px;
-    }
-
-    #user-input {
-        height: 100%;
-        padding: 0 5px;
-    }
-
-    #user-input::placeholder {
-        font: normal medium 'Exo2';
-        letter-spacing: 2px;
-    }
-
     #submit-btn {
         height: 35px;
         width: 35px;
+        margin-right: 5px;
     }
 
     #submit-btn img {

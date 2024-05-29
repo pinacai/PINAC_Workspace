@@ -1,5 +1,5 @@
 import './style/HomePage.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Sidebar } from '../page_components/Sidebar'
 import { Header } from '../page_components/Header'
 import { HumanMessage, AiMessage, EmailMessage } from '../page_components/MessageViewer'
@@ -23,6 +23,7 @@ export const HomePage = () => {
   const [userInput, setUserInput] = useState('') // Declare state for input value
   const [isUserInputActive, setUserInputActive] = useState(false) // Declare state for input value
   const [buttonsDisabled, setButtonsDisabled] = useState(false) // For disabling send button
+  const textareaRef = useRef(null)
 
   //
   // Handles changes in user input
@@ -80,6 +81,31 @@ export const HomePage = () => {
     })
   }
 
+  //
+  useEffect(() => {
+    const handleKeyup = (e) => {
+      const scHeight = e.target.scrollHeight
+      e.target.style.height = '50px'
+      textareaRef.current.style.height = `${scHeight}px`
+
+      // Check if the textarea is empty
+      if (e.target.value.trim() === '') {
+        // Set the textarea height back to the default
+        textareaRef.current.style.height = '50px'
+      }
+    }
+    if (textareaRef.current) {
+      textareaRef.current.addEventListener('keyup', handleKeyup)
+    }
+
+    return () => {
+      if (textareaRef.current) {
+        textareaRef.current.removeEventListener('keyup', handleKeyup)
+      }
+    }
+  }, [])
+
+  //
   // For smooth applying of current theme
   useEffect(() => {
     const body = document.body
@@ -108,18 +134,21 @@ export const HomePage = () => {
           </div>
 
           <div className="input-box">
-            <div className={`input-group ${isUserInputActive ? 'active' : ''}`}>
-              <input
+            <div
+              className={`input-group ${isUserInputActive ? 'active' : ''}`}
+              onFocus={() => setUserInputActive(true)}
+              onBlur={() => setUserInputActive(false)}
+            >
+              <textarea
                 id="user-input"
                 className={buttonsDisabled ? 'disabled' : ''}
                 value={userInput}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
-                onClick={() => {
-                  setUserInputActive(true)
-                }}
                 placeholder="Tell me your task..."
                 disabled={buttonsDisabled}
+                ref={textareaRef}
+                required
               />
               <div className="input-group-append">
                 <button

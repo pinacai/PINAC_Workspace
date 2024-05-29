@@ -2,7 +2,7 @@
     width: 100%;
     height: calc(100vh - 60px);
     padding-top: 20px;
-    font-family: 'Exo2';
+    font-family: 'Exo2', 'Montserrat', sans-serif;
     background: transparent;
     display: flex;
     flex-direction: column;
