@@ -35,7 +35,7 @@ PINAC Workspace, with its full range of features and smart AI tools, simplifies 
 - Search for contacts from your Google Contacts directory and retrieve them immediately,
 - Easily locate and download your files stored in Google Drive. While the backend functionality is already in place, we are actively working on integrating the Google Drive features into the app's front end.
 -  You can engage in conversations with an AI to tap into LLM's extensive knowledge and receive assistance on a wide range of topics.  
-
+- The incredibly responsive design allows you to keep it to the side while opening other tabs, eliminating the need to minimize!
 
 ## 🎨 UI Design
 <img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/app_theme.png" alt="app screenshot">
@@ -69,21 +69,21 @@ Here are two ways to get started !
 ## 🦄 Contributing in Just Frontend
 Then it's super easy with just 3 steps!
 
-### 1. Clone the Repository
-  ```bash
-  git clone https://github.com/pinacai/PINAC_Workspace-2.0.git
-  cd 'PINAC_Workspace-2.0'
-  ```
+1. Clone the Repository
+    ```bash
+    git clone https://github.com/pinacai/PINAC_Workspace-2.0.git
+    cd 'PINAC_Workspace-2.0'
+    ```
 
-### 2. Install
-  ```bash
-  npm install
-  ```
+2. Install Node dependencies
+    ```bash
+    npm install
+    ```
 
-### 3. Start the App
-  ```bash
-  npm run dev
-  ```
+3. Start the App
+    ```bash
+    npm run dev
+    ```
 > It will show a popup error at the start, bcz of a missing Python server, Just ignore it. It will not affect your development !  
 
 <br>
@@ -98,54 +98,39 @@ Then it's super easy with just 3 steps!
 ### Recommended IDE Setup
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-### 1. Clone the Repository
-  ```bash
-  git clone https://github.com/pinacai/PINAC_Workspace-2.0.git
-  cd 'PINAC_Workspace-2.0'
-  ```
+### Come to the Terminal
+1. Clone the Repository
+    ```bash
+    git clone https://github.com/pinacai/PINAC_Workspace-2.0.git
+    cd 'PINAC_Workspace-2.0'
+    ```
 
-### 2. Install Node dependencies
-  ```bash
-  npm install
-  ```
-### 3. Create virtualenv & activate it
-  ```bash
-  python -m venv .env
-  ```
-  ```bash
-  source .env/bin/activate
-  ```
-### 4. Install Python dependencies
-  ```bash
-  pip install -r requirements.txt
-  ```
+2. Install Node dependencies
+    ```bash
+    npm install
+    ```
+3. Create virtualenv & activate it
+    ```bash
+    python -m venv .env && source .env/bin/activate
+    ```
+4. Install Python dependencies
+    ```bash
+    pip install -r requirements.txt
+    ```
+5. Get your Google secret token & API Key
+  Follow the steps in <a href='https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/Google%20API%20GUIDE.md'>Google API Guide</a> and get your Google secret key & place it in `server/configs` with the name exactly as `client_secret.json`.   
+   
+    Now to place your _OPENAI API Key_ and _GOOGLE API KEY_, create `.env` file in the folder `server/configs` and copy-paste the below line in `.env`:
+    ```python
+    OPENAI_API_KEY = "<Place your OPENAI API Key here>"
+    GOOGLE_API_KEY = "<Place your OPENAI API Key here>"
+    ```
 
-### 5. Get your Google secret token & API Key
-  Follow the steps in <a href='https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/Google%20API%20GUIDE.md'>Google API Guide</a> and get your Google secret key & place it in `server/configs` with the name exactly as `client_secret.json`.  
-    
-  Now to place your _OPENAI API Key_ and _GOOGLE API KEY_, create `.env` file in the folder `server/configs` and copy-paste the below line in `.env`:
-  ```python
-  OPENAI_API_KEY = "<Place your OPENAI API Key here>"
-  GOOGLE_API_KEY = "<Place your OPENAI API Key here>"
-  ```
-
-### 6. Start the App
-  ```bash
-  npm run dev
-  ```
-
-### Build (optional) // Not tested
-  ```bash
-  # For windows
-  $ npm run build:win
-
-  # For macOS
-  $ npm run build:mac
-
-  # For Linux
-  $ npm run build:linux
-  ```
-
+6. Start the App
+    ```bash
+    npm run dev
+    ```
+  
 > ### ⚠️ Warning
 > _No proper Google Sign-In button added, you will automatically directed to the SignIn page when you run a command related to a Google App task, for only once, for the first time._  
 >
