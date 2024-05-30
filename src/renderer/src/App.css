@@ -55,11 +55,14 @@
     --composeBox-body-bg: #ececec;
 
     /* ScheduleViewer */
-    --calendar-bg: #1F2937;
-    --calendar-shadow: none;
-    --calendar-dimmed-text-color: #c0c0c0;
-    --calendar-hover-color: rgba(255, 255, 255, 0.1);
-    --calendar-weekView-header-box-bg: rgba(255, 255, 255, 0.1);
+    --calendar-bg: #FFFFFF;
+    --calendar-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    --calendar-dimmed-text-color: #636363;
+    --calendar-hover-color: #cccccc;
+    --calendar-current-bg: #5972ff;
+    --calendar-event-border-color: #B15EFD;
+    --calendar-task-border-color: #5972ff;
+    --calendar-weekView-header-box-bg: #e9e9e9;
     --calendar-weekView-header-box-shadow: none;
 
     /* MessageViewer */
@@ -79,7 +82,7 @@
     /* HomePage */
     --welcomeText-gradient: linear-gradient(125deg, #ff7300, #F12B6D, #0026ff);
     --inputGroup-bg: #FFFFFF;
-    --inputGroup-border-color: #6c82ff;
+    --inputGroup-border-color: #5972ff;
     --inputGroupBtn-hover-color: #b9b9b9;
     --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
@@ -130,11 +133,14 @@
     --composeBox-body-bg: #3C3C3C;
 
     /* ScheduleViewer */
-    --calendar-bg: #3C3C3C;
-    --calendar-shadow: none;
+    --calendar-bg: #252525;
+    --calendar-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     --calendar-dimmed-text-color: #8f8f8f;
-    --calendar-hover-color: #6e6e6e;
-    --calendar-weekView-header-box-bg:  #6e6e6e;
+    --calendar-hover-color: #3C3C3C;
+    --calendar-current-bg: linear-gradient(135deg, #5e43f3, #382bf0);
+    --calendar-event-border-color: #8f27f0;
+    --calendar-task-border-color: #382bf0;
+    --calendar-weekView-header-box-bg:  #3C3C3C;
     --calendar-weekView-header-box-shadow: none;
 
     /* MessageViewer */
@@ -206,11 +212,14 @@
     --composeBox-body-bg: #ececec;
 
     /* ScheduleViewer */
-    --calendar-bg: #1F2937;
-    --calendar-shadow: none;
-    --calendar-dimmed-text-color: #c0c0c0;
-    --calendar-hover-color: rgba(255, 255, 255, 0.1);
-    --calendar-weekView-header-box-bg: rgba(255, 255, 255, 0.1);
+    --calendar-bg: #FFFFFF;
+    --calendar-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    --calendar-dimmed-text-color: #636363;
+    --calendar-hover-color: #cccccc;
+    --calendar-current-bg: #5972ff;
+    --calendar-event-border-color: #B15EFD;
+    --calendar-task-border-color: #5972ff;
+    --calendar-weekView-header-box-bg: #e9e9e9;
     --calendar-weekView-header-box-shadow: none;
 
     /* MessageViewer */
@@ -230,7 +239,7 @@
     /* HomePage */
     --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
     --inputGroup-bg: #FFFFFF;
-    --inputGroup-border-color: #6c82ff;
+    --inputGroup-border-color: #5972ff;
     --inputGroupBtn-hover-color: #b9b9b9;
     --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
@@ -285,6 +294,9 @@
     --calendar-shadow: 0 0 2px #ece2d5;
     --calendar-dimmed-text-color: #8f8f8f;
     --calendar-hover-color: rgba(109, 108, 108, 0.2);
+    --calendar-current-bg: linear-gradient(125deg, #0026ff, #5b00af);
+    --calendar-event-border-color: #5b00af;
+    --calendar-task-border-color: #0026ff;
     --calendar-weekView-header-box-bg: rgba(109, 108, 108, 0.15);
     --calendar-weekView-header-box-shadow: 0 0 2px #ece2d5;
 

@@ -183,10 +183,10 @@ export const ScheduleViewer = (props) => {
 
                 <div className="header-right">
                   <button onClick={handlePreviousMonth}>
-                    <img src={leftArrow} alt="Previous" className="non-changeable-icon" />
+                    <img src={leftArrow} alt="Previous" className="changeable-icon" />
                   </button>
                   <button onClick={handleNextMonth}>
-                    <img src={rightArrow} alt="Next" className="non-changeable-icon" />
+                    <img src={rightArrow} alt="Next" className="changeable-icon" />
                   </button>
                 </div>
               </div>
@@ -200,11 +200,11 @@ export const ScheduleViewer = (props) => {
                     <div className="week-header-btn">
                       <button onClick={handlePreviousWeek}>
                         {' '}
-                        <img src={leftArrow} alt="Previous" className="non-changeable-icon" />
+                        <img src={leftArrow} alt="Previous" className="changeable-icon" />
                       </button>
                       <button onClick={handleNextWeek}>
                         {' '}
-                        <img src={rightArrow} alt="Next" className="non-changeable-icon" />
+                        <img src={rightArrow} alt="Next" className="changeable-icon" />
                       </button>
                     </div>
                     {renderWeekView()}

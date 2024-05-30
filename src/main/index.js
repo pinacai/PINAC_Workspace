@@ -9,10 +9,14 @@ const createWindow = () => {
   // Get the primary display's work area size (usable area)
   const primaryDisplay = screen.getPrimaryDisplay()
   const { width, height } = primaryDisplay.workAreaSize
+  // Calculate the x-coordinate to position the window on the right side
+  const windowX = width - 20
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: Math.floor(width * 0.45),
+    width: 340,
     height: height,
+    x: windowX,
+    y: 20,
     show: false,
     autoHideMenuBar: true,
     webPreferences: {

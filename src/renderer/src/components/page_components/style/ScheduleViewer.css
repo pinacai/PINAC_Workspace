@@ -27,7 +27,7 @@
     max-width: 100%;
     padding: 20px;
     border-radius: 10px;
-    color: var(--text-color1);
+    color: var(--text-color2);
     background: var(--calendar-bg);
     box-shadow: var(--calendar-shadow);
 }
@@ -91,7 +91,7 @@
 
 .calendar-view-buttons button {
     border: none;
-    color: var(--text-color1);
+    color: var(--text-color2);
     font: normal 15px 'Exo2', 'Montserrat', sans-serif;
     background: var(--calendar-bg);
     box-shadow: var(--calendar-shadow);
@@ -105,7 +105,8 @@
 }
 
 .month-view.active {
-    background: black;
+    color: var(--text-color1);
+    background: var(--calendar-current-bg);
 }
 
 .week-view {
@@ -114,7 +115,8 @@
 }
 
 .week-view.active {
-    background: black;
+    color: var(--text-color1);
+    background: var(--calendar-current-bg);
 }
 
 /* ----------------------- */
@@ -150,31 +152,35 @@
 }
 
 .month-day {
-    background-color: transparent;
     padding: 10px;
-    border-radius: 5px;
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 50%;
     text-align: center;
+    cursor: pointer;
+}
+
+.month-day:hover {
+    background: var(--calendar-hover-color);
 }
 
 /* for highlighting current date */
 .month-day.current {
-    background-color: blueviolet;
-    border-radius: 50%;
+    color: var(--text-color1);
+    background: var(--calendar-current-bg);
 }
 
 /* for highlighting event and task */
 .month-day.has-event {
-    background-color: green;
-    border-radius: 50%;
+    border-color: var(--calendar-event-border-color);
 }
 
 .month-day.has-task {
-    background-color: red;
-    border-radius: 50%;
+    border-color: var(--calendar-task-border-color);
 }
 
 .month-day.empty {
-    background-color: transparent;
+    background: transparent;
 }
 
 /* ----------------------- */
@@ -221,7 +227,7 @@
     width: 50px;
     padding: 10px;
     margin-right: 10px;
-    border-radius: 4px;
+    border-radius: 5px;
     text-align: center;
     background: var(--calendar-weekView-header-box-bg);
     box-shadow: var(--calendar-weekView-header-box-shadow);
@@ -237,7 +243,9 @@
 }
 
 .week-day.current {
-    background: black;
+    color: var(--text-color1);
+    background: var(--calendar-current-bg);
+    box-shadow: none;
 }
 
 .week-day.empty {
@@ -292,20 +300,43 @@
         padding: 5px;
     }
 
-    /* Making the Week View compatible */
-    /* with screen size */
     .week-day {
         margin-right: 5px;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
     .schedule-content.type1 {
         justify-content: left;
         flex-direction: column;
     }
 
+    .calendar-week {
+        flex-direction: column;
+        margin-right: 0;
+    }
+
+    .week-day {
+        margin-right: 0;
+        margin-top: 10px;
+    }
+
     .schedule-content.type1 .schedule-desc {
         margin-left: 0;
         margin-top: 10px;
-    }}
+    }
+}
+
+@media (max-width: 320px) {
+    .calendar {
+        padding: 5px 10px 10px 10px;
+    }
+
+    .month-day {
+        padding: 2px;
+    }
+
+    .month-day-name {
+        font-size: small;
+    }
+}
