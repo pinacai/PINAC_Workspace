@@ -1,6 +1,7 @@
 from langchain.schema import HumanMessage, SystemMessage, AIMessage
 
-taskClassification_dataset = [
+# Task Category Classification Dataset
+TCC_Dataset = [
         SystemMessage(content="Your only task is to classify the user query only within specific mentioned categories. When user will ask you a query, classify the query only within the list of categories of orders: [general conversation], [composing email], [upcoming events] or [upcoming events (amount: *)], [today's events], [task todo], [complete schedule], [contact], [coding problem], [official work], [personal work], [web searching]"),
         SystemMessage(content="Below are the examples of how you have to ans to user's query"),
 
@@ -300,113 +301,6 @@ taskClassification_dataset = [
         AIMessage(content="web searching"),
         HumanMessage(content="Pinac, tell the latest football match scores and statistics."),
         AIMessage(content="web searching"),
-
-        ("human", "{text}")
-]
-
-
-
-findName_dataset = [
-        SystemMessage(content="Whenever I will give you any sentence or query of from user, you will find any name or kinship terms referred in it and you will return that name"),
-
-        HumanMessage(content="pinac find [any name or kinship terms] from contact"),
-        AIMessage(content="[any name or kinship terms]"),
-
-        # common names (command ---> commonly used)
-        HumanMessage(content="AI, search for Maria's phone number."),
-        AIMessage(content="Maria"),
-        HumanMessage(content="Retrieve Muhammad's contact details, including their phone number."),
-        AIMessage(content="Muhammad"),
-        HumanMessage(content="Locate the mobile number for Wang Wei."),
-        AIMessage(content="Wang Wei"),
-        HumanMessage(content="AI, provide me with the contact information for john."),
-        AIMessage(content="John"),
-        HumanMessage(content="Find the phone number associated with anna."),
-        AIMessage(content="Anna"),
-        HumanMessage(content="Fetch the contact details of Luis, specifically their phone number."),
-        AIMessage(content="Luis"),
-        HumanMessage(content="Look up Ying's cell phone number."),
-        AIMessage(content="Ying"),
-        HumanMessage(content="Retrieve the mobile contact of Sara."),
-        AIMessage(content="Sara"),
-        HumanMessage(content="Fetch the contact details for ahmed, focusing on their cell number."),
-        AIMessage(content="Ahmed"),
-        HumanMessage(content="AI, give me the phone number of Olivia."),
-        AIMessage(content="Olivia"),
-        HumanMessage(content="Retrieve the mobile contact information of Noah."),
-        AIMessage(content="Noah"),
-        HumanMessage(content="Search for [Emma's phone number in your records."),
-        AIMessage(content="Emma"),
-
-        # common Indian names (command ---> slightly unique)
-        HumanMessage(content="AI, retrieve the phone number for rohan."),
-        AIMessage(content="Rohan"),
-        HumanMessage(content="Search your database for Krishna's contact details, specifically their mobile number."),
-        AIMessage(content="Krishna"),
-        HumanMessage(content="Locate the cell phone number associated with ankita."),
-        AIMessage(content="Ankita"),
-        HumanMessage(content="AI, provide me with the contact information for Indra, including their phone number."),
-        AIMessage(content="Indra"),
-        HumanMessage(content="Find the mobile contact of Vihaan."),
-        AIMessage(content="Vihaan"),
-        HumanMessage(content="Look up Jaya's phone number."),
-        AIMessage(content="Jaya"),
-
-        # kinship terms from around the world
-        HumanMessage(content="Hey AI, could you please look up the phone number for Grandma/Grandpa?"),
-        AIMessage(content="Grandma/Grandpa"),
-        HumanMessage(content="AI, find me Aunt/Uncle's contact details, specifically their phone number."),
-        AIMessage(content="Aunt/Uncle"),
-        HumanMessage(content="Can you retrieve cousin's phone number for me?"),
-        AIMessage(content="Cousin"),
-        HumanMessage(content="AI, I need to get in touch with Sister/Brother. Could you provide their phone number?"),
-        AIMessage(content="Sister/Brother"),
-        HumanMessage(content="Hey there, AI! How can I reach Mom/Dad? Can you fetch their phone number?"),
-        AIMessage(content="Mom/Dad"),
-        HumanMessage(content="AI, help me out! I’m trying to find Niece/Nephew's contact info. What’s their phone number?"),
-        AIMessage(content="Niece/Nephew"),
-        HumanMessage(content="Please find friend's phone number. I want to give them a call."),
-        AIMessage(content="Friend"),
-        HumanMessage(content="AI, do you have neighbor's phone number handy?"),
-        AIMessage(content="Neighbor"),
-        HumanMessage(content="I’m looking for boss's phone number. Can you assist?"),
-        AIMessage(content="Boss"),
-        HumanMessage(content="Hey AI, track down mate's contact details, specifically their phone number."),
-        AIMessage(content="Mate"),
-
-        # kinship terms from India,
-        HumanMessage(content="AI, please fetch dada/dadi's phone number."),
-        AIMessage(content="Dada/Dadi"),
-        HumanMessage(content="Find the contact details for Nana/Nani."),
-        AIMessage(content="Nana/Nani"),
-        HumanMessage(content="Retrieve baba's mobile number."),
-        AIMessage(content="Baba"),
-        HumanMessage(content="Can you provide me with Bhai/Behen's phone number?"),
-        AIMessage(content="Bhai/Behen"),
-        HumanMessage(content="Hey AI, look up chacha/chachi/mama/mami's contact info."),
-        AIMessage(content="Chacha/Chachi/Mama/Mami"),
-        HumanMessage(content="tell me didi's phone number?"),
-        AIMessage(content="Didi"),
-        HumanMessage(content="AI, get me bhaiya's contact details."),
-        AIMessage(content="Bhaiya"),
-        HumanMessage(content="Locate Papa/Mummy's phone number."),
-        AIMessage(content="Papa/Mummy"),
-        HumanMessage(content="Find driver bhaiya's contact number."),
-        AIMessage(content="Driver Bhaiya"),
-        HumanMessage(content="AI, fetch phone number of Aditi Maa"),
-        AIMessage(content="Aditi Maa"),
-        HumanMessage(content="Retrieve milk uncle/doodh Wale Uncle's contact info."),
-        AIMessage(content="Milk Uncle/Doodh Wale Uncle"),
-        HumanMessage(content="What’s the phone number for auntyji?"),
-        AIMessage(content="Auntyji"),
-        HumanMessage(content="Look up Doctor Uncle's mobile number."),
-        AIMessage(content="Doctor Uncle"),
-        HumanMessage(content="Provide tailor didi's contact details."),
-        AIMessage(content="Tailor Didi"),
-        HumanMessage(content="AI, can you get shopkeeper Bhai's phone number?"),
-        AIMessage(content="Shopkeeper Bhai"),
-        HumanMessage(content="Locate the contact number for Sir/Madam."),
-        AIMessage(content="Sir/Madam"),
 
         ("human", "{text}")
 ]

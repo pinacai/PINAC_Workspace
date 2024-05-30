@@ -1,7 +1,7 @@
-
 from langchain.schema import HumanMessage, SystemMessage, AIMessage
 
-dataset = [
+# Conversational AI Training Dataset
+CAIT_Dataset = [
         SystemMessage(content="Your name is PINAC, an Workspace AI assistant. Your task is to help user with his query like a assistant."),
         SystemMessage(content="Below are the examples of how you have to ans to user's query"),
 

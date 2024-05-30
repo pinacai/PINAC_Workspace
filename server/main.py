@@ -3,14 +3,19 @@ from flask import Flask
 from flask_socketio import SocketIO
 from functools import cache
 from email_validator import validate_email
-from ai_models import ChatGPT, Gemini
-from google_apps.__init__ import createService
+from ai_models.ChatGPT import ChatGPT_3_5
+from ai_models.Gemini import Gemini_1_5_Pro, Gemini_1_Pro, Gemini_1_5_Flash
 from google_apps.gmail_bot import GoogleGmailManager
 from google_apps.calendar_bot import GoogleCalendarManager
 from google_apps.contact_bot import GoogleContactManager
 from google_apps.task_bot import GoogleTaskManager
 from langchain.schema import HumanMessage, AIMessage
 
+# Initializing AI Models
+chatgpt_3_5 = ChatGPT_3_5()
+gemini_1_5_pro = Gemini_1_5_Pro()
+gemini_1_pro = Gemini_1_Pro()
+gemini_1_5_flash = Gemini_1_5_Flash()
 
 # Function to validate email address
 def validateEmail(emailId):
@@ -60,9 +65,7 @@ def decodeEmail(text):
 
 
 # Function to get the ordinal suffix for a day number (e.g., 1st, 2nd, 3rd, 4th)
-def get_ordinal_suffix(
-    day,
-):  # This function helps determine the ordinal suffix for a day number.
+def get_ordinal_suffix(day):  # This function helps determine the ordinal suffix for a day number.
     if 4 <= day % 100 <= 20:
         suffix = "th"
     else:
@@ -124,7 +127,7 @@ def giveResponseArray(AiModel, query):
             ]
     """
     chatHistory.append(HumanMessage(content=query))
-    task_category = AiModel.classifyTask(query)
+    task_category = AiModel.classifyTaskCategory(query)
 
     if "composing email" in task_category:
         email_template = AiModel.generalAssistant(query, chatHistory)
@@ -221,9 +224,13 @@ def handle_message(data):
     if data[0] == "use-input":
         AiModel = data[1]
         if AiModel == "ChatGPT-3.5 turbo":
-            response = giveResponseArray(ChatGPT, data[2])
+            response = giveResponseArray(chatgpt_3_5, data[2])
+        elif AiModel == "Gemini 1.5 Pro":
+            response = giveResponseArray(gemini_1_5_pro, data[2])
+        elif AiModel == "Gemini 1.0 Pro":
+            response = giveResponseArray(gemini_1_pro, data[2])
         elif AiModel == "Gemini Flash 1.5":
-            response = giveResponseArray(Gemini, data[2])
+            response = giveResponseArray(gemini_1_5_flash, data[2])
 
     elif data[0] == "send-email":
         if validateEmail(data[1]):

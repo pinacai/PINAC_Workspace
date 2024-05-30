@@ -81,7 +81,14 @@ export const SettingsPage = () => {
             <div className="section-title">
               <span>AI Model</span>
             </div>
-            <DropdownMenu optionList={['ChatGPT-3.5 turbo', 'Gemini Flash 1.5']} />
+            <DropdownMenu
+              optionList={[
+                'ChatGPT-3.5 turbo',
+                'Gemini 1.5 Pro',
+                'Gemini 1.0 Pro',
+                'Gemini Flash 1.5'
+              ]}
+            />
           </div>
 
           {/* Section 2 ( Theme ) */}
