@@ -1,50 +1,57 @@
-<img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/header.png" alt="">
-
 <div align="center">
 
-<img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/build-with-electron-&-react.svg" alt="Made By Electron & React">
-<img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/powered-by-python.svg" alt="Powered By Python">
+<h1 style="border-bottom: none">
+    <b><a href="https://github.com/pinacai">PINAC Workspace</a></b><br>
+</h1>
+
+<img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/header.png" alt="header image">
+
 <br>
 <br>
-PINAC Workspace is a versatile, AI-powered desktop application that operates seamlessly across platforms. Crafted with Electron and React, with a powerful backend using Python.  
+
+![Star Badge](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
+![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
+[![View Repositories](https://img.shields.io/badge/View-Our_Repositories-blue?logo=GitHub)](https://github.com/rajeshtechforge?tab=repositories)
+
+A privacy-focused, cross-platform, user-first and open-source alternative for Copilot on Windows.  
+One Next-Gen AI Chat for all your needs.
+<br>
+<br>
+
+<a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="70" height="70"/> </a>
+<a href="https://www.electronjs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/electron/electron-original.svg" alt="electron" width="70" height="70"/> </a>
+<a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="70" height="70"/> </a>
+<a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="70" height="70"/> </a> 
+
 </div>
 
+<br />
 
-## 🔮 Vision
+## Why PINAC Workspace ?
 
-In today's world, AI is everywhere. However, managing various tasks requires separate AI applications, and this constant switching between windows consumes excessive time and reduces productivity.
+Leveraging multiple AI tools for your workflow sounds smart. However, does the constant context switching between them slow you down?
 
-Experience the **Next Gen AI Chat** —your all-in-one chat for Google apps, web searches, document summarising, coding problems, wide range of office tools and more, without switching apps!
+Experience the **Next Gen AI Chat** —your all-in-one chat for text generation, document summarisation, web searching, code generation, a wide range of office tools and ultimately managing all Google Workspace apps without switching apps!
 
-### Key Features
-- **Effortless Gmail Management**: Create and modify email templates using AI, send emails directly from the chat, and receive notifications for priority emails.
-- **Schedule Master:** Just communicate your needs, and the AI will craft personalized timetables, vacation plans, or task lists that seamlessly integrate with your existing commitments. Easily add events or tasks to Google Calendar directly from the chat.
-- **Google Drive Integration:** You can summarize, modify, take notes, or ask questions from Google Drive files, even without downloading them! Additionally, search for files, and download or upload documents.
-- **Contact Search:** Effortlessly manage your Google contacts with ease. Instantly search for existing contacts or seamlessly create new ones, all simply by asking!
-- **Google Form Designer:** Create professional-looking Google Forms by simply describing your needs to the AI, which will generate the form for you.
-- **AI Web Searching:** Dive into internet searches or product research with AI as your guide, streamlining every step. Experience tailored search results meticulously filtered by content relevance, ensuring you find exactly what you’re looking for with ease.
-- **Automate Office Works:** Unleash the power of AI with PINAC Workspace to craft compelling content! Effortlessly generate professional letters, engaging articles, detailed product descriptions, and more.
-- **Friendly Conversation:**  Whether you need advice or want to engage in casual conversation during breaks, the AI is here to assist you.
+View our Roadmap & Progress: https://github.com/orgs/pinacai/projects/1  
+> We are dedicatedly developing the app by introducing new features and optimising the user interface. Always keeping user in the first priority.
 
-PINAC Workspace, with its full range of features and smart AI tools, simplifies your work, increases efficiency, and offers a smooth way to handle your Google Workspace activities and more
+## Themes
 
+Responsive design like never before, from the narrowest screen to the full screen or half-screen, it adopted smoothly...
+<br />
 
-## 💠 Current Progress
-- Craft and send emails seamlessly with the assistance of AI. Modify or enhance your drafts within the chat, and send them directly from the chat interface.
-- View your upcoming events and due tasks from Google Calendar by simply asking the AI in the chat. We are currently working on implementing the calendar view feature.
-- Search for contacts from your Google Contacts directory and retrieve them immediately,
-- Easily locate and download your files stored in Google Drive. While the backend functionality is already in place, we are actively working on integrating the Google Drive features into the app's front end.
--  You can engage in conversations with an AI to tap into LLM's extensive knowledge and receive assistance on a wide range of topics.  
-- The incredibly responsive design allows you to keep it to the side while opening other tabs, eliminating the need to minimize!
-
-## 🎨 UI Design
 <img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/app_theme.png" alt="app screenshot">
 
-## 📁 File Structure
+## System Design (Upcoming)
+
+<img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/System%20Architecture.jpg" alt="design image">
+
+## File Structure
 Just the important part you need to get started
 
     .
-    ├── server /               # Contains Python code for the backend
+    ├── server /               # Contains Python code
     |    ├── ai_models /
     |    ├── google /          # Google API automation files
     |    ├── configs /         # to store your secrets
@@ -66,8 +73,7 @@ Just the important part you need to get started
 ##  🚀 Project Setup
 Here are two ways to get started !
 
-## 🦄 Contributing in Just Frontend
-Then it's super easy with just 3 steps!
+### Contributing in Just Frontend
 
 1. Clone the Repository
     ```bash
@@ -88,17 +94,21 @@ Then it's super easy with just 3 steps!
 
 <br>
   
-## 👑 Full Installation for Using the App
-### Prerequisites
-- _Node.js_
-- _Python_
-- _OPENAI API Key_ or _GOOGLE API KEY_ (which Model you want to use)
-- _Internet Connection_
+### Full Installation for Using the App
 
-### Recommended IDE Setup
+### _Prerequisites_
+
+- Node.js
+- Python
+- OPENAI API Key or GOOGLE API KEY (which Model you want to use)
+- Internet (for now)
+
+### _Recommended IDE Setup_
+
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-### Come to the Terminal
+### _Come to the Terminal_
+
 1. Clone the Repository
     ```bash
     git clone https://github.com/pinacai/PINAC_Workspace-2.0.git
@@ -137,6 +147,7 @@ Then it's super easy with just 3 steps!
 > **Soon we will add a Sign-In button...**
 
 ## 💁 Contributing
+
 Contributions to PINAC Workspace are welcome! Here’s how you can contribute:
 
 1. Star the repository
@@ -145,9 +156,9 @@ Contributions to PINAC Workspace are welcome! Here’s how you can contribute:
 4. Commit changes to your own branch.
 5. Push your work back up to your fork.
 6. Submit a Pull request so that we can review your changes
-7. Please ensure your commits adhere to the project's coding style and all tests pass.
 
 ## 📄 License
+
 PINAC Workspace 2.0 is licensed under the **GPL-3.0 license**. See the <a href="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/LICENSE">LICENSE</a> file for more details.
 
 ## 🌐 Support
