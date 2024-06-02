@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { MarkdownStyle } from '../page_components/MarkdownStyle'
 import { EmailComposeBox } from '../page_components/EmailComposeBox'
+import { ScheduleViewer } from '../page_components/ScheduleViewer'
 import './style/MessageViewer.css'
 
 // Icons
@@ -101,6 +102,14 @@ export const EmailMessage = (props) => {
   )
 }
 
+export const ScheduleMessage = (props) => {
+  return (
+    <>
+      <ScheduleViewer events={props.schedule} />
+    </>
+  )
+}
+
 HumanMessage.propTypes = {
   response: PropTypes.string.isRequired
 }
@@ -113,4 +122,16 @@ EmailMessage.propTypes = {
   response: PropTypes.string.isRequired,
   subject: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired
+}
+
+ScheduleMessage.propTypes = {
+  // response: PropTypes.string.isRequired,
+  schedule: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string.isRequired,
+      start: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
+      end: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
+    })
+  )
 }

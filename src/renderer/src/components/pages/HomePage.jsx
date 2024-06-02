@@ -2,7 +2,12 @@ import './style/HomePage.css'
 import { useState, useEffect, useRef } from 'react'
 import { Sidebar } from '../page_components/Sidebar'
 import { Header } from '../page_components/Header'
-import { HumanMessage, AiMessage, EmailMessage } from '../page_components/MessageViewer'
+import {
+  HumanMessage,
+  AiMessage,
+  EmailMessage,
+  ScheduleMessage
+} from '../page_components/MessageViewer'
 
 // Icons
 import sendIcon from '../../assets/icon/send.svg'
@@ -72,6 +77,8 @@ export const HomePage = () => {
         const body = response[2]
         // Display email message
         aiMessage = <EmailMessage response={aiText} subject={subject} body={body} />
+      } else if (response[0] === 'schedule') {
+        aiMessage = <ScheduleMessage schedule={response[1]} />
       } else {
         // Display standard AI message
         aiMessage = <AiMessage response={response[1]} />

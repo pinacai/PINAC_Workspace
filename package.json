@@ -22,6 +22,7 @@
     "electron-ipc": "^0.3.0",
     "electron-updater": "^6.1.8",
     "highlight.js": "^11.9.0",
+    "moment": "^2.30.1",
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.23.0",
     "remark-gfm": "^4.0.0",

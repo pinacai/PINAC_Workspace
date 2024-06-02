@@ -110,12 +110,12 @@ chatHistory = []
 
 
 @cache
-def giveResponseArray(AiModel, query):
+def giveResponseArray(ai_model, query):
     """
     A function that takes in an AI model and a query and returns a response array.
 
     Parameters:
-        AiModel (object): The AI model used for task classification and general assistant.
+        ai_model (object): The AI model used for task classification and general assistant.
         query (str): The user query.
 
     Returns:
@@ -127,10 +127,10 @@ def giveResponseArray(AiModel, query):
             ]
     """
     chatHistory.append(HumanMessage(content=query))
-    task_category = AiModel.classifyTaskCategory(query)
+    task_category = ai_model.classifyTaskCategory(query)
 
     if "composing email" in task_category:
-        email_template = AiModel.generalAssistant(query, chatHistory)
+        email_template = ai_model.generalAssistant(query, chatHistory)
         body, subject = decodeEmail(email_template)
         response = ["email", subject, body]
         chatHistory.append(AIMessage(content=email_template))
@@ -142,30 +142,36 @@ def giveResponseArray(AiModel, query):
             amount = int(task_category.split("amount: ", 1)[1].split(")", 1)[0])
         event_list = calendar.upcomingEvent(amount)
         if event_list:
-            text = "Sure, here are your upcoming events: \n\n" + "\n".join(
-                f"{formatDatetime(item[1])[0]}, {formatDatetime(item[1])[1]} : {item[2]}"
-                for item in event_list
-            )
+            events = []
+            for item in event_list:
+                events.append({"title": item[2],
+                             "start": item[1],
+                             "end": item[1],
+                             "type": "event"})
+            response = ["schedule", events]
         else:
-            text = "Unfortunately, the event you are searching for does not appear to be exist"
-        response = ["calendar event", text]
-        chatHistory.append(AIMessage(content=text))
+            events = "Unfortunately, the event you are searching for does not appear to be exist"
+            response = ["no schedule", events]
+        chatHistory.append(AIMessage(content=str(events)))
 
     elif "today's events" in task_category:
         calendar = GoogleCalendarManager()
         event_list = calendar.todaysEvent()
         if event_list:
-            text = "Sure, here are your upcoming events for today: \n\n" + "\n".join(
-                f"{formatDatetime(item[1])[0]}, {formatDatetime(item[1])[1]} - {item[2]}"
-                for item in event_list
-            )
+            events = []
+            for item in event_list:
+                events.append({"title": item[2],
+                             "start": item[1],
+                             "end": item[1],
+                             "type": "event"})
+            response = ["schedule", events]
         else:
-            text = "I am unable to locate any event for today in Google Calendar"
-        response = ["calendar today's events", text]
-        chatHistory.append(AIMessage(content=text))
+            events = "Unfortunately, the event you are searching for does not appear to be exist"
+            response = ["no schedule", events]
+        chatHistory.append(AIMessage(content=str(events)))
 
     elif "contact" in task_category:
-        name = AiModel.findName(query)
+        name = ai_model.findName(query)
         contact = GoogleContactManager()
         contact_info = contact.phoneNumber(name)
         if contact_info:
@@ -181,14 +187,17 @@ def giveResponseArray(AiModel, query):
         task = GoogleTaskManager()
         task_list = task.dueTask()
         if task_list:
-            text = "Sure, here are your due tasks: \n\n" + "\n".join(
-                f"{formatDatetime(item[1])[0]}, {formatDatetime(item[1])[1]} - {item[0]}"
-                for item in task_list
-            )
+            tasks = []
+            for item in task_list:
+                tasks.append({"title": item[0],
+                             "start": item[1],
+                             "end": item[1],
+                             "type": "task"})
+            response = ["schedule", tasks]
         else:
-            text = "Hooray! 🎉 you don't have any due tasks !"
-        response = ["calendar task", text]
-        chatHistory.append(AIMessage(content=text))
+            tasks = "Unfortunately, the event you are searching for does not appear to be exist"
+            response = ["no schedule", tasks]
+        chatHistory.append(AIMessage(content=str(tasks)))
 
     elif "complete schedule" in task_category:
         text = "Sorry, this feature is still not available, waiting for the next update"
@@ -196,7 +205,7 @@ def giveResponseArray(AiModel, query):
         chatHistory.append(AIMessage(content=text))
 
     else:
-        ans = AiModel.generalAssistant(query, chatHistory)
+        ans = ai_model.generalAssistant(query, chatHistory)
         response = ["others", ans]
         chatHistory.append(AIMessage(content=ans))
 
@@ -222,14 +231,14 @@ def handle_message(data):
         None
     """
     if data[0] == "use-input":
-        AiModel = data[1]
-        if AiModel == "ChatGPT-3.5 turbo":
+        ai_model = data[1]
+        if ai_model == "ChatGPT-3.5 turbo":
             response = giveResponseArray(chatgpt_3_5, data[2])
-        elif AiModel == "Gemini 1.5 Pro":
+        elif ai_model == "Gemini 1.5 Pro":
             response = giveResponseArray(gemini_1_5_pro, data[2])
-        elif AiModel == "Gemini 1.0 Pro":
+        elif ai_model == "Gemini 1.0 Pro":
             response = giveResponseArray(gemini_1_pro, data[2])
-        elif AiModel == "Gemini Flash 1.5":
+        elif ai_model == "Gemini Flash 1.5":
             response = giveResponseArray(gemini_1_5_flash, data[2])
 
     elif data[0] == "send-email":

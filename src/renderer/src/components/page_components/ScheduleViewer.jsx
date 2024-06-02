@@ -12,7 +12,6 @@ export const ScheduleViewer = (props) => {
   // Initialize state variables
   const [currentDate, setCurrentDate] = useState(moment())
   const [currentView, setCurrentView] = useState('month')
-  const [isScheduleDesc, setScheduleDesc] = useState(null)
   const [isAvatarVisible, setIsAvatarVisible] = useState(window.innerWidth > 576)
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 786)
 
@@ -31,11 +30,10 @@ export const ScheduleViewer = (props) => {
   }, [])
 
   // Set the schedule description based on the current view
-  useEffect(() => {
-    currentView === 'month'
-      ? setScheduleDesc(<div className="schedule-desc msg-text ai-msg">{props.response}</div>)
-      : setScheduleDesc(null)
-  })
+  // const scheduleDesc =
+  //   currentView === 'month' ? (
+  //     <div className="schedule-desc msg-text ai-msg">{props.response}</div>
+  //   ) : null
 
   // Handle previous month navigation
   const handlePreviousMonth = () => {
@@ -216,7 +214,7 @@ export const ScheduleViewer = (props) => {
           </div>
 
           {/* Schedule Description */}
-          {isScheduleDesc}
+          {/* {scheduleDesc} */}
         </div>
       </div>
     </div>
@@ -224,17 +222,13 @@ export const ScheduleViewer = (props) => {
 }
 
 ScheduleViewer.propTypes = {
-  response: PropTypes.string.isRequired,
+  // response: PropTypes.string,
   events: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.number,
       title: PropTypes.string.isRequired,
       start: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
       end: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
     })
   )
-}
-
-ScheduleViewer.defaultProps = {
-  events: []
 }
