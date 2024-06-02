@@ -109,6 +109,11 @@ def formatDatetime(timestamp: str):
 chatHistory = []
 
 
+# Clearing chat history
+def clearHistory():
+    chatHistory.clear()
+
+
 @cache
 def giveResponseArray(ai_model, query):
     """
@@ -240,6 +245,10 @@ def handle_message(data):
             response = giveResponseArray(gemini_1_pro, data[2])
         elif ai_model == "Gemini Flash 1.5":
             response = giveResponseArray(gemini_1_5_flash, data[2])
+
+    elif data[0] == "clear-history":
+        clearHistory()
+        response = None
 
     elif data[0] == "send-email":
         if validateEmail(data[1]):

@@ -50,7 +50,7 @@ export const Header = (props) => {
   const newChatBtn = () => {
     return (
       <>
-        <button className="newChatButton">
+        <button className="newChatButton" onClick={props.clearChat}>
           <img src={addLogo} className="non-changeable-icon" />
           <span>New Chat</span>
         </button>
@@ -110,5 +110,6 @@ export const Header = (props) => {
 }
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  clearChat: PropTypes.func
 }

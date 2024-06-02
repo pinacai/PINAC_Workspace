@@ -48,6 +48,20 @@ export const HomePage = () => {
     }
   }
 
+  const clearChat = () => {
+    setMessages([])
+    window.electron.ipcRenderer.send('client-request', ['clear-history'])
+    setWelcomeBox(
+      <div className="welcome-text-row">
+        <div className="welcome-text">
+          Hello,
+          <br />
+          How can I help you today ?
+        </div>
+      </div>
+    )
+  }
+
   // Actions after clicking send button or pressing Enter
   const submit = (text) => {
     setButtonsDisabled(true)
@@ -133,7 +147,7 @@ export const HomePage = () => {
     <>
       <Sidebar />
       <div className="container">
-        <Header title="PINAC" />
+        <Header title="PINAC" clearChat={clearChat} />
         <div className="chat-container">
           <div className="msg-box">
             {welcomeBox}
