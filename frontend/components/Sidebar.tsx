@@ -1,16 +1,16 @@
 import './style/Sidebar.css'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 // Icons
-import userIcon from '../../assets/icon/user_icon.png'
-import chevronRightIcon from '../../assets/icon/chevron_right.svg'
-import homeIcon from '../../assets/icon/home.svg'
-import groupIcon from '../../assets/icon/group.svg'
-import settingsIcon from '../../assets/icon/settings.svg'
-import themeIcon from '../../assets/icon/dark_mode.svg'
+import userIcon from '../assets/icon/user_icon.png'
+import chevronRightIcon from '../assets/icon/chevron_right.svg'
+import homeIcon from '../assets/icon/home.svg'
+import groupIcon from '../assets/icon/group.svg'
+import settingsIcon from '../assets/icon/settings.svg'
+import themeIcon from '../assets/icon/dark_mode.svg'
 
-export const Sidebar = () => {
+export const Sidebar: React.FC = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const [isActive, setIsActive] = useState(false)
@@ -34,7 +34,7 @@ export const Sidebar = () => {
   }, [])
 
   // Function to handle page navigation
-  const changePage = (path) => {
+  const changePage = (path: string) => {
     navigate(path)
   }
 

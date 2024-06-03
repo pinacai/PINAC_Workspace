@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { MarkdownStyle } from '../page_components/MarkdownStyle'
-import { EmailComposeBox } from '../page_components/EmailComposeBox'
-import { ScheduleViewer } from '../page_components/ScheduleViewer'
+import { MarkdownStyle } from '../components/MarkdownStyle'
+import { EmailComposeBox } from '../components/EmailComposeBox'
+import { ScheduleViewer } from '../components/ScheduleViewer'
 import './style/MessageViewer.css'
 
 // Icons
-import userIcon from '../../assets/icon/user_icon.png'
-import pinacLogo from '../../assets/icon/pinac-logo.png'
+import userIcon from '../assets/icon/user_icon.png'
+import pinacLogo from '../assets/icon/pinac-logo.png'
 
-export const HumanMessage = (props) => {
-  const [isAvatarVisible, setIsAvatarVisible] = useState(window.innerWidth > 576) // Initial state based on window size
+type HumanMessageProps = {
+  response: string;
+};
+
+
+export const HumanMessage: React.FC<HumanMessageProps> = (props) => {
+  const [isAvatarVisible, setIsAvatarVisible] = useState(window.innerWidth > 576); // Initial state based on window size
 
   // Handle window resize and update avatar visibility
   useEffect(() => {
@@ -39,8 +43,12 @@ export const HumanMessage = (props) => {
   )
 }
 
-export const AiMessage = (props) => {
-  const [isAvatarVisible, setIsAvatarVisible] = useState(window.innerWidth > 576) // Initial state based on window size
+type AiMessageProps = {
+  response: string;
+};
+
+export const AiMessage: React.FC<AiMessageProps> = (props) => {
+  const [isAvatarVisible, setIsAvatarVisible] = useState(window.innerWidth > 576); // Initial state based on window size
 
   // Handle window resize and update avatar visibility
   useEffect(() => {
@@ -71,8 +79,14 @@ export const AiMessage = (props) => {
   )
 }
 
-export const EmailMessage = (props) => {
-  const [isAvatarVisible, setIsAvatarVisible] = useState(window.innerWidth > 576) // Initial state based on window size
+type EmailMessageProps = {
+  response: string;
+  subject: string;
+  body: string;
+};
+
+export const EmailMessage: React.FC<EmailMessageProps> = (props) => {
+  const [isAvatarVisible, setIsAvatarVisible] = useState(window.innerWidth > 576); // Initial state based on window size
 
   // Handle window resize and update avatar visibility
   useEffect(() => {
@@ -102,36 +116,19 @@ export const EmailMessage = (props) => {
   )
 }
 
-export const ScheduleMessage = (props) => {
+type ScheduleMessageProps = {
+  schedule: {
+    id: number;
+    title: string;
+    start: string | Date;
+    end: string | Date | undefined;
+    type: "event" | "task"
+  }[]
+}
+
+export const ScheduleMessage: React.FC<ScheduleMessageProps> = (props) => {
   return (
-    <>
-      <ScheduleViewer events={props.schedule} />
-    </>
+    <ScheduleViewer events={props.schedule} />
   )
 }
 
-HumanMessage.propTypes = {
-  response: PropTypes.string.isRequired
-}
-
-AiMessage.propTypes = {
-  response: PropTypes.string.isRequired
-}
-
-EmailMessage.propTypes = {
-  response: PropTypes.string.isRequired,
-  subject: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired
-}
-
-ScheduleMessage.propTypes = {
-  // response: PropTypes.string.isRequired,
-  schedule: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string.isRequired,
-      start: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
-      end: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
-    })
-  )
-}

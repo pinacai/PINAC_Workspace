@@ -1,0 +1,368 @@
+/* ====================================================*/
+/*             All Fonts used in the App               */
+/* ====================================================*/
+
+@font-face {
+  font-family: 'nasa';
+  src: url('assets/font/nasalization-rg.otf');
+}
+
+@font-face {
+  font-family: 'ai-text';
+  src: url('assets/font/KodeMono-VariableFont_wght.ttf');
+}
+
+@font-face {
+  font-family: 'exo2';
+  src: url('assets/font/Exo2-VariableFont_wght.ttf');
+}
+
+/* ====================================================*/
+/*              Whole App's Theme Color                */
+/* ====================================================*/
+
+/* Theme 1: Dawn_n_Dusk */
+.Dawn_n_Dusk-light {
+
+  /* Common */
+  --primary-color: #F5F7FA;
+  --secondary-color: #1F2937;
+  --text-color1: #FFFFFF;
+  --text-color2: #1F2937;
+  --placeholder-text-color: #666666;
+  --changeable-icon-filter: none;
+
+  /* Sidebar */
+  --sidebar-hover-color: rgba(255, 255, 255, 0.1);
+  --sidebar-color: #1F2937;
+  --sidebar-shadow: none;
+  --sidebar-present-page-color: var(--primary-color);
+  --sidebar-present-page-shadow: none;
+
+  /* Header */
+  --headerMenu-btn-hover-bg: #cccccc;
+  --headerMenu-bg: #FFFFFF;
+  --headerMenu-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  --headerMenu-opt-hover-bg: #eeeeee;
+  --headerTitle-color: #1F2937;
+  --headerTitle-underline-color: #6c82ff;
+  --newChatBtn-color: #40454e;
+  --newChatBtn-shadow: none;
+
+  /* EmailComposeBox */
+  --composeBoxBtn-color: #175ab8;
+  --composeBoxBtn-hover-color: #6081af;
+  --composeBox-body-bg: #ececec;
+
+  /* ScheduleViewer */
+  --calendar-bg: #FFFFFF;
+  --calendar-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  --calendar-dimmed-text-color: #636363;
+  --calendar-hover-color: #cccccc;
+  --calendar-current-bg: #5972ff;
+  --calendar-event-border-color: #B15EFD;
+  --calendar-task-border-color: #5972ff;
+  --calendar-weekView-header-box-bg: #e9e9e9;
+  --calendar-weekView-header-box-shadow: none;
+
+  /* MessageViewer */
+  --humanMsg-bg: #1F2937;
+  --humanMsg-bg-shadow: none;
+  --aiMsg-bg: #FFFFFF;
+  --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+
+  /* DropdownMenu */
+  --dropdownBtn-bg: #E0E4E8;
+  --dropdownBtn-hover-bg: rgba(0, 0, 0, 0.3);
+  --dropdownBtn-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+  --dropdownMenu-bg: #E0E4E8;
+  --dropdownMenu-selected-bg: rgba(0, 0, 0, 0.3);
+  --dropdownMenu-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+
+  /* HomePage */
+  --welcomeText-gradient: linear-gradient(125deg, #ff7300, #F12B6D, #0026ff);
+  --inputGroup-bg: #FFFFFF;
+  --inputGroup-border-color: #5972ff;
+  --inputGroupBtn-hover-color: #b9b9b9;
+  --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+  /* ProfilePage */
+  --input-border: 1px solid #AAAAAA;
+  --input-bg: #f6f8fa;
+  --outline-color: #868686;
+
+  /* AboutPage */
+
+  /* SettingsPage */
+  --SettingsBorder-color: #cccccc;
+  --themeCard-bg: transparent;
+  --themeCard-shadow: 0 0 10px #cccccc;
+  --themeCard-hover-shadow: 0 0 20px #777777;
+}
+
+.Dawn_n_Dusk-dark {
+
+  /* Common */
+  --primary-color: #121212;
+  --secondary-color: linear-gradient(135deg, #7b63ff, #0d00c7);
+  --text-color1: #FFFFFF;
+  --text-color2: #FFFFFF;
+  --placeholder-text-color: #bebebe;
+  --changeable-icon-filter: invert(100%);
+
+  /* Sidebar */
+  --sidebar-hover-color: linear-gradient(135deg, #5e43f3, #382bf0);
+  --sidebar-color: #3C3C3C;
+  --sidebar-shadow: none;
+  --sidebar-present-page-color: var(--primary-color);
+  --sidebar-present-page-shadow: none;
+
+  /* Header */
+  --headerMenu-btn-hover-bg: #3C3C3C;
+  --headerMenu-bg: #3C3C3C;
+  --headerMenu-shadow: 0 0 20px #000;
+  --headerMenu-opt-hover-bg: var(--sidebar-hover-color);
+  --headerTitle-color: #F5F7FA;
+  --headerTitle-underline-color: #5e43f3;
+  --newChatBtn-color: #3C3C3C;
+  --newChatBtn-shadow: none;
+
+  /* EmailComposeBox */
+  --composeBoxBtn-color: #382bf0;
+  --composeBoxBtn-hover-color: #594efc;
+  --composeBox-body-bg: #3C3C3C;
+
+  /* ScheduleViewer */
+  --calendar-bg: #252525;
+  --calendar-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  --calendar-dimmed-text-color: #8f8f8f;
+  --calendar-hover-color: #3C3C3C;
+  --calendar-current-bg: linear-gradient(135deg, #5e43f3, #382bf0);
+  --calendar-event-border-color: #8f27f0;
+  --calendar-task-border-color: #382bf0;
+  --calendar-weekView-header-box-bg:  #3C3C3C;
+  --calendar-weekView-header-box-shadow: none;
+
+  /* MessageViewer */
+  --humanMsg-bg: #382bf0;
+  --humanMsg-bg-shadow: none;
+  --aiMsg-bg: #252525;
+  --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+  /* DropdownMenu */
+  --dropdownBtn-bg: #3C3C3C;
+  --dropdownBtn-hover-bg: rgba(255, 255, 255, 0.1);
+  --dropdownBtn-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  --dropdownMenu-bg: #3C3C3C;
+  --dropdownMenu-selected-bg: linear-gradient(135deg, #5e43f3, #382bf0);
+  --dropdownMenu-shadow: 0 0 20px #000;
+
+  /* HomePage */
+  --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
+  --inputGroup-bg: #3C3C3C;
+  --inputGroup-border-color: #5e43f3;
+  --inputGroupBtn-hover-color: #6e6e6e;
+  --inputGroup-shadow: 0 0 5px rgba(0, 0, 0, 1);
+
+  /* ProfilePage */
+  --input-border: 1px solid #3C3C3C;
+  --input-bg: #161616;
+  --outline-color: #6b6b6b;
+
+  /* AboutPage */
+
+  /* SettingsPage */
+  --SettingsBorder-color: #3C3C3C;
+  --themeCard-bg: #3C3C3C;
+  --themeCard-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  --themeCard-hover-shadow: 0 0 25px #000000;
+}
+
+/*  Theme 2: Cyber_Tech_01 */
+.Cyber_Tech_01-light {
+
+  /* Common */
+  --primary-color: #F5F7FA;
+  --secondary-color: #1F2937;
+  --text-color1: #FFFFFF;
+  --text-color2: #1F2937;
+  --placeholder-text-color: #666666;
+  --changeable-icon-filter: none;
+
+  /* Sidebar */
+  --sidebar-hover-color: rgba(255, 255, 255, 0.1);
+  --sidebar-color: #1F2937;
+  --sidebar-shadow: none;
+  --sidebar-present-page-color: var(--primary-color);
+  --sidebar-present-page-shadow: none;
+
+  /* Header */
+  --headerMenu-btn-hover-bg: #cccccc;
+  --headerMenu-bg: #FFFFFF;
+  --headerMenu-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  --headerMenu-opt-hover-bg: #eeeeee;
+  --headerTitle-color: #1F2937;
+  --headerTitle-underline-color: #6c82ff;
+  --newChatBtn-color: #40454e;
+  --newChatBtn-shadow: none;
+
+  /* EmailComposeBox */
+  --composeBoxBtn-color: #175ab8;
+  --composeBoxBtn-hover-color: #6081af;
+  --composeBox-body-bg: #ececec;
+
+  /* ScheduleViewer */
+  --calendar-bg: #FFFFFF;
+  --calendar-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  --calendar-dimmed-text-color: #636363;
+  --calendar-hover-color: #cccccc;
+  --calendar-current-bg: #5972ff;
+  --calendar-event-border-color: #B15EFD;
+  --calendar-task-border-color: #5972ff;
+  --calendar-weekView-header-box-bg: #e9e9e9;
+  --calendar-weekView-header-box-shadow: none;
+
+  /* MessageViewer */
+  --humanMsg-bg: #1F2937;
+  --humanMsg-bg-shadow: none;
+  --aiMsg-bg: #FFFFFF;
+  --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+
+  /* DropdownMenu */
+  --dropdownBtn-bg: #E0E4E8;
+  --dropdownBtn-hover-bg: rgba(0, 0, 0, 0.3);
+  --dropdownBtn-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+  --dropdownMenu-bg: #E0E4E8;
+  --dropdownMenu-selected-bg: rgba(0, 0, 0, 0.3);
+  --dropdownMenu-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+
+  /* HomePage */
+  --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
+  --inputGroup-bg: #FFFFFF;
+  --inputGroup-border-color: #5972ff;
+  --inputGroupBtn-hover-color: #b9b9b9;
+  --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+  /* ProfilePage */
+  --input-border: 1px solid #AAAAAA;
+  --input-bg: #f6f8fa;
+  --outline-color: #868686;
+
+  /* AboutPage */
+
+  /* SettingsPage */
+  --SettingsBorder-color: #cccccc;
+  --themeCard-bg: transparent;
+  --themeCard-shadow: 0 0 10px #cccccc;
+  --themeCard-hover-shadow: 0 0 20px #777777;
+}
+
+.Cyber_Tech_01-dark {
+
+  /* Common */
+  --primary-color: #0c0a18;
+  --secondary-color: linear-gradient(125deg, #0026ff, #5b00af);
+  --text-color1: #ece2d5;
+  --text-color2: #ece2d5;
+  --placeholder-text-color: #b9b9b9;
+  --changeable-icon-filter: invert(100%);
+
+  /* Sidebar */
+  --sidebar-hover-color: linear-gradient(125deg, #0026ff, #5b00af);
+  --sidebar-color: #0c0a18;
+  --sidebar-shadow: 0 0 2px #ece2d5; 
+  --sidebar-present-page-color: rgba(109, 108, 108, 0.15);
+  --sidebar-present-page-shadow: 0 0 2px #ece2d5;
+
+  /* Header */
+  --headerMenu-btn-hover-bg: rgba(109, 108, 108, 0.2);
+  --headerMenu-bg: rgba(26, 25, 36, 0.7);
+  --headerMenu-shadow: 0 0 2px #ece2d5;
+  --headerMenu-opt-hover-bg: var(--sidebar-hover-color);
+  --headerTitle-color: #ece2d5;
+  --headerTitle-underline-color: #5e43f3;
+  --newChatBtn-color: #1a1924;
+  --newChatBtn-shadow: 0 0 2px #ece2d5;
+
+  /* EmailComposeBox */
+  --composeBoxBtn-color: linear-gradient(125deg, #0026ff, #5b00af);
+  --composeBoxBtn-hover-color: linear-gradient(125deg, #2747fd, #621ba5);
+  --composeBox-body-bg: rgba(109, 108, 108, 0.2);
+
+  /* ScheduleViewer */
+  --calendar-bg: rgba(109, 108, 108, 0.15);
+  --calendar-shadow: 0 0 2px #ece2d5;
+  --calendar-dimmed-text-color: #8f8f8f;
+  --calendar-hover-color: rgba(109, 108, 108, 0.2);
+  --calendar-current-bg: linear-gradient(125deg, #0026ff, #5b00af);
+  --calendar-event-border-color: #5b00af;
+  --calendar-task-border-color: #0026ff;
+  --calendar-weekView-header-box-bg: rgba(109, 108, 108, 0.15);
+  --calendar-weekView-header-box-shadow: 0 0 2px #ece2d5;
+
+  /* MessageViewer */
+  --humanMsg-bg: linear-gradient(125deg, #0026ff, #5b00af);
+  --humanMsg-bg-shadow: none;
+  --aiMsg-bg: rgba(109, 108, 108, 0.15);
+  --aiMsg-bg-shadow: 0 0 2px #ece2d5;
+
+  /* DropdownMenu */
+  --dropdownBtn-bg: rgba(109, 108, 108, 0.15);
+  --dropdownBtn-hover-bg: rgba(255, 255, 255, 0.1);
+  --dropdownBtn-shadow: 0 0 2px #ece2d5;
+  --dropdownMenu-bg: rgba(26, 25, 36, 0.8);
+  --dropdownMenu-selected-bg: linear-gradient(125deg, #0026ff, #5b00af);
+  --dropdownMenu-shadow: 0 0 2px #ece2d5;
+
+  /* HomePage */
+  --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
+  --inputGroup-bg: rgba(109, 108, 108, 0.15);
+  --inputGroup-border-color: #433788;
+  --inputGroupBtn-hover-color: rgba(109, 108, 108, 0.2);
+  --inputGroup-shadow: 0 0 2px #ece2d5;
+
+  /* ProfilePage */
+  --input-shadow: 0 0 2px #ece2d5;
+  --input-bg: rgba(37, 37, 37, 0.15);
+  --outline-color: #6b6b6b;
+
+  /* AboutPage */
+
+  /* SettingsPage */
+  --SettingsBorder-color:#3C3C3C;
+  --themeCard-bg: rgba(109, 108, 108, 0.15);
+  --themeCard-shadow: 0 0 2px #ece2d5;
+  --themeCard-hover-shadow: 0 0 10px #857e76;
+}
+
+
+/* ====================================================*/
+/*              Few others common styles               */
+/* ====================================================*/
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--primary-color);
+  color: var(--text-color2);
+}
+
+.body-container {
+  width: 100%;
+  display: flex;
+}
+
+
+/* Main Content */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

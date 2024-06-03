@@ -235,7 +235,7 @@ def handle_message(data):
     Raises:
         None
     """
-    if data[0] == "use-input":
+    if data[0] == "user-input":
         ai_model = data[1]
         if ai_model == "ChatGPT-3.5 turbo":
             response = giveResponseArray(chatgpt_3_5, data[2])
@@ -248,26 +248,26 @@ def handle_message(data):
 
     elif data[0] == "clear-history":
         clearHistory()
-        response = None
+        response = [None]
 
     elif data[0] == "send-email":
         if validateEmail(data[1]):
-            response = sendInstEmail(
+            response = [sendInstEmail(
                 recipient_email=data[1], subject=data[2], body=data[3]
-            )
+            )]
         else:
             response = ["error", "Invalid email id"]
 
     elif data[0] == "create-draft-with-RE":
         if validateEmail(data[1]):
-            response = createDraftEmail(
+            response = [createDraftEmail(
                 recipient_email=data[1], subject=data[2], body=data[3]
-            )
+            )]
         else:
             response = ["error", "Invalid email id"]
 
     elif data[0] == "create-draft":
-        response = createDraftEmail(subject=data[1], body=data[2])
+        response = [createDraftEmail(subject=data[1], body=data[2])]
 
     else:
         response = ["error", "Unknown client request type"]

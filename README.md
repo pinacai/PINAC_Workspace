@@ -2,6 +2,7 @@
 
 <h1 style="border-bottom: none">
     <b><a href="https://github.com/pinacai">PINAC Workspace</a></b><br>
+    Your Everyday Assistant
 </h1>
 
 <img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/header.png" alt="header image">
@@ -11,17 +12,14 @@
 
 ![Star Badge](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
 ![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
-[![View Repositories](https://img.shields.io/badge/View-Our_Repositories-blue?logo=GitHub)](https://github.com/rajeshtechforge?tab=repositories)
+[![View Repositories](https://img.shields.io/badge/View-Our_Repositories-blue?logo=GitHub)](https://github.com/pinacai?tab=repositories)
 
 A privacy-focused, cross-platform, user-first and open-source alternative for Copilot on Windows.  
 One Next-Gen AI Chat for all your needs.
 <br>
 <br>
 
-<a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="70" height="70"/> </a>
-<a href="https://www.electronjs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/electron/electron-original.svg" alt="electron" width="70" height="70"/> </a>
-<a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="70" height="70"/> </a>
-<a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="70" height="70"/> </a> 
+<img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/tech.png" alt="">
 
 </div>
 
@@ -36,19 +34,16 @@ Experience the **Next Gen AI Chat** —your all-in-one chat for text generation,
 View our Roadmap & Progress: https://github.com/orgs/pinacai/projects/1  
 > We are dedicatedly developing the app by introducing new features and optimising the user interface. Always keeping user in the first priority.
 
-## Themes
+## 🎨 Themes
 
 Responsive design like never before, from the narrowest screen to the full screen or half-screen, it adopted smoothly...
 <br />
 
 <img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/app_theme.png" alt="app screenshot">
 
-## System Design (Upcoming)
 
-<img src="https://github.com/pinacai/PINAC_Workspace-2.0/blob/main/assets/System%20Architecture.jpg" alt="design image">
-
-## File Structure
-Just the important part you need to get started
+## 📂 File Structure
+The best file structure ever !
 
     .
     ├── server /               # Contains Python code
@@ -57,17 +52,16 @@ Just the important part you need to get started
     |    ├── configs /         # to store your secrets
     |    └── main.py           # final python script (communicate with electron's main.js)
     |
-    └── src /                  # Client side files
-         ├── main /            # Contains main.js file of Electron
-         ├── preload /         
-         └── renderer /                    # Stores React frontend files
-              └── src /
-                   ├── App.jsx
-                   ├── App.css                     # All Theme's colours
-                   ├── assets /                    # Img, Icons, Fonts
-                   └── Components /                # App's components
-                         ├── page_components /  
-                         └── pages /
+    ├── electron /
+    |    ├── main.ts
+    |    └── preload.ts
+    |
+    └── frontend /
+         ├── App.tsx
+         ├── App.css           # All Theme's colours
+         ├── assets /          # Img, Icons, Fonts
+         ├── Components /      # Page's components 
+         └── pages /
 
 
 ##  🚀 Project Setup

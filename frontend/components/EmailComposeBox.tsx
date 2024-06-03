@@ -1,43 +1,47 @@
-import { useState } from 'react'
-import PropTypes from 'prop-types'
-import './style/EmailComposeBox.css'
+import { useState } from "react";
+import "./style/EmailComposeBox.css";
 
-export const EmailComposeBox = (props) => {
-  const [to, setTo] = useState('')
-  const [subject, setSubject] = useState(props.emailSubject)
-  const [body, setBody] = useState(props.emailBody)
-  const [buttonsDisabled, setButtonsDisabled] = useState(false) // For disabling buttons
+type EmailComposeBoxProps = {
+  emailSubject: string,
+  emailBody: string
+};
+
+export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
+  const [to, setTo] = useState("");
+  const [subject, setSubject] = useState(props.emailSubject);
+  const [body, setBody] = useState(props.emailBody);
+  const [buttonsDisabled, setButtonsDisabled] = useState(false); // For disabling buttons
 
   //
   // Disables email-composer buttons if user click cancel
   const handleGoBack = () => {
-    setButtonsDisabled(true)
-  }
+    setButtonsDisabled(true);
+  };
 
   // Sends a meg back to server(python) with user modified email
   // and server sends that email to recipient
   const handleSendEmail = () => {
-    setButtonsDisabled(true)
-    window.electron.ipcRenderer.send('client-request', ['send-email', to, subject, body])
-    console.log('Email sended')
-  }
+    setButtonsDisabled(true);
+    window.ipcRenderer.send("client-request", ["send-email", to, subject, body]);
+    console.log("Email sended");
+  };
 
   // Sends a meg back to server(python) with user modified email
   // and server creates a draft email
   const handleCreateDraft = () => {
-    setButtonsDisabled(true)
-    if (to != '') {
-      window.electron.ipcRenderer.send('client-request', [
-        'create-draft-with-RE',
+    setButtonsDisabled(true);
+    if (to != "") {
+      window.ipcRenderer.send("client-request", [
+        "create-draft-with-RE",
         to,
         subject,
-        body
-      ])
+        body,
+      ]);
     } else {
-      window.electron.ipcRenderer.send('client-request', ['create-draft', subject, body])
+      window.ipcRenderer.send("client-request", ["create-draft", subject, body]);
     }
-    console.log('Created Draft')
-  }
+    console.log("Created Draft");
+  };
 
   return (
     <div className="compose-box">
@@ -49,7 +53,7 @@ export const EmailComposeBox = (props) => {
           placeholder="Recipient Email"
           value={to}
           onChange={(e) => {
-            setTo(e.target.value)
+            setTo(e.target.value);
           }}
         />
       </div>
@@ -61,8 +65,8 @@ export const EmailComposeBox = (props) => {
           placeholder="Enter Subject"
           value={subject}
           onChange={(e) => {
-            setSubject(e.target.value)
-            localStorage.setItem('subject', e.target.value)
+            setSubject(e.target.value);
+            localStorage.setItem("subject", e.target.value);
           }}
         />
       </div>
@@ -72,15 +76,15 @@ export const EmailComposeBox = (props) => {
           placeholder="Compose your email here..."
           value={body}
           onChange={(e) => {
-            setBody(e.target.value)
-            localStorage.setItem('body', e.target.value)
+            setBody(e.target.value);
+            localStorage.setItem("body", e.target.value);
           }}
         />
       </div>
       <div className="actions">
         <button
           id="cancel-button"
-          className={buttonsDisabled ? 'disabled' : ''}
+          className={buttonsDisabled ? "disabled" : ""}
           onClick={handleGoBack}
           disabled={buttonsDisabled}
         >
@@ -88,7 +92,7 @@ export const EmailComposeBox = (props) => {
         </button>
         <button
           id="send-button"
-          className={buttonsDisabled ? 'disabled' : ''}
+          className={buttonsDisabled ? "disabled" : ""}
           onClick={handleSendEmail}
           disabled={buttonsDisabled}
         >
@@ -96,7 +100,7 @@ export const EmailComposeBox = (props) => {
         </button>
         <button
           id="save-draft-button"
-          className={buttonsDisabled ? 'disabled' : ''}
+          className={buttonsDisabled ? "disabled" : ""}
           onClick={handleCreateDraft}
           disabled={buttonsDisabled}
         >
@@ -104,10 +108,5 @@ export const EmailComposeBox = (props) => {
         </button>
       </div>
     </div>
-  )
-}
-
-EmailComposeBox.propTypes = {
-  emailSubject: PropTypes.string.isRequired,
-  emailBody: PropTypes.string.isRequired
-}
+  );
+};

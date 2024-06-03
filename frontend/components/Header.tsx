@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import { useLocation, useNavigate } from 'react-router-dom'
 import './style/Header.css'
 
 // Icons
-import addLogo from '../../assets/icon/add_circle.svg'
-import downArrow from '../../assets/icon/arrow_down.svg'
-import upArrow from '../../assets/icon/arrow_up.svg'
+import addLogo from '../assets/icon/add_circle.svg'
+import downArrow from '../assets/icon/arrow_down.svg'
+import upArrow from '../assets/icon/arrow_up.svg'
 
-export const Header = (props) => {
+type HeaderProps = {
+  title: string;
+  clearChat?: () => void;
+};
+
+export const Header: React.FC<HeaderProps> = (props) => {
   const location = useLocation()
   const navigate = useNavigate()
   const [isMenuVisible, setIsMenuVisible] = useState(false)
@@ -31,7 +35,7 @@ export const Header = (props) => {
   }, [])
 
   // Function to handle page navigation
-  const changePage = (path) => {
+  const changePage = (path: string) => {
     navigate(path)
   }
 
@@ -107,9 +111,4 @@ export const Header = (props) => {
       </div>
     </>
   )
-}
-
-Header.propTypes = {
-  title: PropTypes.string.isRequired,
-  clearChat: PropTypes.func
 }

@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import './style/DropdownMenu.css'
 
 // Icon
-import downArrow from '../../assets/icon/arrow_down.svg'
-import upArrow from '../../assets/icon/arrow_up.svg'
+import downArrow from '../assets/icon/arrow_down.svg'
+import upArrow from '../assets/icon/arrow_up.svg'
 
-export const DropdownMenu = (props) => {
+type DropdownMenuProps = {
+  optionList: Array<string>;
+};
+
+export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
   const [selectedOption, setSelectedOption] = useState('ChatGPT-3.5 turbo')
   const [isActive, setIsActive] = useState(false)
 
@@ -14,7 +17,7 @@ export const DropdownMenu = (props) => {
     setIsActive(!isActive)
   }
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = (option: string) => {
     setSelectedOption(option)
     setIsActive(false)
     // Saving choice
@@ -51,8 +54,4 @@ export const DropdownMenu = (props) => {
       </div>
     </div>
   )
-}
-
-DropdownMenu.propTypes = {
-  optionList: PropTypes.array.isRequired
 }
