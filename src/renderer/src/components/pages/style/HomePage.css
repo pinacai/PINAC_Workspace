@@ -77,15 +77,15 @@
     padding: 5px;
     background: var(--inputGroup-bg);
     border-radius: 0.8rem;
-    border: 3px;
-    border-bottom-style: solid;
+    border: 2px;
+    border-style: solid;
     border-color: transparent;
     box-shadow: var(--inputGroup-shadow);
     flex-grow: 1;
 }
 
 .input-group.active {
-    border-bottom-color: var(--inputGroup-border-color);
+    border-color: var(--inputGroup-border-color);
 }
 
 #user-input {

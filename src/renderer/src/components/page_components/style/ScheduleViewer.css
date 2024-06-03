@@ -25,7 +25,7 @@
 
 .calendar {
     max-width: 100%;
-    padding: 20px;
+    padding: 10px 20px;
     border-radius: 10px;
     color: var(--text-color2);
     background: var(--calendar-bg);
@@ -152,7 +152,7 @@
 }
 
 .month-day {
-    padding: 10px;
+    padding: 5px;
     background-color: transparent;
     border: 2px solid transparent;
     border-radius: 50%;

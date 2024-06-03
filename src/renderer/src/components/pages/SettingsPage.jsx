@@ -1,5 +1,5 @@
 import './style/SettingsPage.css'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Sidebar } from '../page_components/Sidebar'
 import { Header } from '../page_components/Header'
 import { DropdownMenu } from '../page_components/DropdownMenu'
@@ -44,30 +44,6 @@ export const SettingsPage = () => {
       localStorage.setItem('preferred-theme-pair', 'Cyber_Tech_01')
     }
   }
-
-  // Set the theme selection based on the value stored in local storage
-  useEffect(() => {
-    const preferredThemePair = localStorage.getItem('preferred-theme-pair')
-    setDawn_n_Dusk(preferredThemePair === 'Dawn_n_Dusk')
-    setCyber_Tech_01(preferredThemePair === 'Cyber_Tech_01')
-  }, [])
-
-  // Updates the body's classList with the selected
-  // theme pair and the user's preferred light/dark mode
-  useEffect(() => {
-    const body = document.body
-    const preferredTheme = localStorage.getItem('preferred-theme')
-    const preferredThemePair = localStorage.getItem('preferred-theme-pair')
-    // Remove all theme classes first
-    body.classList.remove(
-      'Dawn_n_Dusk-light',
-      'Dawn_n_Dusk-dark',
-      'Cyber_Tech_01-light',
-      'Cyber_Tech_01-dark'
-    )
-    // Add desired theme pair with 'light-theme' or 'dark-theme' as user previous preference
-    body.classList.add(`${preferredThemePair}-${preferredTheme}`)
-  })
 
   return (
     <>
