@@ -92,6 +92,10 @@
   --outline-color: #868686;
 
   /* AboutPage */
+  --aboutCard-bg: #FFFFFF;
+  --aboutCard-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  --aboutBtn-bg: #1F2937;
+  --aboutBtn-shadow: #1F2937;
 
   /* SettingsPage */
   --SettingsBorder-color: #cccccc;
@@ -170,6 +174,10 @@
   --outline-color: #6b6b6b;
 
   /* AboutPage */
+  --aboutCard-bg: #252525;
+  --aboutCard-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  --aboutBtn-bg: linear-gradient(135deg, #5e43f3, #382bf0);
+  --aboutBtn-shadow: #382bf0;
 
   /* SettingsPage */
   --SettingsBorder-color: #3C3C3C;
@@ -249,6 +257,10 @@
   --outline-color: #868686;
 
   /* AboutPage */
+  --aboutCard-bg: #FFFFFF;
+  --aboutCard-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  --aboutBtn-bg: #1F2937;
+  --aboutBtn-shadow: #1F2937;
 
   /* SettingsPage */
   --SettingsBorder-color: #cccccc;
@@ -327,6 +339,10 @@
   --outline-color: #6b6b6b;
 
   /* AboutPage */
+  --aboutCard-bg: rgba(109, 108, 108, 0.15);
+  --aboutCard-shadow: 0 0 2px #ece2d5;
+  --aboutBtn-bg: linear-gradient(125deg, #0026ff, #5b00af);
+  --aboutBtn-shadow: #0026ff;
 
   /* SettingsPage */
   --SettingsBorder-color:#3C3C3C;

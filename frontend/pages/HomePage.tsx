@@ -128,6 +128,7 @@ export const HomePage: React.FC = () => {
     };
   }, []);
 
+  //
   // Updates the body's classList with the selected
   // For smooth applying of current theme
   useEffect(() => {

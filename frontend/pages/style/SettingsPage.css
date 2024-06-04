@@ -32,7 +32,8 @@
     margin: 10px 10px;
     padding-top: 20px;
     padding-bottom: 20px;
-    border-bottom: 2px var(--SettingsBorder-color) solid;
+    border-bottom: 2px var(--
+    The PINAC AI Solution GitHub organiSettingsBorder-color) solid;
     display: flex;
     flex-direction: column;
 }

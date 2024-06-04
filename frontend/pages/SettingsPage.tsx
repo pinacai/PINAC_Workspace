@@ -61,6 +61,7 @@ export const SettingsPage: React.FC = () => {
     setCyber_Tech_01(preferredThemePair === "Cyber_Tech_01");
   }, []);
 
+  //
   // Updates the body's classList with the selected
   // theme pair and the user's preferred light/dark mode
   useEffect(() => {
