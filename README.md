@@ -2,7 +2,7 @@
 
 <h1 style="border-bottom: none">
     <b><a href="https://github.com/pinacai">PINAC Workspace</a></b><br>
-    Your Everyday AI Assistant
+    Make Your Own AI Computer
 </h1>
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header.png" alt="header image">
@@ -14,7 +14,7 @@
 ![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
 [![View Repositories](https://img.shields.io/badge/View-Our_Repositories-blue?logo=GitHub)](https://github.com/pinacai?tab=repositories)
 
-A privacy-focused, cross-platform, user-first and open-source alternative for Copilot on Windows.  
+A privacy focused, cross-platform and open-source alternative for Copilot on Windows.  
 One Next-Gen AI Chat for all your needs.
 <br>
 <br>
@@ -52,12 +52,6 @@ Responsive design like never before, from the narrowest screen to the full scree
 The best file structure ever !
 
     .
-    ├── server /               # Contains Python code
-    |    ├── ai_models /
-    |    ├── google /          # Google API automation files
-    |    ├── configs /         # to store your secrets
-    |    └── main.py           # final python script (communicate with electron's main.js)
-    |
     ├── backend /              # Upcoming...
     |
     ├── electron /
@@ -73,9 +67,12 @@ The best file structure ever !
 
 
 ##  🚀 Project Setup
-Here are two ways to get started !
 
-### Contributing in Just Frontend
+### _Recommended IDE Setup_
+
+- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
+### _Installation_
 
 1. Clone the Repository
     ```bash
@@ -92,60 +89,8 @@ Here are two ways to get started !
     ```bash
     npm run dev
     ```
-> It will show a popup error at the start, bcz of a missing Python server, Just ignore it. It will not affect your development !  
 
-<br>
-  
-### Full Installation for Using the App
-
-### _Prerequisites_
-
-- Node.js
-- Python
-- OPENAI API Key or GOOGLE API KEY (which Model you want to use)
-- Internet (for now)
-
-### _Recommended IDE Setup_
-
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-
-### _Come to the Terminal_
-
-1. Clone the Repository
-    ```bash
-    git clone https://github.com/pinacai/PINAC_Workspace.git
-    cd PINAC_Workspace
-    ```
-
-2. Install Node dependencies
-    ```bash
-    npm install
-    ```
-3. Create virtualenv & activate it
-    ```bash
-    python -m venv .env && source .env/bin/activate
-    ```
-4. Install Python dependencies
-    ```bash
-    pip install -r requirements.txt
-    ```
-5. Get your Google secret token & API Key
-  Follow the steps in <a href='https://github.com/pinacai/PINAC_Workspace/blob/main/Google%20API%20GUIDE.md'>Google API Guide</a> and get your Google secret key & place it in `server/configs` with the name exactly as `client_secret.json`.   
-   
-    Now to place your _OPENAI API Key_ and _GOOGLE API KEY_, create `.env` file in the folder `server/configs` and copy-paste the below line in `.env`:
-    ```python
-    OPENAI_API_KEY = "<Place your OPENAI API Key here>"
-    GOOGLE_API_KEY = "<Place your OPENAI API Key here>"
-    ```
-
-6. Start the App
-    ```bash
-    npm run dev
-    ```
-
-> _No proper Google Sign-In button added, you will automatically directed to the SignIn page when you run a command related to a Google App task, for only once, for the first time._  
->
-> **Soon we will add a Sign-In button...**
+> _This is the Desktop App. We have started working on our cloud server with the name [PINAC-Nexus](https://github.com/pinacai/PINAC-Nexus)._
 
 ## 🎉 Contributing
 

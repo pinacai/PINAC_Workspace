@@ -1,11 +1,9 @@
-import { app, BrowserWindow, screen, ipcMain } from "electron";
-import { ChildProcess } from "child_process";
-import { spawn } from "child_process";
-import { createRequire } from "node:module";
+import { app, BrowserWindow, screen } from "electron";
+// import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
-const require = createRequire(import.meta.url);
+// const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // The built directory structure
@@ -25,7 +23,6 @@ export const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 
 let win: BrowserWindow | null;
-let pythonProcess: ChildProcess | null;
 
 //
 //
@@ -61,21 +58,6 @@ const createWindow = () => {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
-
-  // Spawn the Python process
-  pythonProcess = spawn("python", ["server/main.py"]);
-
-  pythonProcess.stdout?.on("data", (data) => {
-    console.log(data.toString());
-  });
-
-  pythonProcess.stderr?.on("data", (data) => {
-    console.error(data.toString());
-  });
-
-  pythonProcess.on("close", (code) => {
-    console.log(`Python script exited with code ${code}`);
-  });
 };
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -88,10 +70,6 @@ app.on("window-all-closed", () => {
     app.quit();
     win = null;
   }
-  // Terminate the Python process
-  if (pythonProcess) {
-    pythonProcess.kill();
-  }
 });
 
 app.on("activate", () => {
@@ -103,17 +81,3 @@ app.on("activate", () => {
 });
 
 app.whenReady().then(createWindow);
-
-//
-//
-// IPC btw React & Electron
-ipcMain.on("client-request", (event, data) => {
-  socket.emit("message", data);
-  socket.on("message-reply", (response: string[]) => {
-    event.reply("server-response", response);
-  });
-});
-
-// Establishing Real time communication with Python using Socket
-const io = require("socket.io-client");
-const socket = io("http://localhost:5000");
