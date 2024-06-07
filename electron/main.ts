@@ -1,9 +1,9 @@
-import { app, BrowserWindow, screen } from "electron";
-// import { createRequire } from "node:module";
+import { app, BrowserWindow, screen, ipcMain } from "electron";
+import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
-// const require = createRequire(import.meta.url);
+const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // The built directory structure
@@ -81,3 +81,17 @@ app.on("activate", () => {
 });
 
 app.whenReady().then(createWindow);
+
+//
+//
+// IPC btw React & Electron
+ipcMain.on("client-request", (event, data) => {
+  socket.emit("message", data);
+  socket.on("message-reply", (response: string[]) => {
+    event.reply("server-response", response);
+  });
+});
+
+// Establishing Real time communication with Python using Socket
+const io = require("socket.io-client");
+const socket = io("http://localhost:5000");

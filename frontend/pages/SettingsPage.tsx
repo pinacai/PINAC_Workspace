@@ -97,7 +97,9 @@ export const SettingsPage: React.FC = () => {
                 "Gemini 1.5 Pro",
                 "Gemini 1.0 Pro",
                 "Gemini Flash 1.5",
+                // "Gemma 2B"
               ]}
+              defaultOption="Gemini Flash 1.5"
             />
           </div>
 

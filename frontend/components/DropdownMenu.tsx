@@ -6,11 +6,12 @@ import downArrow from '../assets/icon/arrow_down.svg'
 import upArrow from '../assets/icon/arrow_up.svg'
 
 type DropdownMenuProps = {
+  defaultOption: string
   optionList: Array<string>;
 };
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
-  const [selectedOption, setSelectedOption] = useState('ChatGPT-3.5 turbo')
+  const [selectedOption, setSelectedOption] = useState(props.defaultOption)
   const [isActive, setIsActive] = useState(false)
 
   const openMenu = () => {

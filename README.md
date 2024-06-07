@@ -2,7 +2,7 @@
 
 <h1 style="border-bottom: none">
     <b><a href="https://github.com/pinacai">PINAC Workspace</a></b><br>
-    Make Your Own AI Computer
+    <b>P</b>ersonal <b>I</b>ntelligent <b>N</b>etwork <b>A</b>ssistant <b>C</b>ompanion
 </h1>
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header.png" alt="header image">
