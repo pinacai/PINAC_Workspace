@@ -1,30 +1,52 @@
-import { useState, useEffect } from 'react'
-import { MarkdownStyle } from '../components/MarkdownStyle'
-import { EmailComposeBox } from '../components/EmailComposeBox'
-import { ScheduleViewer } from '../components/ScheduleViewer'
-import './style/MessageViewer.css'
+import { useState, useEffect } from "react";
+import { MarkdownStyle } from "../components/MarkdownStyle";
+import { EmailComposeBox } from "../components/EmailComposeBox";
+import { ScheduleViewer } from "../components/ScheduleViewer";
+import "./style/MessageViewer.css";
 
 // Icons
-import userIcon from '../assets/icon/user_icon.png'
-import pinacLogo from '../assets/icon/pinac-logo.png'
+import userIcon from "../assets/icon/user_icon.png";
+import pinacLogo from "../assets/icon/pinac-logo.png";
 
-type HumanMessageProps = {
+export const ShowAiMessage: React.FC = () => {
+  const [message, setMessage] = useState(<></>);
+
+  window.ipcRenderer.once("server-response", (_, response) => {
+    if (response["response"]["type"] === "email") {
+      const text = "Here is your email, check it out:";
+      const subject = response["response"]["email-subject"];
+      const body = response["response"]["email-body"];
+      setMessage(
+        // <EmailMessage response={text} subject={subject} body={body} />
+        <AiMessage response={`${text}\n${subject}\n\n${body}`} />
+      );
+      // } else if (response["response"]["type"] === "schedule") {
+      //   setMessage(<ScheduleMessage schedule={response[1]} />);
+    } else {
+      setMessage(<AiMessage response={response["response"]["content"]} />);
+    }
+  });
+  return <>{message}</>;
+};
+
+type ShowHumanMessageProps = {
   response: string;
 };
 
-
-export const HumanMessage: React.FC<HumanMessageProps> = (props) => {
-  const [isAvatarVisible, setIsAvatarVisible] = useState(window.innerWidth > 576); // Initial state based on window size
+export const ShowHumanMessage: React.FC<ShowHumanMessageProps> = (props) => {
+  const [isAvatarVisible, setIsAvatarVisible] = useState(
+    window.innerWidth > 576
+  ); // Initial state based on window size
 
   // Handle window resize and update avatar visibility
   useEffect(() => {
     const updateAvatarVisibility = () => {
-      setIsAvatarVisible(window.innerWidth > 576)
-    }
-    window.addEventListener('resize', updateAvatarVisibility)
+      setIsAvatarVisible(window.innerWidth > 576);
+    };
+    window.addEventListener("resize", updateAvatarVisibility);
     // Cleanup function to remove the event listener
-    return () => window.removeEventListener('resize', updateAvatarVisibility)
-  }, [])
+    return () => window.removeEventListener("resize", updateAvatarVisibility);
+  }, []);
 
   return (
     <>
@@ -40,25 +62,27 @@ export const HumanMessage: React.FC<HumanMessageProps> = (props) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 type AiMessageProps = {
   response: string;
 };
 
 export const AiMessage: React.FC<AiMessageProps> = (props) => {
-  const [isAvatarVisible, setIsAvatarVisible] = useState(window.innerWidth > 576); // Initial state based on window size
+  const [isAvatarVisible, setIsAvatarVisible] = useState(
+    window.innerWidth > 576
+  ); // Initial state based on window size
 
   // Handle window resize and update avatar visibility
   useEffect(() => {
     const updateAvatarVisibility = () => {
-      setIsAvatarVisible(window.innerWidth > 576)
-    }
-    window.addEventListener('resize', updateAvatarVisibility)
+      setIsAvatarVisible(window.innerWidth > 576);
+    };
+    window.addEventListener("resize", updateAvatarVisibility);
     // Cleanup function to remove the event listener
-    return () => window.removeEventListener('resize', updateAvatarVisibility)
-  }, [])
+    return () => window.removeEventListener("resize", updateAvatarVisibility);
+  }, []);
 
   return (
     <>
@@ -76,8 +100,8 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 type EmailMessageProps = {
   response: string;
@@ -86,17 +110,19 @@ type EmailMessageProps = {
 };
 
 export const EmailMessage: React.FC<EmailMessageProps> = (props) => {
-  const [isAvatarVisible, setIsAvatarVisible] = useState(window.innerWidth > 576); // Initial state based on window size
+  const [isAvatarVisible, setIsAvatarVisible] = useState(
+    window.innerWidth > 576
+  ); // Initial state based on window size
 
   // Handle window resize and update avatar visibility
   useEffect(() => {
     const updateAvatarVisibility = () => {
-      setIsAvatarVisible(window.innerWidth > 576)
-    }
-    window.addEventListener('resize', updateAvatarVisibility)
+      setIsAvatarVisible(window.innerWidth > 576);
+    };
+    window.addEventListener("resize", updateAvatarVisibility);
     // Cleanup function to remove the event listener
-    return () => window.removeEventListener('resize', updateAvatarVisibility)
-  }, [])
+    return () => window.removeEventListener("resize", updateAvatarVisibility);
+  }, []);
 
   return (
     <>
@@ -113,8 +139,8 @@ export const EmailMessage: React.FC<EmailMessageProps> = (props) => {
       </div>
       <EmailComposeBox emailSubject={props.subject} emailBody={props.body} />
     </>
-  )
-}
+  );
+};
 
 type ScheduleMessageProps = {
   schedule: {
@@ -122,13 +148,10 @@ type ScheduleMessageProps = {
     title: string;
     start: string | Date;
     end: string | Date | undefined;
-    type: "event" | "task"
-  }[]
-}
+    type: "event" | "task";
+  }[];
+};
 
 export const ScheduleMessage: React.FC<ScheduleMessageProps> = (props) => {
-  return (
-    <ScheduleViewer events={props.schedule} />
-  )
-}
-
+  return <ScheduleViewer events={props.schedule} />;
+};

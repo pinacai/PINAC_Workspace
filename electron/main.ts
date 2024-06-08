@@ -87,7 +87,7 @@ app.whenReady().then(createWindow);
 // IPC btw React & Electron
 ipcMain.on("client-request", (event, data) => {
   socket.emit("message", data);
-  socket.on("message-reply", (response: string[]) => {
+  socket.on("message-reply", (response: object) => {
     event.reply("server-response", response);
   });
 });

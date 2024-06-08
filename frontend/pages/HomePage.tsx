@@ -2,12 +2,7 @@ import "./style/HomePage.css";
 import React, { useState, useEffect, useRef } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
-import {
-  HumanMessage,
-  AiMessage,
-  EmailMessage,
-  ScheduleMessage,
-} from "../components/MessageViewer";
+import { ShowHumanMessage, ShowAiMessage } from "../components/MessageViewer";
 
 // Icons
 import sendIcon from "../assets/icon/send.svg";
@@ -63,45 +58,20 @@ export const HomePage: React.FC = () => {
     }
     setMessages((prevMessages) => [
       ...prevMessages,
-      <HumanMessage
+      <ShowHumanMessage
         key={`human-message-${prevMessages.length}`}
         response={text}
       />,
     ]);
-    fetchAIResponse(text);
+    const preferredModel = localStorage.getItem("preferred-model");
+    window.ipcRenderer.send("client-request", {
+      "request-type": "user-input",
+      "preferred-model": preferredModel,
+      "user-query": text,
+    });
+    setMessages((prevMessages) => [...prevMessages, <ShowAiMessage />]);
     setUserInput("");
     setButtonsDisabled(false);
-  };
-
-  const fetchAIResponse = async (userInput: string) => {
-    let aiMessage: JSX.Element;
-    // Sends user input to main.ts (main.ts to server(python)) for AI processing
-    const preferredModel = localStorage.getItem("preferred-model");
-    window.ipcRenderer.send("client-request", [
-      "user-input",
-      preferredModel,
-      userInput,
-    ]);
-    // Listen for a single response from the main process
-    window.ipcRenderer.once("server-response", (_, response) => {
-      // Check if the response is an email
-      if (response[0] === "email") {
-        const aiText = "Here is your email, check it out:";
-        const subject = response[1];
-        const body = response[2];
-        // Display email message
-        aiMessage = (
-          <EmailMessage response={aiText} subject={subject} body={body} />
-        );
-      } else if (response[0] === "schedule") {
-        aiMessage = <ScheduleMessage schedule={response[1]} />;
-      } else {
-        // Display standard AI message
-        aiMessage = <AiMessage response={response[1]} />;
-      }
-      // Update the state to include the new AI message
-      setMessages((prevMessages) => [...prevMessages, aiMessage]);
-    });
   };
 
   useEffect(() => {
