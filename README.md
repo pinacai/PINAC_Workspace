@@ -2,7 +2,7 @@
 
 <h1 style="border-bottom: none">
     <b><a href="https://github.com/pinacai">PINAC Workspace</a></b><br>
-    <b>P</b>ersonal <b>I</b>ntelligent <b>N</b>etwork <b>A</b>ssistant <b>C</b>ompanion
+    Personal Intelligent Network Assistant Companion
 </h1>
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header.png" alt="header image">
@@ -29,7 +29,7 @@ One Next-Gen AI Chat for all your needs.
 
 Leveraging multiple AI tools for your workflow sounds smart. However, does the constant context switching between them slow you down?
 
-Experience the **Next Gen AI Chat** —your all-in-one chat for text generation, document summarisation, web searching, code generation, a wide range of office tools and ultimately managing all Google Workspace apps without switching apps!
+Experience the **Next Gen AI Chat** —your all-in-one chat for text generation, document summarisation, web searching, code generation, a wide range of office tools.
 
 View our Roadmap & Progress: https://github.com/orgs/pinacai/projects/1  
 > We are dedicatedly developing the app by introducing new features and optimising the user interface. Always keeping user in the first priority.
