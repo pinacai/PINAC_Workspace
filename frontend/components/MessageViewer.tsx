@@ -29,9 +29,9 @@ export const ShowAiMessage: React.FC = () => {
   return <>{message}</>;
 };
 
-type ShowHumanMessageProps = {
+interface ShowHumanMessageProps {
   response: string;
-};
+}
 
 export const ShowHumanMessage: React.FC<ShowHumanMessageProps> = (props) => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
@@ -65,9 +65,9 @@ export const ShowHumanMessage: React.FC<ShowHumanMessageProps> = (props) => {
   );
 };
 
-type AiMessageProps = {
+interface AiMessageProps {
   response: string;
-};
+}
 
 export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
@@ -103,11 +103,11 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   );
 };
 
-type EmailMessageProps = {
+interface EmailMessageProps {
   response: string;
   subject: string;
   body: string;
-};
+}
 
 export const EmailMessage: React.FC<EmailMessageProps> = (props) => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
@@ -142,7 +142,7 @@ export const EmailMessage: React.FC<EmailMessageProps> = (props) => {
   );
 };
 
-type ScheduleMessageProps = {
+interface ScheduleMessageProps {
   schedule: {
     id: number;
     title: string;
@@ -150,7 +150,7 @@ type ScheduleMessageProps = {
     end: string | Date | undefined;
     type: "event" | "task";
   }[];
-};
+}
 
 export const ScheduleMessage: React.FC<ScheduleMessageProps> = (props) => {
   return <ScheduleViewer events={props.schedule} />;

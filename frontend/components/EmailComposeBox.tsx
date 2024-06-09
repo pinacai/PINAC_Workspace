@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "./style/EmailComposeBox.css";
 
-type EmailComposeBoxProps = {
-  emailSubject: string,
-  emailBody: string
-};
+interface EmailComposeBoxProps {
+  emailSubject: string;
+  emailBody: string;
+}
 
 export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
   const [to, setTo] = useState("");
@@ -22,7 +22,12 @@ export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
   // and server sends that email to recipient
   const handleSendEmail = () => {
     setButtonsDisabled(true);
-    window.ipcRenderer.send("client-request", ["send-email", to, subject, body]);
+    window.ipcRenderer.send("client-request", [
+      "send-email",
+      to,
+      subject,
+      body,
+    ]);
     console.log("Email sended");
   };
 
@@ -38,7 +43,11 @@ export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
         body,
       ]);
     } else {
-      window.ipcRenderer.send("client-request", ["create-draft", subject, body]);
+      window.ipcRenderer.send("client-request", [
+        "create-draft",
+        subject,
+        body,
+      ]);
     }
     console.log("Created Draft");
   };

@@ -1,85 +1,85 @@
-import './style/Sidebar.css'
-import React, { useState, useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import "./style/Sidebar.css";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Icons
-import userIcon from '../assets/icon/user_icon.png'
-import chevronRightIcon from '../assets/icon/chevron_right.svg'
-import homeIcon from '../assets/icon/home.svg'
-import groupIcon from '../assets/icon/group.svg'
-import settingsIcon from '../assets/icon/settings.svg'
-import themeIcon from '../assets/icon/dark_mode.svg'
+import userIcon from "../assets/icon/user_icon.png";
+import chevronRightIcon from "../assets/icon/chevron_right.svg";
+import homeIcon from "../assets/icon/home.svg";
+import groupIcon from "../assets/icon/group.svg";
+import settingsIcon from "../assets/icon/settings.svg";
+import themeIcon from "../assets/icon/dark_mode.svg";
 
 export const Sidebar: React.FC = () => {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const [isActive, setIsActive] = useState(false)
-  const [isDarkTheme, setIsDarkTheme] = useState(false)
-  const [isSidebarVisible, setIsSidebarVisible] = useState(false)
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [isActive, setIsActive] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   //
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 576) {
-        setIsSidebarVisible(false)
+        setIsSidebarVisible(false);
       } else {
-        setIsSidebarVisible(true)
+        setIsSidebarVisible(true);
       }
-    }
-    window.addEventListener('resize', handleResize)
-    handleResize()
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
     return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // Function to handle page navigation
   const changePage = (path: string) => {
-    navigate(path)
-  }
+    navigate(path);
+  };
 
   // Function to toggle the sidebar's activation state
   const toggleSidebar = () => {
-    setIsActive(!isActive)
-  }
+    setIsActive(!isActive);
+  };
 
   // Functions to change the Theme
   const changeTheme = () => {
-    setIsDarkTheme(!isDarkTheme)
-    localStorage.setItem('preferred-theme', isDarkTheme ? 'light' : 'dark')
-  }
+    setIsDarkTheme(!isDarkTheme);
+    localStorage.setItem("preferred-theme", isDarkTheme ? "light" : "dark");
+  };
 
   // Retrieve the preferred theme from local storage and set that theme
   useEffect(() => {
-    const preferredTheme = localStorage.getItem('preferred-theme')
-    setIsDarkTheme(preferredTheme === 'dark')
-  }, [])
+    const preferredTheme = localStorage.getItem("preferred-theme");
+    setIsDarkTheme(preferredTheme === "dark");
+  }, []);
 
   useEffect(() => {
-    const body = document.body
-    const preferredThemePair = localStorage.getItem('preferred-theme-pair')
+    const body = document.body;
+    const preferredThemePair = localStorage.getItem("preferred-theme-pair");
     // Remove all theme classes first
     body.classList.remove(
-      'Dawn_n_Dusk-light',
-      'Dawn_n_Dusk-dark',
-      'Cyber_Tech_01-light',
-      'Cyber_Tech_01-dark'
-    )
+      "Dawn_n_Dusk-light",
+      "Dawn_n_Dusk-dark",
+      "Cyber_Tech_01-light",
+      "Cyber_Tech_01-dark"
+    );
     if (isDarkTheme) {
-      body.classList.add(`${preferredThemePair}-dark`) // Add 'dark-theme' class if isDarkTheme is true
+      body.classList.add(`${preferredThemePair}-dark`); // Add 'dark-theme' class if isDarkTheme is true
     } else {
-      body.classList.add(`${preferredThemePair}-light`) // Add 'light-theme' class if isDarkTheme is false
+      body.classList.add(`${preferredThemePair}-light`); // Add 'light-theme' class if isDarkTheme is false
     }
-  }, [isDarkTheme])
+  }, [isDarkTheme]);
 
   return (
     <>
       {/* Render the sidebar */}
       {(window.innerWidth >= 576 || isSidebarVisible) && (
-        <div className={`sidebar ${isActive ? 'active' : ''}`}>
+        <div className={`sidebar ${isActive ? "active" : ""}`}>
           <div className="upper-part">
             <div className="top">
-              <div className="profile" onClick={() => changePage('/profile')}>
+              <div className="profile" onClick={() => changePage("/profile")}>
                 <img id="user-image" src={userIcon} alt="User Image" />
                 <span id="user-name" className="sidebar-text">
                   User Name
@@ -99,28 +99,28 @@ export const Sidebar: React.FC = () => {
                 <li
                   title="Homepage"
                   id="go-home"
-                  className={location.pathname === '/' ? 'present-page' : 'li'}
-                  onClick={() => changePage('/')}
+                  className={location.pathname === "/" ? "present-page" : "li"}
+                  onClick={() => changePage("/")}
                 >
                   <img
                     className="non-changeable-icon"
                     src={homeIcon}
                     alt="Home"
                     style={
-                      location.pathname === '/'
+                      location.pathname === "/"
                         ? isDarkTheme
-                          ? { filter: 'invert(100%)' }
-                          : { filter: 'none' }
+                          ? { filter: "invert(100%)" }
+                          : { filter: "none" }
                         : {}
                     }
                   />
                   <span
                     className="sidebar-text"
                     style={
-                      location.pathname === '/'
+                      location.pathname === "/"
                         ? isDarkTheme
                           ? {}
-                          : { color: 'var(--text-color2)' }
+                          : { color: "var(--text-color2)" }
                         : {}
                     }
                   >
@@ -130,28 +130,30 @@ export const Sidebar: React.FC = () => {
                 <li
                   title="About Us"
                   id="go-about"
-                  className={location.pathname === '/about' ? 'present-page' : 'li'}
-                  onClick={() => changePage('/about')}
+                  className={
+                    location.pathname === "/about" ? "present-page" : "li"
+                  }
+                  onClick={() => changePage("/about")}
                 >
                   <img
                     className="non-changeable-icon"
                     src={groupIcon}
                     alt="About Us"
                     style={
-                      location.pathname === '/about'
+                      location.pathname === "/about"
                         ? isDarkTheme
-                          ? { filter: 'invert(100%)' }
-                          : { filter: 'none' }
+                          ? { filter: "invert(100%)" }
+                          : { filter: "none" }
                         : {}
                     }
                   />
                   <span
                     className="sidebar-text"
                     style={
-                      location.pathname === '/about'
+                      location.pathname === "/about"
                         ? isDarkTheme
                           ? {}
-                          : { color: 'var(--text-color2)' }
+                          : { color: "var(--text-color2)" }
                         : {}
                     }
                   >
@@ -161,28 +163,30 @@ export const Sidebar: React.FC = () => {
                 <li
                   title="Settings"
                   id="go-settings"
-                  className={location.pathname === '/settings' ? 'present-page' : 'li'}
-                  onClick={() => changePage('/settings')}
+                  className={
+                    location.pathname === "/settings" ? "present-page" : "li"
+                  }
+                  onClick={() => changePage("/settings")}
                 >
                   <img
                     className="non-changeable-icon"
                     src={settingsIcon}
                     alt="Settings"
                     style={
-                      location.pathname === '/settings'
+                      location.pathname === "/settings"
                         ? isDarkTheme
-                          ? { filter: 'invert(100%)' }
-                          : { filter: 'none' }
+                          ? { filter: "invert(100%)" }
+                          : { filter: "none" }
                         : {}
                     }
                   />
                   <span
                     className="sidebar-text"
                     style={
-                      location.pathname === '/settings'
+                      location.pathname === "/settings"
                         ? isDarkTheme
                           ? {}
-                          : { color: 'var(--text-color2)' }
+                          : { color: "var(--text-color2)" }
                         : {}
                     }
                   >
@@ -196,7 +200,11 @@ export const Sidebar: React.FC = () => {
             <nav>
               <ul>
                 <li>
-                  <img src={themeIcon} alt="Theme Icon" className="non-changeable-icon" />
+                  <img
+                    src={themeIcon}
+                    alt="Theme Icon"
+                    className="non-changeable-icon"
+                  />
                   <div>
                     <input
                       type="checkbox"
@@ -216,5 +224,5 @@ export const Sidebar: React.FC = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};

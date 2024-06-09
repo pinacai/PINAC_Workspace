@@ -7,7 +7,7 @@ import leftArrow from "../assets/icon/chevron_left.svg";
 import rightArrow from "../assets/icon/chevron_right.svg";
 import pinacLogo from "../assets/icon/pinac-logo.png";
 
-type ScheduleViewerProps = {
+interface ScheduleViewerProps {
   events: {
     id: number;
     title: string;
@@ -15,10 +15,9 @@ type ScheduleViewerProps = {
     end: string | Date | undefined;
     type: "event" | "task";
   }[];
-};
+}
 
 export const ScheduleViewer: React.FC<ScheduleViewerProps> = (props) => {
-  // Initialize state variables
   const [currentDate, setCurrentDate] = useState(moment());
   const [currentView, setCurrentView] = useState("month");
   const [isAvatarVisible, setIsAvatarVisible] = useState(
@@ -26,10 +25,9 @@ export const ScheduleViewer: React.FC<ScheduleViewerProps> = (props) => {
   );
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 786);
 
-  useEffect(() => {
-    // Perform any necessary side effects when the current date or view changes
-  }, [currentDate, currentView]);
+  useEffect(() => {}, [currentDate, currentView]);
 
+  //
   // Handle window resize and update avatar visibility
   useEffect(() => {
     const handleResize = () => {
@@ -40,12 +38,7 @@ export const ScheduleViewer: React.FC<ScheduleViewerProps> = (props) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Set the schedule description based on the current view
-  // const scheduleDesc =
-  //   currentView === 'month' ? (
-  //     <div className="schedule-desc msg-text ai-msg">{props.response}</div>
-  //   ) : null
-
+  //
   // Handle previous month navigation
   const handlePreviousMonth = () => {
     setCurrentDate(currentDate.clone().subtract(1, "month"));

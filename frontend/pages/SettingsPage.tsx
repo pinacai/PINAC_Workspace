@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { DropdownMenu } from "../components/DropdownMenu";
+import { Card } from "../components/Card";
 
 // Icons
 import Cyber_Tech_o1_darkPreview from "../assets/img/Cyber_Tech_01_darkPreview.png";
@@ -12,31 +13,7 @@ export const SettingsPage: React.FC = () => {
   const [Dawn_n_Dusk, setDawn_n_Dusk] = useState<boolean>(false);
   const [Cyber_Tech_01, setCyber_Tech_01] = useState<boolean>(false);
 
-  const card = (
-    title: string,
-    cardImage: string,
-    checkedFunc: boolean,
-    onChangeFunc: () => void
-  ) => {
-    return (
-      <div className="themeCard">
-        <img src={cardImage} alt="Cyber Tech 01 Preview" />
-        <div className="themeCard-desc">
-          <label className="check-wrapper">
-            <input
-              type="checkbox"
-              checked={checkedFunc}
-              onChange={onChangeFunc}
-            />
-            <div className="checkmark"></div>
-          </label>
-          <span>{title}</span>
-        </div>
-      </div>
-    );
-  };
-
-  // Function to select the Dawn_n_Dusk theme
+  //
   const changeToDawn_n_Dusk = () => {
     setDawn_n_Dusk(!Dawn_n_Dusk);
     if (!Dawn_n_Dusk) {
@@ -45,7 +22,7 @@ export const SettingsPage: React.FC = () => {
     }
   };
 
-  // Function to select the Cyber_Tech_01 theme
+  //
   const changeToCyber_Tech_01 = () => {
     setCyber_Tech_01(!Cyber_Tech_01);
     if (!Cyber_Tech_01) {
@@ -54,7 +31,7 @@ export const SettingsPage: React.FC = () => {
     }
   };
 
-  // Set the theme selection based on the value stored in local storage
+  //
   useEffect(() => {
     const preferredThemePair = localStorage.getItem("preferred-theme-pair");
     setDawn_n_Dusk(preferredThemePair === "Dawn_n_Dusk");
@@ -62,8 +39,6 @@ export const SettingsPage: React.FC = () => {
   }, []);
 
   //
-  // Updates the body's classList with the selected
-  // theme pair and the user's preferred light/dark mode
   useEffect(() => {
     const body = document.body;
     const preferredTheme = localStorage.getItem("preferred-theme");
@@ -75,7 +50,6 @@ export const SettingsPage: React.FC = () => {
       "Cyber_Tech_01-light",
       "Cyber_Tech_01-dark"
     );
-    // Add desired theme pair with 'light-theme' or 'dark-theme' as user previous preference
     body.classList.add(`${preferredThemePair}-${preferredTheme}`);
   });
 
@@ -110,20 +84,20 @@ export const SettingsPage: React.FC = () => {
             </div>
             <div className="themeCard-container">
               {/* Theme 1 */}
-              {card(
-                "Dawn & Dusk",
-                Dawn_n_Dusk_darkPreview,
-                Dawn_n_Dusk,
-                changeToDawn_n_Dusk
-              )}
+              <Card
+                title="Dawn & Dusk"
+                cardImage={Dawn_n_Dusk_darkPreview}
+                checkedFunc={Dawn_n_Dusk}
+                onChangeFunc={changeToDawn_n_Dusk}
+              />
 
               {/* Theme 2 */}
-              {card(
-                "Cyber Tech 01",
-                Cyber_Tech_o1_darkPreview,
-                Cyber_Tech_01,
-                changeToCyber_Tech_01
-              )}
+              <Card
+                title="Cyber Tech 01"
+                cardImage={Cyber_Tech_o1_darkPreview}
+                checkedFunc={Cyber_Tech_01}
+                onChangeFunc={changeToCyber_Tech_01}
+              />
 
               {/* Theme 3 */}
               <div className="themeCard">

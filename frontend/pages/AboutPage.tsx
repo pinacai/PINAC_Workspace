@@ -41,7 +41,9 @@ export const AboutPage: React.FC = () => {
             </div>
             <div className="aboutBtn">
               <a href="https://github.com/pinacai" target="_blank">
-                <button id="aboutBtn"><strong>Visit Our GitHub Repo</strong></button>
+                <button id="aboutBtn">
+                  <strong>Visit Our GitHub Repo</strong>
+                </button>
               </a>
             </div>
           </div>

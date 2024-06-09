@@ -36,6 +36,7 @@ export const HomePage: React.FC = () => {
     }
   };
 
+  //
   const clearChat = () => {
     setMessages([]);
     window.ipcRenderer.send("client-request", ["clear-history"]);
@@ -50,6 +51,7 @@ export const HomePage: React.FC = () => {
     );
   };
 
+  //
   // Actions after clicking send button or pressing Enter
   const submit = (text: string) => {
     setButtonsDisabled(true);
@@ -99,7 +101,7 @@ export const HomePage: React.FC = () => {
   }, []);
 
   //
-  // Updates the body's classList with the selected
+  //
   // For smooth applying of current theme
   useEffect(() => {
     const body = document.body;

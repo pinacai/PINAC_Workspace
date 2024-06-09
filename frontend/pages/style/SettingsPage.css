@@ -32,8 +32,7 @@
     margin: 10px 10px;
     padding-top: 20px;
     padding-bottom: 20px;
-    border-bottom: 2px var(--
-    The PINAC AI Solution GitHub organiSettingsBorder-color) solid;
+    border-bottom: 2px var(--SettingsBorder-color) solid;
     display: flex;
     flex-direction: column;
 }
@@ -53,129 +52,16 @@
     gap: 20px;
 }
 
-/* ====================================================*/
-/*         Theme Card  (under section Theme )          */
-/* ====================================================*/
-
-.themeCard {
-    width: 300px;
-    height: 200px;
-    border-radius: 10px;
-    background: var(--themeCard-bg);
-    box-shadow: var(--themeCard-shadow);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.themeCard:hover {
-    box-shadow: var(--themeCard-hover-shadow);
-}
-
-/* Card Image */
-.themeCard img {
-    width: 100%;
-    height: 80%;
-    object-fit: cover;
-}
-
-.themeCard-desc {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    justify-content: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-/* Theme Card Title */
-.themeCard-desc span {
-    margin-left: 10px;
-}
-
-/* Checkbox */
-.check-wrapper input {
-    display: none;
-}
-
-.check-wrapper {
-    display: block;
-    position: relative;
-    cursor: pointer;
-    font-size: 15px;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.checkmark {
-    position: relative;
-    top: 0;
-    left: 0;
-    height: 1.3em;
-    width: 1.3em;
-    background-color: #2196F300;
-    border-radius: 0.25em;
-    transition: all 0.25s;
-}
-
-.check-wrapper input:checked~.checkmark {
-    background-color: #2196F3;
-}
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    transform: rotate(0deg);
-    border: 1.5px solid;
-    left: 0;
-    top: 0;
-    width: 1.05em;
-    height: 1.05em;
-    border-radius: 0.25em;
-    transition: all 0.2s ease, border-width 0.1s;
-}
-
-.check-wrapper input:checked~.checkmark:after {
-    left: 0.45em;
-    top: 0.25em;
-    width: 0.25em;
-    height: 0.5em;
-    border-color: #fff0 white white #fff0;
-    border-width: 0 0.15em 0.15em 0;
-    border-radius: 0em;
-    transform: rotate(45deg);
-}
-
 
 /* Responsive Styles */
 @media (max-width: 768px) {
     .themeCard-container {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
-
-    .themeCard {
-        width: 150px;
-        height: 200px;
-    }
 }
 
 @media (max-width: 320px) {
     .themeCard-container {
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    }
-
-    .themeCard {
-        width: 120px;
-        height: 180px;
-    }
-
-    .check-wrapper {
-        margin-left: 5px;
-    }
-
-    .themeCard-desc span {
-        margin-left: 5px;
-        margin-right: 5px;
-        font-size: small;
     }
 }
