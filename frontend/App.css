@@ -92,9 +92,6 @@
   --welcomeText-gradient: linear-gradient(125deg, #ff7300, #f12b6d, #0026ff);
 
   /* ProfilePage */
-  --input-border: 1px solid #aaaaaa;
-  --input-bg: #f6f8fa;
-  --outline-color: #868686;
 
   /* AboutPage */
   --aboutCard-bg: #ffffff;
@@ -179,9 +176,6 @@
   --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #f12b6d, #0026ff);
 
   /* ProfilePage */
-  --input-border: 1px solid #3c3c3c;
-  --input-bg: #161616;
-  --outline-color: #6b6b6b;
 
   /* AboutPage */
   --aboutCard-bg: #252525;
@@ -267,9 +261,6 @@
   --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #f12b6d, #0026ff);
 
   /* ProfilePage */
-  --input-border: 1px solid #aaaaaa;
-  --input-bg: #f6f8fa;
-  --outline-color: #868686;
 
   /* AboutPage */
   --aboutCard-bg: #ffffff;
@@ -354,9 +345,6 @@
   --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #f12b6d, #0026ff);
 
   /* ProfilePage */
-  --input-shadow: 0 0 2px #ece2d5;
-  --input-bg: rgba(37, 37, 37, 0.15);
-  --outline-color: #6b6b6b;
 
   /* AboutPage */
   --aboutCard-bg: rgba(109, 108, 108, 0.15);

@@ -81,12 +81,37 @@ export const ProfilePage: React.FC = () => {
                       placeholder="Tell us about yourself"
                     ></textarea>
                   </div>
+                  <div className="last-sec">
+                    {/* Coppied this button from About Us Page */}
+                    <button id="aboutBtn">
+                      <strong>Save Changes</strong>
+                    </button>
+                  </div>
                 </div>
               </>
             ) : (
               ""
             )}
-            {isOpt2 ? "" : ""}
+            {isOpt2 ? (
+              <div className="user-details">
+                <div className="sec">
+                  <span>OPENAI API Key</span>
+                  {InputBox("text", "gmail-id", "Paste your key here")}
+                </div>
+                <div className="sec">
+                  <span>Gemini API Key</span>
+                  {InputBox("text", "gmail-id", "Paste your key here")}
+                </div>
+                <div className="last-sec">
+                  {/* Coppied this button from About Us Page */}
+                  <button id="aboutBtn">
+                    <strong>Save Changes</strong>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

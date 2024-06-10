@@ -117,6 +117,15 @@
   border-radius: 50px;
 }
 
+.last-sec {
+  width: 100%;
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .profile-img {
@@ -156,6 +165,10 @@
     width: 100%;
     margin-top: 20px;
     margin-left: 0;
+  }
+
+  .last-sec {
+    margin-top: 10px;
   }
 }
 
