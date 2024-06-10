@@ -19,7 +19,7 @@ One Next-Gen AI Chat for all your needs.
 <br>
 <br>
 
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/tech.png" alt="">
+![](https://skillicons.dev/icons?i=react,typescript,vite,electron)
 
 </div>
 
