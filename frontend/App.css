@@ -3,18 +3,18 @@
 /* ====================================================*/
 
 @font-face {
-  font-family: 'nasa';
-  src: url('assets/font/nasalization-rg.otf');
+  font-family: "nasa";
+  src: url("assets/font/nasalization-rg.otf");
 }
 
 @font-face {
-  font-family: 'ai-text';
-  src: url('assets/font/KodeMono-VariableFont_wght.ttf');
+  font-family: "ai-text";
+  src: url("assets/font/KodeMono-VariableFont_wght.ttf");
 }
 
 @font-face {
-  font-family: 'exo2';
-  src: url('assets/font/Exo2-VariableFont_wght.ttf');
+  font-family: "exo2";
+  src: url("assets/font/Exo2-VariableFont_wght.ttf");
 }
 
 /* ====================================================*/
@@ -23,28 +23,31 @@
 
 /* Theme 1: Dawn_n_Dusk */
 .Dawn_n_Dusk-light {
-
   /* Common */
-  --primary-color: #F5F7FA;
-  --secondary-color: #1F2937;
-  --text-color1: #FFFFFF;
-  --text-color2: #1F2937;
+  --primary-color: #f5f7fa;
+  --secondary-color: #1f2937;
+  --text-color1: #ffffff;
+  --text-color2: #1f2937;
   --placeholder-text-color: #666666;
   --changeable-icon-filter: none;
+  --inputGroup-bg: #ffffff;
+  --inputGroup-border-color: grey;
+  --inputGroupBtn-hover-color: #b9b9b9;
+  --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
   /* Sidebar */
   --sidebar-hover-color: rgba(255, 255, 255, 0.1);
-  --sidebar-color: #1F2937;
+  --sidebar-color: #1f2937;
   --sidebar-shadow: none;
   --sidebar-present-page-color: var(--primary-color);
   --sidebar-present-page-shadow: none;
 
   /* Header */
   --headerMenu-btn-hover-bg: #cccccc;
-  --headerMenu-bg: #FFFFFF;
+  --headerMenu-bg: #ffffff;
   --headerMenu-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   --headerMenu-opt-hover-bg: #eeeeee;
-  --headerTitle-color: #1F2937;
+  --headerTitle-color: #1f2937;
   --headerTitle-underline-color: #6c82ff;
   --newChatBtn-color: #40454e;
   --newChatBtn-shadow: none;
@@ -55,47 +58,49 @@
   --composeBox-body-bg: #ececec;
 
   /* ScheduleViewer */
-  --calendar-bg: #FFFFFF;
+  --calendar-bg: #ffffff;
   --calendar-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   --calendar-dimmed-text-color: #636363;
   --calendar-hover-color: #cccccc;
   --calendar-current-bg: #5972ff;
-  --calendar-event-border-color: #B15EFD;
+  --calendar-event-border-color: #b15efd;
   --calendar-task-border-color: #5972ff;
   --calendar-weekView-header-box-bg: #e9e9e9;
   --calendar-weekView-header-box-shadow: none;
 
   /* MessageViewer */
-  --humanMsg-bg: #1F2937;
+  --humanMsg-bg: #1f2937;
   --humanMsg-bg-shadow: none;
-  --aiMsg-bg: #FFFFFF;
+  --aiMsg-bg: #ffffff;
   --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 
   /* DropdownMenu */
-  --dropdownBtn-bg: #E0E4E8;
+  --dropdownBtn-bg: #e0e4e8;
   --dropdownBtn-hover-bg: rgba(0, 0, 0, 0.3);
   --dropdownBtn-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-  --dropdownMenu-bg: #E0E4E8;
+  --dropdownMenu-bg: #e0e4e8;
   --dropdownMenu-selected-bg: rgba(0, 0, 0, 0.3);
   --dropdownMenu-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 
+  /* Menubar */
+  --menubar-bg: #e0e4e8;
+  --menubar-active-item-bg: rgba(0, 0, 0, 0.3);
+  --menubar-active-item-shadow: none;
+  --menubar-item-hover-bg: rgba(0, 0, 0, 0.1);
+
   /* HomePage */
-  --welcomeText-gradient: linear-gradient(125deg, #ff7300, #F12B6D, #0026ff);
-  --inputGroup-bg: #FFFFFF;
-  --inputGroup-border-color: #5972ff;
-  --inputGroupBtn-hover-color: #b9b9b9;
-  --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  --welcomeText-gradient: linear-gradient(125deg, #ff7300, #f12b6d, #0026ff);
 
   /* ProfilePage */
-  --input-border: 1px solid #AAAAAA;
+  --input-border: 1px solid #aaaaaa;
   --input-bg: #f6f8fa;
   --outline-color: #868686;
 
   /* AboutPage */
-  --aboutCard-bg: #FFFFFF;
+  --aboutCard-bg: #ffffff;
   --aboutCard-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  --aboutBtn-bg: #1F2937;
-  --aboutBtn-shadow: #1F2937;
+  --aboutBtn-bg: #1f2937;
+  --aboutBtn-shadow: #1f2937;
 
   /* SettingsPage */
   --SettingsBorder-color: #cccccc;
@@ -105,46 +110,49 @@
 }
 
 .Dawn_n_Dusk-dark {
-
   /* Common */
   --primary-color: #121212;
   --secondary-color: linear-gradient(135deg, #7b63ff, #0d00c7);
-  --text-color1: #FFFFFF;
-  --text-color2: #FFFFFF;
+  --text-color1: #ffffff;
+  --text-color2: #ffffff;
   --placeholder-text-color: #bebebe;
   --changeable-icon-filter: invert(100%);
+  --inputGroup-bg: #3c3c3c;
+  --inputGroup-border-color: #5e43f3;
+  --inputGroupBtn-hover-color: #6e6e6e;
+  --inputGroup-shadow: 0 0 5px rgba(0, 0, 0, 1);
 
   /* Sidebar */
   --sidebar-hover-color: linear-gradient(135deg, #5e43f3, #382bf0);
-  --sidebar-color: #3C3C3C;
+  --sidebar-color: #3c3c3c;
   --sidebar-shadow: none;
   --sidebar-present-page-color: var(--primary-color);
   --sidebar-present-page-shadow: none;
 
   /* Header */
-  --headerMenu-btn-hover-bg: #3C3C3C;
-  --headerMenu-bg: #3C3C3C;
+  --headerMenu-btn-hover-bg: #3c3c3c;
+  --headerMenu-bg: #3c3c3c;
   --headerMenu-shadow: 0 0 20px #000;
   --headerMenu-opt-hover-bg: var(--sidebar-hover-color);
-  --headerTitle-color: #F5F7FA;
+  --headerTitle-color: #f5f7fa;
   --headerTitle-underline-color: #5e43f3;
-  --newChatBtn-color: #3C3C3C;
+  --newChatBtn-color: #3c3c3c;
   --newChatBtn-shadow: none;
 
   /* EmailComposeBox */
   --composeBoxBtn-color: #382bf0;
   --composeBoxBtn-hover-color: #594efc;
-  --composeBox-body-bg: #3C3C3C;
+  --composeBox-body-bg: #3c3c3c;
 
   /* ScheduleViewer */
   --calendar-bg: #252525;
   --calendar-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   --calendar-dimmed-text-color: #8f8f8f;
-  --calendar-hover-color: #3C3C3C;
+  --calendar-hover-color: #3c3c3c;
   --calendar-current-bg: linear-gradient(135deg, #5e43f3, #382bf0);
   --calendar-event-border-color: #8f27f0;
   --calendar-task-border-color: #382bf0;
-  --calendar-weekView-header-box-bg:  #3C3C3C;
+  --calendar-weekView-header-box-bg: #3c3c3c;
   --calendar-weekView-header-box-shadow: none;
 
   /* MessageViewer */
@@ -154,22 +162,24 @@
   --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 
   /* DropdownMenu */
-  --dropdownBtn-bg: #3C3C3C;
+  --dropdownBtn-bg: #3c3c3c;
   --dropdownBtn-hover-bg: rgba(255, 255, 255, 0.1);
   --dropdownBtn-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
-  --dropdownMenu-bg: #3C3C3C;
+  --dropdownMenu-bg: #3c3c3c;
   --dropdownMenu-selected-bg: linear-gradient(135deg, #5e43f3, #382bf0);
   --dropdownMenu-shadow: 0 0 20px #000;
 
+  /* Menubar */
+  --menubar-bg: #3c3c3c;
+  --menubar-active-item-bg: linear-gradient(135deg, #5e43f3, #382bf0);
+  --menubar-active-item-shadow: none;
+  --menubar-item-hover-bg: rgba(255, 255, 255, 0.1);
+
   /* HomePage */
-  --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
-  --inputGroup-bg: #3C3C3C;
-  --inputGroup-border-color: #5e43f3;
-  --inputGroupBtn-hover-color: #6e6e6e;
-  --inputGroup-shadow: 0 0 5px rgba(0, 0, 0, 1);
+  --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #f12b6d, #0026ff);
 
   /* ProfilePage */
-  --input-border: 1px solid #3C3C3C;
+  --input-border: 1px solid #3c3c3c;
   --input-bg: #161616;
   --outline-color: #6b6b6b;
 
@@ -180,36 +190,39 @@
   --aboutBtn-shadow: #382bf0;
 
   /* SettingsPage */
-  --SettingsBorder-color: #3C3C3C;
-  --themeCard-bg: #3C3C3C;
+  --SettingsBorder-color: #3c3c3c;
+  --themeCard-bg: #3c3c3c;
   --themeCard-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   --themeCard-hover-shadow: 0 0 25px #000000;
 }
 
 /*  Theme 2: Cyber_Tech_01 */
 .Cyber_Tech_01-light {
-
   /* Common */
-  --primary-color: #F5F7FA;
-  --secondary-color: #1F2937;
-  --text-color1: #FFFFFF;
-  --text-color2: #1F2937;
+  --primary-color: #f5f7fa;
+  --secondary-color: #1f2937;
+  --text-color1: #ffffff;
+  --text-color2: #1f2937;
   --placeholder-text-color: #666666;
   --changeable-icon-filter: none;
+  --inputGroup-bg: #ffffff;
+  --inputGroup-border-color: grey;
+  --inputGroupBtn-hover-color: #b9b9b9;
+  --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
   /* Sidebar */
   --sidebar-hover-color: rgba(255, 255, 255, 0.1);
-  --sidebar-color: #1F2937;
+  --sidebar-color: #1f2937;
   --sidebar-shadow: none;
   --sidebar-present-page-color: var(--primary-color);
   --sidebar-present-page-shadow: none;
 
   /* Header */
   --headerMenu-btn-hover-bg: #cccccc;
-  --headerMenu-bg: #FFFFFF;
+  --headerMenu-bg: #ffffff;
   --headerMenu-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   --headerMenu-opt-hover-bg: #eeeeee;
-  --headerTitle-color: #1F2937;
+  --headerTitle-color: #1f2937;
   --headerTitle-underline-color: #6c82ff;
   --newChatBtn-color: #40454e;
   --newChatBtn-shadow: none;
@@ -220,47 +233,49 @@
   --composeBox-body-bg: #ececec;
 
   /* ScheduleViewer */
-  --calendar-bg: #FFFFFF;
+  --calendar-bg: #ffffff;
   --calendar-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   --calendar-dimmed-text-color: #636363;
   --calendar-hover-color: #cccccc;
   --calendar-current-bg: #5972ff;
-  --calendar-event-border-color: #B15EFD;
+  --calendar-event-border-color: #b15efd;
   --calendar-task-border-color: #5972ff;
   --calendar-weekView-header-box-bg: #e9e9e9;
   --calendar-weekView-header-box-shadow: none;
 
   /* MessageViewer */
-  --humanMsg-bg: #1F2937;
+  --humanMsg-bg: #1f2937;
   --humanMsg-bg-shadow: none;
-  --aiMsg-bg: #FFFFFF;
+  --aiMsg-bg: #ffffff;
   --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 
   /* DropdownMenu */
-  --dropdownBtn-bg: #E0E4E8;
+  --dropdownBtn-bg: #e0e4e8;
   --dropdownBtn-hover-bg: rgba(0, 0, 0, 0.3);
   --dropdownBtn-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-  --dropdownMenu-bg: #E0E4E8;
+  --dropdownMenu-bg: #e0e4e8;
   --dropdownMenu-selected-bg: rgba(0, 0, 0, 0.3);
   --dropdownMenu-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 
+  /* Menubar */
+  --menubar-bg: #e0e4e8;
+  --menubar-active-item-bg: rgba(0, 0, 0, 0.3);
+  --menubar-active-item-shadow: none;
+  --menubar-item-hover-bg: rgba(0, 0, 0, 0.1);
+
   /* HomePage */
-  --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
-  --inputGroup-bg: #FFFFFF;
-  --inputGroup-border-color: #5972ff;
-  --inputGroupBtn-hover-color: #b9b9b9;
-  --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #f12b6d, #0026ff);
 
   /* ProfilePage */
-  --input-border: 1px solid #AAAAAA;
+  --input-border: 1px solid #aaaaaa;
   --input-bg: #f6f8fa;
   --outline-color: #868686;
 
   /* AboutPage */
-  --aboutCard-bg: #FFFFFF;
+  --aboutCard-bg: #ffffff;
   --aboutCard-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  --aboutBtn-bg: #1F2937;
-  --aboutBtn-shadow: #1F2937;
+  --aboutBtn-bg: #1f2937;
+  --aboutBtn-shadow: #1f2937;
 
   /* SettingsPage */
   --SettingsBorder-color: #cccccc;
@@ -270,7 +285,6 @@
 }
 
 .Cyber_Tech_01-dark {
-
   /* Common */
   --primary-color: #0c0a18;
   --secondary-color: linear-gradient(125deg, #0026ff, #5b00af);
@@ -278,11 +292,15 @@
   --text-color2: #ece2d5;
   --placeholder-text-color: #b9b9b9;
   --changeable-icon-filter: invert(100%);
+  --inputGroup-bg: rgba(109, 108, 108, 0.15);
+  --inputGroup-border-color: #433788;
+  --inputGroupBtn-hover-color: rgba(109, 108, 108, 0.2);
+  --inputGroup-shadow: 0 0 2px #ece2d5;
 
   /* Sidebar */
   --sidebar-hover-color: linear-gradient(125deg, #0026ff, #5b00af);
   --sidebar-color: #0c0a18;
-  --sidebar-shadow: 0 0 2px #ece2d5; 
+  --sidebar-shadow: 0 0 2px #ece2d5;
   --sidebar-present-page-color: rgba(109, 108, 108, 0.15);
   --sidebar-present-page-shadow: 0 0 2px #ece2d5;
 
@@ -326,12 +344,14 @@
   --dropdownMenu-selected-bg: linear-gradient(125deg, #0026ff, #5b00af);
   --dropdownMenu-shadow: 0 0 2px #ece2d5;
 
+  /* Menubar */
+  --menubar-bg: rgba(109, 108, 108, 0.15);
+  --menubar-shadow: 0 0 2px #ece2d5;
+  --menubar-active-item-bg: linear-gradient(125deg, #0026ff, #5b00af);
+  --menubar-item-hover-bg: rgba(255, 255, 255, 0.1);
+
   /* HomePage */
-  --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #F12B6D, #0026ff);
-  --inputGroup-bg: rgba(109, 108, 108, 0.15);
-  --inputGroup-border-color: #433788;
-  --inputGroupBtn-hover-color: rgba(109, 108, 108, 0.2);
-  --inputGroup-shadow: 0 0 2px #ece2d5;
+  --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #f12b6d, #0026ff);
 
   /* ProfilePage */
   --input-shadow: 0 0 2px #ece2d5;
@@ -345,12 +365,11 @@
   --aboutBtn-shadow: #0026ff;
 
   /* SettingsPage */
-  --SettingsBorder-color:#3C3C3C;
+  --SettingsBorder-color: #3c3c3c;
   --themeCard-bg: rgba(109, 108, 108, 0.15);
   --themeCard-shadow: 0 0 2px #ece2d5;
   --themeCard-hover-shadow: 0 0 10px #857e76;
 }
-
 
 /* ====================================================*/
 /*              Few others common styles               */
@@ -364,7 +383,7 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: var(--primary-color);
   color: var(--text-color2);
 }
@@ -373,7 +392,6 @@ body {
   width: 100%;
   display: flex;
 }
-
 
 /* Main Content */
 .container {

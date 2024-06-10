@@ -1,262 +1,261 @@
 .changeable-icon {
-    filter: var(--changeable-icon-filter);
+  filter: var(--changeable-icon-filter);
 }
 
 /* Chat Container */
 .chat-container {
-    width: 100%;
-    height: calc(100vh - 60px);
-    background-color: transparent;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    flex-grow: 1;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-grow: 1;
 }
 
 .msg-box {
-    width: 100%;
-    padding-left: 20%;
-    padding-right: 20%;
-    height: calc(100vh - (60px + 12vh));
-    padding-top: 30px;
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    flex-grow: 1;
+  width: 100%;
+  padding-left: 20%;
+  padding-right: 20%;
+  height: calc(100vh - (60px + 12vh));
+  padding-top: 30px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .msg-box::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 .msg-box::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .msg-box::-webkit-scrollbar-thumb {
-    background: #999;
-    border-radius: 50px;
+  background: #999;
+  border-radius: 50px;
 }
 
 /* Welcome Text Styles */
 .welcome-text {
-    background: var(--welcomeText-gradient);
-    background-clip: text;
-    color: transparent;
-    box-shadow: none;
-    font: bold 4.5vw 'nasa';
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background: var(--welcomeText-gradient);
+  background-clip: text;
+  color: transparent;
+  box-shadow: none;
+  font: bold 4.5vw "nasa";
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .welcome-text-row {
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
 
 /* Lower part of ChatBox */
 .input-box {
-    width: 100%;
-    background-color: transparent;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    margin-top: 10px;
-    margin-bottom: 20px;
+  width: 100%;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 /* User Input Styles */
 .input-group {
-    width: 60%;
-    display: flex;
-    align-items: center;
-    padding: 5px;
-    background: var(--inputGroup-bg);
-    border-radius: 0.8rem;
-    border: 2px;
-    border-style: solid;
-    border-color: transparent;
-    box-shadow: var(--inputGroup-shadow);
-    flex-grow: 1;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  background: var(--inputGroup-bg);
+  border-radius: 0.8rem;
+  border: 2px;
+  border-style: solid;
+  border-color: transparent;
+  box-shadow: var(--inputGroup-shadow);
+  flex-grow: 1;
 }
 
 .input-group.active {
-    border-color: var(--inputGroup-border-color);
+  border-color: var(--inputGroup-border-color);
 }
 
 #user-input {
-    height: 50px;
-    max-height: 200px;
-    min-width: 300px;
-    padding: 15px 10px 10px 10px;
-    outline: none;
-    resize: none;
-    border: none;
-    color: var(--text-color2);
-    font: normal medium 'Montserrat', sans-serif;
-    background: transparent;
-    flex-grow: 1;
+  height: 50px;
+  max-height: 200px;
+  min-width: 300px;
+  padding: 15px 10px 10px 10px;
+  outline: none;
+  resize: none;
+  border: none;
+  color: var(--text-color2);
+  font: normal medium "Montserrat", sans-serif;
+  background: transparent;
+  flex-grow: 1;
 }
 
 #user-input::placeholder {
-    color: var(--placeholder-text-color);
-    align-items: center;
-    font: normal large 'Exo2', 'Montserrat', sans-serif;
-    letter-spacing: 2px;
+  color: var(--placeholder-text-color);
+  align-items: center;
+  font: normal large "Exo2", "Montserrat", sans-serif;
+  letter-spacing: 2px;
 }
 
 #user-input::-webkit-scrollbar {
-    width: 0px;
+  width: 0px;
 }
 
 .input-group-append {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items:flex-start;
-    justify-content: flex-start;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 /* Send Button Styles */
 #submit-btn {
-    height: 45px;
-    width: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    border-radius: 50%;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-right: 15px;
+  height: 45px;
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-right: 15px;
 }
 
 #submit-btn:hover {
-    background-color: var(--inputGroupBtn-hover-color);
+  background-color: var(--inputGroupBtn-hover-color);
 }
 
 /* Change the color when disabled and */
 /* Change the cursor to indicate the button is disabled */
 button.disabled {
-    background-color: rgb(88, 88, 88);
-    cursor: not-allowed;
+  background-color: rgb(88, 88, 88);
+  cursor: not-allowed;
 }
 
 .submit-icon {
-    height: 30px;
-    width: 30px;
+  height: 30px;
+  width: 30px;
 }
-
 
 /* Responsive Styles */
 @media (max-width: 1200px) {
-    .msg-box {
-        padding-left: 10%;
-        padding-right: 10%;
-    }
+  .msg-box {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
 
-    .input-group {
-        width: 80%;
-    }
+  .input-group {
+    width: 80%;
+  }
 }
 
 @media (max-width: 992px) {
-    .msg-box {
-        padding-left: 5%;
-        padding-right: 5%;
-    }
+  .msg-box {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 
-    .welcome-text {
-        font-size: 7vw;
-    }
+  .welcome-text {
+    font-size: 7vw;
+  }
 
-    .input-group {
-        width: 90%;
-    }
+  .input-group {
+    width: 90%;
+  }
 
-    #user-input {
-        min-width: 200px;
-    }
+  #user-input {
+    min-width: 200px;
+  }
 }
 
 @media (max-width: 768px) {
-    .msg-box {
-        padding-left: calc(5% + 10px);
-        padding-right: calc(5% + 10px);
-    }
+  .msg-box {
+    padding-left: calc(5% + 10px);
+    padding-right: calc(5% + 10px);
+  }
 
-    .input-group {
-        width: 90%;
-        padding: 3px;
-    }
+  .input-group {
+    width: 90%;
+    padding: 3px;
+  }
 
-    #user-input {
-        min-width: 150px;
-    }
+  #user-input {
+    min-width: 150px;
+  }
 
-    .input-group-append {
-        align-items: center;
-    }
+  .input-group-append {
+    align-items: center;
+  }
 
-    #submit-btn {
-        margin-right: 10px;
-    }
+  #submit-btn {
+    margin-right: 10px;
+  }
 }
 
 @media (max-width: 576px) {
-    .msg-box {
-        padding-left: calc(2.5% + 10px);
-        padding-right: 2%;
-    }
+  .msg-box {
+    padding-left: calc(2.5% + 10px);
+    padding-right: 2%;
+  }
 
-    .msg-box::-webkit-scrollbar {
-        width: 7px;
-    }
+  .msg-box::-webkit-scrollbar {
+    width: 7px;
+  }
 
-    .welcome-text {
-        font-size: 35px;
-    }
+  .welcome-text {
+    font-size: 35px;
+  }
 
-    .input-group {
-        width: 95%;
-    }
+  .input-group {
+    width: 95%;
+  }
 
-    #user-input::placeholder {
-        font: normal medium 'Exo2', 'Montserrat', sans-serif;
-        letter-spacing: 2px;
-    }
+  #user-input::placeholder {
+    font: normal medium "Exo2", "Montserrat", sans-serif;
+    letter-spacing: 2px;
+  }
 
-    .input-group-append {
-        align-items: center;
-    }
+  .input-group-append {
+    align-items: center;
+  }
 }
 
 @media (max-width: 320px) {
-    .msg-box::-webkit-scrollbar {
-        width: 3px;
-    }
+  .msg-box::-webkit-scrollbar {
+    width: 3px;
+  }
 
-    .msg-box::-webkit-scrollbar-thumb {
-        background: #999;
-        border-radius: 2px;
-    }
+  .msg-box::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 2px;
+  }
 
-    .welcome-text {
-        font-size: 10vw;
-    }
+  .welcome-text {
+    font-size: 10vw;
+  }
 
-    #submit-btn {
-        height: 35px;
-        width: 35px;
-        margin-right: 5px;
-    }
+  #submit-btn {
+    height: 35px;
+    width: 35px;
+    margin-right: 5px;
+  }
 
-    #submit-btn img {
-        height: 25px;
-    }
+  #submit-btn img {
+    height: 25px;
+  }
 }

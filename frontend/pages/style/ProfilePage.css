@@ -1,100 +1,171 @@
 .profile-container {
-    width: 100%;
-    height: calc(100vh - 60px);
-    padding-top: 20px;
-    font-family: 'Exo2', 'Montserrat', sans-serif;
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding-top: 5px;
+  font-family: "Exo2", "Montserrat", sans-serif;
 }
 
-.profile-container::-webkit-scrollbar {
-    width: 10px;
+.profile-card {
+  width: 100%;
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: flex-start;
+  overflow-y: auto;
 }
 
-.profile-container::-webkit-scrollbar-track {
-    background: transparent;
+.profile-card::-webkit-scrollbar {
+  width: 10px;
 }
 
-.profile-container::-webkit-scrollbar-thumb {
-    background: #999;
-    border-radius: 50px;
+.profile-card::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 50px;
 }
 
 .profile-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 150px;
+  margin: 20px 20px 20px 100px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .profile-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .user-details {
-    width: 100%;
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sec {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    /* justify-content: center; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .sec span {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .sec input {
-    width: 300px;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: var(--input-border);
-    outline-color: var(--outline-color);
-    border-radius: 10px;
-    background: var(--input-bg);
-    font-size: medium;
-    font-family: 'Exo2', 'Montserrat', sans-serif;
-    color: var(--text-color2);
+  width: 350px;
+  height: 45px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  color: var(--text-color2);
+  background: var(--inputGroup-bg);
+  box-shadow: var(--inputGroup-shadow);
+  border: 2px solid transparent;
+  font: normal large "Exo2", "Montserrat", sans-serif;
+  outline: none;
+}
+
+.sec input::placeholder {
+  font-size: medium;
+  color: var(--placeholder-text-color);
+}
+
+.sec input:focus {
+  border: 2px solid var(--inputGroup-border-color);
 }
 
 .sec textarea {
-    width: 300px;
-    height: 200px;
-    padding: 10px;
-    resize: none;
-    border: var(--input-border);
-    outline-color: var(--outline-color);
-    border-radius: 10px;
-    background: var(--input-bg);
-    font-size: medium;
-    font-family: 'Exo2', 'Montserrat', sans-serif;
-    color: var(--text-color2);
+  width: 350px;
+  height: 200px;
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--text-color2);
+  background: var(--inputGroup-bg);
+  box-shadow: var(--inputGroup-shadow);
+  border: 2px solid transparent;
+  font: normal medium "Exo2", "Montserrat", sans-serif;
+  resize: none;
+  outline: none;
+}
+
+.sec textarea:focus {
+  border: 2px solid var(--inputGroup-border-color);
+}
+
+.sec textarea::placeholder {
+  color: var(--placeholder-text-color);
 }
 
 .sec textarea::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 .sec textarea::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .sec textarea::-webkit-scrollbar-thumb {
-    background: #999;
-    border-radius: 50px;
+  background: #999;
+  border-radius: 50px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .profile-img {
+    height: 100px;
+    margin: 20px 0 20px 50px;
+  }
+
+  .user-details {
+    margin-left: 25px;
+  }
+
+  .sec input {
+    width: 300px;
+  }
+
+  .sec textarea {
+    width: 300px;
+  }
+}
+
+@media (max-width: 576px) {
+  .profile-card {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile-img {
+    width: 100%;
+    height: 100px;
+    margin: 0;
+  }
+
+  .user-details {
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .sec input {
+    width: 88vw;
+    margin-bottom: 10px;
+  }
+
+  .sec textarea {
+    width: 88vw;
+  }
 }

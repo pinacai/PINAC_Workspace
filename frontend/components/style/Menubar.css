@@ -1,0 +1,30 @@
+.menubar {
+  display: flex;
+  width: fit-content;
+  justify-content: flex-start;
+  margin: 0 20px 10px 20px;
+  border-radius: 10px;
+  color: var(--text-color2);
+  background: var(--menubar-bg);
+  box-shadow:  var(--menubar-shadow);
+}
+
+.menu-items {
+  display: flex;
+  list-style-type: none;
+}
+
+.menu-item {
+  cursor: pointer;
+  padding: 7px 15px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item.active {
+  background: var(--menubar-active-item-bg);
+}
+
+.menu-item:hover {
+  background-color: var(--menubar-item-hover-bg);
+}

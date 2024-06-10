@@ -72,7 +72,6 @@
   background: var(--dropdownMenu-selected-bg);
 }
 
-
 /* Responsive Styles */
 @media (max-width: 320px) {
   .dropdown .selector {

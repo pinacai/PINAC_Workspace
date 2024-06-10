@@ -6,7 +6,6 @@ import { AboutPage } from "./pages/AboutPage";
 import { SettingsPage } from "./pages/SettingsPage";
 
 const App = () => {
-
   const preferredTheme = localStorage.getItem("preferred-theme");
   const preferredThemePair = localStorage.getItem("preferred-theme-pair");
 

@@ -48,7 +48,7 @@
   font-size: 15px;
   background-color: var(--codeBlocks-bg);
   border-radius: 10px;
-  border: var(--codeBlocks-border) ;
+  border: var(--codeBlocks-border);
 }
 
 /* for inline code */

@@ -1,87 +1,87 @@
 /* Message Styles (Conversations) */
 .msg-row {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
 }
 
 .msg-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .msg-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .msg-content {
-    max-width: calc(100% - 50px);
-    white-space: pre-line;
+  max-width: calc(100% - 50px);
+  white-space: pre-line;
 }
 
 .msg-name {
-    font-weight: bold;
-    margin-bottom: 5px;
-    font-family: 'ai-text', 'Montserrat', sans-serif;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-family: "ai-text", "Montserrat", sans-serif;
 }
 
 .msg-text {
-    padding: 10px 20px;
-    border-radius: 0.8rem;
-    word-wrap: break-word;
+  padding: 10px 20px;
+  border-radius: 0.8rem;
+  word-wrap: break-word;
 }
 
 .human-msg {
-    color: var(--text-color1);
-    background: var(--humanMsg-bg);
-    box-shadow: var(--humanMsg-bg-shadow);
+  color: var(--text-color1);
+  background: var(--humanMsg-bg);
+  box-shadow: var(--humanMsg-bg-shadow);
 }
 
 .ai-msg {
-    background: var(--aiMsg-bg);
-    color: var(--text-color2);
-    font: normal large 'Exo2', 'Montserrat', sans-serif;
-    line-height: 1.4;
-    letter-spacing: 0.3px;
-    word-spacing: 2px;
-    box-shadow: var(--aiMsg-bg-shadow);
+  background: var(--aiMsg-bg);
+  color: var(--text-color2);
+  font: normal large "Exo2", "Montserrat", sans-serif;
+  line-height: 1.4;
+  letter-spacing: 0.3px;
+  word-spacing: 2px;
+  box-shadow: var(--aiMsg-bg-shadow);
 }
 
 /* Responsiveness */
 @media (max-width: 768px) {
-    .msg-avatar {
-        width: 30px;
-        height: 30px;
-    }
+  .msg-avatar {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 @media (max-width: 576px) {
-    .msg-content {
-        max-width: 100%;
-    }
+  .msg-content {
+    max-width: 100%;
+  }
 
-    .msg-text {
-        padding-left: 10px 15px;
-    }
+  .msg-text {
+    padding-left: 10px 15px;
+  }
 
-    .ai-msg {
-        font: normal 16.6px 'Exo2', 'Montserrat', sans-serif;
-        line-height: 1.4;
-    }
+  .ai-msg {
+    font: normal 16.6px "Exo2", "Montserrat", sans-serif;
+    line-height: 1.4;
+  }
 }
 
 @media (max-width: 320px) {
-    .ai-msg {
-        font: normal medium 'Exo2', 'Montserrat', sans-serif;
-        line-height: 1.3;
-    }
+  .ai-msg {
+    font: normal medium "Exo2", "Montserrat", sans-serif;
+    line-height: 1.3;
+  }
 }

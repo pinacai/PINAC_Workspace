@@ -1,26 +1,26 @@
 .setting-container {
-    width: 100%;
-    height: calc(100vh - 60px);
-    padding-top: 20px;
-    font-family: 'Exo2', 'Montserrat', sans-serif;
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: auto;
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding-top: 20px;
+  font-family: "Exo2", "Montserrat", sans-serif;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
 }
 
 .setting-container::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 .setting-container::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .setting-container::-webkit-scrollbar-thumb {
-    background: #999;
-    border-radius: 50px;
+  background: #999;
+  border-radius: 50px;
 }
 
 /* ====================================================*/
@@ -28,18 +28,18 @@
 /* ====================================================*/
 
 .section {
-    width: 90%;
-    margin: 10px 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-bottom: 2px var(--SettingsBorder-color) solid;
-    display: flex;
-    flex-direction: column;
+  width: 90%;
+  margin: 10px 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px var(--SettingsBorder-color) solid;
+  display: flex;
+  flex-direction: column;
 }
 
 .section-title {
-    font: normal 20px;
-    padding-bottom: 20px;
+  font: normal 20px;
+  padding-bottom: 20px;
 }
 
 /* ====================================================*/
@@ -47,21 +47,20 @@
 /* ====================================================*/
 
 .themeCard-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
 }
-
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-    .themeCard-container {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
+  .themeCard-container {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
 }
 
 @media (max-width: 320px) {
-    .themeCard-container {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    }
+  .themeCard-container {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
 }

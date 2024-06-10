@@ -1,111 +1,114 @@
 .about-container {
-    width: 100%;
-    height: calc(100vh - 60px);
-    padding-top: 20px;
-    font-family: 'Exo2', 'Montserrat', sans-serif;
-    background: transparent;
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding-top: 20px;
+  font-family: "Exo2", "Montserrat", sans-serif;
+  background: transparent;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .about-card {
-    width: 30%;
-    height: 70%;
-    padding: 20px 20px;
-    border-radius: 10px;
-    background: var(--aboutCard-bg);
-    box-shadow: var(--aboutCard-shadow);
+  width: 30%;
+  height: 70%;
+  padding: 20px 20px;
+  border-radius: 10px;
+  background: var(--aboutCard-bg);
+  box-shadow: var(--aboutCard-shadow);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.about-card:hover {
+  box-shadow: var(--themeCard-hover-shadow);
 }
 
 .about-card .header {
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .about-card .header span {
-    font: bold xx-large 'Exo2', 'Montserrat', sans-serif;
+  font: bold xx-large "Exo2", "Montserrat", sans-serif;
 }
 
 .about-card span {
-    font: normal medium 'Exo2', 'Montserrat', sans-serif;
+  font: normal medium "Exo2", "Montserrat", sans-serif;
 }
 
 #aboutBtn {
-    padding-left: 33px;
-    padding-right: 33px;
-    padding-bottom: 16px;
-    padding-top: 16px;
-    border-radius: 9px;
-    color: var(--text-color1);
-    background: var(--aboutBtn-bg);
-    border: none;
-    font-style: bold;
-    font-family: 'Exo2', 'Montserrat', sans-serif;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.4s;
+  padding-left: 33px;
+  padding-right: 33px;
+  padding-bottom: 16px;
+  padding-top: 16px;
+  border-radius: 9px;
+  color: var(--text-color1);
+  background: var(--aboutBtn-bg);
+  border: none;
+  font-style: bold;
+  font-family: "Exo2", "Montserrat", sans-serif;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.4s;
 }
 
 #aboutBtn:hover {
-    box-shadow: 7px 5px 56px -14px var(--aboutBtn-shadow);
+  box-shadow: 7px 5px 56px -14px var(--aboutBtn-shadow);
 }
 
 #aboutBtn:active {
-    transform: scale(0.97);
-    box-shadow: 7px 5px 56px -10px var(--aboutBtn-shadow);
+  transform: scale(0.97);
+  box-shadow: 7px 5px 56px -10px var(--aboutBtn-shadow);
 }
-
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-    .about-card {
-        width: 50%;
-        height: 70%;
-    }
+  .about-card {
+    width: 50%;
+    height: 70%;
+  }
 }
 
 @media (max-width: 576px) {
-    .about-card {
-        width: 60%;
-        height: 70%;
-    }
+  .about-card {
+    width: 60%;
+    height: 70%;
+  }
 }
 
 @media (max-width: 400px) {
-    .about-card {
-        width: 75%;
-        height: 70%;
-    }
+  .about-card {
+    width: 75%;
+    height: 70%;
+  }
 }
 
 @media (max-width: 320px) {
-    .about-card {
-        width: 90%;
-        height: 70%;
-    }
+  .about-card {
+    width: 90%;
+    height: 70%;
+  }
 
-    .about-card .header {
-        margin-bottom: 0px;
-    }
+  .about-card .header {
+    margin-bottom: 0px;
+  }
 
-    .about-card .header span {
-        font-size: x-large;
-    }
-    
-    .about-card span {
-        font-size: 16.6px;
-    }
+  .about-card .header span {
+    font-size: x-large;
+  }
 
-    #aboutBtn {
-        padding: 15px 10px;
-    }
+  .about-card span {
+    font-size: 16.6px;
+  }
+
+  #aboutBtn {
+    padding: 15px 10px;
+  }
 }
