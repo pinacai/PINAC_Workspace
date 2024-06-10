@@ -82,6 +82,10 @@
   background: var(--headerMenu-opt-hover-bg);
 }
 
+.header-menu .dropdown-last-menu ul li:hover {
+  background: transparent;
+}
+
 /* --------------------- */
 /* for other page titles */
 .title {

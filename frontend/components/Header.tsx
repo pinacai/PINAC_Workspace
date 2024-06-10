@@ -17,22 +17,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
   const navigate = useNavigate();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
-
-  //
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 576) {
-        setIsMenuVisible(true);
-      } else {
-        setIsMenuVisible(false);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   // Function to handle page navigation
   const changePage = (path: string) => {
@@ -66,6 +51,53 @@ export const Header: React.FC<HeaderProps> = (props) => {
   const openMenu = () => {
     setIsDropdownActive(!isDropdownActive);
   };
+
+  // Functions to change the Theme
+  const changeTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+    localStorage.setItem("preferred-theme", isDarkTheme ? "light" : "dark");
+  };
+
+  //
+  //
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 576) {
+        setIsMenuVisible(true);
+      } else {
+        setIsMenuVisible(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // Retrieve the preferred theme from local storage and set that theme
+  useEffect(() => {
+    const preferredTheme = localStorage.getItem("preferred-theme");
+    setIsDarkTheme(preferredTheme === "dark");
+  }, []);
+
+  //
+  useEffect(() => {
+    const body = document.body;
+    const preferredThemePair = localStorage.getItem("preferred-theme-pair");
+    // Remove all theme classes first
+    body.classList.remove(
+      "Dawn_n_Dusk-light",
+      "Dawn_n_Dusk-dark",
+      "Cyber_Tech_01-light",
+      "Cyber_Tech_01-dark"
+    );
+    if (isDarkTheme) {
+      body.classList.add(`${preferredThemePair}-dark`); // Add 'dark-theme' class if isDarkTheme is true
+    } else {
+      body.classList.add(`${preferredThemePair}-light`); // Add 'light-theme' class if isDarkTheme is false
+    }
+  }, [isDarkTheme]);
 
   return (
     <>
@@ -108,6 +140,36 @@ export const Header: React.FC<HeaderProps> = (props) => {
                   {location.pathname !== "/settings" && (
                     <li onClick={() => changePage("/settings")}>Settings</li>
                   )}
+                </ul>
+              </div>
+              {/* Special section at last for theme change */}
+              <div
+                className={`dropdown-last-menu dropdown-menu ${
+                  isDropdownActive ? "active" : ""
+                }`}
+                style={{ marginTop: "130px" }}
+              >
+                <ul>
+                  <li
+                    style={{
+                      alignItems: "center",
+                      padding: "5px 10px",
+                    }}
+                  >
+                    {/* toggle btn coppied from sidebar */}
+                    <div>
+                      <input
+                        type="checkbox"
+                        id="theme-switch"
+                        className="theme-switch"
+                        checked={isDarkTheme}
+                        onChange={changeTheme}
+                      />
+                      <label htmlFor="theme-switch" className="toggle-label">
+                        <span className="toggle-ball"></span>
+                      </label>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </div>

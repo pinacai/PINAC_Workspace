@@ -8,14 +8,9 @@ interface MenubarProps {
 export const Menubar: React.FC<MenubarProps> = ({ menuItems }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
+  // active by default
   useEffect(() => {
-    const savedActiveIndex = localStorage.getItem("activeMenuIndex");
-    if (savedActiveIndex !== null) {
-      setActiveIndex(parseInt(savedActiveIndex));
-    } else {
-      // active by default
-      setActiveIndex(0);
-    }
+    setActiveIndex(0);
   }, []);
 
   //
