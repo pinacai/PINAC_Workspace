@@ -85,7 +85,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   
       return () => clearTimeout(timeout);
     }
-  }, [currentIndex, delay, props.response]); // Handle the typing effect by creating a timeout while whole string is not written
+  }, [currentIndex, delay]); // Handle the typing effect by creating a timeout while whole string is not written
 
   // Handle window resize and update avatar visibility
   useEffect(() => {
