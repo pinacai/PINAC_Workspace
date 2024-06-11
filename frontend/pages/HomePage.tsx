@@ -18,7 +18,7 @@ export const HomePage: React.FC = () => {
     </div>
   );
   const [messages, setMessages] = useState<JSX.Element[]>([]); // For showing conversation bubbles
-  const [userInput, setUserInput] = useState<string>(); // Declare state for input value
+  const [userInput, setUserInput] = useState<string>(""); // Declare state for input value
   const [isUserInputActive, setUserInputActive] = useState<boolean>(false); // Declare state for input value
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -30,9 +30,15 @@ export const HomePage: React.FC = () => {
 
   // Handles Enter key press for submitting messages
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === "Enter" && userInput !== undefined) {
-      event.preventDefault(); // Prevent default Enter behavior
-      submit(userInput);
+    if (event.key === "Enter") {
+      if (event.shiftKey) {
+        // Insert a new line
+        setUserInput((userInput) => userInput + "\n");
+        event.preventDefault(); // Prevent the default behavior of adding a new line
+      } else {
+        event.preventDefault(); // Prevent default Enter behavior
+        submit(userInput);
+      }
     }
   };
 
@@ -54,26 +60,28 @@ export const HomePage: React.FC = () => {
   //
   // Actions after clicking send button or pressing Enter
   const submit = (text: string) => {
-    setButtonsDisabled(true);
-    if (welcomeBox !== <></>) {
-      setWelcomeBox(<></>);
+    if (/\S/.test(userInput)) {
+      setButtonsDisabled(true);
+      if (welcomeBox !== <></>) {
+        setWelcomeBox(<></>);
+      }
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        <ShowHumanMessage
+          key={`human-message-${prevMessages.length}`}
+          response={text}
+        />,
+      ]);
+      const preferredModel = localStorage.getItem("preferred-model");
+      window.ipcRenderer.send("client-request", {
+        "request-type": "user-input",
+        "preferred-model": preferredModel,
+        "user-query": text,
+      });
+      setMessages((prevMessages) => [...prevMessages, <ShowAiMessage />]);
+      setUserInput("");
+      setButtonsDisabled(false);
     }
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      <ShowHumanMessage
-        key={`human-message-${prevMessages.length}`}
-        response={text}
-      />,
-    ]);
-    const preferredModel = localStorage.getItem("preferred-model");
-    window.ipcRenderer.send("client-request", {
-      "request-type": "user-input",
-      "preferred-model": preferredModel,
-      "user-query": text,
-    });
-    setMessages((prevMessages) => [...prevMessages, <ShowAiMessage />]);
-    setUserInput("");
-    setButtonsDisabled(false);
   };
 
   useEffect(() => {

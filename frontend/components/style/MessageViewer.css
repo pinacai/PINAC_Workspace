@@ -56,20 +56,29 @@
   box-shadow: var(--aiMsg-bg-shadow);
 }
 
-// CSS for loader component
+/* CSS for loader component */
 .loader {
-  width:10px;
-  height:10px;
-  margin:7px 20px;
-  background: #F4F4F4;
+  width: 10px;
+  height: 10px;
+  margin: 7px 20px;
+  background: #f4f4f4;
   border-radius: 50%;
-  box-shadow: 20px 0 #F4F4F422,-20px 0 #F4F4F4;
-  animation:d5 1s infinite linear alternate;
+  box-shadow: 20px 0 #f4f4f422, -20px 0 #f4f4f4;
+  animation: d5 1s infinite linear alternate;
 }
 @keyframes d5 {
-    0% {box-shadow: 20px 0 #F4F4F4,-20px 0 #F4F4F422;background: #F4F4F4}
-    33%{box-shadow: 20px 0 #F4F4F4,-20px 0 #F4F4F422;background: #F4F4F422}
-    66%{box-shadow: 20px 0 #F4F4F422,-20px 0 #F4F4F4;background: #F4F4F422}
+  0% {
+    box-shadow: 20px 0 #f4f4f4, -20px 0 #f4f4f422;
+    background: #f4f4f4;
+  }
+  33% {
+    box-shadow: 20px 0 #f4f4f4, -20px 0 #f4f4f422;
+    background: #f4f4f422;
+  }
+  66% {
+    box-shadow: 20px 0 #f4f4f422, -20px 0 #f4f4f4;
+    background: #f4f4f422;
+  }
 }
 
 /* Responsiveness */
