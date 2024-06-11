@@ -73,6 +73,19 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   ); // Initial state based on window size
+  const [currentText, setCurrentText] = useState(''); // Text state for typing effect
+  const [currentIndex, setCurrentIndex] = useState(0); // Index state to emulate writing effect by displaying till certain index
+  const delay = 50; // Delay for writing each character
+  useEffect(() => {
+    if (currentIndex < props.response.length) {
+      const timeout = setTimeout(() => {
+        setCurrentText(prevText => prevText + props.response[currentIndex]);
+        setCurrentIndex(prevIndex => prevIndex + 1);
+      }, delay);
+  
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, delay]); // Handle the typing effect by creating a timeout while whole string is not written
 
   // Handle window resize and update avatar visibility
   useEffect(() => {
@@ -95,7 +108,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
         <div className="msg-content">
           <div className="msg-name">PINAC</div>
           <div className="msg-text ai-msg">
-            <MarkdownStyle text={props.response} />
+            <MarkdownStyle text={currentText} />
           </div>
         </div>
       </div>
