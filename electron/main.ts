@@ -1,9 +1,8 @@
-import { app, BrowserWindow, screen, ipcMain } from "electron";
-import { createRequire } from "node:module";
+import { app, BrowserWindow, screen } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import "../backend/main"
 
-const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // The built directory structure
@@ -24,8 +23,6 @@ export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 
 let win: BrowserWindow | null;
 
-//
-//
 //
 const createWindow = () => {
   // Get the primary display's work area size (usable area)
@@ -81,17 +78,3 @@ app.on("activate", () => {
 });
 
 app.whenReady().then(createWindow);
-
-//
-//
-// IPC btw React & Electron
-ipcMain.on("client-request", (event, data) => {
-  socket.emit("message", data);
-  socket.on("message-reply", (response: object) => {
-    event.reply("server-response", response);
-  });
-});
-
-// Establishing Real time communication with Python using Socket
-const io = require("socket.io-client");
-const socket = io("http://localhost:5000");

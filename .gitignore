@@ -24,9 +24,15 @@ release
 *.njsproj
 *.sln
 *.sw?
+
+# Python files
 venv
 .venv
 .env
 env
 __pycache__
 configs/
+
+# secrets
+backend/config/API_Key.json
+backend/config/user_info.json

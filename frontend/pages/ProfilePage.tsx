@@ -10,6 +10,11 @@ import profileImage from "../assets/icon/user_icon.png";
 export const ProfilePage: React.FC = () => {
   const [isOpt1, setIsOpt1] = useState<boolean>(true);
   const [isOpt2, setIsOpt2] = useState<boolean>(false);
+  const [fullName, setFullName] = useState<string>("");
+  const [emailId, setEmailId] = useState<string>("");
+  const [bio, setBio] = useState<string>("");
+  const [openaiKey, setOpenaiKey] = useState<string>("");
+  const [geminiKey, setGeminiKey] = useState<string>("");
 
   //
   const activeOpt1 = () => {
@@ -17,22 +22,33 @@ export const ProfilePage: React.FC = () => {
     setIsOpt2(false);
   };
 
-  //
   const activeOpt2 = () => {
     setIsOpt2(true);
     setIsOpt1(false);
   };
 
-  //
   const menuItems = [
     { label: "General", onClick: () => activeOpt1() },
     { label: "API Keys", onClick: () => activeOpt2() },
   ];
 
   //
-  // for showing input boxes
-  const InputBox = (type: string, id: string, placeholder: string) => {
-    return <input type={type} id={id} placeholder={placeholder} />;
+  // onClick functions
+  const saveUserInfo = () => {
+    window.ipcRenderer.send("client-request-to-backend", {
+      request_type: "save-user-info",
+      full_name: fullName,
+      email_id: emailId,
+      bio: bio,
+    });
+  };
+
+  const saveApiKeys = () => {
+    window.ipcRenderer.send("client-request-to-backend", {
+      request_type: "save-api-keys",
+      OPENAI_API_KEY: openaiKey,
+      GOOGLE_API_KEY: geminiKey,
+    });
   };
 
   //
@@ -68,22 +84,47 @@ export const ProfilePage: React.FC = () => {
                 <div className="user-details">
                   <div className="sec">
                     <span>Name</span>
-                    {InputBox("text", "full-name", "Your full name")}
+                    <input
+                      type="text"
+                      id="full-name"
+                      value={fullName}
+                      onChange={(event) => {
+                        setFullName(event.target.value);
+                      }}
+                      placeholder="Your full name"
+                    />
                   </div>
                   <div className="sec">
                     <span>Email</span>
-                    {InputBox("email", "gmail-id", "Your Email Id")}
+                    <input
+                      type="email"
+                      id="gmail-id"
+                      value={emailId}
+                      onChange={(event) => {
+                        setEmailId(event.target.value);
+                      }}
+                      placeholder="Your Email Id"
+                    />
                   </div>
                   <div className="sec">
                     <span>Bio</span>
                     <textarea
                       id="bio"
+                      value={bio}
+                      onChange={(event) => {
+                        setBio(event.target.value);
+                      }}
                       placeholder="Tell us about yourself"
                     ></textarea>
                   </div>
                   <div className="last-sec">
-                    {/* Coppied this button from About Us Page */}
-                    <button id="aboutBtn">
+                    {/* Copied this button from About Us Page */}
+                    <button
+                      id="aboutBtn"
+                      onClick={() => {
+                        saveUserInfo();
+                      }}
+                    >
                       <strong>Save Changes</strong>
                     </button>
                   </div>
@@ -96,15 +137,36 @@ export const ProfilePage: React.FC = () => {
               <div className="user-details">
                 <div className="sec">
                   <span>OPENAI API Key</span>
-                  {InputBox("text", "gmail-id", "Paste your key here")}
+                  <input
+                    type="text"
+                    id="openai-key"
+                    value={openaiKey}
+                    onChange={(event) => {
+                      setOpenaiKey(event.target.value);
+                    }}
+                    placeholder="Paste your key here"
+                  />
                 </div>
                 <div className="sec">
                   <span>Gemini API Key</span>
-                  {InputBox("text", "gmail-id", "Paste your key here")}
+                  <input
+                    type="text"
+                    id="gemini-key"
+                    value={geminiKey}
+                    onChange={(event) => {
+                      setGeminiKey(event.target.value);
+                    }}
+                    placeholder="Paste your key here"
+                  />
                 </div>
                 <div className="last-sec">
-                  {/* Coppied this button from About Us Page */}
-                  <button id="aboutBtn">
+                  {/* Copied this button from About Us Page */}
+                  <button
+                    id="aboutBtn"
+                    onClick={() => {
+                      saveApiKeys();
+                    }}
+                  >
                     <strong>Save Changes</strong>
                   </button>
                 </div>
