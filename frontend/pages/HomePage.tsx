@@ -3,7 +3,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { ShowHumanMessage, ShowAiMessage } from "../components/MessageViewer";
-
+import {StopContext} from "../components/context_file";
+import { FaRegStopCircle } from "react-icons/fa";
 // Icons
 import sendIcon from "../assets/icon/send.svg";
 
@@ -23,6 +24,7 @@ export const HomePage: React.FC = () => {
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const chatboxscrollRef = useRef<HTMLDivElement>(null); // For auto scroll
+  const [stop,setStop] = useState<boolean>(false); 
 
   // Handles changes in user input
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -146,10 +148,12 @@ export const HomePage: React.FC = () => {
       <div className="container">
         <Header title="PINAC" clearChat={clearChat} />
         <div className="chat-container">
-          <div className="msg-box" ref={chatboxscrollRef}>
-            {welcomeBox}
-            {messages}
-          </div>
+          <StopContext.Provider value={{stop,setStop}}>
+            <div className="msg-box" ref={chatboxscrollRef}>
+              {welcomeBox}
+              {messages}
+            </div>
+          </StopContext.Provider>
 
           <div className="input-box">
             <div
@@ -169,20 +173,30 @@ export const HomePage: React.FC = () => {
                 required
               />
               <div className="input-group-append">
-                <button
-                  id="submit-btn"
-                  className={buttonsDisabled ? "disabled" : ""}
-                  onClick={() =>
-                    userInput !== undefined ? submit(userInput) : {}
-                  }
-                  disabled={buttonsDisabled}
-                >
-                  <img
-                    src={sendIcon}
-                    alt="Submit"
-                    className="submit-icon changeable-icon"
-                  />
-                </button>
+                {
+                  !buttonsDisabled ? 
+                    <button
+                      id="submit-btn"
+                      className={buttonsDisabled ? "disabled" : ""}
+                      onClick={() =>
+                        userInput !== undefined ? submit(userInput) : {}
+                      }
+                      disabled={buttonsDisabled}
+                    >
+                      <img
+                        src={sendIcon}
+                        alt="Submit"
+                        className="submit-icon changeable-icon"
+                      />
+                    </button>
+                  :
+                    <button
+                      onClick={() => setStop(true)} 
+                      className="stop-icon"
+                    >
+                      <FaRegStopCircle size={25}/>
+                    </button>
+                }
               </div>
             </div>
           </div>
