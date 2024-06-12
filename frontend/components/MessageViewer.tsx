@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import { MarkdownStyle } from "../components/MarkdownStyle";
 import { EmailComposeBox } from "../components/EmailComposeBox";
 import { ScheduleViewer } from "../components/ScheduleViewer";
@@ -8,7 +8,11 @@ import "./style/MessageViewer.css";
 import userIcon from "../assets/icon/user_icon.png";
 import pinacLogo from "../assets/icon/pinac-logo.png";
 
-export const ShowAiMessage: React.FC = () => {
+interface ShowAiMessageProps {
+  setButtonsDisabled : React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const ShowAiMessage: React.FC<ShowAiMessageProps> = ({setButtonsDisabled}) => {
   const [message, setMessage] = useState(<AiLoader/>);
 
   window.ipcRenderer.once("server-response", (_, response) => {
@@ -18,12 +22,12 @@ export const ShowAiMessage: React.FC = () => {
       const body = response["response"]["email-body"];
       setMessage(
         // <EmailMessage response={text} subject={subject} body={body} />
-        <AiMessage response={`${text}\n${subject}\n\n${body}`} />
+        <AiMessage response={`${text}\n${subject}\n\n${body}`} setButtonsDisabled={setButtonsDisabled} />
       );
       // } else if (response["response"]["type"] === "schedule") {
       //   setMessage(<ScheduleMessage schedule={response[1]} />);
     } else {
-      setMessage(<AiMessage response={response["response"]["content"]} />);
+      setMessage(<AiMessage response={response["response"]["content"]} setButtonsDisabled={setButtonsDisabled} />);
     }
   });
   return <>{message}</>;
@@ -67,9 +71,11 @@ export const ShowHumanMessage: React.FC<ShowHumanMessageProps> = (props) => {
 
 interface AiMessageProps {
   response: string;
+  setButtonsDisabled : React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const AiMessage: React.FC<AiMessageProps> = (props) => {
+  const {setButtonsDisabled} = props;
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   ); // Initial state based on window size
@@ -77,12 +83,13 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0); // Index state to emulate writing effect by displaying till certain index
   const delay = 50; // Delay for writing each character
   useEffect(() => {
+    if(currentIndex >= props.response.length-5) setButtonsDisabled(false);
     if (currentIndex < props.response.length) {
       const timeout = setTimeout(() => {
         setCurrentText(prevText => prevText + props.response[currentIndex]);
         setCurrentIndex(prevIndex => prevIndex + 1);
       }, delay);
-  
+      
       return () => clearTimeout(timeout);
     }
   }, [currentIndex, delay]); // Handle the typing effect by creating a timeout while whole string is not written

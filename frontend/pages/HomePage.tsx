@@ -87,9 +87,9 @@ export const HomePage: React.FC = () => {
         "preferred-model": preferredModel,
         "user-query": text,
       });
-      setMessages((prevMessages) => [...prevMessages, <ShowAiMessage />]);
+      setMessages((prevMessages) => [...prevMessages, <ShowAiMessage setButtonsDisabled={setButtonsDisabled} />]);
       setUserInput("");
-      setButtonsDisabled(false);
+      // setButtonsDisabled(false);
     }
   };
 
