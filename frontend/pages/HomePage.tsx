@@ -60,10 +60,9 @@ export const HomePage: React.FC = () => {
     );
   };
 
-  //
   // Function to scroll the chatbox to the bottom
   const scrollToBottom = () => {
-    if (chatboxscrollRef.current){
+    if (chatboxscrollRef.current) {
       chatboxscrollRef.current.scrollTop = chatboxscrollRef.current.scrollHeight;
     }
   };
@@ -89,16 +88,16 @@ export const HomePage: React.FC = () => {
         "preferred-model": preferredModel,
         "user-query": text,
       });
-      setMessages((prevMessages) => [...prevMessages, <ShowAiMessage setButtonsDisabled={setButtonsDisabled} />]);
+      setMessages((prevMessages) => [...prevMessages, <ShowAiMessage key={`ai-message-${prevMessages.length}`} setButtonsDisabled={setButtonsDisabled} />]);
       setUserInput("");
       // setButtonsDisabled(false);
     }
   };
 
-  // Scroll to the bottom whenever messages change
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    // Scroll to the bottom whenever messages change
+    useEffect(() => {
+      scrollToBottom();
+    }, [messages]);
 
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
