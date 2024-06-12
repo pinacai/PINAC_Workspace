@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useRef } from "react";
+import React,{ useState, useEffect } from "react";
 import { MarkdownStyle } from "../components/MarkdownStyle";
 import { EmailComposeBox } from "../components/EmailComposeBox";
 import { ScheduleViewer } from "../components/ScheduleViewer";
@@ -7,6 +7,8 @@ import "./style/MessageViewer.css";
 // Icons
 import userIcon from "../assets/icon/user_icon.png";
 import pinacLogo from "../assets/icon/pinac-logo.png";
+import speakerIcon from "../assets/icon/volumeOn.svg"
+import speakerOffIcon from "../assets/icon/volumeOff.svg"
 
 interface ShowAiMessageProps {
   setButtonsDisabled : React.Dispatch<React.SetStateAction<boolean>>
@@ -14,16 +16,7 @@ interface ShowAiMessageProps {
 
 export const ShowAiMessage: React.FC<ShowAiMessageProps> = ({setButtonsDisabled}) => {
   const [message, setMessage] = useState(<AiLoader/>);
-  const chatboxscrollRef = useRef<HTMLDivElement>(null); // Ref for auto scrolling
 
-    // Function to scroll the chatbox to the bottom
-    const scrollToBottom = () => {
-      if (chatboxscrollRef.current) {
-        chatboxscrollRef.current.scrollTop =
-          chatboxscrollRef.current.scrollHeight;
-      }
-    };
-  useEffect(() => {
   window.ipcRenderer.once("server-response", (_, response) => {
     if (response["response"]["type"] === "email") {
       const text = "Here is your email, check it out:";
@@ -38,13 +31,8 @@ export const ShowAiMessage: React.FC<ShowAiMessageProps> = ({setButtonsDisabled}
     } else {
       setMessage(<AiMessage response={response["response"]["content"]} setButtonsDisabled={setButtonsDisabled} />);
     }
-    });
-    }, []); // Empty dependency array to ensure the effect runs only once
-  useEffect(() => {
-    scrollToBottom(); // Auto scroll to bottom after AI response
-  }, [message]);
-
-  return <div ref={chatboxscrollRef}>{message}</div>;
+  });
+  return <>{message}</>;
 };
 
 interface ShowHumanMessageProps {
@@ -93,27 +81,17 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   ); // Initial state based on window size
-  const [currentText, setCurrentText] = useState(""); // Text state for typing effect
+  const [currentText, setCurrentText] = useState(''); // Text state for typing effect
   const [currentIndex, setCurrentIndex] = useState(0); // Index state to emulate writing effect by displaying till certain index
   const delay = 50; // Delay for writing each character
-  const chatboxscrollRef = useRef<HTMLDivElement>(null); // Ref for auto-scrolling
-
-  // Function to scroll the chatbox to the bottom
-  const scrollToBottom = () => {
-    if (chatboxscrollRef.current) {
-      chatboxscrollRef.current.scrollTop =
-        chatboxscrollRef.current.scrollHeight;
-    }
-  };
-
   useEffect(() => {
     if(currentIndex >= props.response.length-5) setButtonsDisabled(false);
     if (currentIndex < props.response.length) {
       const timeout = setTimeout(() => {
-        setCurrentText((prevText) => prevText + props.response[currentIndex]);
-        setCurrentIndex((prevIndex) => prevIndex + 1);
-        scrollToBottom(); // Auto scroll to bottom during typing effect
+        setCurrentText(prevText => prevText + props.response[currentIndex]);
+        setCurrentIndex(prevIndex => prevIndex + 1);
       }, delay);
+      
       return () => clearTimeout(timeout);
     }
   }, [currentIndex, delay]); // Handle the typing effect by creating a timeout while whole string is not written
@@ -147,7 +125,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   );
 };
 
-// Creating a AiLoader component similar to AiMessage. message state is initialised with this loader and replaced as soon as we have the data.
+// Creating a AiLoader component similar to AiMessage. message state is initialised with this loader and replaced as soon as we have the data. 
 export const AiLoader: React.FC = () => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
@@ -163,6 +141,8 @@ export const AiLoader: React.FC = () => {
     return () => window.removeEventListener("resize", updateAvatarVisibility);
   }, []);
 
+  const [speakerState,setSpeakerState]=useState(true)
+
   return (
     <>
       <div className="msg-row">
@@ -172,9 +152,27 @@ export const AiLoader: React.FC = () => {
           </div>
         )}
         <div className="msg-content">
-          <div className="msg-name">PINAC</div>
+          <div className="msg-btn"> 
+            <div className="msg-name">PINAC</div> 
+            <div>
+            <button
+                  id="volume-btn"
+                  className={speakerState ? "enabled" : ""}
+                  onClick={() =>
+                    setSpeakerState(!speakerState)
+                  }
+                >
+                  <img
+                    src={speakerState ? speakerIcon : speakerOffIcon}
+                    alt="Mute"
+                    className="vol-icon"
+                  />
+                </button>
+            </div>
+          </div>
+          
           <div className="msg-text ai-msg">
-            <div className="loader" />
+            <div className="loader"/>
           </div>
         </div>
       </div>
