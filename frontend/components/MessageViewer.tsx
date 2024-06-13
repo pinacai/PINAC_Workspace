@@ -1,15 +1,13 @@
-import React,{ useState, useEffect } from "react";
+import React,{ useState, useEffect, useRef } from "react";
 import { MarkdownStyle } from "../components/MarkdownStyle";
 import { EmailComposeBox } from "../components/EmailComposeBox";
 import { ScheduleViewer } from "../components/ScheduleViewer";
 import { useStopContext } from "./context_file";
 import "./style/MessageViewer.css";
-
 // Icons
 import userIcon from "../assets/icon/user_icon.png";
 import pinacLogo from "../assets/icon/pinac-logo.png";
-import speakerIcon from "../assets/icon/volumeOn.svg"
-import speakerOffIcon from "../assets/icon/volumeOff.svg"
+import { FaVolumeHigh,FaVolumeXmark  } from "react-icons/fa6";
 
 interface ShowAiMessageProps {
   setButtonsDisabled : React.Dispatch<React.SetStateAction<boolean>>
@@ -85,7 +83,17 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   ); // Initial state based on window size
   const [currentText, setCurrentText] = useState(''); // Text state for typing effect
   const [currentIndex, setCurrentIndex] = useState(0); // Index state to emulate writing effect by displaying till certain index
+  const [speakerState,setSpeakerState]=useState(true)
   const delay = 50; // Delay for writing each character
+  
+  const chatScrollRef = useRef<any>(null); // Ref for empty Div to server as end of messages
+  useEffect(() => {
+    chatScrollRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      }); 
+  }, [currentIndex]); 
+
   useEffect(() => {
     if(currentIndex >= props.response.length-5) setButtonsDisabled(false);
     if(stop){
@@ -94,8 +102,8 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
     }
     else if (currentIndex < props.response.length) {
       const timeout = setTimeout(() => {
-        setCurrentText(prevText => prevText + props.response[currentIndex]);
-        setCurrentIndex(prevIndex => prevIndex + 1);
+        setCurrentText((prevText) => prevText + props.response[currentIndex]);
+        setCurrentIndex((prevIndex) => prevIndex + 1);
       }, delay);
       
       return () => clearTimeout(timeout);
@@ -111,7 +119,6 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
     // Cleanup function to remove the event listener
     return () => window.removeEventListener("resize", updateAvatarVisibility);
   }, []);
-
   return (
     <>
       <div className="msg-row">
@@ -121,10 +128,29 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
           </div>
         )}
         <div className="msg-content">
-          <div className="msg-name">PINAC</div>
+          <div className="msg-btn">
+            <div className="msg-name">PINAC</div>
+            <div>
+              <button
+                    id="volume-btn"
+                    className={speakerState ? "enabled" : ""}
+                    onClick={() =>
+                      setSpeakerState(!speakerState)
+                    }
+                  >
+                    {
+                      speakerState ? 
+                      <FaVolumeHigh size={30} className="vol-icon" color={"gray"} />
+                      :
+                      <FaVolumeXmark size={30} className="vol-icon" color={"gray"} />
+                    }
+              </button>
+            </div>
+          </div>
           <div className="msg-text ai-msg">
             <MarkdownStyle text={currentText} />
           </div>
+          <div ref={chatScrollRef} />
         </div>
       </div>
     </>
@@ -147,7 +173,6 @@ export const AiLoader: React.FC = () => {
     return () => window.removeEventListener("resize", updateAvatarVisibility);
   }, []);
 
-  const [speakerState,setSpeakerState]=useState(true)
 
   return (
     <>
@@ -160,23 +185,7 @@ export const AiLoader: React.FC = () => {
         <div className="msg-content">
           <div className="msg-btn"> 
             <div className="msg-name">PINAC</div> 
-            <div>
-            <button
-                  id="volume-btn"
-                  className={speakerState ? "enabled" : ""}
-                  onClick={() =>
-                    setSpeakerState(!speakerState)
-                  }
-                >
-                  <img
-                    src={speakerState ? speakerIcon : speakerOffIcon}
-                    alt="Mute"
-                    className="vol-icon"
-                  />
-                </button>
-            </div>
           </div>
-          
           <div className="msg-text ai-msg">
             <div className="loader"/>
           </div>

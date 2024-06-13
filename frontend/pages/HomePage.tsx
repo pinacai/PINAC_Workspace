@@ -23,8 +23,7 @@ export const HomePage: React.FC = () => {
   const [isUserInputActive, setUserInputActive] = useState<boolean>(false); // Declare state for input value
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const chatboxscrollRef = useRef<HTMLDivElement>(null); // For auto scroll
-  const [stop, setStop] = useState<boolean>(false);
+  const [stop,setStop] = useState<boolean>(false); 
 
   // Handles changes in user input
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -65,15 +64,6 @@ export const HomePage: React.FC = () => {
   };
 
   //
-  // Function to scroll the chatbox to the bottom
-  const scrollToBottom = () => {
-    if (chatboxscrollRef.current) {
-      chatboxscrollRef.current.scrollTop =
-        chatboxscrollRef.current.scrollHeight;
-    }
-  };
-
-  //
   // Actions after clicking send button or pressing Enter
   const submit = (text: string) => {
     if (/\S/.test(userInput)) {
@@ -103,10 +93,17 @@ export const HomePage: React.FC = () => {
     }
   };
 
-  // Scroll to the bottom whenever messages change
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    // Scroll to the bottom whenever messages change
+    const scrollRef = useRef<any>(null); // Ref for empty Div to server as end of messages
+
+    useEffect(() => {
+      if (messages.length) {
+        scrollRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+      }
+    }, [messages.length]); 
 
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
@@ -139,6 +136,7 @@ export const HomePage: React.FC = () => {
     const body = document.body;
     const preferredTheme = localStorage.getItem("preferred-theme");
     const preferredThemePair = localStorage.getItem("preferred-theme-pair");
+    
     // Remove all theme classes first
     body.classList.remove(
       "Dawn_n_Dusk-light",
@@ -156,10 +154,11 @@ export const HomePage: React.FC = () => {
       <div className="container">
         <Header title="PINAC" clearChat={clearChat} />
         <div className="chat-container">
-          <StopContext.Provider value={{ stop, setStop }}>
-            <div className="msg-box" ref={chatboxscrollRef}>
+          <StopContext.Provider value={{stop,setStop}}>
+            <div className="msg-box" >
               {welcomeBox}
               {messages}
+              <div ref={scrollRef} />
             </div>
           </StopContext.Provider>
 
@@ -181,26 +180,30 @@ export const HomePage: React.FC = () => {
                 required
               />
               <div className="input-group-append">
-                {!buttonsDisabled ? (
-                  <button
-                    id="submit-btn"
-                    className={buttonsDisabled ? "disabled" : ""}
-                    onClick={() =>
-                      userInput !== undefined ? submit(userInput) : {}
-                    }
-                    disabled={buttonsDisabled}
-                  >
-                    <img
-                      src={sendIcon}
-                      alt="Submit"
-                      className="submit-icon changeable-icon"
-                    />
-                  </button>
-                ) : (
-                  <button onClick={() => setStop(true)} className="stop-icon">
-                    <FaRegStopCircle size={25} />
-                  </button>
-                )}
+                {
+                  !buttonsDisabled ? 
+                    <button
+                      id="submit-btn"
+                      className={buttonsDisabled ? "disabled" : ""}
+                      onClick={() =>
+                        userInput !== undefined ? submit(userInput) : {}
+                      }
+                      disabled={buttonsDisabled}
+                    >
+                      <img
+                        src={sendIcon}
+                        alt="Submit"
+                        className="submit-icon changeable-icon"
+                      />
+                    </button>
+                  :
+                    <button
+                      onClick={() => setStop(true)} 
+                      className="stop-icon"
+                    >
+                      <FaRegStopCircle size={25} color={"gray"} />
+                    </button>
+                }
               </div>
             </div>
           </div>
