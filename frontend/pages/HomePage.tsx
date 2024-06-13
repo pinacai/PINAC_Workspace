@@ -23,7 +23,6 @@ export const HomePage: React.FC = () => {
   const [isUserInputActive, setUserInputActive] = useState<boolean>(false); // Declare state for input value
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const chatboxscrollRef = useRef<HTMLDivElement>(null); // For auto scroll
   const [stop,setStop] = useState<boolean>(false); 
 
   // Handles changes in user input
@@ -60,13 +59,6 @@ export const HomePage: React.FC = () => {
     );
   };
 
-  // Function to scroll the chatbox to the bottom
-  const scrollToBottom = () => {
-    if (chatboxscrollRef.current) {
-      chatboxscrollRef.current.scrollTop = chatboxscrollRef.current.scrollHeight;
-    }
-  };
-
   //
   // Actions after clicking send button or pressing Enter
   const submit = (text: string) => {
@@ -95,9 +87,16 @@ export const HomePage: React.FC = () => {
   };
 
     // Scroll to the bottom whenever messages change
+    const scrollRef = useRef<any>(null); // Ref for empty Div to server as end of messages
+
     useEffect(() => {
-      scrollToBottom();
-    }, [messages]);
+      if (messages.length) {
+        scrollRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+      }
+    }, [messages.length]); 
 
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
@@ -148,9 +147,10 @@ export const HomePage: React.FC = () => {
         <Header title="PINAC" clearChat={clearChat} />
         <div className="chat-container">
           <StopContext.Provider value={{stop,setStop}}>
-            <div className="msg-box" ref={chatboxscrollRef}>
+            <div className="msg-box" >
               {welcomeBox}
               {messages}
+              <div ref={scrollRef} />
             </div>
           </StopContext.Provider>
 

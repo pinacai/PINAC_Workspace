@@ -98,15 +98,14 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const [currentText, setCurrentText] = useState(""); // Text state for typing effect
   const [currentIndex, setCurrentIndex] = useState(0); // Index state to emulate writing effect by displaying till certain index
   const delay = 50; // Delay for writing each character
-  const chatboxscrollRef = useRef<HTMLDivElement>(null); // Ref for auto-scrolling
-
-  // Function to scroll the chatbox to the bottom
-  const scrollToBottom = () => {
-    if (chatboxscrollRef.current) {
-      chatboxscrollRef.current.scrollTop =
-        chatboxscrollRef.current.scrollHeight;
-    }
-  };
+  
+  const chatScrollRef = useRef<any>(null); // Ref for empty Div to server as end of messages
+  useEffect(() => {
+    chatScrollRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      }); 
+  }, [currentIndex]); 
 
   useEffect(() => {
     if(currentIndex >= props.response.length-5) setButtonsDisabled(false);
@@ -118,7 +117,6 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
       const timeout = setTimeout(() => {
         setCurrentText((prevText) => prevText + props.response[currentIndex]);
         setCurrentIndex((prevIndex) => prevIndex + 1);
-        scrollToBottom(); // Auto scroll to bottom during typing effect
       }, delay);
       return () => clearTimeout(timeout);
     }
@@ -147,6 +145,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
           <div className="msg-text ai-msg">
             <MarkdownStyle text={currentText} />
           </div>
+          <div ref={chatScrollRef} />
         </div>
       </div>
     </>
