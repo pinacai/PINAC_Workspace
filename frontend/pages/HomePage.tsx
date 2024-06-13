@@ -89,6 +89,9 @@ export const HomePage: React.FC = () => {
         <ShowAiMessage setButtonsDisabled={setButtonsDisabled} />,
       ]);
       setUserInput("");
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "50px"; // Reset textarea height
+      }
       // setButtonsDisabled(false);
     }
   };
