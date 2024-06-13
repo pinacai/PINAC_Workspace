@@ -147,6 +147,22 @@ button.disabled {
   cursor: not-allowed;
 }
 
+.stop-icon{
+  height: 45px;
+  width: 45px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-right: 15px;
+  color:white;
+}
+
 .submit-icon {
   height: 30px;
   width: 30px;

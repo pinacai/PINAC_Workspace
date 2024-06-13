@@ -2,6 +2,7 @@ import React,{ useState, useEffect } from "react";
 import { MarkdownStyle } from "../components/MarkdownStyle";
 import { EmailComposeBox } from "../components/EmailComposeBox";
 import { ScheduleViewer } from "../components/ScheduleViewer";
+import { useStopContext } from "./context_file";
 import "./style/MessageViewer.css";
 
 // Icons
@@ -78,6 +79,7 @@ interface AiMessageProps {
 
 export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const {setButtonsDisabled} = props;
+  const {stop,setStop} = useStopContext();
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   ); // Initial state based on window size
@@ -86,7 +88,11 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const delay = 50; // Delay for writing each character
   useEffect(() => {
     if(currentIndex >= props.response.length-5) setButtonsDisabled(false);
-    if (currentIndex < props.response.length) {
+    if(stop){
+      setButtonsDisabled(false);
+      setStop(false);
+    }
+    else if (currentIndex < props.response.length) {
       const timeout = setTimeout(() => {
         setCurrentText(prevText => prevText + props.response[currentIndex]);
         setCurrentIndex(prevIndex => prevIndex + 1);
