@@ -7,6 +7,7 @@ import "./style/MessageViewer.css";
 // Icons
 import userIcon from "../assets/icon/user_icon.png";
 import pinacLogo from "../assets/icon/pinac-logo.png";
+import { useStopContext } from "./context_file";
 
 interface ShowAiMessageProps {
   setButtonsDisabled : React.Dispatch<React.SetStateAction<boolean>>
@@ -90,6 +91,7 @@ interface AiMessageProps {
 
 export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const {setButtonsDisabled} = props;
+  const {stop,setStop} = useStopContext();
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   ); // Initial state based on window size
@@ -108,7 +110,11 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
 
   useEffect(() => {
     if(currentIndex >= props.response.length-5) setButtonsDisabled(false);
-    if (currentIndex < props.response.length) {
+    if(stop){
+      setButtonsDisabled(false);
+      setStop(false);
+    }
+    else if (currentIndex < props.response.length) {
       const timeout = setTimeout(() => {
         setCurrentText((prevText) => prevText + props.response[currentIndex]);
         setCurrentIndex((prevIndex) => prevIndex + 1);
