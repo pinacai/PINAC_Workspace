@@ -15,9 +15,9 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const [isDropdownActive, setIsDropdownActive] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
+  const [isDropdownActive, setIsDropdownActive] = useState<boolean>(false);
+  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
 
   // Function to handle page navigation
   const changePage = (path: string) => {

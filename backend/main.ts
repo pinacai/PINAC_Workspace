@@ -16,7 +16,7 @@ ipcMain.on("client-request-to-backend", (event, request) => {
   //
   //
   if (request["request_type"] == "clear-chat") {
-    console.log(true);
+    console.log("Chat Cleared");
   }
   //
   //
@@ -71,7 +71,7 @@ ipcMain.on("client-request-to-backend", (event, request) => {
 //    React to Backend to Server    //
 // -------------------------------- //
 
-ipcMain.on("client-request", (event, request) => {
+ipcMain.on("client-request-to-server", (event, request) => {
   socket.emit("message", request);
   socket.on("message-reply", (response: object) => {
     event.reply("server-response", response);

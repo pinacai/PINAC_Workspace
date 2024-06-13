@@ -21,8 +21,8 @@ export const ShowAiMessage: React.FC<ShowAiMessageProps> = ({setButtonsDisabled}
   window.ipcRenderer.once("server-response", (_, response) => {
     if (response["response"]["type"] === "email") {
       const text = "Here is your email, check it out:";
-      const subject = response["response"]["email-subject"];
-      const body = response["response"]["email-body"];
+      const subject = response["response"]["email_subject"];
+      const body = response["response"]["email_body"];
       setMessage(
         // <EmailMessage response={text} subject={subject} body={body} />
         <AiMessage response={`${text}\n${subject}\n\n${body}`} setButtonsDisabled={setButtonsDisabled} />

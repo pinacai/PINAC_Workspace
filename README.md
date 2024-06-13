@@ -1,3 +1,5 @@
+> Updated Request style in both the App & Server. So, who are using PINAC-Nexus Update the code.
+
 <div align="center">
 
 <h1 style="border-bottom: none">
@@ -52,7 +54,9 @@ Responsive design like never before, from the narrowest screen to the full scree
 The best file structure ever !
 
     .
-    ├── backend /              # Upcoming...
+    ├── backend /              # medium between frontend & server
+    |    ├── main.ts
+    |    └── config/           # user's data
     |
     ├── electron /
     |    ├── main.ts

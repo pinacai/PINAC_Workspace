@@ -7,10 +7,10 @@ interface EmailComposeBoxProps {
 }
 
 export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
-  const [to, setTo] = useState("");
-  const [subject, setSubject] = useState(props.emailSubject);
-  const [body, setBody] = useState(props.emailBody);
-  const [buttonsDisabled, setButtonsDisabled] = useState(false); // For disabling buttons
+  const [to, setTo] = useState<string>("");
+  const [subject, setSubject] = useState<string>(props.emailSubject);
+  const [body, setBody] = useState<string>(props.emailBody);
+  const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling buttons
 
   //
   // Disables email-composer buttons if user click cancel
@@ -18,17 +18,16 @@ export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
     setButtonsDisabled(true);
   };
 
-  // Sends a meg back to server(python) with user modified email
+  // Sends a meg back to server with user modified email
   // and server sends that email to recipient
   const handleSendEmail = () => {
     setButtonsDisabled(true);
-    window.ipcRenderer.send("client-request", [
-      "send-email",
-      to,
-      subject,
-      body,
-    ]);
-    console.log("Email sended");
+    window.ipcRenderer.send("client-request-to-server", {
+      request_type: "send-email",
+      recipient_email: to,
+      email_subject: subject,
+      email_body: body,
+  });
   };
 
   // Sends a meg back to server(python) with user modified email
@@ -36,18 +35,20 @@ export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
   const handleCreateDraft = () => {
     setButtonsDisabled(true);
     if (to != "") {
-      window.ipcRenderer.send("client-request", [
-        "create-draft-with-RE",
-        to,
-        subject,
-        body,
-      ]);
+      window.ipcRenderer.send("client-request-to-server", {
+        request_type: "create-draft",
+        have_recipient_email: true,
+        recipient_email: to,
+        email_subject: subject,
+        email_body: body,
+    });
     } else {
-      window.ipcRenderer.send("client-request", [
-        "create-draft",
-        subject,
-        body,
-      ]);
+      window.ipcRenderer.send("client-request-to-server", {
+        request_type: "create-draft",
+        have_recipient_email: false,
+        email_subject: subject,
+        email_body: body,
+    });
     }
     console.log("Created Draft");
   };

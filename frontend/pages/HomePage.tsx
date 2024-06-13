@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { ShowHumanMessage, ShowAiMessage } from "../components/MessageViewer";
-import {StopContext} from "../components/context_file";
+import { StopContext } from "../components/context_file";
 import { FaRegStopCircle } from "react-icons/fa";
 // Icons
 import sendIcon from "../assets/icon/send.svg";
@@ -24,7 +24,7 @@ export const HomePage: React.FC = () => {
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const chatboxscrollRef = useRef<HTMLDivElement>(null); // For auto scroll
-  const [stop,setStop] = useState<boolean>(false); 
+  const [stop, setStop] = useState<boolean>(false);
 
   // Handles changes in user input
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -48,7 +48,9 @@ export const HomePage: React.FC = () => {
   //
   const clearChat = () => {
     setMessages([]);
-    window.ipcRenderer.send("client-request", ["clear-history"]);
+    window.ipcRenderer.send("client-request-to-backend", {
+      request_type: "clear-chat",
+    });
     setWelcomeBox(
       <div className="welcome-text-row">
         <div className="welcome-text">
@@ -58,13 +60,16 @@ export const HomePage: React.FC = () => {
         </div>
       </div>
     );
+    setButtonsDisabled(false);
+    setUserInput("")
   };
 
   //
   // Function to scroll the chatbox to the bottom
   const scrollToBottom = () => {
-    if (chatboxscrollRef.current){
-      chatboxscrollRef.current.scrollTop = chatboxscrollRef.current.scrollHeight;
+    if (chatboxscrollRef.current) {
+      chatboxscrollRef.current.scrollTop =
+        chatboxscrollRef.current.scrollHeight;
     }
   };
 
@@ -84,12 +89,15 @@ export const HomePage: React.FC = () => {
         />,
       ]);
       const preferredModel = localStorage.getItem("preferred-model");
-      window.ipcRenderer.send("client-request", {
-        "request-type": "user-input",
-        "preferred-model": preferredModel,
-        "user-query": text,
+      window.ipcRenderer.send("client-request-to-server", {
+        request_type: "user-input",
+        preferred_model: preferredModel,
+        user_query: text,
       });
-      setMessages((prevMessages) => [...prevMessages, <ShowAiMessage setButtonsDisabled={setButtonsDisabled} />]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        <ShowAiMessage setButtonsDisabled={setButtonsDisabled} />,
+      ]);
       setUserInput("");
       // setButtonsDisabled(false);
     }
@@ -148,7 +156,7 @@ export const HomePage: React.FC = () => {
       <div className="container">
         <Header title="PINAC" clearChat={clearChat} />
         <div className="chat-container">
-          <StopContext.Provider value={{stop,setStop}}>
+          <StopContext.Provider value={{ stop, setStop }}>
             <div className="msg-box" ref={chatboxscrollRef}>
               {welcomeBox}
               {messages}
@@ -173,30 +181,26 @@ export const HomePage: React.FC = () => {
                 required
               />
               <div className="input-group-append">
-                {
-                  !buttonsDisabled ? 
-                    <button
-                      id="submit-btn"
-                      className={buttonsDisabled ? "disabled" : ""}
-                      onClick={() =>
-                        userInput !== undefined ? submit(userInput) : {}
-                      }
-                      disabled={buttonsDisabled}
-                    >
-                      <img
-                        src={sendIcon}
-                        alt="Submit"
-                        className="submit-icon changeable-icon"
-                      />
-                    </button>
-                  :
-                    <button
-                      onClick={() => setStop(true)} 
-                      className="stop-icon"
-                    >
-                      <FaRegStopCircle size={25}/>
-                    </button>
-                }
+                {!buttonsDisabled ? (
+                  <button
+                    id="submit-btn"
+                    className={buttonsDisabled ? "disabled" : ""}
+                    onClick={() =>
+                      userInput !== undefined ? submit(userInput) : {}
+                    }
+                    disabled={buttonsDisabled}
+                  >
+                    <img
+                      src={sendIcon}
+                      alt="Submit"
+                      className="submit-icon changeable-icon"
+                    />
+                  </button>
+                ) : (
+                  <button onClick={() => setStop(true)} className="stop-icon">
+                    <FaRegStopCircle size={25} />
+                  </button>
+                )}
               </div>
             </div>
           </div>
