@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { ShowHumanMessage, ShowAiMessage } from "../components/MessageViewer";
-import {StopContext} from "../components/context_file";
+import { StopContext } from "../components/context_file";
 import { FaRegStopCircle } from "react-icons/fa";
 // Icons
 import sendIcon from "../assets/icon/send.svg";
@@ -47,7 +47,9 @@ export const HomePage: React.FC = () => {
   //
   const clearChat = () => {
     setMessages([]);
-    window.ipcRenderer.send("client-request", ["clear-history"]);
+    window.ipcRenderer.send("client-request-to-backend", {
+      request_type: "clear-chat",
+    });
     setWelcomeBox(
       <div className="welcome-text-row">
         <div className="welcome-text">
@@ -57,6 +59,8 @@ export const HomePage: React.FC = () => {
         </div>
       </div>
     );
+    setButtonsDisabled(false);
+    setUserInput("")
   };
 
   //
@@ -75,12 +79,15 @@ export const HomePage: React.FC = () => {
         />,
       ]);
       const preferredModel = localStorage.getItem("preferred-model");
-      window.ipcRenderer.send("client-request", {
-        "request-type": "user-input",
-        "preferred-model": preferredModel,
-        "user-query": text,
+      window.ipcRenderer.send("client-request-to-server", {
+        request_type: "user-input",
+        preferred_model: preferredModel,
+        user_query: text,
       });
-      setMessages((prevMessages) => [...prevMessages, <ShowAiMessage setButtonsDisabled={setButtonsDisabled} />]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        <ShowAiMessage setButtonsDisabled={setButtonsDisabled} />,
+      ]);
       setUserInput("");
       // setButtonsDisabled(false);
     }

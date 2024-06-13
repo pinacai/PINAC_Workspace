@@ -38,17 +38,20 @@ export const Sidebar: React.FC = () => {
     navigate(path);
   };
 
+  //
   // Function to toggle the sidebar's activation state
   const toggleSidebar = () => {
     setIsActive(!isActive);
   };
 
+  //
   // Functions to change the Theme
   const changeTheme = () => {
     setIsDarkTheme(!isDarkTheme);
     localStorage.setItem("preferred-theme", isDarkTheme ? "light" : "dark");
   };
 
+  //
   // Retrieve the preferred theme from local storage and set that theme
   useEffect(() => {
     const preferredTheme = localStorage.getItem("preferred-theme");
