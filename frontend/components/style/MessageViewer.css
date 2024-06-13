@@ -23,6 +23,28 @@
   border-radius: 50%;
 }
 
+.msg-btn {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.vol-icon {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+#volume-btn{
+  background-color: transparent;
+  border: none;
+}
 .msg-content {
   max-width: calc(100% - 50px);
   white-space: pre-line;

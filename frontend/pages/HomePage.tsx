@@ -80,7 +80,7 @@ export const HomePage: React.FC = () => {
         "preferred-model": preferredModel,
         "user-query": text,
       });
-      setMessages((prevMessages) => [...prevMessages, <ShowAiMessage key={`ai-message-${prevMessages.length}`} setButtonsDisabled={setButtonsDisabled} />]);
+      setMessages((prevMessages) => [...prevMessages, <ShowAiMessage setButtonsDisabled={setButtonsDisabled} />]);
       setUserInput("");
       // setButtonsDisabled(false);
     }
@@ -129,6 +129,7 @@ export const HomePage: React.FC = () => {
     const body = document.body;
     const preferredTheme = localStorage.getItem("preferred-theme");
     const preferredThemePair = localStorage.getItem("preferred-theme-pair");
+    
     // Remove all theme classes first
     body.classList.remove(
       "Dawn_n_Dusk-light",
@@ -193,7 +194,7 @@ export const HomePage: React.FC = () => {
                       onClick={() => setStop(true)} 
                       className="stop-icon"
                     >
-                      <FaRegStopCircle size={25}/>
+                      <FaRegStopCircle size={25} color={"gray"} />
                     </button>
                 }
               </div>
