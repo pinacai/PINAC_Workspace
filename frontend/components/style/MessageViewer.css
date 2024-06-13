@@ -23,6 +23,20 @@
   border-radius: 50%;
 }
 
+.msg-btn {
+  display: flex;
+  justify-content: space-between;
+  width: calc(100vw - 30px);
+  margin: 0 auto;
+}
+
+.vol-icon {
+  height: 20px;
+  width: 20px;
+  padding: 2px;
+  border: none;
+}
+
 .msg-content {
   max-width: calc(100% - 50px);
   white-space: pre-line;
