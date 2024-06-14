@@ -27,7 +27,7 @@ export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
       recipient_email: to,
       email_subject: subject,
       email_body: body,
-  });
+    });
   };
 
   // Sends a meg back to server(python) with user modified email
@@ -41,14 +41,14 @@ export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
         recipient_email: to,
         email_subject: subject,
         email_body: body,
-    });
+      });
     } else {
       window.ipcRenderer.send("client-request-to-server", {
         request_type: "create-draft",
         have_recipient_email: false,
         email_subject: subject,
         email_body: body,
-    });
+      });
     }
     console.log("Created Draft");
   };
