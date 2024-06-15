@@ -1,7 +1,8 @@
 import { app, BrowserWindow, screen } from "electron";
 import { fileURLToPath } from "node:url";
+// import { spawn } from "child_process";
 import path from "node:path";
-import "../backend/main"
+import "../backend/main";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -21,14 +22,38 @@ export const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 export const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 
+let loadingWindow: BrowserWindow | null;
 let win: BrowserWindow | null;
+// let pythonProcess = null;
 
 //
-const createWindow = () => {
+const createLoadingWindow = () => {
   // Get the primary display's work area size (usable area)
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
   // Calculate the x-coordinate to position the window on the right side
+  const windowX = width - 20;
+  // Create the browser window.
+  loadingWindow = new BrowserWindow({
+    width: 320,
+    height: height,
+    x: windowX,
+    y: 20,
+    autoHideMenuBar: true,
+    frame: false, // Remove window frame for a cleaner look
+    resizable: false, // Prevent resizing
+    show: false, // Don't show initially
+  });
+  loadingWindow.loadFile("loading.html");
+  loadingWindow.on("ready-to-show", () => {
+    loadingWindow?.show();
+  });
+};
+
+//
+const createMainWindow = () => {
+  const primaryDisplay = screen.getPrimaryDisplay();
+  const { width, height } = primaryDisplay.workAreaSize;
   const windowX = width - 20;
   // Create the browser window.
   win = new BrowserWindow({
@@ -46,6 +71,10 @@ const createWindow = () => {
 
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
+    if (loadingWindow) {
+      loadingWindow.close();
+      loadingWindow = null;
+    }
     win?.webContents.send("main-process-message", new Date().toLocaleString());
   });
 
@@ -55,6 +84,21 @@ const createWindow = () => {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
+
+  // // Spawn the Python process
+  // pythonProcess = spawn("python", ["backend/server/main.py"]);
+
+  // pythonProcess.stdout.on("data", (data) => {
+  //   console.log(data.toString());
+  // });
+
+  // pythonProcess.stderr.on("data", (data) => {
+  //   console.error(data.toString());
+  // });
+
+  // pythonProcess.on("close", (code) => {
+  //   console.log(`Python script exited with code ${code}`);
+  // });
 };
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -67,14 +111,21 @@ app.on("window-all-closed", () => {
     app.quit();
     win = null;
   }
+  // // Terminate the Python process
+  // if (pythonProcess) {
+  //   pythonProcess.kill();
+  // }
 });
 
 app.on("activate", () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
+    createMainWindow();
   }
 });
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createLoadingWindow();
+  createMainWindow();
+});

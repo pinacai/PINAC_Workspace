@@ -90,7 +90,7 @@ def giveAiResponseArray(AiModel, query):
                 response = ai_response
 
     else:
-        response = {}
+        response = ai_response
 
     return response
 
