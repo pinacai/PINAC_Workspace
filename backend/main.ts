@@ -8,9 +8,9 @@ const require = createRequire(import.meta.url);
 const io = require("socket.io-client");
 const socket = io("http://localhost:5000");
 
-// ------------------------- //
-//  IPC btw React & backend  //
-// ------------------------- //
+// ------------------------------------------ //
+//    frontend to backend functionalities     //
+// ------------------------------------------ //
 
 ipcMain.on("client-request-to-backend", (event, request) => {
   //
@@ -28,7 +28,7 @@ ipcMain.on("client-request-to-backend", (event, request) => {
         bio: request["bio"],
       };
       const userInfoJson = JSON.stringify(userInfo);
-      fs.writeFileSync("backend/config/user_info.json", userInfoJson);
+      fs.writeFileSync("backend/user data/user_info.json", userInfoJson);
       event.reply("backend-response", {
         error_occurred: false,
         response: true,
@@ -51,7 +51,7 @@ ipcMain.on("client-request-to-backend", (event, request) => {
         GOOGLE_API_KEY: request["GOOGLE_API_KEY"],
       };
       const apiKeyJson = JSON.stringify(apiKey);
-      fs.writeFileSync("backend/config/API_Key.json", apiKeyJson);
+      fs.writeFileSync("backend/user data/API_Key.json", apiKeyJson);
       event.reply("backend-response", {
         error_occurred: false,
         response: true,
@@ -68,7 +68,7 @@ ipcMain.on("client-request-to-backend", (event, request) => {
 });
 
 // -------------------------------- //
-//    React to Backend to Server    //
+//       Frontend to Server         //
 // -------------------------------- //
 
 ipcMain.on("client-request-to-server", (event, request) => {

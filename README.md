@@ -31,15 +31,13 @@ Leveraging multiple AI tools for your workflow sounds smart. However, does the c
 
 Experience the **Next Gen AI Chat** —your all-in-one chat for text generation, document summarisation, web searching, code generation, and a wide range of office tools.
 
-> ⚠️ _This is the Desktop App. We are also working on our server, named [PINAC-Nexus](https://github.com/pinacai/PINAC-Nexus)._
-
 > We are dedicated to the development of the app, introducing new features and optimising the user interface. Always keeping the user as the priority.
 > View our Roadmap & Progress: https://github.com/orgs/pinacai/projects/1  
 
 
 ## System Design
 
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/System%20Architecture.svg" alt="system architecture diagram">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/system%20design.svg" alt="system architecture diagram">
 
 
 ## 🎨 Themes
@@ -56,7 +54,8 @@ The best file structure ever!
     .
     ├── backend /              # medium between frontend & server
     |    ├── main.ts
-    |    └── config/           # user's data
+    |    ├── server /              # Python server
+    |    └── user data /           # for storing user data
     |
     ├── electron /
     |    ├── main.ts
@@ -76,20 +75,31 @@ The best file structure ever!
 
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-### _Installation_
+### Setup the backend
 
 1. Clone the Repository
     ```bash
-    git clone https://github.com/pinacai/PINAC_Workspace.git
-    cd PINAC_Workspace
+    git clone https://github.com/pinacai/PINAC_Workspace.git && cd PINAC_Workspace
     ```
 
-2. Install Node dependencies
+2. create virtualenv and activate it
+    ```bash
+    python -m venv env && source env/bin/activate
+    ```
+
+3. install the python dependencies with
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Install the App
+
+1. Install Node dependencies
     ```bash
     npm install
     ```
 
-3. Start the App
+2. Start the App
     ```bash
     npm run dev
     ```

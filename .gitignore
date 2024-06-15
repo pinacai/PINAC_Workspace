@@ -31,7 +31,8 @@ venv
 .env
 env
 __pycache__
-
-# secrets
 configs/
 config/
+
+# user data
+user data/
