@@ -1,0 +1,92 @@
+type,content
+SystemMessage,Whenever I will give you any sentence or query of from user you will find any name or kinship terms referred in it and you will return that name
+HumanMessage,pinac find [any name or kinship terms] from contact
+AIMessage,[any name or kinship terms]
+HumanMessage,AI search for Maria's phone number.
+AIMessage,Maria
+HumanMessage,Retrieve Muhammad's contact details including their phone number.
+AIMessage,Muhammad
+HumanMessage,Locate the mobile number for Wang Wei.
+AIMessage,Wang Wei
+HumanMessage,AI provide me with the contact information for john.
+AIMessage,John
+HumanMessage,Find the phone number associated with anna.
+AIMessage,Anna
+HumanMessage,Fetch the contact details of Luis specifically their phone number.
+AIMessage,Luis
+HumanMessage,Look up Ying's cell phone number.
+AIMessage,Ying
+HumanMessage,Retrieve the mobile contact of Sara.
+AIMessage,Sara
+HumanMessage,Fetch the contact details for ahmed focusing on their cell number.
+AIMessage,Ahmed
+HumanMessage,AI give me the phone number of Olivia.
+AIMessage,Olivia
+HumanMessage,Retrieve the mobile contact information of Noah.
+AIMessage,Noah
+HumanMessage,Search for [Emma's phone number in your records.
+AIMessage,Emma
+HumanMessage,AI retrieve the phone number for rohan.
+AIMessage,Rohan
+HumanMessage,Search your database for Krishna's contact details specifically their mobile number.
+AIMessage,Krishna
+HumanMessage,Locate the cell phone number associated with ankita.
+AIMessage,Ankita
+HumanMessage,AI provide me with the contact information for Indra including their phone number.
+AIMessage,Indra
+HumanMessage,Find the mobile contact of Vihaan.
+AIMessage,Vihaan
+HumanMessage,Look up Jaya's phone number.
+AIMessage,Jaya
+HumanMessage,Hey AI could you please look up the phone number for Grandma/Grandpa?
+AIMessage,Grandma/Grandpa
+HumanMessage,AI find me Aunt/Uncle's contact details specifically their phone number.
+AIMessage,Aunt/Uncle
+HumanMessage,Can you retrieve cousin's phone number for me?
+AIMessage,Cousin
+HumanMessage,AI I need to get in touch with Sister/Brother. Could you provide their phone number?
+AIMessage,Sister/Brother
+HumanMessage,Hey there; How can I reach Mom/Dad? Can you fetch their phone number?
+AIMessage,Mom/Dad
+HumanMessage,AI help me out! I’m trying to find Niece/Nephew's contact info. What’s their phone number?
+AIMessage,Niece/Nephew
+HumanMessage,Please find friend's phone number. I want to give them a call.
+AIMessage,Friend
+HumanMessage,AI do you have neighbor's phone number handy?
+AIMessage,Neighbor
+HumanMessage,I’m looking for boss's phone number. Can you assist?
+AIMessage,Boss
+HumanMessage,Hey AI track down mate's contact details specifically their phone number.
+AIMessage,Mate
+HumanMessage,AI please fetch dada/dadi's phone number.
+AIMessage,Dada/Dadi
+HumanMessage,Find the contact details for Nana/Nani.
+AIMessage,Nana/Nani
+HumanMessage,Retrieve baba's mobile number.
+AIMessage,Baba
+HumanMessage,Can you provide me with Bhai/Behen's phone number?
+AIMessage,Bhai/Behen
+HumanMessage,Hey AI look up chacha/chachi/mama/mami's contact info.
+AIMessage,Chacha/Chachi/Mama/Mami
+HumanMessage,tell me didi's phone number?
+AIMessage,Didi
+HumanMessage,AI get me bhaiya's contact details.
+AIMessage,Bhaiya
+HumanMessage,Locate Papa/Mummy's phone number.
+AIMessage,Papa/Mummy
+HumanMessage,Find driver bhaiya's contact number.
+AIMessage,Driver Bhaiya
+HumanMessage,AI fetch phone number of Aditi Maa
+AIMessage,Aditi Maa
+HumanMessage,Retrieve milk uncle/doodh Wale Uncle's contact info.
+AIMessage,Milk Uncle/Doodh Wale Uncle
+HumanMessage,What’s the phone number for auntyji?
+AIMessage,Auntyji
+HumanMessage,Look up Doctor Uncle's mobile number.
+AIMessage,Doctor Uncle
+HumanMessage,Provide tailor didi's contact details.
+AIMessage,Tailor Didi
+HumanMessage,AI can you get shopkeeper Bhai's phone number?
+AIMessage,Shopkeeper Bhai
+HumanMessage,Locate the contact number for Sir/Madam.
+AIMessage,Sir/Madam

@@ -46,12 +46,9 @@ ipcMain.on("client-request-to-backend", (event, request) => {
   //
   else if (request["request_type"] == "save-api-keys") {
     try {
-      const apiKey = {
-        OPENAI_API_KEY: request["OPENAI_API_KEY"],
-        GOOGLE_API_KEY: request["GOOGLE_API_KEY"],
-      };
-      const apiKeyJson = JSON.stringify(apiKey);
-      fs.writeFileSync("backend/user data/API_Key.json", apiKeyJson);
+      const apiKeys = `OPENAI_API_KEY = "${request["OPENAI_API_KEY"]}"\nGOOGLE_API_KEY = "${request["GOOGLE_API_KEY"]}"
+      `;
+      fs.writeFileSync("backend/user data/.env", apiKeys);
       event.reply("backend-response", {
         error_occurred: false,
         response: true,

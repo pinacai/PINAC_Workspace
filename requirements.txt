@@ -1,0 +1,8 @@
+flask
+flask_socketio
+langchain
+langchain_core
+langchain_openai
+langchain_google_genai
+pandas
+python-dotenv
