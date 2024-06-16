@@ -8,10 +8,13 @@ import { Card } from "../components/Card";
 // Icons
 import Cyber_Tech_o1_darkPreview from "../assets/img/Cyber_Tech_01_darkPreview.png";
 import Dawn_n_Dusk_darkPreview from "../assets/img/Dawn_n_Dusk_darkPreview.png";
+import Aesthetics_Unbound_darkPreview from "../assets/img/Dawn_n_Dusk_darkPreview.png";
 
 export const SettingsPage: React.FC = () => {
   const [Dawn_n_Dusk, setDawn_n_Dusk] = useState<boolean>(false);
   const [Cyber_Tech_01, setCyber_Tech_01] = useState<boolean>(false);
+  const [Aesthetics_Unbound, setAesthetics_Unbound] = useState<boolean>(false);
+
 
   //
   const changeToDawn_n_Dusk = () => {
@@ -31,11 +34,22 @@ export const SettingsPage: React.FC = () => {
     }
   };
 
+  const changeToAesthetics_Unbound = () => {
+    setAesthetics_Unbound(!Aesthetics_Unbound);
+    if (!Aesthetics_Unbound) {
+      setDawn_n_Dusk(false);
+      setCyber_Tech_01(false);
+      localStorage.setItem("preferred-theme-pair", "Aesthetics_Unbound");
+    }
+  };
+
+
   //
   useEffect(() => {
     const preferredThemePair = localStorage.getItem("preferred-theme-pair");
     setDawn_n_Dusk(preferredThemePair === "Dawn_n_Dusk");
     setCyber_Tech_01(preferredThemePair === "Cyber_Tech_01");
+    setAesthetics_Unbound(preferredThemePair === "Aesthetics_Unbound");
   }, []);
 
   //
@@ -48,7 +62,9 @@ export const SettingsPage: React.FC = () => {
       "Dawn_n_Dusk-light",
       "Dawn_n_Dusk-dark",
       "Cyber_Tech_01-light",
-      "Cyber_Tech_01-dark"
+      "Cyber_Tech_01-dark",
+      "Aesthetics_Unbound-light",
+      "Aesthetics_Unbound-dark"
     );
     body.classList.add(`${preferredThemePair}-${preferredTheme}`);
   });
@@ -99,21 +115,13 @@ export const SettingsPage: React.FC = () => {
                 onChangeFunc={changeToCyber_Tech_01}
               />
 
-              {/* Theme 3 */}
-              <div className="themeCard">
-                {/* Adding temporary style for this card */}
-                <div
-                  className="themeCard-desc"
-                  style={{
-                    height: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <span>Coming soon...</span>
-                </div>
-              </div>
+               {/* Theme 3 */}
+               <Card
+                title="Aesthetics Unbound"
+                cardImage={Aesthetics_Unbound_darkPreview}
+                checkedFunc={Aesthetics_Unbound}
+                onChangeFunc={changeToAesthetics_Unbound}
+              />
             </div>
           </div>
         </div>

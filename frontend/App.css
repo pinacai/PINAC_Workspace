@@ -356,6 +356,174 @@
   --themeCard-hover-shadow: 0 0 10px #857e76;
 }
 
+/* Theme 3: Aesthetics_Unbound */
+.Aesthetics_Unbound-light {
+  /* Common */
+  --primary-color: #fcf1e5;
+  --secondary-color: #b0a79c;
+  --text-color1: #333333;
+  --text-color2: #5f574f;
+  --placeholder-text-color: #8a847e;
+  --changeable-icon-filter: none;
+  --inputGroup-bg: #ffffff;
+  --inputGroup-border-color: #e63737c5;
+  --inputGroupBtn-hover-color: #e0d7cf;
+  --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  /* Sidebar */
+  --sidebar-hover-color: rgba(255, 255, 255, 0.1);
+  --sidebar-color: #b0a79c;
+  --sidebar-shadow: none;
+  --sidebar-present-page-color: var(--primary-color);
+  --sidebar-present-page-shadow: none;
+
+  /* Header */
+  --headerMenu-btn-hover-bg: #eae4df;
+  --headerMenu-bg: #ffffff;
+  --headerMenu-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  --headerMenu-opt-hover-bg: #f0ebe7;
+  --headerTitle-color: #5f574f;
+  --headerTitle-underline-color: #c89d8f;
+  --newChatBtn-color: linear-gradient(125deg, #d82626, #8d857c, #716760);
+  --newChatBtn-shadow: none;
+
+  /* EmailComposeBox */
+  --composeBoxBtn-color: #d1a09e;
+  --composeBoxBtn-hover-color: #d9b3af;
+  --composeBox-body-bg: #faf8f6;
+
+  /* ScheduleViewer */
+  --calendar-bg: #ffffff;
+  --calendar-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  --calendar-dimmed-text-color: #8a847e;
+  --calendar-hover-color: #eae4df;
+  --calendar-current-bg: #b0a79c;
+  --calendar-event-border-color: #d89b95;
+  --calendar-task-border-color: #b0a79c;
+  --calendar-weekView-header-box-bg: #f0ebe7;
+  --calendar-weekView-header-box-shadow: none;
+
+  /* MessageViewer */
+  --humanMsg-bg: #b0a79c;
+  --humanMsg-bg-shadow: none;
+  --aiMsg-bg: #ffffff;
+  --aiMsg-bg-shadow: none;
+
+  /* DropdownMenu */
+  --dropdownBtn-bg: #ffffff;
+  --dropdownBtn-hover-bg: #f0ebe7;
+  --dropdownBtn-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+  --dropdownMenu-bg: #ffffff;
+  --dropdownMenu-selected-bg: #f0ebe7;
+  --dropdownMenu-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
+
+  /* Menubar */
+  --menubar-bg: #ffffff;
+  --menubar-active-item-bg: #f0ebe7;
+  --menubar-item-hover-bg: transparent;
+
+  /* HomePage */
+  --welcomeText-gradient: linear-gradient(125deg, #d82626f3, #8c4040dd, #f9da9b);
+
+  /* ProfilePage */
+
+  /* AboutPage */
+  --aboutCard-bg: #ffffff;
+  --aboutCard-shadow: none;
+  --aboutBtn-bg: #d83b26c7;
+  --aboutBtn-shadow: none;
+
+  /* SettingsPage */
+  --SettingsBorder-color: #eae4df;
+  --themeCard-bg: #faf8f6;
+  --themeCard-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  --themeCard-hover-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+.Aesthetics_Unbound-dark {
+  /* Common */
+  --primary-color: #333333;
+  --secondary-color: #8a847e;
+  --text-color1: #f0ebe7;
+  --text-color2: #d1c7bb;
+  --placeholder-text-color: #b0a79c;
+  --changeable-icon-filter: invert(100%);
+  --inputGroup-bg: #3c3c3c;
+  --inputGroup-border-color: #de2c2c9f;
+  --inputGroupBtn-hover-color: #666666;
+  --inputGroup-shadow: none;
+
+  /* Sidebar */
+  --sidebar-hover-color: rgba(255, 255, 255, 0.1);
+  --sidebar-color: #8a847e;
+  --sidebar-shadow: none;
+  --sidebar-present-page-color: var(--primary-color);
+  --sidebar-present-page-shadow: none;
+
+  /* Header */
+  --headerMenu-btn-hover-bg: #555555;
+  --headerMenu-bg: #3c3c3c;
+  --headerMenu-shadow: none;
+  --headerMenu-opt-hover-bg: #8a847e;
+  --headerTitle-color: #f0ebe7;
+  --headerTitle-underline-color: #c89d8f;
+  --newChatBtn-color: linear-gradient(125deg, #d82626, #8d857c, #716760);
+  --newChatBtn-shadow: none;
+
+  /* EmailComposeBox */
+  --composeBoxBtn-color: #b0a79c;
+  --composeBoxBtn-hover-color: #8d857c;
+  --composeBox-body-bg: #3c3c3c;
+
+  /* ScheduleViewer */
+  --calendar-bg: #333333;
+  --calendar-shadow: none;
+  --calendar-dimmed-text-color: #8a847e;
+  --calendar-hover-color: #3c3c3c;
+  --calendar-current-bg: #8a847e;
+  --calendar-event-border-color: #d89b95;
+  --calendar-task-border-color: #b0a79c;
+  --calendar-weekView-header-box-bg: #8a847e;
+  --calendar-weekView-header-box-shadow: none;
+
+  /* MessageViewer */
+  --humanMsg-bg: #8a847e;
+  --humanMsg-bg-shadow: none;
+  --aiMsg-bg: #333333;
+  --aiMsg-bg-shadow: none;
+
+  /* DropdownMenu */
+  --dropdownBtn-bg: #3c3c3c;
+  --dropdownBtn-hover-bg: #555555;
+  --dropdownBtn-shadow: none;
+  --dropdownMenu-bg: #3c3c3c;
+  --dropdownMenu-selected-bg: #8a847e;
+  --dropdownMenu-shadow: none;
+
+  /* Menubar */
+  --menubar-bg: #3c3c3c;
+  --menubar-active-item-bg: #8a847e;
+  --menubar-item-hover-bg: transparent;
+
+  /* HomePage */
+  --welcomeText-gradient: linear-gradient(125deg, #d82626, #8d857c, #716760);
+
+  /* ProfilePage */
+
+  /* AboutPage */
+  --aboutCard-bg: #3c3c3c;
+  --aboutCard-shadow: none;
+  --aboutBtn-bg: #d83b26b7;
+  --aboutBtn-shadow: none;
+
+  /* SettingsPage */
+  --SettingsBorder-color: #555555;
+  --themeCard-bg: #3c3c3c;
+  --themeCard-shadow: none;
+  --themeCard-hover-shadow: none;
+}
+
+
 /* ====================================================*/
 /*              Few others common styles               */
 /* ====================================================*/
