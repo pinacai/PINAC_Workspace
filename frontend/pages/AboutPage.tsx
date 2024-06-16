@@ -40,11 +40,17 @@ export const AboutPage: React.FC = () => {
               </span>
             </div>
             <div className="aboutBtn">
-              <a href="https://github.com/pinacai" target="_blank">
-                <button id="aboutBtn">
-                  <strong>Visit Our GitHub Repo</strong>
-                </button>
-              </a>
+              <button
+                id="aboutBtn"
+                onClick={() =>
+                  window.ipcRenderer.send("client-request-to-backend", {
+                    request_type: "open-url-in-browser",
+                    url: "https://github.com/pinacai/PINAC_Workspace",
+                  })
+                }
+              >
+                <strong>Visit Our GitHub Repo</strong>
+              </button>
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import { SettingsPage } from "./pages/SettingsPage";
 import "./App.css";
 
 const App = () => {
+  // Setting the default theme
   const preferredTheme = localStorage.getItem("preferred-theme");
   const preferredThemePair = localStorage.getItem("preferred-theme-pair");
 
@@ -16,12 +17,12 @@ const App = () => {
   ) {
     localStorage.setItem("preferred-theme-pair", "Dawn_n_Dusk");
   }
-
   if (preferredTheme !== "light" && preferredTheme !== "dark") {
     localStorage.setItem("preferred-theme", "light");
   }
 
   //
+  // Setting the converation bubbles
   const [chatHistory, setChatHistory] = useState<JSX.Element[]>([]);
 
   const addMessageToChatHistory = (newMessage: JSX.Element) => {

@@ -1,4 +1,4 @@
-import { ipcMain } from "electron";
+import { ipcMain, shell } from "electron";
 import { createRequire } from "node:module";
 import * as fs from "fs";
 
@@ -61,6 +61,11 @@ ipcMain.on("client-request-to-backend", (event, request) => {
         error: error,
       });
     }
+  }
+  //
+  //
+  else if (request["request_type"] == "open-url-in-browser") {
+    shell.openExternal(request["url"])
   }
 });
 

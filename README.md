@@ -75,7 +75,7 @@ The best file structure ever!
 
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-### Setup the backend
+<!-- ### Setup the backend
 
 1. Clone the Repository
     ```bash
@@ -90,7 +90,7 @@ The best file structure ever!
 3. install the python dependencies with
     ```bash
     pip install -r requirements.txt
-    ```
+    ``` -->
 
 ### Install the App
 
@@ -103,6 +103,9 @@ The best file structure ever!
     ```bash
     npm run dev
     ```
+
+> _This is the Desktop App. We have started working on our cloud server with the name [PINAC-Nexus](https://github.com/pinacai/PINAC-Nexus)._
+
 
 ## 🎉 Contributing
 
