@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./style/DropdownMenu.css";
 
 // Icon
@@ -13,6 +13,7 @@ interface DropdownMenuProps {
 export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
   const [selectedOption, setSelectedOption] = useState(props.defaultOption);
   const [isActive, setIsActive] = useState(false);
+  const dropdownMenuRef = useRef<HTMLDivElement>(null);
 
   const openMenu = () => {
     setIsActive(!isActive);
@@ -32,8 +33,21 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
     preferredModel !== null && setSelectedOption(preferredModel);
   }, []);
 
+  // Creating an event handler to close the dropdown menu by click elsewhere outside the menu
+  useEffect(() => {
+    const handleOutsideClicks = (e: MouseEvent) => {
+      if (isActive && dropdownMenuRef.current && !dropdownMenuRef.current.contains(e.target as Node)) {
+        setIsActive(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutsideClicks);
+
+    return () => window.removeEventListener("mousedown", handleOutsideClicks);
+  }, [isActive]);
+
   return (
-    <div className="dropdown">
+    <div className="dropdown" ref={dropdownMenuRef}>
       <div className="selector">
         <span>{selectedOption}</span>
         <button onClick={openMenu}>

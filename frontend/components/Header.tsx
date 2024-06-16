@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./style/Header.css";
 
@@ -15,6 +15,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
   const [isDropdownActive, setIsDropdownActive] = useState<boolean>(false);
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
@@ -58,8 +59,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
     localStorage.setItem("preferred-theme", isDarkTheme ? "light" : "dark");
   };
 
-  //
-  //
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 576) {
@@ -80,6 +79,19 @@ export const Header: React.FC<HeaderProps> = (props) => {
     const preferredTheme = localStorage.getItem("preferred-theme");
     setIsDarkTheme(preferredTheme === "dark");
   }, []);
+
+  // Creating an event handler to close the dropdown menu by click elsewhere outside the menu
+  useEffect(() => {
+    const handleOutsideClicks = (e: MouseEvent) => {
+      if (isDropdownActive && dropdownMenuRef.current && !dropdownMenuRef.current.contains(e.target as Node)) {
+        setIsDropdownActive(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutsideClicks);
+
+    return () => window.removeEventListener("mousedown", handleOutsideClicks);
+  }, [isDropdownActive]);
 
   //
   useEffect(() => {
@@ -113,7 +125,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
           </div>
           {/* Render the sidebar button */}
           {isMenuVisible && (
-            <div className="header-menu">
+            <div className="header-menu" ref={dropdownMenuRef}>
               <div>
                 <button
                   className={location.pathname == "/" ? "home" : ""}
@@ -146,9 +158,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
               </div>
               {/* Special section at last for theme change */}
               <div
-                className={`dropdown-last-menu dropdown-menu ${
-                  isDropdownActive ? "active" : ""
-                }`}
+                className={`dropdown-last-menu dropdown-menu ${isDropdownActive ? "active" : ""
+                  }`}
                 style={{ marginTop: "130px" }}
               >
                 <ul>
