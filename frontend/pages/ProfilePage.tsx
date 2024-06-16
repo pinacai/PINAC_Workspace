@@ -1,8 +1,8 @@
-import "./style/ProfilePage.css";
 import React, { useState, useEffect } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { Menubar } from "../components/Menubar";
+import "./style/ProfilePage.css";
 
 // icons
 import profileImage from "../assets/icon/user_icon.png";
@@ -62,7 +62,9 @@ export const ProfilePage: React.FC = () => {
       "Dawn_n_Dusk-light",
       "Dawn_n_Dusk-dark",
       "Cyber_Tech_01-light",
-      "Cyber_Tech_01-dark"
+      "Cyber_Tech_01-dark",
+      "Aesthetics_Unbound-light",
+      "Aesthetics_Unbound-dark"
     );
     // Add desired theme pair with 'light-theme' or 'dark-theme' as user previous preference
     body.classList.add(`${preferredThemePair}-${preferredTheme}`);

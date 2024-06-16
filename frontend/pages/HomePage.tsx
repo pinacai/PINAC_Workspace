@@ -1,10 +1,11 @@
-import "./style/HomePage.css";
 import React, { useState, useEffect, useRef } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { ShowHumanMessage, ShowAiMessage } from "../components/MessageViewer";
 import { StopContext } from "../components/context_file";
 import { FaRegStopCircle } from "react-icons/fa";
+import "./style/HomePage.css";
+
 // Icons
 import sendIcon from "../assets/icon/send.svg";
 
@@ -158,7 +159,9 @@ export const HomePage: React.FC<HomePageProps> = ({
       "Dawn_n_Dusk-light",
       "Dawn_n_Dusk-dark",
       "Cyber_Tech_01-light",
-      "Cyber_Tech_01-dark"
+      "Cyber_Tech_01-dark",
+      "Aesthetics_Unbound-light",
+      "Aesthetics_Unbound-dark"
     );
     // Add desired theme pair with 'light-theme' or 'dark-theme' as user previous preference
     body.classList.add(`${preferredThemePair}-${preferredTheme}`);

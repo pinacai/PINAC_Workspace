@@ -1,6 +1,6 @@
-import "./style/Sidebar.css";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import "./style/Sidebar.css";
 
 // Icons
 import userIcon from "../assets/icon/user_icon.png";

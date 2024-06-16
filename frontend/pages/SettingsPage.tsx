@@ -1,9 +1,9 @@
-import "./style/SettingsPage.css";
 import React, { useState, useEffect } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { DropdownMenu } from "../components/DropdownMenu";
 import { Card } from "../components/Card";
+import "./style/SettingsPage.css";
 
 // Icons
 import Cyber_Tech_o1_darkPreview from "../assets/img/Cyber_Tech_01_darkPreview.png";
@@ -21,6 +21,7 @@ export const SettingsPage: React.FC = () => {
     setDawn_n_Dusk(!Dawn_n_Dusk);
     if (!Dawn_n_Dusk) {
       setCyber_Tech_01(false);
+      setAesthetics_Unbound(false);
       localStorage.setItem("preferred-theme-pair", "Dawn_n_Dusk");
     }
   };
@@ -30,6 +31,7 @@ export const SettingsPage: React.FC = () => {
     setCyber_Tech_01(!Cyber_Tech_01);
     if (!Cyber_Tech_01) {
       setDawn_n_Dusk(false);
+      setAesthetics_Unbound(false);
       localStorage.setItem("preferred-theme-pair", "Cyber_Tech_01");
     }
   };

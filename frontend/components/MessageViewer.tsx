@@ -95,7 +95,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const [currentText, setCurrentText] = useState(""); // Text state for typing effect
   const [currentIndex, setCurrentIndex] = useState(0); // Index state to emulate writing effect by displaying till certain index
   const [speakerState, setSpeakerState] = useState(true);
-  const delay = 50; // Delay for writing each character
+  const delay = 30; // Delay for writing each character
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const chatScrollRef = useRef<any>(null); // Ref for empty Div to server as end of messages

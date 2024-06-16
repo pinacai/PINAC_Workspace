@@ -1,7 +1,7 @@
-import "./style/AboutPage.css";
 import React, { useEffect } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
+import "./style/AboutPage.css";
 
 export const AboutPage: React.FC = () => {
   // For smooth applying of current theme
@@ -14,7 +14,9 @@ export const AboutPage: React.FC = () => {
       "Dawn_n_Dusk-light",
       "Dawn_n_Dusk-dark",
       "Cyber_Tech_01-light",
-      "Cyber_Tech_01-dark"
+      "Cyber_Tech_01-dark",
+      "Aesthetics_Unbound-light",
+      "Aesthetics_Unbound-dark"
     );
     // Add desired theme pair with 'light-theme' or 'dark-theme' as user previous preference
     body.classList.add(`${preferredThemePair}-${preferredTheme}`);

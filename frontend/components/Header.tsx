@@ -90,7 +90,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
       "Dawn_n_Dusk-light",
       "Dawn_n_Dusk-dark",
       "Cyber_Tech_01-light",
-      "Cyber_Tech_01-dark"
+      "Cyber_Tech_01-dark",
+      "Aesthetics_Unbound-light",
+      "Aesthetics_Unbound-dark"
     );
     if (isDarkTheme) {
       body.classList.add(`${preferredThemePair}-dark`); // Add 'dark-theme' class if isDarkTheme is true

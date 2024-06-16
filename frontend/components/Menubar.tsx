@@ -1,5 +1,5 @@
-import "./style/Menubar.css";
 import React, { useState, useEffect } from "react";
+import "./style/Menubar.css";
 
 interface MenubarProps {
   menuItems: { label: string; onClick: () => void }[];
