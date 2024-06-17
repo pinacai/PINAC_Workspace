@@ -2,6 +2,7 @@ import { app, BrowserWindow, screen } from "electron";
 import { fileURLToPath } from "node:url";
 // import { spawn } from "child_process";
 import path from "node:path";
+// import * as fs from "fs";
 import "../backend/main";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -22,16 +23,37 @@ export const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 export const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 
+// let loginWindow: BrowserWindow | null;
 let loadingWindow: BrowserWindow | null;
 let win: BrowserWindow | null;
 // let pythonProcess = null;
 
 //
+// const createLoginWindow = () => {
+//   if (loadingWindow) {
+//     loadingWindow.close();
+//     loadingWindow = null;
+//   }
+//   const primaryDisplay = screen.getPrimaryDisplay();
+//   const { width, height } = primaryDisplay.workAreaSize;
+//   // Create the browser window.
+//   loginWindow = new BrowserWindow({
+//     width: width,
+//     height: height,
+//     autoHideMenuBar: true,
+//     resizable: false,
+//     show: false,
+//   });
+//   loginWindow.loadFile("login.html");
+//   loginWindow.on("ready-to-show", () => {
+//     loginWindow?.show();
+//   });
+// };
+
+//
 const createLoadingWindow = () => {
-  // Get the primary display's work area size (usable area)
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
-  // Calculate the x-coordinate to position the window on the right side
   const windowX = width - 20;
   // Create the browser window.
   loadingWindow = new BrowserWindow({
@@ -40,9 +62,9 @@ const createLoadingWindow = () => {
     x: windowX,
     y: 20,
     autoHideMenuBar: true,
-    frame: false, // Remove window frame for a cleaner look
-    resizable: false, // Prevent resizing
-    show: false, // Don't show initially
+    // frame: false,
+    // resizable: false,
+    show: false,
   });
   loadingWindow.loadFile("loading.html");
   loadingWindow.on("ready-to-show", () => {
@@ -127,5 +149,8 @@ app.on("activate", () => {
 
 app.whenReady().then(() => {
   createLoadingWindow();
+  // fs.existsSync("backend/user data/.env")
+  //   ? createMainWindow()
+  //   : createLoginWindow();
   createMainWindow();
 });

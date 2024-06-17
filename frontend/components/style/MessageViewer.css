@@ -38,8 +38,9 @@
   background-color: transparent;
   border: none;
   border-radius: 50%;
+  margin-right: 10px;
 }
-#volume-btn{
+#volume-btn {
   background-color: transparent;
   border: none;
 }

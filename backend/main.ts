@@ -65,7 +65,7 @@ ipcMain.on("client-request-to-backend", (event, request) => {
   //
   //
   else if (request["request_type"] == "open-url-in-browser") {
-    shell.openExternal(request["url"])
+    shell.openExternal(request["url"]);
   }
 });
 
