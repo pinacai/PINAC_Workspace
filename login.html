@@ -136,7 +136,19 @@
         .form label .input:valid+span {
             color: green;
         }
+        copy-button {
+  /* Your button styles here */
+    }
 
+    .copy-button.copied {
+     background-color: #007bff; /* Change to a success color */
+     border-color: #007bff;
+    }
+
+         .copy-button.copied.icon {
+  /* Change the icon to a checkmark or a "copied" label */
+        content: '✓';
+         }
         .submit {
             width: 340px;
             border: none;
@@ -199,6 +211,14 @@
             </label>
             <button class="submit">Submit</button>
         </form>
+    </div>
+
+    <div class="chat-bubble">
+        <p id="ai-generated-text">This is the AI-generated text.</p>
+        <button class="copy-button" data-clipboard-text="ai-generated-text">
+        <span class="icon">📋</span>
+        <span class="label">Copy</span>
+    </button>
     </div>
 </body>
 </style>

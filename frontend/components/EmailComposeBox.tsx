@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { MarkdownStyle } from "../components/MarkdownStyle";
+import { useStopContext } from "./context_file";
 import "./style/EmailComposeBox.css";
 
 interface EmailComposeBoxProps {
@@ -51,6 +53,11 @@ export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
       });
     }
     console.log("Created Draft");
+  };
+
+  // Copy email body to clipboard
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(body);
   };
 
   return (
@@ -112,9 +119,11 @@ export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
           id="save-draft-button"
           className={buttonsDisabled ? "disabled" : ""}
           onClick={handleCreateDraft}
-          disabled={buttonsDisabled}
         >
           Save Draft
+        </button>
+        <button id="copy-button" onClick={copyToClipboard}>
+          Copy to Clipboard
         </button>
       </div>
     </div>
