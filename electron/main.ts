@@ -62,8 +62,8 @@ const createLoadingWindow = () => {
     x: windowX,
     y: 20,
     autoHideMenuBar: true,
-    // frame: false,
-    // resizable: false,
+    frame: false,
+    resizable: false,
     show: false,
   });
   loadingWindow.loadFile("loading.html");

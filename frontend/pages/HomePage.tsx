@@ -88,7 +88,6 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       addMessageToChatHistory(
         <ShowHumanMessage
-          key={`human-message-${chatHistory.length}`}
           response={text}
         />
       );

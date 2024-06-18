@@ -15,7 +15,6 @@ export const SettingsPage: React.FC = () => {
   const [Cyber_Tech_01, setCyber_Tech_01] = useState<boolean>(false);
   const [Aesthetics_Unbound, setAesthetics_Unbound] = useState<boolean>(false);
 
-
   //
   const changeToDawn_n_Dusk = () => {
     setDawn_n_Dusk(!Dawn_n_Dusk);
@@ -44,7 +43,6 @@ export const SettingsPage: React.FC = () => {
       localStorage.setItem("preferred-theme-pair", "Aesthetics_Unbound");
     }
   };
-
 
   //
   useEffect(() => {
@@ -117,8 +115,8 @@ export const SettingsPage: React.FC = () => {
                 onChangeFunc={changeToCyber_Tech_01}
               />
 
-               {/* Theme 3 */}
-               <Card
+              {/* Theme 3 */}
+              <Card
                 title="Aesthetics Unbound"
                 cardImage={Aesthetics_Unbound_darkPreview}
                 checkedFunc={Aesthetics_Unbound}

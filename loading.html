@@ -27,12 +27,12 @@
 
       .logo {
         font-family: "Nasalization", Arial, sans-serif;
-        font-size: 9em;
+        font-size: 25vw;
         animation: zoomIn 2s ease-in-out forwards;
       }
 
       .slogan {
-        font-size: 2.2em;
+        font-size: 7vw;
         color: #555;
         opacity: 0;
         animation: fadeIn 1s ease-in-out forwards;
@@ -44,6 +44,7 @@
           transform: scale(0.5);
           opacity: 0;
         }
+
         to {
           transform: scale(1);
           opacity: 1;
@@ -54,12 +55,24 @@
         from {
           opacity: 0;
         }
+
         to {
           opacity: 1;
         }
       }
+
+      @media (min-width: 768px) {
+        .logo {
+          font-size: 15vw;
+        }
+
+        .slogan {
+          font-size: 3vw;
+        }
+      }
     </style>
   </head>
+
   <body>
     <div class="container">
       <div class="logo">PINAC</div>
@@ -67,4 +80,3 @@
     </div>
   </body>
 </html>
-
