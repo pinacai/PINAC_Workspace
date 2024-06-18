@@ -13,7 +13,8 @@ const App = () => {
 
   if (
     preferredThemePair !== "Dawn_n_Dusk" &&
-    preferredThemePair !== "Cyber_Tech_01"
+    preferredThemePair !== "Cyber_Tech_01" &&
+    preferredThemePair !== "Aesthetics_Unbound"
   ) {
     localStorage.setItem("preferred-theme-pair", "Dawn_n_Dusk");
   }
