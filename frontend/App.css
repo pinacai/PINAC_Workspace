@@ -91,6 +91,9 @@
   --welcomeText-gradient: linear-gradient(125deg, #ff7300, #f12b6d, #0026ff);
 
   /* ProfilePage */
+  --profile-input-border-color: rgba(105, 105, 105, 0.397);
+  --profile-input-shadow: none;
+  --profile-btn-bg: #1f2937;
 
   /* AboutPage */
   --aboutCard-bg: #ffffff;
@@ -174,6 +177,9 @@
   --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #f12b6d, #0026ff);
 
   /* ProfilePage */
+  --profile-input-border-color: none;
+  --profile-input-shadow: none;
+  --profile-btn-bg: #382bf0;
 
   /* AboutPage */
   --aboutCard-bg: #252525;
@@ -258,6 +264,9 @@
   --welcomeText-gradient: linear-gradient(90deg, #0021df, #3d91ff);
 
   /* ProfilePage */
+  --profile-input-border-color: #0026ff;
+  --profile-input-shadow: none;
+  --profile-btn-bg: #153FC5;
 
   /* AboutPage */
   --aboutCard-bg: #E2E8F0;
@@ -342,6 +351,9 @@
   --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #f12b6d, #0026ff);
 
   /* ProfilePage */
+  --profile-input-border-color: none;
+  --profile-input-shadow: 0 0 2px #ece2d5;
+  --profile-btn-bg: linear-gradient(125deg, #0026ff, #5b00af);
 
   /* AboutPage */
   --aboutCard-bg: rgba(109, 108, 108, 0.15);

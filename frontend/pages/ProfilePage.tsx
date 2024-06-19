@@ -10,7 +10,8 @@ import profileImage from "../assets/icon/user_icon.png";
 export const ProfilePage: React.FC = () => {
   const [isOpt1, setIsOpt1] = useState<boolean>(true);
   const [isOpt2, setIsOpt2] = useState<boolean>(false);
-  const [fullName, setFullName] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
   const [emailId, setEmailId] = useState<string>("");
   const [bio, setBio] = useState<string>("");
   const [openaiKey, setOpenaiKey] = useState<string>("");
@@ -37,7 +38,8 @@ export const ProfilePage: React.FC = () => {
   const saveUserInfo = () => {
     window.ipcRenderer.send("client-request-to-backend", {
       request_type: "save-user-info",
-      full_name: fullName,
+      first_name: firstName,
+      last_name: lastName,
       email_id: emailId,
       bio: bio,
     });
@@ -50,6 +52,22 @@ export const ProfilePage: React.FC = () => {
       GOOGLE_API_KEY: geminiKey,
     });
   };
+
+  //
+  // Load user data on switching to this page
+  useEffect(() => {
+    window.ipcRenderer.send("client-request-to-backend", {
+      request_type: "give-user-info",
+    });
+    window.ipcRenderer.once("backend-response", (_, response) => {
+      setFirstName(response.first_name);
+      setLastName(response.last_name);
+      setEmailId(response.email_id);
+      setBio(response.bio);
+      setOpenaiKey(response.OPENAI_API_KEY);
+      setGeminiKey(response.GOOGLE_API_KEY);
+    });
+  }, []);
 
   //
   // For smooth applying of current theme
@@ -84,95 +102,119 @@ export const ProfilePage: React.FC = () => {
                   <img src={profileImage} alt="Profile image" />
                 </div>
                 <div className="user-details">
-                  <div className="sec">
-                    <span>Name</span>
-                    <input
-                      type="text"
-                      id="full-name"
-                      value={fullName}
-                      onChange={(event) => {
-                        setFullName(event.target.value);
-                      }}
-                      placeholder="Your full name"
-                    />
-                  </div>
-                  <div className="sec">
-                    <span>Email</span>
-                    <input
-                      type="email"
-                      id="gmail-id"
-                      value={emailId}
-                      onChange={(event) => {
-                        setEmailId(event.target.value);
-                      }}
-                      placeholder="Your Email Id"
-                    />
-                  </div>
-                  <div className="sec">
-                    <span>Bio</span>
-                    <textarea
-                      id="bio"
-                      value={bio}
-                      onChange={(event) => {
-                        setBio(event.target.value);
-                      }}
-                      placeholder="Tell us about yourself"
-                    ></textarea>
-                  </div>
-                  <div className="last-sec">
-                    {/* Copied this button from About Us Page */}
+                  <form className="form">
+                    <div className="flex">
+                      <label>
+                        <input
+                          required
+                          placeholder=""
+                          type="text"
+                          className="input"
+                          value={firstName}
+                          onChange={(event) => {
+                            setFirstName(event.target.value);
+                          }}
+                        />
+                        <span>First Name</span>
+                      </label>
+
+                      <label>
+                        <input
+                          required
+                          placeholder=""
+                          type="text"
+                          className="input"
+                          value={lastName}
+                          onChange={(event) => {
+                            setLastName(event.target.value);
+                          }}
+                        />
+                        <span>Last Name</span>
+                      </label>
+                    </div>
+
+                    <label>
+                      <input
+                        required
+                        placeholder=""
+                        type="email"
+                        className="input"
+                        value={emailId}
+                        onChange={(event) => {
+                          setEmailId(event.target.value);
+                        }}
+                      />
+                      <span>Email</span>
+                    </label>
+
+                    <label>
+                      <textarea
+                        placeholder="Tell Us about yourself"
+                        id="bio"
+                        className="input"
+                        value={bio}
+                        onChange={(event) => {
+                          setBio(event.target.value);
+                        }}
+                      />
+                    </label>
+
                     <button
-                      id="aboutBtn"
+                      className="submit"
                       onClick={() => {
                         saveUserInfo();
                       }}
                     >
-                      <strong>Save Changes</strong>
+                      Save Changes
                     </button>
-                  </div>
+                  </form>
                 </div>
               </>
             ) : (
               ""
             )}
             {isOpt2 ? (
-              <div className="user-details">
-                <div className="sec">
-                  <span>OPENAI API Key</span>
-                  <input
-                    type="text"
-                    id="openai-key"
-                    value={openaiKey}
-                    onChange={(event) => {
-                      setOpenaiKey(event.target.value);
-                    }}
-                    placeholder="Paste your key here"
-                  />
+              <>
+                <div className="user-details">
+                  <form className="form">
+                    <label>
+                      <input
+                        required
+                        placeholder=""
+                        type="password"
+                        className="input"
+                        value={openaiKey}
+                        onChange={(event) => {
+                          setOpenaiKey(event.target.value);
+                        }}
+                      />
+                      <span>OPENAI API KEY</span>
+                    </label>
+                    <label>
+                      <input
+                        required
+                        placeholder=""
+                        type="password"
+                        className="input"
+                        value={geminiKey}
+                        onChange={(event) => {
+                          setGeminiKey(event.target.value);
+                        }}
+                      />
+                      <span>GEMINI API KEY</span>
+                    </label>
+
+                    <button
+                      className="submit"
+                      onClick={() => {
+                        saveApiKeys();
+                      }}
+                    >
+                      Save Changes
+                    </button>
+                  </form>
                 </div>
-                <div className="sec">
-                  <span>Gemini API Key</span>
-                  <input
-                    type="text"
-                    id="gemini-key"
-                    value={geminiKey}
-                    onChange={(event) => {
-                      setGeminiKey(event.target.value);
-                    }}
-                    placeholder="Paste your key here"
-                  />
-                </div>
-                <div className="last-sec">
-                  {/* Copied this button from About Us Page */}
-                  <button
-                    id="aboutBtn"
-                    onClick={() => {
-                      saveApiKeys();
-                    }}
-                  >
-                    <strong>Save Changes</strong>
-                  </button>
-                </div>
-              </div>
+              </>
             ) : (
               ""
             )}

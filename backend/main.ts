@@ -30,7 +30,8 @@ ipcMain.on("client-request-to-backend", (event, request) => {
   else if (request["request_type"] == "save-user-info") {
     try {
       const userInfo = {
-        full_name: request["full_name"],
+        first_name: request["first_name"],
+        last_name: request["last_name"],
         email_id: request["email_id"],
         bio: request["bio"],
       };
@@ -68,6 +69,16 @@ ipcMain.on("client-request-to-backend", (event, request) => {
         error: error,
       });
     }
+  }
+  //
+  //
+  else if (request["request_type"] == "give-user-info") {
+    fs.readFile("backend/user data/user_info.json", "utf8", (_, data) => {
+      const userData = JSON.parse(data);
+      (userData.OPENAI_API_KEY = "***********"),
+        (userData.GOOGLE_API_KEY = "***********"),
+        event.reply("backend-response", userData);
+    });
   }
   //
   //
