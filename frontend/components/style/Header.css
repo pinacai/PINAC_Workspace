@@ -106,7 +106,7 @@
 .pageHeader .newChatButton {
   width: auto;
   height: auto;
-  background: var(--secondary-color);
+  background: var(--newChatBtn-after-color);
   color: var(--text-color1);
   border: none;
   box-shadow: var(--newChatBtn-shadow);
