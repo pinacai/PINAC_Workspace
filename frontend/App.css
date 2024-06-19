@@ -394,10 +394,10 @@
   --sidebar-present-page-shadow: none;
 
   /* Header */
-  --headerMenu-btn-hover-bg: #F8E0C9;
-  --headerMenu-bg: #F8E0C9;
+  --headerMenu-btn-hover-bg: #f8e0c9;
+  --headerMenu-bg: #f8e0c9;
   --headerMenu-shadow: 0 0 5px rgba(43, 26, 18, 0.5);
-  --headerMenu-opt-hover-bg: #B1AA81;
+  --headerMenu-opt-hover-bg: #b1aa81;
   --headerTitle-color: #524b44;
   --headerTitle-underline-color: #dc6d18;
   --newChatBtn-color: #635a51;
@@ -412,7 +412,7 @@
 
   /* DropdownMenu */
   --dropdownBtn-bg: #f8e0c9;
-  --dropdownBtn-hover-bg: #B1AA81;
+  --dropdownBtn-hover-bg: #b1aa81;
   --dropdownBtn-shadow: 0 0 5px rgba(43, 26, 18, 0.4);
   --dropdownMenu-bg: #f8e0c9;
   --dropdownMenu-selected-bg: #dc6d18;
@@ -446,69 +446,73 @@
 
 .Aesthetics_Unbound-dark {
   /* Common */
-  --primary-color: #333333;
-  --secondary-color: #8a847e;
+  --primary-color: #322c2b;
+  --secondary-color: #1a1515;
   --text-color1: #f0ebe7;
   --text-color2: #d1c7bb;
-  --placeholder-text-color: #b0a79c;
+  --placeholder-text-color: #645f58;
   --changeable-icon-filter: invert(100%);
-  --inputGroup-bg: #3c3c3c;
-  --inputGroup-border-color: #de2c2c9f;
-  --inputGroupBtn-hover-color: #666666;
-  --inputGroup-shadow: none;
+  --inputGroup-bg: #1a1515;
+  --inputGroup-border-color: #d83b26b7;
+  --inputGroupBtn-hover-color: #322c2b;
+  --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
   /* Sidebar */
-  --sidebar-hover-color: rgba(255, 255, 255, 0.1);
-  --sidebar-color: #8a847e;
+  --sidebar-hover-color: rgba(0, 0, 0, 0.3);
+  --sidebar-color: #1a1515;
   --sidebar-shadow: none;
   --sidebar-present-page-color: var(--primary-color);
   --sidebar-present-page-shadow: none;
 
   /* Header */
-  --headerMenu-btn-hover-bg: #555555;
+  --headerMenu-btn-hover-bg: #3c3c3c;
   --headerMenu-bg: #3c3c3c;
-  --headerMenu-shadow: none;
-  --headerMenu-opt-hover-bg: #8a847e;
-  --headerTitle-color: #f0ebe7;
-  --headerTitle-underline-color: #c89d8f;
-  --newChatBtn-color: linear-gradient(125deg, #d82626, #8d857c, #716760);
-  --newChatBtn-shadow: none;
+  --headerMenu-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  --headerMenu-opt-hover-bg: #d83b26b7;
+  --headerTitle-color: #d1c7bb;
+  --headerTitle-underline-color: #d83b26b7;
+  --newChatBtn-color: #322c2b;
+  --newChatBtn-after-color: #d83b26b7;
+  --newChatBtn-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
 
   /* MessageViewer */
-  --humanMsg-bg: #8a847e;
+  --humanMsg-bg: #d83b26b7;
   --humanMsg-bg-shadow: none;
-  --aiMsg-bg: #333333;
-  --aiMsg-bg-shadow: none;
+  --aiMsg-bg: #3c3c3c;
+  --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 
   /* DropdownMenu */
   --dropdownBtn-bg: #3c3c3c;
   --dropdownBtn-hover-bg: #555555;
-  --dropdownBtn-shadow: none;
+  --dropdownBtn-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   --dropdownMenu-bg: #3c3c3c;
-  --dropdownMenu-selected-bg: #8a847e;
-  --dropdownMenu-shadow: none;
+  --dropdownMenu-selected-bg: #d83b26b7;
+  --dropdownMenu-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 
   /* Menubar */
   --menubar-bg: #3c3c3c;
-  --menubar-active-item-bg: #8a847e;
+  --menubar-active-item-bg: #d83b26b7;
   --menubar-item-hover-bg: transparent;
 
   /* HomePage */
-  --welcomeText-gradient: linear-gradient(125deg, #d82626, #8d857c, #716760);
+  --welcomeText-gradient: linear-gradient(125deg, #ff1e00b7, #716760);
 
   /* ProfilePage */
+  --profile-input-border-color: #68433db7;
+  --profile-input-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  --profile-btn-bg: #d83b26b7;
 
   /* AboutPage */
   --aboutCard-bg: #3c3c3c;
-  --aboutCard-shadow: none;
+  --aboutCard-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   --aboutBtn-bg: #d83b26b7;
-  --aboutBtn-shadow: none;
+  --aboutBtn-shadow: #d83b26b7;
 
   /* SettingsPage */
-  --SettingsBorder-color: #555555;
+  --SettingsBorder-color: #d83b26b7;
   --themeCard-bg: #3c3c3c;
-  --themeCard-shadow: none;
-  --themeCard-hover-shadow: none;
+  --themeCard-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  --themeCard-hover-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
 }
 
 /* ====================================================*/
