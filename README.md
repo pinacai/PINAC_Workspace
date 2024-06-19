@@ -1,3 +1,12 @@
+## Big Update 🔔
+
+We have implemented the Log In Page in our App, now you don't need to use PINAC-Nexus separately, and it's super easy to start. Follow the new installation process to setup python server in App backend. This is the initial implementation of Log In Page, so, currently you need both OPENAI & GEMINI API Key to start server, in upcoming updates we will make this flexible. Also, manually full screen the Log In window, in upcoming updates we will fix this also.
+
+And once you Log In, you don't need to see the Log In Page again. The purpose of the Log In page is to save API Keys using the App interface, without keeping it manually in the Project file.
+
+> **Remember**: Always activate the python virtual env with the command `source env/bin/activate` before starting the app with command `npm run dev`. Otherwise server will not start.
+
+
 <div align="center">
 
 <h1 style="border-bottom: none">
@@ -75,7 +84,7 @@ The best file structure ever!
 
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-<!-- ### Setup the backend
+### Setup the backend
 
 1. Clone the Repository
     ```bash
@@ -90,7 +99,7 @@ The best file structure ever!
 3. install the python dependencies with
     ```bash
     pip install -r requirements.txt
-    ``` -->
+    ```
 
 ### Install the App
 
@@ -103,9 +112,6 @@ The best file structure ever!
     ```bash
     npm run dev
     ```
-
-> _This is the Desktop App. We have started working on our cloud server with the name [PINAC-Nexus](https://github.com/pinacai/PINAC-Nexus)._
-
 
 ## 🎉 Contributing
 

@@ -8,14 +8,21 @@ const require = createRequire(import.meta.url);
 const io = require("socket.io-client");
 const socket = io("http://localhost:5000");
 
-// ------------------------------------------ //
-//    frontend to backend functionalities     //
-// ------------------------------------------ //
+// =================================================== //
+//         frontend to backend functionalities         //
+// =================================================== //
 
 ipcMain.on("client-request-to-backend", (event, request) => {
   //
+  if (request["request_type"] == "check-user-login") {
+    fs.access("backend/user data/.env", fs.constants.F_OK, (err) => {
+      const loggedIn = !err;
+      event.reply("server-response", { logged_in: loggedIn });
+    });
+  }
   //
-  if (request["request_type"] == "clear-chat") {
+  //
+  else if (request["request_type"] == "clear-chat") {
     console.log("Chat Cleared");
   }
   //

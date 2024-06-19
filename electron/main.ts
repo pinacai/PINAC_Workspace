@@ -1,8 +1,8 @@
-import { app, BrowserWindow, screen } from "electron";
+import { app, BrowserWindow, screen, ipcMain } from "electron";
 import { fileURLToPath } from "node:url";
-// import { spawn } from "child_process";
+import { spawn } from "child_process";
 import path from "node:path";
-// import * as fs from "fs";
+import * as fs from "fs";
 import "../backend/main";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -23,32 +23,9 @@ export const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 export const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 
-// let loginWindow: BrowserWindow | null;
+let pythonProcess = null;
 let loadingWindow: BrowserWindow | null;
 let win: BrowserWindow | null;
-// let pythonProcess = null;
-
-//
-// const createLoginWindow = () => {
-//   if (loadingWindow) {
-//     loadingWindow.close();
-//     loadingWindow = null;
-//   }
-//   const primaryDisplay = screen.getPrimaryDisplay();
-//   const { width, height } = primaryDisplay.workAreaSize;
-//   // Create the browser window.
-//   loginWindow = new BrowserWindow({
-//     width: width,
-//     height: height,
-//     autoHideMenuBar: true,
-//     resizable: false,
-//     show: false,
-//   });
-//   loginWindow.loadFile("login.html");
-//   loginWindow.on("ready-to-show", () => {
-//     loginWindow?.show();
-//   });
-// };
 
 //
 const createLoadingWindow = () => {
@@ -106,37 +83,20 @@ const createMainWindow = () => {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
-
-  // // Spawn the Python process
-  // pythonProcess = spawn("python", ["backend/server/main.py"]);
-
-  // pythonProcess.stdout.on("data", (data) => {
-  //   console.log(data.toString());
-  // });
-
-  // pythonProcess.stderr.on("data", (data) => {
-  //   console.error(data.toString());
-  // });
-
-  // pythonProcess.on("close", (code) => {
-  //   console.log(`Python script exited with code ${code}`);
-  // });
 };
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on("window-all-closed", () => {
-  // localStorage.removeItem('preferred-theme')
-  // localStorage.removeItem('preferred-theme-pair')
   if (process.platform !== "darwin") {
     app.quit();
     win = null;
   }
   // // Terminate the Python process
-  // if (pythonProcess) {
-  //   pythonProcess.kill();
-  // }
+  if (pythonProcess) {
+    pythonProcess.kill();
+  }
 });
 
 app.on("activate", () => {
@@ -149,8 +109,44 @@ app.on("activate", () => {
 
 app.whenReady().then(() => {
   createLoadingWindow();
-  // fs.existsSync("backend/user data/.env")
-  //   ? createMainWindow()
-  //   : createLoginWindow();
   createMainWindow();
+});
+
+// ================================================================= //
+//                            PYTHON SERVER                          //
+// ================================================================= //
+
+//
+const startPythonServer = () => {
+  // Spawn the Python process
+  pythonProcess = spawn("python", ["backend/server/main.py"]);
+
+  pythonProcess.stdout.on("data", (data) => {
+    console.log(data.toString());
+  });
+
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(data.toString());
+  });
+
+  pythonProcess.on("close", (code) => {
+    console.log(`Python script exited with code ${code}`);
+  });
+};
+
+//
+// if user logged In then start server
+if (fs.existsSync("backend/user data/.env")) {
+  startPythonServer();
+}
+
+// ------------------------------------------ //
+//     frontend request to start server       //
+// ------------------------------------------ //
+
+ipcMain.on("client-request-to-backend", (_, request) => {
+  //
+  if (request["request_type"] == "start-server") {
+    startPythonServer();
+  }
 });

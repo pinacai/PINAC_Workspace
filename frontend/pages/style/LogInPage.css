@@ -1,0 +1,152 @@
+.logIn-container {
+  background: url("frontend/assets/img/login_page_bg.svg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: "Exo2", "Montserrat", sans-serif;
+  /* overflow: hidden; */
+
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: content-box;
+}
+
+.logIn-container .form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 370px;
+  background: rgba(109, 108, 108, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 2px #ece2d5;
+  padding: 40px 30px 60px 30px;
+  margin-right: 10%;
+  border-radius: 20px;
+  position: relative;
+}
+
+.logIn-container .title {
+  font-size: 28px;
+  color: royalblue;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  margin-bottom: 70px;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
+
+.logIn-container .title::before,
+.logIn-container .title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: royalblue;
+}
+
+.logIn-container .title::before {
+  width: 18px;
+  height: 18px;
+  background-color: royalblue;
+}
+
+.logIn-container .title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.logIn-container .message,
+.logIn-container .signin {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
+}
+
+.logIn-container .signin {
+  text-align: center;
+}
+
+.logIn-container .flex {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+
+.logIn-container .form label {
+  position: relative;
+}
+
+.logIn-container .form label .input {
+  width: 100%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+  font-family: "Exo2", "Montserrat", sans-serif;
+}
+
+.logIn-container .form label #half-input {
+  width: 100%;
+  font-family: "Exo2", "Montserrat", sans-serif;
+}
+
+.logIn-container .form label .input + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.logIn-container .form label .input:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
+}
+
+.logIn-container .form label .input:focus + span,
+.logIn-container .form label .input:valid + span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.logIn-container .form label .input:valid + span {
+  color: green;
+}
+
+.logIn-container .submit {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: royalblue;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: 0.3s ease;
+}
+
+.logIn-container .submit:hover {
+  background-color: rgb(56, 90, 194);
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
