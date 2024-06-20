@@ -25,8 +25,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
     navigate(path);
   };
 
-  // adds border line below the page title
-  // except HomePage
+  //
+  // adds border line below the page title except HomePage
   const borderLine = () => {
     return (
       <>
@@ -35,14 +35,37 @@ export const Header: React.FC<HeaderProps> = (props) => {
     );
   };
 
-  // adds new-chat button only
-  // for HomePage
+  const logout = () => {
+    window.ipcRenderer.send("request-to-backend", {request_type: "logout"});
+    changePage("/")
+    window.ipcRenderer.send("reload-app");
+  };
+
+  //
+  // adds new-chat button only for HomePage
   const newChatBtn = () => {
     return (
       <>
         <button className="newChatButton" onClick={props.clearChat}>
           <img src={addLogo} className="non-changeable-icon" />
           <span>New Chat</span>
+        </button>
+      </>
+    );
+  };
+
+  //
+  // adds new-chat button only for HomePage
+  const logoutBtn = () => {
+    return (
+      <>
+        <button className="logout-btn" onClick={() => logout()}>
+          <div className="logout-img">
+            <svg viewBox="0 0 512 512">
+              <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+            </svg>
+          </div>
+          <div className="logout-text">Logout</div>
         </button>
       </>
     );
@@ -83,7 +106,11 @@ export const Header: React.FC<HeaderProps> = (props) => {
   // Creating an event handler to close the dropdown menu by click elsewhere outside the menu
   useEffect(() => {
     const handleOutsideClicks = (e: MouseEvent) => {
-      if (isDropdownActive && dropdownMenuRef.current && !dropdownMenuRef.current.contains(e.target as Node)) {
+      if (
+        isDropdownActive &&
+        dropdownMenuRef.current &&
+        !dropdownMenuRef.current.contains(e.target as Node)
+      ) {
         setIsDropdownActive(false);
       }
     };
@@ -158,8 +185,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
               </div>
               {/* Special section at last for theme change */}
               <div
-                className={`dropdown-last-menu dropdown-menu ${isDropdownActive ? "active" : ""
-                  }`}
+                className={`dropdown-last-menu dropdown-menu ${
+                  isDropdownActive ? "active" : ""
+                }`}
                 style={{ marginTop: "130px" }}
               >
                 <ul>
@@ -169,7 +197,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                       padding: "5px 10px",
                     }}
                   >
-                    {/* toggle btn coppied from sidebar */}
+                    {/* toggle btn copied from sidebar */}
                     <div>
                       <input
                         type="checkbox"
@@ -190,6 +218,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
         </div>
         <div className="right-side">
           {location.pathname == "/" ? newChatBtn() : null}
+          {location.pathname == "/profile" ? logoutBtn() : null}
         </div>
       </div>
     </>

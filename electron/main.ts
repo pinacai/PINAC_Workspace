@@ -150,3 +150,12 @@ ipcMain.on("request-to-backend", (_, request) => {
     startPythonServer();
   }
 });
+
+// Reload the app
+ipcMain.on("reload-app", () => {
+  // Terminate the Python process
+  if (pythonProcess) {
+    pythonProcess.kill();
+  }
+  win?.reload();
+});

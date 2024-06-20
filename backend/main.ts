@@ -74,11 +74,29 @@ ipcMain.on("request-to-backend", (event, request) => {
   //
   else if (request["request_type"] == "give-user-info") {
     fs.readFile("backend/user data/user_info.json", "utf8", (_, data) => {
-      const userData = JSON.parse(data);
-      (userData.OPENAI_API_KEY = "***********"),
-        (userData.GOOGLE_API_KEY = "***********"),
+      try {
+        const userData = JSON.parse(data);
+        userData.OPENAI_API_KEY = "***********";
+        userData.GOOGLE_API_KEY = "***********";
         event.reply("backend-response", userData);
+      } catch {
+        const userData = {
+          first_name: null,
+          last_name: null,
+          email_id: null,
+          bio: null,
+          OPENAI_API_KEY: null,
+          GOOGLE_API_KEY: null,
+        };
+        event.reply("backend-response", userData);
+      }
     });
+  }
+  //
+  //
+  else if (request["request_type"] == "logout") {
+    fs.unlink("backend/user data/.env", () => {});
+    fs.unlink("backend/user data/user_info.json", () => {});
   }
   //
   //
