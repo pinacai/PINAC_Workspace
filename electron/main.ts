@@ -144,7 +144,7 @@ if (fs.existsSync("backend/user data/.env")) {
 //     frontend request to start server       //
 // ------------------------------------------ //
 
-ipcMain.on("client-request-to-backend", (_, request) => {
+ipcMain.on("request-to-backend", (_, request) => {
   //
   if (request["request_type"] == "start-server") {
     startPythonServer();

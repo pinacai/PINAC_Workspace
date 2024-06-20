@@ -14,20 +14,20 @@ export const LogInPage: React.FC<LogInPagePrompt> = ({ changeLogInStatus }) => {
 
   //
   const submit = () => {
-    window.ipcRenderer.send("client-request-to-backend", {
+    window.ipcRenderer.send("request-to-backend", {
       request_type: "save-user-info",
       first_name: firstName,
       last_name: lastName,
       email_id: emailId,
     });
 
-    window.ipcRenderer.send("client-request-to-backend", {
+    window.ipcRenderer.send("request-to-backend", {
       request_type: "save-api-keys",
       OPENAI_API_KEY: openaiKey,
       GOOGLE_API_KEY: geminiKey,
     });
 
-    window.ipcRenderer.send("client-request-to-backend", {
+    window.ipcRenderer.send("request-to-backend", {
       request_type: "start-server",
     });
     changeLogInStatus();

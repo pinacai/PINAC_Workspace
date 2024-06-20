@@ -45,7 +45,7 @@ export const AboutPage: React.FC = () => {
               <button
                 id="aboutBtn"
                 onClick={() =>
-                  window.ipcRenderer.send("client-request-to-backend", {
+                  window.ipcRenderer.send("request-to-backend", {
                     request_type: "open-url-in-browser",
                     url: "https://github.com/pinacai/PINAC_Workspace",
                   })

@@ -48,7 +48,7 @@ const App = () => {
       handleServerResponse(_, response);
 
     window.ipcRenderer.once("server-response", serverResponseListener);
-    window.ipcRenderer.send("client-request-to-backend", {
+    window.ipcRenderer.send("request-to-backend", {
       request_type: "check-user-login",
     });
 

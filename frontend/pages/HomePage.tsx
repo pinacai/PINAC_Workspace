@@ -61,7 +61,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   //
   const startNewChat = () => {
     clearChatHistory();
-    window.ipcRenderer.send("client-request-to-backend", {
+    window.ipcRenderer.send("request-to-backend", {
       request_type: "clear-chat",
     });
     setWelcomeBox(
@@ -92,7 +92,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         />
       );
       const preferredModel = localStorage.getItem("preferred-model");
-      window.ipcRenderer.send("client-request-to-server", {
+      window.ipcRenderer.send("request-to-server", {
         request_type: "user-input",
         preferred_model: preferredModel,
         user_query: text,

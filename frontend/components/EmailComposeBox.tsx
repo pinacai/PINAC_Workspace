@@ -22,7 +22,7 @@ export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
   // and server sends that email to recipient
   const handleSendEmail = () => {
     setButtonsDisabled(true);
-    window.ipcRenderer.send("client-request-to-server", {
+    window.ipcRenderer.send("request-to-server", {
       request_type: "send-email",
       recipient_email: to,
       email_subject: subject,
@@ -35,7 +35,7 @@ export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
   const handleCreateDraft = () => {
     setButtonsDisabled(true);
     if (to != "") {
-      window.ipcRenderer.send("client-request-to-server", {
+      window.ipcRenderer.send("request-to-server", {
         request_type: "create-draft",
         have_recipient_email: true,
         recipient_email: to,
@@ -43,7 +43,7 @@ export const EmailComposeBox: React.FC<EmailComposeBoxProps> = (props) => {
         email_body: body,
       });
     } else {
-      window.ipcRenderer.send("client-request-to-server", {
+      window.ipcRenderer.send("request-to-server", {
         request_type: "create-draft",
         have_recipient_email: false,
         email_subject: subject,

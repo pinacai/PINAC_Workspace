@@ -1,12 +1,3 @@
-## Big Update 🔔
-
-We have implemented the Log In Page in our App, now you don't need to use PINAC-Nexus separately, and it's super easy to start. Follow the new installation process to setup python server in App backend. This is the initial implementation of Log In Page, so, currently you need both OPENAI & GEMINI API Key to start server, in upcoming updates we will make this flexible. Also, manually full screen the Log In window, in upcoming updates we will fix this also.
-
-And once you Log In, you don't need to see the Log In Page again. The purpose of the Log In page is to save API Keys using the App interface, without keeping it manually in the Project file.
-
-> **Remember**: Always activate the python virtual env with the command `source env/bin/activate` before starting the app with command `npm run dev`. Otherwise server will not start.
-
-
 <div align="center">
 
 <h1 style="border-bottom: none">
@@ -38,16 +29,9 @@ One Next-Gen AI Chat for all your needs.
 
 Leveraging multiple AI tools for your workflow sounds smart. However, does the constant context switching between them slow you down?
 
-Experience the **Next Gen AI Chat** —your all-in-one chat for text generation, document summarisation, web searching, code generation, and a wide range of office tools.
+Experience the **Next Gen AI Chat** —your all-in-one chat for text generation, document summarization, web searching, code generation, and a wide range of office tools.
 
-> We are dedicated to the development of the app, introducing new features and optimising the user interface. Always keeping the user as the priority.
 > View our Roadmap & Progress: https://github.com/orgs/pinacai/projects/1  
-
-
-## System Design
-
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/system%20design.svg" alt="system architecture diagram">
-
 
 ## 🎨 Themes
 
@@ -63,8 +47,8 @@ The best file structure ever!
     .
     ├── backend /              # medium between frontend & server
     |    ├── main.ts
-    |    ├── server /              # Python server
-    |    └── user data /           # for storing user data
+    |    ├── server /          # Python server
+    |    └── user data /       # for storing user data
     |
     ├── electron /
     |    ├── main.ts
@@ -113,6 +97,8 @@ The best file structure ever!
     npm run dev
     ```
 
+> **Remember**: Always activate the python virtual env with the command `source env/bin/activate` before starting the app with command `npm run dev`. Otherwise server will not start.
+
 ## 🎉 Contributing
 
 1. Star the repository
@@ -129,6 +115,10 @@ PINAC Workspace is licensed under the **GPL-3.0 license**. See the <a href="http
 ## 🌐 Support
 
 If you have any support questions or to report issues, please file an issue through the GitHub issue tracker associated with the repository.
+
+## Contributors
+
+Our project had come a long way from starting, thanks to our contributors for shaping our project beautifully.
 
 ## Author
 

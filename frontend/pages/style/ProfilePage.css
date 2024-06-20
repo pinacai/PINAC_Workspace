@@ -113,7 +113,7 @@
 }
 
 .user-details .form label .input:valid + span {
-  color: green;
+  color: var(--profile-input-valid-color);
 }
 
 .user-details .submit {

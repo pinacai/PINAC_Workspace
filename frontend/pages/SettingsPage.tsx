@@ -8,7 +8,7 @@ import "./style/SettingsPage.css";
 // Icons
 import Cyber_Tech_o1_darkPreview from "../assets/img/Cyber_Tech_01_darkPreview.png";
 import Dawn_n_Dusk_darkPreview from "../assets/img/Dawn_n_Dusk_darkPreview.png";
-import Aesthetics_Unbound_darkPreview from "../assets/img/Dawn_n_Dusk_darkPreview.png";
+import Aesthetics_Unbound_darkPreview from "../assets/img/Aesthetic_Unbound_darkPreview.png";
 
 export const SettingsPage: React.FC = () => {
   const [Dawn_n_Dusk, setDawn_n_Dusk] = useState<boolean>(false);

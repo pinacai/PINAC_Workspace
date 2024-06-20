@@ -24,8 +24,5 @@
 .menu-item.active {
   pointer-events: none;
   background: var(--menubar-active-item-bg);
-}
-
-.menu-item:hover {
-  background-color: var(--menubar-item-hover-bg);
+  color: var(--menubar-active-text-color);
 }

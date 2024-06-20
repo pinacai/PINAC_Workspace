@@ -36,7 +36,7 @@ export const ProfilePage: React.FC = () => {
   //
   // onClick functions
   const saveUserInfo = () => {
-    window.ipcRenderer.send("client-request-to-backend", {
+    window.ipcRenderer.send("request-to-backend", {
       request_type: "save-user-info",
       first_name: firstName,
       last_name: lastName,
@@ -46,7 +46,7 @@ export const ProfilePage: React.FC = () => {
   };
 
   const saveApiKeys = () => {
-    window.ipcRenderer.send("client-request-to-backend", {
+    window.ipcRenderer.send("request-to-backend", {
       request_type: "save-api-keys",
       OPENAI_API_KEY: openaiKey,
       GOOGLE_API_KEY: geminiKey,
@@ -56,7 +56,7 @@ export const ProfilePage: React.FC = () => {
   //
   // Load user data on switching to this page
   useEffect(() => {
-    window.ipcRenderer.send("client-request-to-backend", {
+    window.ipcRenderer.send("request-to-backend", {
       request_type: "give-user-info",
     });
     window.ipcRenderer.once("backend-response", (_, response) => {

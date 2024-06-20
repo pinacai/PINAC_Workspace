@@ -12,7 +12,7 @@ const socket = io("http://localhost:5000");
 //         frontend to backend functionalities         //
 // =================================================== //
 
-ipcMain.on("client-request-to-backend", (event, request) => {
+ipcMain.on("request-to-backend", (event, request) => {
   //
   if (request["request_type"] == "check-user-login") {
     fs.access("backend/user data/.env", fs.constants.F_OK, (err) => {
@@ -91,7 +91,7 @@ ipcMain.on("client-request-to-backend", (event, request) => {
 //       Frontend to Server         //
 // -------------------------------- //
 
-ipcMain.on("client-request-to-server", (event, request) => {
+ipcMain.on("request-to-server", (event, request) => {
   socket.emit("message", request);
   socket.on("message-reply", (response: object) => {
     event.reply("server-response", response);
