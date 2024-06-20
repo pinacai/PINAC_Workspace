@@ -1,3 +1,7 @@
+> **Hello everyone**,
+> 
+> We are currently checking whether the app is functioning smoothly. If anyone encounters an error in the backend or from the server, please report the bug in the Issue.
+
 <div align="center">
 
 <h1 style="border-bottom: none">
@@ -96,6 +100,7 @@ The best file structure ever!
     ```bash
     npm run dev
     ```
+> **NOTICE**: Currently you have to give both OPENAI & GEMINI API otherwise server will through error, if you have one key, put other one randomly anything, but don't select that Model to use.
 
 > **Remember**: Always activate the python virtual env with the command `source env/bin/activate` before starting the app with command `npm run dev`. Otherwise server will not start.
 

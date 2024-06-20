@@ -96,6 +96,7 @@ def giveAiResponseArray(AiModel, query):
 
 
 def processClientRequest(request: dict):
+    response = None
     if request["request_type"] == "user-input":
         if request["preferred_model"] == "ChatGPT-3.5 turbo":
             response = giveAiResponseArray(chatgpt_3_5, request["user_query"])
