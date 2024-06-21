@@ -16,6 +16,9 @@ export const Sidebar: React.FC = () => {
   const [isActive, setIsActive] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+  const [imageUrl,setImageUrl] = useState<string | null>(null);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   //
   useEffect(() => {
@@ -77,6 +80,17 @@ export const Sidebar: React.FC = () => {
     }
   }, [isDarkTheme]);
 
+  useEffect(() => {
+    window.ipcRenderer.send("request-to-backend", {
+      request_type: "give-user-info",
+    });
+    window.ipcRenderer.once("backend-response", (_, response) => {
+      setImageUrl(response.image)
+      setFirstName(response.first_name);
+      setLastName(response.last_name);
+    });
+  }, []);
+
   return (
     <>
       {/* Render the sidebar */}
@@ -85,9 +99,9 @@ export const Sidebar: React.FC = () => {
           <div className="upper-part">
             <div className="top">
               <div className="profile" onClick={() => changePage("/profile")}>
-                <img id="user-image" src={userIcon} alt="User Image" />
+                {imageUrl ? <img id="user-image" src={imageUrl} alt="User Image" /> : <img id="user-image" src={userIcon} alt="User Image"/>}
                 <span id="user-name" className="sidebar-text">
-                  User Name
+                  {firstName} {lastName}
                 </span>
               </div>
               <img

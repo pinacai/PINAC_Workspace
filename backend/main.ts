@@ -34,6 +34,7 @@ ipcMain.on("request-to-backend", (event, request) => {
         last_name: request["last_name"],
         email_id: request["email_id"],
         bio: request["bio"],
+        image:request['image']
       };
       const userInfoJson = JSON.stringify(userInfo);
       fs.writeFileSync("backend/user data/user_info.json", userInfoJson);
@@ -102,6 +103,29 @@ ipcMain.on("request-to-backend", (event, request) => {
   //
   else if (request["request_type"] == "open-url-in-browser") {
     shell.openExternal(request["url"]);
+  }
+  //
+  //
+  else if (request["request_type"] == "upload-file") {
+    const base64Data = request["file_data"];
+    const fileName = request["file_name"];
+    const filePath = `backend/user data/img/${fileName}`;
+
+    fs.writeFile(filePath, base64Data, "base64", (err) => {
+      if (err) {
+        event.reply("backend-response", {
+          error_occurred: true,
+          response: false,
+          error: err,
+        });
+      } else {
+        event.reply("backend-response", {
+          error_occurred: false,
+          response: true,
+          error: null,
+        });
+      }
+    });
   }
 });
 

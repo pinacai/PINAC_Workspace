@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { Menubar } from "../components/Menubar";
@@ -16,6 +16,8 @@ export const ProfilePage: React.FC = () => {
   const [bio, setBio] = useState<string>("");
   const [openaiKey, setOpenaiKey] = useState<string>("");
   const [geminiKey, setGeminiKey] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   //
   const activeOpt1 = () => {
@@ -28,6 +30,28 @@ export const ProfilePage: React.FC = () => {
     setIsOpt1(false);
   };
 
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event:any) => {
+    const file = event.target.files[0]
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = (reader.result as string).replace(/^data:.+;base64,/, '');
+        window.ipcRenderer.send('request-to-backend', {
+          request_type: 'upload-file',
+          file_data: base64String,
+          file_name: file.name,
+        });
+        setImageUrl(reader.result as string); 
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
   const menuItems = [
     { label: "General", onClick: () => activeOpt1() },
     { label: "API Keys", onClick: () => activeOpt2() },
@@ -35,13 +59,14 @@ export const ProfilePage: React.FC = () => {
 
   //
   // onClick functions
-  const saveUserInfo = () => {
+  const saveUserInfo = () => {    
     window.ipcRenderer.send("request-to-backend", {
       request_type: "save-user-info",
       first_name: firstName,
       last_name: lastName,
       email_id: emailId,
       bio: bio,
+      image:imageUrl
     });
   };
 
@@ -66,6 +91,7 @@ export const ProfilePage: React.FC = () => {
       setBio(response.bio);
       setOpenaiKey(response.OPENAI_API_KEY);
       setGeminiKey(response.GOOGLE_API_KEY);
+      setImageUrl(response.image)
     });
   }, []);
 
@@ -98,8 +124,16 @@ export const ProfilePage: React.FC = () => {
           <div className="profile-card">
             {isOpt1 ? (
               <>
-                <div className="profile-img">
-                  <img src={profileImage} alt="Profile image" />
+                <div>
+                  <div className="profile-img" onClick={handleImageClick} style={{ cursor: 'pointer' }}>
+                  {imageUrl ? <img src={imageUrl} alt="Profile" /> : <img src={profileImage} alt="Profile" />}                  </div>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    required
+                    style={{ display: 'none' }}
+                    onChange={(e)=>handleFileChange(e)}
+                  />
                 </div>
                 <div className="user-details">
                   <form className="form">
