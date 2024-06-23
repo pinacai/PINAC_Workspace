@@ -26,18 +26,6 @@ const App = () => {
   }
 
   //
-  // Setting the conversation bubbles
-  const [chatHistory, setChatHistory] = useState<JSX.Element[]>([]);
-
-  const addMessageToChatHistory = (newMessage: JSX.Element) => {
-    setChatHistory((prevChatHistory) => [...prevChatHistory, newMessage]);
-  };
-
-  const clearChatHistory = () => {
-    setChatHistory([]);
-  };
-
-  //
   // Check if Logged In otherwise redirect to login
   useEffect(() => {
     const handleServerResponse = (_, response) => {
@@ -69,11 +57,7 @@ const App = () => {
           path="/"
           element={
             isLoggedIn ? (
-              <HomePage
-                chatHistory={chatHistory}
-                addMessageToChatHistory={addMessageToChatHistory}
-                clearChatHistory={clearChatHistory}
-              />
+              <HomePage />
             ) : (
               <LogInPage changeLogInStatus={changeLogInStatus} />
             )

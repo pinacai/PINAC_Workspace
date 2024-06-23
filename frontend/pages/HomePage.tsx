@@ -9,30 +9,17 @@ import "./style/HomePage.css";
 // Icons
 import sendIcon from "../assets/icon/send.svg";
 
-interface HomePageProps {
-  chatHistory: JSX.Element[];
-  addMessageToChatHistory: (newMessage: JSX.Element) => void;
-  clearChatHistory: () => void;
-}
-
-export const HomePage: React.FC<HomePageProps> = ({
-  chatHistory,
-  addMessageToChatHistory,
-  clearChatHistory,
-}) => {
+export const HomePage: React.FC = () => {
   const [welcomeBox, setWelcomeBox] = useState<JSX.Element>(
-    chatHistory.length === 0 ? (
-      <div className="welcome-text-row">
-        <div className="welcome-text">
-          Hello,
-          <br />
-          How can I help you today ?
-        </div>
+    <div className="welcome-text-row">
+      <div className="welcome-text">
+        Hello,
+        <br />
+        How can I help you today ?
       </div>
-    ) : (
-      <></>
-    )
+    </div>
   );
+  const [chatHistory, setChatHistory] = useState<JSX.Element[]>([]);
   const [userInput, setUserInput] = useState<string>(""); // Declare state for input value
   const [isUserInputActive, setUserInputActive] = useState<boolean>(false); // Declare state for input value
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
@@ -60,7 +47,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   //
   const startNewChat = () => {
-    clearChatHistory();
+    setChatHistory([]);
     window.ipcRenderer.send("request-to-backend", {
       request_type: "clear-chat",
     });
@@ -86,25 +73,24 @@ export const HomePage: React.FC<HomePageProps> = ({
         setWelcomeBox(<></>);
       }
 
-      addMessageToChatHistory(
-        <ShowHumanMessage
-          response={text}
-        />
-      );
+      setChatHistory((prevChatHistory) => [
+        ...prevChatHistory,
+        <ShowHumanMessage response={text} />,
+      ]);
       const preferredModel = localStorage.getItem("preferred-model");
       window.ipcRenderer.send("request-to-server", {
         request_type: "user-input",
         preferred_model: preferredModel,
         user_query: text,
       });
-      addMessageToChatHistory(
-        <ShowAiMessage setButtonsDisabled={setButtonsDisabled} />
-      );
+      setChatHistory((prevChatHistory) => [
+        ...prevChatHistory,
+        <ShowAiMessage setButtonsDisabled={setButtonsDisabled} />,
+      ]);
       setUserInput("");
       if (textareaRef.current) {
         textareaRef.current.style.height = "50px"; // Reset textarea height
       }
-      // setButtonsDisabled(false);
     }
   };
 
