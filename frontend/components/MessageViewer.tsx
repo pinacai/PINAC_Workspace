@@ -20,26 +20,35 @@ export const ShowAiMessage: React.FC<ShowAiMessageProps> = ({
   const [message, setMessage] = useState(<AiLoader />);
 
   window.ipcRenderer.once("server-response", (_, response) => {
-    if (response["response"]["type"] === "email") {
-      const text = "Here is your email, check it out:";
-      const subject = response["response"]["email_subject"];
-      const body = response["response"]["email_body"];
+    if (response["error_occurred"]) {
       setMessage(
-        // <EmailMessage response={text} subject={subject} body={body} />
         <AiMessage
-          response={`${text}\n${subject}\n\n${body}`}
+          response={`**${response["error"]}**\nTry again :(`}
           setButtonsDisabled={setButtonsDisabled}
         />
       );
-      // } else if (response["response"]["type"] === "schedule") {
-      //   setMessage(<ScheduleMessage schedule={response[1]} />);
     } else {
-      setMessage(
-        <AiMessage
-          response={response["response"]["content"]}
-          setButtonsDisabled={setButtonsDisabled}
-        />
-      );
+      if (response["response"]["type"] === "email") {
+        const text = "Here is your email, check it out:";
+        const subject = response["response"]["email_subject"];
+        const body = response["response"]["email_body"];
+        setMessage(
+          // <EmailMessage response={text} subject={subject} body={body} />
+          <AiMessage
+            response={`${text}\n${subject}\n\n${body}`}
+            setButtonsDisabled={setButtonsDisabled}
+          />
+        );
+        // } else if (response["response"]["type"] === "schedule") {
+        //   setMessage(<ScheduleMessage schedule={response[1]} />);
+      } else {
+        setMessage(
+          <AiMessage
+            response={response["response"]["content"]}
+            setButtonsDisabled={setButtonsDisabled}
+          />
+        );
+      }
     }
   });
   return <>{message}</>;
@@ -169,7 +178,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   );
 };
 
-// Creating a AiLoader component similar to AiMessage. message state is initialised with this loader and replaced as soon as we have the data.
+// Creating a AiLoader component similar to AiMessage. message state is initialized with this loader and replaced as soon as we have the data.
 export const AiLoader: React.FC = () => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
