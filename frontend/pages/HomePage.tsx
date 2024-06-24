@@ -5,17 +5,16 @@ import { ShowHumanMessage, ShowAiMessage } from "../components/MessageViewer";
 import { StopContext } from "../components/context_file";
 import { FaRegStopCircle } from "react-icons/fa";
 import "./style/HomePage.css";
-
 // Icons
 import sendIcon from "../assets/icon/send.svg";
+import GreetingComponent from "../components/TimeZoneGreeting";
 
 export const HomePage: React.FC = () => {
   const [welcomeBox, setWelcomeBox] = useState<JSX.Element>(
     <div className="welcome-text-row">
       <div className="welcome-text">
-        Hello,
+        <GreetingComponent />
         <br />
-        How can I help you today ?
       </div>
     </div>
   );
@@ -25,7 +24,6 @@ export const HomePage: React.FC = () => {
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [stop, setStop] = useState<boolean>(false);
-
   // Handles changes in user input
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserInput(event.target.value);
@@ -54,9 +52,7 @@ export const HomePage: React.FC = () => {
     setWelcomeBox(
       <div className="welcome-text-row">
         <div className="welcome-text">
-          Hello,
-          <br />
-          How can I help you today ?
+          <GreetingComponent />
         </div>
       </div>
     );
