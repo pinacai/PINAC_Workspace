@@ -33,12 +33,16 @@ Experience the **Next Gen AI Chat** —your all-in-one chat for text generation,
 
 > View our Roadmap & Progress: https://github.com/orgs/pinacai/projects/1  
 
+> In this we develop the frontend part of the desktop app. We develop the python server separately in our repo  <a href="https://github.com/pinacai/PINAC-Nexus">PINAC Nexus</a>. We update the server in this repo with every new version of the server.
+
 ## 🎨 Themes
 
-Responsive design like never before, from the narrowest screen to the full screen or half-screen, it adopted smoothly...
+You have a new color theme idea ? We got you !
 <br />
 
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/app_theme.png" alt="app screenshot">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_&_Dusk.jpg" alt="Dawn & Dusk Screenshot">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Cyber_Tech_01.jpg" alt="Cyber_Tech_01 Screenshot">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Aesthetic_Unbound.jpg" alt="Aesthetic_Unbound Screenshot">
 
 
 ## 📂 File Structure
