@@ -28,27 +28,12 @@ export const ShowAiMessage: React.FC<ShowAiMessageProps> = ({
         />
       );
     } else {
-      if (response["response"]["type"] === "email") {
-        const text = "Here is your email, check it out:";
-        const subject = response["response"]["email_subject"];
-        const body = response["response"]["email_body"];
-        setMessage(
-          // <EmailMessage response={text} subject={subject} body={body} />
-          <AiMessage
-            response={`${text}\n${subject}\n\n${body}`}
-            setButtonsDisabled={setButtonsDisabled}
-          />
-        );
-        // } else if (response["response"]["type"] === "schedule") {
-        //   setMessage(<ScheduleMessage schedule={response[1]} />);
-      } else {
         setMessage(
           <AiMessage
             response={response["response"]["content"]}
             setButtonsDisabled={setButtonsDisabled}
           />
         );
-      }
     }
   });
   return <>{message}</>;

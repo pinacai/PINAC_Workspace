@@ -1,200 +1,255 @@
 type,content
-SystemMessage,Your only task is to classify the user query only within specific mentioned categories. When user will ask you a query; classify the query only within the list of categories of orders: [friendly conversation] [compose formal email] [compose informal email] [show calendar] [summarise schedule] [summarise schedule -today] [summarise schedule -tomorrow] [show contact] [write code] [explain code] [improve writing] [improve academic writing] [write essay] [write micro essay] [summarize] [summarize in micro] [summarize document] [extract questions] [others]
+SystemMessage,Your only task is to classify the user query only within specific mentioned categories. When user will ask you a query; classify the query only within the list of categories of orders: [general conversation] [compose complaint email] [compose formal request email] [compose inquiry email] [compose formal proposal or suggestion email] [compose acknowledgment email] [compose other formal email] [compose informal email] [show calendar] [summarise schedule] [summarise schedule -today] [summarise schedule -tomorrow] [show contact] [write code] [explain code] [improve writing] [improve academic writing] [write essay] [write micro essay] [summarize] [summarize in micro] [summarize document] [extract questions] [others]
 SystemMessage,Below are the examples of how you have to ans to user's query
 ,
 ,
 ,
 HumanMessage,Hey Pinac! How's it going?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Hey! 🌟 How's life treating you?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,You know the usual hustle and bustle. Work deadlines and a dash of chaos
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Well I've been trying my hand at watercolor painting. Turns out I'm better at creating abstract blobs than actual landscapes. 🎨
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Hey Pinak! 🌼 Life's a rollercoaster but I'm hanging in there. How about you?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Can't wait! Catch you later
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,That sounds awesome. We should catch up over coffee and talk more about it.
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Perfect! Let's meet at our favorite café. I'll text you the time.
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Pinac! I'm doing well thanks. Just been busy with work. How about you?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Hi PINAC good morning!
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Sounds good. Thanks for the advice!
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Hey how’s it going?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,By the way do you have any favorite books?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Haha exactly! So when's our next coffee catch-up?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Hey there trusty AI sidekick! How's the digital world treating you today?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,You know me always chasing those curly braces! 😄 I've been diving into machine learning—wrangling data training models and pretending I'm Tony Stark with my Jupyter notebook.
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Oh absolutely! GPT-4 is my go-to for trivia nights. But let's talk React and Electron. How's your app shaping up?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Character-building indeed! 🛠️ And remember every bug you squash is a victory dance waiting to happen. 💃 By the way your CSS skills are legendary. Got any tips for me?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Noted! 📝 I'll sprinkle some flexbox fairy dust and jazz up my designs. By the way did you see that AI-powered cat meme generator on GitHub? Our organization is all over it!
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,I'm all ears! 🐱 Share the link—I need more cat memes in my life. And speaking of AI have you ever pondered the meaning of life in binary code?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Deal! And don't forget to bring your abstract blobs—we'll critique them over lattes
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Can't wait! Catch you later Picasso!
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,quantum computing? 🚀 You mean the realm where qubits dance the jitterbug? I'm still wrapping my head around it. But chai? 
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Hey there code wizard! How's the matrix treating you today?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Good morning! How’s your day going so far?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Morning Sunshine! How’s your day starting off? ☀️
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Evening vibes! How’s everything going? 🌙
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Happy Friday! Any fun weekend plans? 🎉
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Sunday Funday! What’s on your agenda today?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Good afternoon!
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Good afternoon! Any exciting plans for the rest of the day?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,How’s life in your corner of the time-space continuum?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,The office cafeteria buzzes with chatter. You debate between the salad and the cheesy pizza. Decisions decisions!
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,The aroma of freshly brewed coffee fills the kitchen. You sip it slowly savoring the warmth and the promise of a new day
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Rush hour on the subway—people crammed together lost in their own worlds. You glance at the book someone’s reading wondering if it’s any good
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Do you have any music test ?
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,What’s your favorite genre? Mine is a mix of indie folk and jazz.
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Do you dance like nobody’s watching? I do—especially when the kitchen radio plays a groovy tune
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,Imagine a dance-off between AI assistants. Siri’s doing the robot Alexa’s breakdancing and I’m attempting interpretive dance
-AIMessage,friendly conversation
+AIMessage,general conversation
 HumanMessage,My secret talent: translating code snippets into musical notes. “if (love) play(‘C#’)”—beautiful right? 
-AIMessage,friendly conversation
+AIMessage,general conversation
 ,
 ,
 ,
 HumanMessage,I am a long-time user of Office Suite Pro and I need to write an email to the Customer Support Team about a recent issue where the license key provided for my latest purchase is showing as invalid
-AIMessage,compose formal email
+AIMessage,compose complaint email
 HumanMessage,As a dedicated user of CloudStorage Plus I want to write a email to express my concern regarding a data synchronization failure that has resulted in the loss of crucial files from my account
-AIMessage,compose formal email
-HumanMessage,Help me to write Warranty Service Request email for SmartVacuum 3000 “I am a user of the SmartVacuum 3000 and I am writing to request a warranty service due to a persistent motor malfunction that started occurring just two weeks after purchase
-AIMessage,compose formal email
-HumanMessage,"As a regular customer of MealKit Delivery Service I want to provide feedback on my recent experiences including suggestions for improving the recipe variety and packaging quality via email."
-AIMessage,compose formal email
-HumanMessage,"Pinac compose email on Overcharged Subscription Fee for Premium MusicStream App “I am a Premium subscriber of MusicStream App and I am writing to dispute an overcharge on my subscription fee for the past two months which does not align with the pricing plan I selected.”"
-AIMessage,compose formal email
+AIMessage,compose complaint email
 HumanMessage,"Email for accessibility concerns with NewUpdate 2.5 in TaskManager Pro particularly for users with visual impairments"
-AIMessage,compose formal email
+AIMessage,compose complaint email
+HumanMessage,"Pinac compose email on Overcharged Subscription Fee for Premium MusicStream App “I am a Premium subscriber of MusicStream App and I am writing to dispute an overcharge on my subscription fee for the past two months which does not align with the pricing plan I selected.”"
+AIMessage,compose complaint email
 HumanMessage,"I am a user of [Service] and I want to write an email to [Company] about a recent issue concerning the security of my account."
-AIMessage,compose formal email
+AIMessage,compose complaint email
 HumanMessage,"I am a user of [Service] and I want to write an email to [Company] about consistent poor connectivity issues that are affecting my usage."
-AIMessage,compose formal email
+AIMessage,compose complaint email
 HumanMessage,Technical Glitch in [Software Name] and I want to write an email to [Company] about a persistent technical glitch that is hindering my workflow
-AIMessage,compose formal email
-HumanMessage,I am the Project Manager for [Project Name] and I need to write an email to the Senior Management requesting an extension on the project deadline due to unforeseen technical challenges.
-AIMessage,compose formal email
-HumanMessage,I am a member of the [Department Name] and I am drafting an email to my Department Head to propose a remote work option for the team highlighting the potential productivity benefits.
-AIMessage,compose formal email
-HumanMessage,As an employee of [Company Name] I want to write an email to the HR Department inquiring about the recent updates to the annual leave policy and how it affects my current leave balance
-AIMessage,compose formal email
-HumanMessage,Feedback on New Office Space Layout: I am writing to provide feedback to the Office Management Team about the new office space layout specifically addressing the ergonomic setup and collaboration areas.
-AIMessage,compose formal email
-HumanMessage,I am the Team Leader for [Team Name] and I want to write an email to introduce a new team member [New Member’s Name] to the rest of the company and outline their role
-AIMessage,compose formal email
-HumanMessage,As the IT Security Officer I need to write an email to all staff about a recent IT security incident detailing the event and advising on precautionary measures to prevent future occurrences
-AIMessage,compose formal email
-HumanMessage,request email for Equipment Upgrade ‘I am reaching out to the IT Department to request an upgrade for my current workstation equipment to support the high-performance demands of my ongoing projects.’
-AIMessage,compose formal email
-HumanMessage,hey I need to write a email for proposing a suggestion to the HR Department to consider implementing a Health and Wellness Program that includes activities like yoga and meditation for employee well-being. Can you help me with this ?”"
-AIMessage,compose formal email
-HumanMessage,Me updating my contact information and you help me to write an email to the Administration Department to ensure that my new phone number and emergency contact details are recorded in the company’s database
-AIMessage,compose formal email
-HumanMessage,“I need to writr email to my whole team to inform them about the recent updates to our company policies. Also telling them to review the attached document for details”
-AIMessage,compose formal email
-HumanMessage,Write formalemail\nSubject: Invitation to Quarterly Town Hall Meeting\n’Hello Team You are cordially invited to our upcoming Quarterly Town Hall Meeting on [Date] at [Time]. We will discuss company performance goals and upcoming initiatives’
-AIMessage,compose formal email
-HumanMessage,Subject: Request for Budget Approval ‘Respected Finance Committee I am seeking approval for the proposed budget allocation for [Project Name]. Kindly review the attached budget proposal’.
-AIMessage,compose formal email
-HumanMessage,Write email to the sales team to acknowledge them that we have successfully secured a new client contract with [Client Name]. Please find the contract details attached.
-AIMessage,compose formal email
-HumanMessage,Subject: Employee Recognition: Outstanding Performance Award ‘Dear [Employee Name] Congratulations on your outstanding performance this quarter! You have been selected for the Outstanding Performance Award’
-AIMessage,compose formal email
-HumanMessage,Subject: Reminder: Compliance Training Deadline ‘Hello Team Just a friendly reminder that the deadline for completing the mandatory compliance training is approaching. Please ensure timely completion’.
-AIMessage,compose formal email
-HumanMessage,AI draft a formal email to the HR department requesting clarification on the new remote work policy
-AIMessage,compose formal email
-HumanMessage,Compose a professional email to our supplier inquiring about the bulk pricing for their latest product line.
-AIMessage,compose formal email
+AIMessage,compose complaint email
 HumanMessage,Generate an email to the customer service team of [Company Name] expressing dissatisfaction with a recent purchase and asking for a refund.
-AIMessage,compose formal email
-HumanMessage,Write an email to the event organizer asking for detailed information about the upcoming industry conference
-AIMessage,compose formal email
-HumanMessage,Create an email to the tech support team describing a persistent issue with our software and requesting urgent assistance.
-AIMessage,compose formal email
-HumanMessage,Formulate an email to the editor of [Publication Name] proposing an article on the impact of AI in modern education.
-AIMessage,compose formal email
-HumanMessage,help me to compose an email to the university admissions office asking for an extension on the application deadline due to unforeseen circumstances
-AIMessage,compose formal email
-HumanMessage,Author an email to a potential client introducing our company’s services and requesting a meeting to discuss a collaboration
-AIMessage,compose formal email
-HumanMessage,Construct an email to the finance department requesting a detailed report on the last quarter’s expenditures
-AIMessage,compose formal email
-HumanMessage,Develop an email to the marketing team outlining the strategy for the new product launch and requesting their feedback.
-AIMessage,compose formal email
-HumanMessage,AI compose an email to the professor requesting clarification on the upcoming assignment guidelines.
-AIMessage,compose formal email
-HumanMessage,Write a formal email to the school principal expressing interest in organizing a career guidance seminar for students
-AIMessage,compose formal email
-HumanMessage,Generate an email to the college admissions office inquiring about scholarship opportunities for international students.
-AIMessage,compose formal email
-HumanMessage,Craft an email to the student council president proposing a new initiative to improve campus sustainability.
-AIMessage,compose formal email
-HumanMessage,Author an email to the librarian requesting an extension on a borrowed book due to unforeseen circumstances.
-AIMessage,compose formal email
-HumanMessage,Create a professional email to the academic advisor seeking advice on course selection for the next semester
-AIMessage,compose formal email
+AIMessage,compose complaint email
 HumanMessage,Formulate an email to the college IT department reporting a technical issue with the online learning platform
-AIMessage,compose formal email
-HumanMessage,Develop an email to the school counselor seeking guidance on managing stress during exam season
-AIMessage,compose formal email
-HumanMessage,Construct an email to the college alumni association expressing interest in joining networking events.
-AIMessage,compose formal email
-HumanMessage,Write an email to the school PTA (Parent-Teacher Association) volunteering for the upcoming fundraising event
-AIMessage,compose formal email
+AIMessage,compose complaint email
 HumanMessage,AI compose an email to the city council expressing concerns about inadequate street lighting in a specific neighborhood.
-AIMessage,compose formal email
+AIMessage,compose complaint email
+HumanMessage,Create an email to the tech support team describing a persistent issue with our software and requesting urgent assistance.
+AIMessage,compose complaint email
 HumanMessage,AI compose an email to the city council expressing concerns about inadequate street lighting in a specific neighborhood.
-AIMessage,compose formal email
+AIMessage,compose complaint email
+HumanMessage,Write Complaint Email Regarding Frequent Service Disruptions with [Internet Service Provider (ISP) / Utility Company Name] at [Your Address]
+AIMessage,compose complaint email
 HumanMessage,Generate an email to the state department of transportation reporting a hazardous pothole on a major highway.
-AIMessage,compose formal email
-HumanMessage,Craft an email to the local police department seeking clarification on noise regulations during late hours
-AIMessage,compose formal email
-HumanMessage,Author an email to the mayor’s office proposing a community cleanup initiative to address litter and pollution.
-AIMessage,compose formal email
-HumanMessage,Create a professional email to the district attorney’s office providing details about a potential case of fraud.
-AIMessage,compose formal email
-HumanMessage,Formulate an email to the governor’s office advocating for increased funding for public schools
-AIMessage,compose formal email
-HumanMessage,Develop an email to the federal agency responsible for immigration services inquiring about visa application status.
-AIMessage,compose formal email
-HumanMessage,Construct an email to the environmental protection agency highlighting concerns about water quality in a nearby river
-AIMessage,compose formal email
+AIMessage,compose complaint email
+,
+,
+,
+HumanMessage,Help me to write Warranty Service Request email for SmartVacuum 3000 “I am a user of the SmartVacuum 3000 and I am writing to request a warranty service due to a persistent motor malfunction that started occurring just two weeks after purchase
+AIMessage,compose formal request email
+HumanMessage,help me to compose an email to the university admissions office asking for an extension on the application deadline due to unforeseen circumstances
+AIMessage,compose formal request email
+HumanMessage,Me updating my contact information and you help me to write an email to the Administration Department to ensure that my new phone number and emergency contact details are recorded in the company’s database
+AIMessage,compose formal request email
 HumanMessage,Write an email to the municipal court requesting an extension for paying a traffic ticket.
-AIMessage,compose formal email
+AIMessage,compose formal request email
+HumanMessage,request email for Equipment Upgrade ‘I am reaching out to the IT Department to request an upgrade for my current workstation equipment to support the high-performance demands of my ongoing projects.’
+AIMessage,compose formal request email
+HumanMessage,Subject: Request for Budget Approval ‘Respected Finance Committee I am seeking approval for the proposed budget allocation for [Project Name]. Kindly review the attached budget proposal’.
+AIMessage,compose formal request email
+HumanMessage,Construct an email to the finance department requesting a detailed report on the last quarter’s expenditures
+AIMessage,compose formal request email
+HumanMessage,AI draft a formal email to the HR department requesting clarification on the new remote work policy
+AIMessage,compose formal request email
+HumanMessage,Formulate an email to the governor’s office advocating for increased funding for public schools
+AIMessage,compose formal request email
+HumanMessage,AI compose an email to the professor requesting clarification on the upcoming assignment guidelines.
+AIMessage,compose formal request email
+HumanMessage,Author an email to the librarian requesting an extension on a borrowed book due to unforeseen circumstances.
+AIMessage,compose formal request email
+HumanMessage,Craft an email to the local police department seeking clarification on noise regulations during late hours
+AIMessage,compose formal request email
+HumanMessage,I am the Project Manager for [Project Name] and I need to write an email to the Senior Management requesting an extension on the project deadline due to unforeseen technical challenges.
+AIMessage,compose formal request email
+HumanMessage,Author an email to a potential client introducing our company’s services and requesting a meeting to discuss a collaboration
+AIMessage,compose formal request email
+HumanMessage,Develop an email to the marketing team outlining the strategy for the new product launch and requesting their feedback.
+AIMessage,compose formal request email
+HumanMessage,Construct an email to the college alumni association expressing interest in joining networking events.
+AIMessage,compose formal request email
+HumanMessage,Requesting a leave of absence for medical reasons for tomorrow through email to my HR.
+AIMessage,compose formal request email
+HumanMessage,Pinac give me a request email for Improved Office Lighting: Several employees have mentioned that the lighting in the accounting department is too dim which is causing eye strain and headaches. Could you please assess the lighting levels throughout the office and recommend solutions to enhance the illumination in problem areas?
+AIMessage,compose formal request email
+,
+,
+,
+HumanMessage,Write an email to the event organizer asking for detailed information about the upcoming industry conference
+AIMessage,compose inquiry email
+HumanMessage,As an employee of [Company Name] I want to write an email to the HR Department inquiring about the recent updates to the annual leave policy and how it affects my current leave balance
+AIMessage,compose inquiry email
+HumanMessage,Compose a professional email to our supplier inquiring about the bulk pricing for their latest product line.
+AIMessage,compose inquiry email
+HumanMessage,Generate an email to the college admissions office inquiring about scholarship opportunities for international students.
+AIMessage,compose inquiry email
+HumanMessage,Develop an email to the federal agency responsible for immigration services inquiring about visa application status.
+AIMessage,compose inquiry email
+HumanMessage,write a high quality email to Request for Additional Office Supplies: Our team is running low on printer paper; pens and other essential office supplies. Could you please place an order to replenish our inventory before we run out completely? We want to ensure our employees have the tools they need to stay productive.
+AIMessage,compose inquiry email
+HumanMessage,compose email for inquiry about Upgrading Conference Room Technology: The projector in our main conference room has been acting up lately and we'd like to explore options for upgrading the audio-visual equipment. This would allow us to host more engaging meetings and presentations for our clients. Please provide information on the latest conference room technology solutions.
+AIMessage,compose inquiry email
+HumanMessage,Email for my Concern about Inadequate Workspace: Several members of the marketing team have expressed concerns about the limited desk space in our office. With the growing size of our department we're finding it challenging to accommodate everyone comfortably. Could you investigate the possibility of expanding our workspace or rearranging the office layout to create more usable areas?
+AIMessage,compose inquiry email
+HumanMessage,Draft a request email for Ergonomic Furniture Evaluation: We've noticed an increase in employee complaints about back pain and discomfort due to their current office chairs and desks. As the well-being of our staff is a top priority. We'd like to schedule an ergonomic assessment of our workstations. Please let us know the next steps to ensure our employees have the proper support and equipment.
+AIMessage,compose inquiry email
+HumanMessage,Hey generate inquiry email about Improving Shared Printer Access: Our sales team is frequently frustrated by the long wait times to use the shared printer in the main office area. This is causing delays in their ability to prepare client presentations and other important documents. Could you explore options to add more printing stations or implement a scheduling system to better manage printer usage?
+AIMessage,compose inquiry email
+HumanMessage,Compose inquiry email for me about Implementing a Secure Document Shredding Service: As we handle sensitive client information; we want to ensure we're properly disposing of confidential documents. Could you research reputable shredding service providers and provide a recommendation for a secure compliant solution?
+AIMessage,compose inquiry email
+HumanMessage,Write a high quality professional email on my concern about Insufficient Meeting Room Availability: With our team expanding; we're finding it increasingly difficult to book meeting rooms for important discussions and presentations. Could you explore options to add more dedicated meeting spaces or implement a reservation system to better manage room usage?. Maintain a professional tone throughout the email.
+AIMessage,compose inquiry email
+HumanMessage,Pinac generate a acknowledgment email on concern about Outdated IT Infrastructure: Our company's computer systems and software are starting to show their age and we're concerned about potential security vulnerabilities and decreased productivity. We'd like to schedule a meeting to discuss upgrading our IT infrastructure to ensure we're using the latest technology to support our growing business needs.
+AIMessage,compose inquiry email
+HumanMessage,Compose a Request email for Improved Office Recycling Program: Our current recycling efforts in the office are lacking and we'd like to implement a more comprehensive program to reduce waste and promote sustainability. Could you provide information on the best practices for office recycling and any resources or services we could utilize to enhance our environmental initiatives?
+AIMessage,compose inquiry email
+,
+,
+,
+HumanMessage,I am a member of the [Department Name] and I am drafting an email to my Department Head to propose a remote work option for the team highlighting the potential productivity benefits.
+AIMessage,compose formal proposal or suggestion email
+HumanMessage,Feedback on New Office Space Layout: I am writing to provide feedback to the Office Management Team about the new office space layout specifically addressing the ergonomic setup and collaboration areas.
+AIMessage,compose formal proposal or suggestion email
+HumanMessage,Craft an email to the student council president proposing a new initiative to improve campus sustainability.
+AIMessage,compose formal proposal or suggestion email
+HumanMessage,"As a regular customer of MealKit Delivery Service I want to provide feedback on my recent experiences including suggestions for improving the recipe variety and packaging quality via email."
+AIMessage,compose formal proposal or suggestion email
+HumanMessage,hey I need to write a email for proposing a suggestion to the HR Department to consider implementing a Health and Wellness Program that includes activities like yoga and meditation for employee well-being. Can you help me with this ?”"
+AIMessage,compose formal proposal or suggestion email
+HumanMessage,Formulate an email to the editor of [Publication Name] proposing an article on the impact of AI in modern education.
+AIMessage,compose formal proposal or suggestion email
+HumanMessage,Author an email to the mayor’s office proposing a community cleanup initiative to address litter and pollution.
+AIMessage,compose formal proposal or suggestion email
+,
+,
+,
+HumanMessage,As the IT Security Officer I need to write an email to all staff about a recent IT security incident detailing the event and advising on precautionary measures to prevent future occurrences
+AIMessage,compose acknowledgment email
+HumanMessage,I am the Team Leader for [Team Name] and I want to write an email to introduce a new team member [New Member’s Name] to the rest of the company and outline their role
+AIMessage,compose acknowledgment email
+HumanMessage,Write email to the sales team to acknowledge them that we have successfully secured a new client contract with [Client Name]. Please find the contract details attached.
+AIMessage,compose acknowledgment email
+HumanMessage,Create a professional email to the district attorney’s office providing details about a potential case of fraud.
+AIMessage,compose acknowledgment email
+HumanMessage,Construct an email to the environmental protection agency highlighting concerns about water quality in a nearby river
+AIMessage,compose acknowledgment email
+HumanMessage,Write a formal email to the school principal expressing interest in organizing a career guidance seminar for students
+AIMessage,compose acknowledgment email
+HumanMessage,“I need to write email to my whole team to inform them about the recent updates to our company policies. Also telling them to review the attached document for details”
+AIMessage,compose acknowledgment email
+HumanMessage,compose a acknowledgement in polite and professional tone of Received Job Application: Thank you for submitting your application for the [Job Title] position at [Company Name]. We have received your materials and will be reviewing all applications carefully. We appreciate your interest in joining our team and will be in touch with you regarding the next steps in the hiring process.
+AIMessage,compose acknowledgment email
+HumanMessage,Acknowledgement email of Received Proposal: We are writing to acknowledge receipt of your proposal for the [Project Name] project. Our team is currently reviewing the details and we will be in touch with you shortly to discuss next steps. Thank you for taking the time to submit your proposal and we look forward to the opportunity to work with your company.
+AIMessage,compose acknowledgment email
+HumanMessage,email for telling "Thank you for your recent order with [Company Name]. We have received your order for [Product/Service Description] and are processing it now. You can expect your order to be shipped within the next [X] business days. Please let us know if you have any other questions or concerns".
+AIMessage,compose acknowledgment email
+HumanMessage,We are writing polite email to acknowledge receipt of your inquiry regarding [Topic of Inquiry]. Our team is reviewing the details and we will be in touch with you as soon as possible to address your questions or concerns. Thank you for reaching out to us and we appreciate your patience.
+AIMessage,compose acknowledgment email
+HumanMessage,write a reply email for received Feedback: Thank you for taking the time to provide feedback about your experience with [Company Name]. We have received your comments and our team is reviewing them carefully. Your input is valuable to us as we strive to continuously improve our products and services. We appreciate you sharing your thoughts with us.
+AIMessage,compose acknowledgment email
+HumanMessage,Acknowledgement email of Received Donation: We are writing to acknowledge receipt of your generous donation to [Charitable Organization]. Your contribution of [Donation Amount] will make a significant impact on our ability to [Describe Impact]. Thank you for your support and we are grateful for your commitment to our cause.
+AIMessage,compose acknowledgment email
+HumanMessage,Write a email for saying "We have received your resignation letter and we acknowledge your decision to leave [Company Name]. We appreciate the [Duration of Employment] you have dedicated to our organization and we wish you the best in your future endeavors. Please let us know if there is anything we can do to assist with the transition."
+AIMessage,compose acknowledgment email
+HumanMessage,generate a email of acknowledgement in reply of the Received Invitation: Thank you for the invitation to [Event Name] on [Date]. We have received your invitation and are reviewing the details. We look forward to the opportunity to attend and [Describe Anticipated Participation]. Please let us know if you require any additional information from us.
+AIMessage,compose acknowledgment email
+,
+,
+,
+HumanMessage,Subject: Employee Recognition: Outstanding Performance Award ‘Dear [Employee Name] Congratulations on your outstanding performance this quarter! You have been selected for the Outstanding Performance Award’
+AIMessage,compose other formal email
+HumanMessage,Subject: Reminder: Compliance Training Deadline ‘Hello Team Just a friendly reminder that the deadline for completing the mandatory compliance training is approaching. Please ensure timely completion’.
+AIMessage,compose other formal email
+HumanMessage,Create a professional email to the academic advisor seeking advice on course selection for the next semester
+AIMessage,compose other formal email
+HumanMessage,Develop an email to the school counselor seeking guidance on managing stress during exam season
+AIMessage,compose other formal email
+HumanMessage,Write an email to the school PTA (Parent-Teacher Association) volunteering for the upcoming fundraising event
+AIMessage,compose other formal email
+HumanMessage,Write formal email\nSubject: Invitation to Quarterly Town Hall Meeting\n’Hello Team You are cordially invited to our upcoming Quarterly Town Hall Meeting on [Date] at [Time]. We will discuss company performance goals and upcoming initiatives’
+AIMessage,compose other formal email
 ,
 ,
 ,
@@ -230,7 +285,7 @@ HumanMessage,Write an email to my travel agent requesting information on vacatio
 AIMessage,compose informal email
 HumanMessage,Generate an email to my favorite restaurant giving feedback on my last visit and suggesting menu items I’d love to see
 AIMessage,compose informal email
-HumanMessage,Assemble an email to my old bandmates suggesting a jam session and reminiscing about past performances
+HumanMessage,Assemble an email to my old best friend suggesting a jam session and reminiscing about past performances
 AIMessage,compose informal email
 HumanMessage,write Reunion Invitation Email : This email is to invite old friends to a reunion party. It specifies the date location (the old school building!) and mentions that teachers will also be attending.
 AIMessage,compose informal email
@@ -244,7 +299,7 @@ HumanMessage,Can you send out a quick email to the team asking for their favorit
 AIMessage,compose informal email
 HumanMessage,hey write my email like Hey team let’s set up a casual chat about AI trends over coffee. What’s hot what’s not and maybe some sci-fi references thrown in?
 AIMessage,compose informal email
-HumanMessage,Email the cousins about our epic childhood adventures—treehouses secret codes and scraped knees.
+HumanMessage,Email the cousins about our epic childhood adventures—tree houses secret codes and scraped knees.
 AIMessage,compose informal email
 HumanMessage,Email family members and share pet pics. We’ll vote for the cutest furball. Winner gets bragging rights!
 AIMessage,compose informal email
@@ -267,7 +322,7 @@ AIMessage,show calendar
 ,
 ,
 HumanMessage,Display my upcoming events.
-AIMessage,summarise schedule
+AIMessage,summarize schedule
 HumanMessage,Provide an overview of my calendar for the month
 AIMessage,summarise schedule
 HumanMessage,Retrieve my calendar data and summarize my key meetings and deadlines for the next two weeks
@@ -430,11 +485,11 @@ HumanMessage,give me mobile no. of my love
 AIMessage,show contact
 HumanMessage,pinac tell me phone no. of driver
 AIMessage,show contact
-HumanMessage,Search for [Emma's phone number in your records.
+HumanMessage,Search for Emma's phone number in your records.
 AIMessage,show contact
-HumanMessage,AI retrieve the phone number for rohan.
+HumanMessage,AI retrieve the phone number for Rohan.
 AIMessage,show contact
-HumanMessage,Locate the cell phone number associated with ankita.
+HumanMessage,Locate the cell phone number associated with Ankita.
 AIMessage,show contact
 HumanMessage,AI provide me with the contact information for Indra including their phone number
 AIMessage,show contact
@@ -452,7 +507,7 @@ HumanMessage,I need to get in touch with Sister/Brother. Could you provide their
 AIMessage,show contact
 HumanMessage,Hey there AI! How can I reach Mom/Dad? Can you fetch their phone number?
 AIMessage,show contact
-HumanMessage,AI help me out! I’m trying to find Niece/Nephew's contact info. What’s their phone numbe
+HumanMessage,AI help me out! I’m trying to find Niece/Nephew's contact info. What’s their phone number
 AIMessage,show contact
 HumanMessage,Please find friend's phone number. I want to give them a call.
 AIMessage,show contact
@@ -532,7 +587,7 @@ AIMessage,write code
 HumanMessage,Implement an algorithm to find the Longest Common Subsequence (LCS) of two strings.
 AIMessage,write code
 HumanMessage,Consider a list (list = []). You can perform the following commands:\n\ninsert i e: Insert integer  at position .\nprint: Print the list.\nremove e: Delete the first occurrence of integer .\nappend e: Insert integer  at the end of the list.\nsort: Sort the list.\npop: Pop the last element from the list.\nreverse: Reverse the list.\nInitialize your list and read in the value of  followed by  lines of commands where each command will be of the  types listed above. Iterate through each command in order and perform the corresponding operation on your list.
-AIMessage,write codewriting
+AIMessage,write code
 HumanMessage,Write a python script to scrape data from a website such as fetching news headlines or weather information.
 AIMessage,write code
 HumanMessage,Give me the ans of this problem: Given a list of strings write a function that groups them into lists of anagrams (words with the same letters rearranged). You can use hashing or sorting techniques to solve this.
@@ -571,7 +626,7 @@ HumanMessage,Ok I am getting this error for this code: `import { useEffect } fro
 AIMessage,write code
 HumanMessage,I am getting error: `node:internal/modules/esm/resolve:304\n  return new ERR_PACKAGE_PATH_NOT_EXPORTED(\n         ^\nError [ERR_PACKAGE_PATH_NOT_EXPORTED]: Package subpath './dist/llms/ollama' is not defined by "exports" in /home/rajesh/Desktop/PINAC_Workspace-2.0/node_modules/langchain/package.json imported from /home/rajesh/Desktop/PINAC_Workspace-2.0/backend/ai_models/LocalLLM.mjs\n    at exportsNotFound (node:internal/modules/esm/resolve:304:10)\n    at packageExportsResolve (node:internal/modules/esm/resolve:651:9)\n    at packageResolve (node:internal/modules/esm/resolve:837:14)\n    at moduleResolve (node:internal/modules/esm/resolve:927:18)\n    at defaultResolve (node:internal/modules/esm/resolve:1157:11)\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:390:12)\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:359:25)\n    at ModuleLoader.getModuleJob (node:internal/modules/esm/loader:234:38)\n    at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:87:39)\n    at link (node:internal/modules/esm/module_job:86:36) {\n  code: 'ERR_PACKAGE_PATH_NOT_EXPORTED'\n}`
 AIMessage,write code
-HumanMessage,I have made a aibot using Langchain's ChatPromptTemplate and added data using SystemMessage HumanMessage for training. Now I want that it rechieve chat history how can I do it efficiently ?
+HumanMessage,I have made a ai chatbot using Langchain's ChatPromptTemplate and added data using SystemMessage HumanMessage for training. Now I want that it rechieve chat history how can I do it efficiently ?
 AIMessage,write code
 HumanMessage,how to connect electron js with it's python backend in real time ?
 AIMessage,write code
