@@ -60,6 +60,7 @@
   --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   --aiLoader-primary: var(--primary-color);
   --aiLoader-secondary: #656e7a;
+  --copyBtn-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
 
   /* DropdownMenu */
   --dropdownBtn-bg: #e0e4e8;
@@ -134,6 +135,7 @@
   --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   --aiLoader-primary: #252525;
   --aiLoader-secondary: #757575;
+  --copyBtn-shadow: 0 0 3px #000000;
 
   /* DropdownMenu */
   --dropdownBtn-bg: #3c3c3c;
@@ -209,6 +211,7 @@
   --aiMsg-bg-shadow: 0 0 5px #808f9e;
   --aiLoader-primary: #e2e8f0;
   --aiLoader-secondary: #3a68ff;
+  --copyBtn-shadow: 0 0 2px #3b3f44;
 
   /* DropdownMenu */
   --dropdownBtn-bg: #e2e8f0;
@@ -283,6 +286,7 @@
   --aiMsg-bg-shadow: 0 0 2px #ece2d5;
   --aiLoader-primary: rgba(109, 108, 108, 0.1);
   --aiLoader-secondary: #ece2d5;
+  --copyBtn-shadow: 0 0 2px #ece2d5;
 
   /* DropdownMenu */
   --dropdownBtn-bg: rgba(109, 108, 108, 0.15);
@@ -359,6 +363,7 @@
   --aiMsg-bg-shadow: none;
   --aiLoader-primary: #f8e0c9;
   --aiLoader-secondary: #866454;
+  --copyBtn-shadow: 0 0 2px #2b1a12;
 
   /* DropdownMenu */
   --dropdownBtn-bg: #f8e0c9;
@@ -433,6 +438,7 @@
   --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   --aiLoader-primary: #3c3c3c;
   --aiLoader-secondary: #d66455b7;
+  --copyBtn-shadow: 0 0 2.5px #000000;
 
   /* DropdownMenu */
   --dropdownBtn-bg: #3c3c3c;
