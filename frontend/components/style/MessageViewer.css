@@ -2,7 +2,7 @@
 .msg-row {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .msg-avatar {
@@ -75,6 +75,7 @@
   letter-spacing: 0.3px;
   word-spacing: 2px;
   box-shadow: var(--aiMsg-bg-shadow);
+  margin-bottom: 5px;
 }
 
 /* CSS for loader component */

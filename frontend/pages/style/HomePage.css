@@ -46,7 +46,7 @@
   background-clip: text;
   color: transparent;
   box-shadow: none;
-  font: bold 4.5vw "nasa";
+  font: bold 4.5vw "ubuntu", "Montserrat", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;

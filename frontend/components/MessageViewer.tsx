@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { MarkdownStyle } from "../components/MarkdownStyle";
-import { EmailComposeBox } from "../components/EmailComposeBox";
-import { ScheduleViewer } from "../components/ScheduleViewer";
 import { useStopContext } from "./context_file";
 import "./style/MessageViewer.css";
 
@@ -10,6 +8,7 @@ import userIcon from "../assets/icon/user_icon.png";
 import pinacLogo from "../assets/icon/pinac-logo.png";
 import { FaVolumeHigh, FaVolumeXmark } from "react-icons/fa6";
 
+//
 interface ShowAiMessageProps {
   setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -28,17 +27,19 @@ export const ShowAiMessage: React.FC<ShowAiMessageProps> = ({
         />
       );
     } else {
-        setMessage(
-          <AiMessage
-            response={response["response"]["content"]}
-            setButtonsDisabled={setButtonsDisabled}
-          />
-        );
+      setMessage(
+        <AiMessage
+          response={response["response"]["content"]}
+          setButtonsDisabled={setButtonsDisabled}
+        />
+      );
     }
   });
   return <>{message}</>;
 };
 
+//
+//
 interface ShowHumanMessageProps {
   response: string;
 }
@@ -75,6 +76,8 @@ export const ShowHumanMessage: React.FC<ShowHumanMessageProps> = (props) => {
   );
 };
 
+//
+//
 interface AiMessageProps {
   response: string;
   setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -163,6 +166,8 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   );
 };
 
+//
+//
 // Creating a AiLoader component similar to AiMessage. message state is initialized with this loader and replaced as soon as we have the data.
 export const AiLoader: React.FC = () => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
@@ -198,57 +203,4 @@ export const AiLoader: React.FC = () => {
       </div>
     </>
   );
-};
-
-interface EmailMessageProps {
-  response: string;
-  subject: string;
-  body: string;
-}
-
-export const EmailMessage: React.FC<EmailMessageProps> = (props) => {
-  const [isAvatarVisible, setIsAvatarVisible] = useState(
-    window.innerWidth > 576
-  ); // Initial state based on window size
-
-  // Handle window resize and update avatar visibility
-  useEffect(() => {
-    const updateAvatarVisibility = () => {
-      setIsAvatarVisible(window.innerWidth > 576);
-    };
-    window.addEventListener("resize", updateAvatarVisibility);
-    // Cleanup function to remove the event listener
-    return () => window.removeEventListener("resize", updateAvatarVisibility);
-  }, []);
-
-  return (
-    <>
-      <div className="msg-row">
-        {isAvatarVisible && (
-          <div className="msg-avatar">
-            <img src={pinacLogo} alt="AI Avatar" />
-          </div>
-        )}
-        <div className="msg-content">
-          <div className="msg-name">PINAC</div>
-          <div className="msg-text ai-msg">{props.response}</div>
-        </div>
-      </div>
-      <EmailComposeBox emailSubject={props.subject} emailBody={props.body} />
-    </>
-  );
-};
-
-interface ScheduleMessageProps {
-  schedule: {
-    id: number;
-    title: string;
-    start: string | Date;
-    end: string | Date | undefined;
-    type: "event" | "task";
-  }[];
-}
-
-export const ScheduleMessage: React.FC<ScheduleMessageProps> = (props) => {
-  return <ScheduleViewer events={props.schedule} />;
 };

@@ -17,13 +17,13 @@ const GreetingComponent = () => {
     const [currentHour, setCurrentHour] = useState<number>(0);
 
     const getGreeting = (currentHourTime: number, firstName: string) => {
-        let greetingMessage = 'Good morning';
+        let greetingMessage = 'Good Morning';
         if (currentHourTime >= 12 && currentHourTime < 17) {
-            greetingMessage = 'Good afternoon';
+            greetingMessage = 'Good Afternoon';
         } else if (currentHourTime >= 17) {
-            greetingMessage = 'Good evening';
+            greetingMessage = 'Good Evening';
         }
-        greetingMessage += (firstName != "" ? `, ${firstName}, \n how can I help you?` : ', how can I assist you?')
+        greetingMessage += (firstName != "" ? ` ${firstName}, \n how can I help you?` : ', how can I assist you?')
         setGreeting(greetingMessage);
     }
 

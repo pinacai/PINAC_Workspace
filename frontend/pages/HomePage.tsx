@@ -3,11 +3,12 @@ import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { ShowHumanMessage, ShowAiMessage } from "../components/MessageViewer";
 import { StopContext } from "../components/context_file";
-import { FaRegStopCircle } from "react-icons/fa";
+import GreetingComponent from "../components/TimeZoneGreeting";
 import "./style/HomePage.css";
+
 // Icons
 import sendIcon from "../assets/icon/send.svg";
-import GreetingComponent from "../components/TimeZoneGreeting";
+import { FaRegStopCircle } from "react-icons/fa";
 
 export const HomePage: React.FC = () => {
   const [welcomeBox, setWelcomeBox] = useState<JSX.Element>(
