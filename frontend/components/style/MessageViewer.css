@@ -75,7 +75,28 @@
   letter-spacing: 0.3px;
   word-spacing: 2px;
   box-shadow: var(--aiMsg-bg-shadow);
+  padding-top: 15px;
+  padding-bottom: 15px;
   margin-bottom: 5px;
+}
+
+.ai-msg-copy-btn {
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
+  bottom: 15px;
+  margin-right: 15px;
+}
+
+.copy-btn {
+  padding: 3px 10px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  background: var(--aiMsg-bg);
+  color: var(--text-color2);
+  font: normal small "Exo2", "Montserrat", sans-serif;
+  box-shadow: var(--aiMsg-bg-shadow);
 }
 
 /* CSS for loader component */

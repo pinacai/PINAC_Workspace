@@ -8,7 +8,7 @@ import chevronRightIcon from "../assets/icon/chevron_right.svg";
 import homeIcon from "../assets/icon/home.svg";
 import groupIcon from "../assets/icon/group.svg";
 import settingsIcon from "../assets/icon/settings.svg";
-import themeIcon from "../assets/icon/dark_mode.svg";
+import { FaVolumeHigh, FaVolumeXmark } from "react-icons/fa6";
 
 export const Sidebar: React.FC = () => {
   const location = useLocation();
@@ -16,9 +16,10 @@ export const Sidebar: React.FC = () => {
   const [isActive, setIsActive] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-  const [imageUrl,setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [speakerState, setSpeakerState] = useState(true);
 
   //
   useEffect(() => {
@@ -85,7 +86,7 @@ export const Sidebar: React.FC = () => {
       request_type: "give-user-info",
     });
     window.ipcRenderer.once("backend-response", (_, response) => {
-      setImageUrl(response.image)
+      setImageUrl(response.image);
       setFirstName(response.first_name);
       setLastName(response.last_name);
     });
@@ -99,7 +100,11 @@ export const Sidebar: React.FC = () => {
           <div className="upper-part">
             <div className="top">
               <div className="profile" onClick={() => changePage("/profile")}>
-                {imageUrl ? <img id="user-image" src={imageUrl} alt="User Image" /> : <img id="user-image" src={userIcon} alt="User Image"/>}
+                {imageUrl ? (
+                  <img id="user-image" src={imageUrl} alt="User Image" />
+                ) : (
+                  <img id="user-image" src={userIcon} alt="User Image" />
+                )}
                 <span id="user-name" className="sidebar-text">
                   {firstName} {lastName}
                 </span>
@@ -218,12 +223,34 @@ export const Sidebar: React.FC = () => {
           <div className="lower-part">
             <nav>
               <ul>
-                <li>
-                  <img
-                    src={themeIcon}
-                    alt="Theme Icon"
-                    className="non-changeable-icon"
-                  />
+                <li className="li">
+                  <div>
+                    <button
+                      id="volume-btn"
+                      className={speakerState ? "enabled" : ""}
+                      onClick={() => setSpeakerState(!speakerState)}
+                    >
+                      {speakerState ? (
+                        <FaVolumeHigh
+                          size={20}
+                          className="non-changeable-icon speaker"
+                        />
+                      ) : (
+                        <FaVolumeXmark
+                          size={20}
+                          className="non-changeable-icon speaker"
+                        />
+                      )}
+                    </button>
+                    <span
+                      className="sidebar-text"
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Auto Speak
+                    </span>
+                  </div>
+                </li>
+                <li className="li">
                   <div>
                     <input
                       type="checkbox"
@@ -236,6 +263,7 @@ export const Sidebar: React.FC = () => {
                       <span className="toggle-ball"></span>
                     </label>
                   </div>
+                  <span className="sidebar-text">Change theme</span>
                 </li>
               </ul>
             </nav>

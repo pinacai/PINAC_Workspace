@@ -6,7 +6,6 @@ import "./style/MessageViewer.css";
 // Icons
 import userIcon from "../assets/icon/user_icon.png";
 import pinacLogo from "../assets/icon/pinac-logo.png";
-import { FaVolumeHigh, FaVolumeXmark } from "react-icons/fa6";
 
 //
 interface ShowAiMessageProps {
@@ -91,7 +90,6 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   ); // Initial state based on window size
   const [currentText, setCurrentText] = useState(""); // Text state for typing effect
   const [currentIndex, setCurrentIndex] = useState(0); // Index state to emulate writing effect by displaying till certain index
-  const [speakerState, setSpeakerState] = useState(true);
   const delay = 30; // Delay for writing each character
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -138,26 +136,12 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
         <div className="msg-content">
           <div className="msg-btn">
             <div className="msg-name">PINAC</div>
-            <div>
-              <button
-                id="volume-btn"
-                className={speakerState ? "enabled" : ""}
-                onClick={() => setSpeakerState(!speakerState)}
-              >
-                {speakerState ? (
-                  <FaVolumeHigh size={20} className="vol-icon" color={"gray"} />
-                ) : (
-                  <FaVolumeXmark
-                    size={20}
-                    className="vol-icon"
-                    color={"gray"}
-                  />
-                )}
-              </button>
-            </div>
           </div>
           <div className="msg-text ai-msg">
             <MarkdownStyle text={currentText} />
+          </div>
+          <div className="ai-msg-copy-btn">
+            <button className="copy-btn">copy</button>
           </div>
           <div ref={chatScrollRef} />
         </div>
