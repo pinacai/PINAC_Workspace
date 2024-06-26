@@ -98,6 +98,10 @@
   box-shadow: var(--copyBtn-shadow);
 }
 
+.copy-btn:hover {
+  background: var(--aiMsg-bg);
+}
+
 /* CSS for loader component */
 .loader {
   width: 10px;

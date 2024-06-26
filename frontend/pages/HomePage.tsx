@@ -25,6 +25,7 @@ export const HomePage: React.FC = () => {
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [stop, setStop] = useState<boolean>(false);
+
   // Handles changes in user input
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserInput(event.target.value);
@@ -104,6 +105,8 @@ export const HomePage: React.FC = () => {
     }
   }, [chatHistory.length]);
 
+  //
+  //
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
       const scHeight = (e.target as HTMLTextAreaElement).scrollHeight;

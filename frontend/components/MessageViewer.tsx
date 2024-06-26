@@ -87,11 +87,20 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const { stop, setStop } = useStopContext();
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
-  ); // Initial state based on window size
+  );
   const [currentText, setCurrentText] = useState(""); // Text state for typing effect
   const [currentIndex, setCurrentIndex] = useState(0); // Index state to emulate writing effect by displaying till certain index
-  const delay = 30; // Delay for writing each character
+  const delay = 40; // Delay for writing each character
 
+  //
+  const copyToClipboard = () => {
+    if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(props.response);
+    }
+    return Promise.reject("Clipboard API not supported");
+  };
+
+  //
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const chatScrollRef = useRef<any>(null); // Ref for empty Div to server as end of messages
   useEffect(() => {
@@ -101,6 +110,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
     });
   }, [currentIndex]);
 
+  //
   useEffect(() => {
     if (currentIndex >= props.response.length - 5) setButtonsDisabled(false);
     if (stop) {
@@ -116,6 +126,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
     }
   }, [currentIndex, delay]); // Handle the typing effect by creating a timeout while whole string is not written
 
+  //
   // Handle window resize and update avatar visibility
   useEffect(() => {
     const updateAvatarVisibility = () => {
@@ -141,7 +152,9 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
             <MarkdownStyle text={currentText} />
           </div>
           <div className="ai-msg-copy-btn">
-            <button className="copy-btn">copy</button>
+            <button className="copy-btn" onClick={() => copyToClipboard()}>
+              copy
+            </button>
           </div>
           <div ref={chatScrollRef} />
         </div>
@@ -156,7 +169,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
 export const AiLoader: React.FC = () => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
-  ); // Initial state based on window size
+  );
 
   // Handle window resize and update avatar visibility
   useEffect(() => {
