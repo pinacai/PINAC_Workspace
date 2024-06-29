@@ -31,13 +31,15 @@ Leveraging multiple AI tools for your workflow sounds smart. However, does the c
 
 Experience the **Next Gen AI Chat** —your all-in-one chat for text generation, document summarization, web searching, code generation, and a wide range of office tools.
 
-> View our Roadmap & Progress: https://github.com/orgs/pinacai/projects/1  
+> In this we develop the frontend part of the desktop app. We develop the Python server separately in our repo  <a href="https://github.com/pinacai/PINAC-Nexus">PINAC Nexus</a>. We update the server in this repo with every new version of the server.
 
-> In this we develop the frontend part of the desktop app. We develop the python server separately in our repo  <a href="https://github.com/pinacai/PINAC-Nexus">PINAC Nexus</a>. We update the server in this repo with every new version of the server.
+## 📢 Annoucement !!!
+
+We have successfully tested our Python server **PINAC-Nexus** on the cloud, therefore, we will soon shift the server to the cloud, making the app super smooth to use. Additionally, we will have our cloud login system, instead of local login which is typically useless. Development is going on, please stay tuned.
 
 ## 🎨 Themes
 
-You have a new color theme idea ? We got you !
+Do you have a new color theme idea? We got you!
 <br />
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_&_Dusk.jpg" alt="Dawn & Dusk Screenshot">
