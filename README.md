@@ -1,3 +1,12 @@
+## 📢 **Exciting Announcement!** 🚀
+
+We're thrilled to unveil the preview of our Cloud **PINAC-Nexus** seamlessly integrating with the desktop App! Despite a tiny hiccup in the form of **Error 504**, rest assured that we are already on the case, working diligently to resolve it. Stay tuned for updates!
+
+Thank you for being part of this journey ! ✨
+
+---
+---
+
 <div align="center">
 
 <h1 style="border-bottom: none">
@@ -33,9 +42,11 @@ Experience the **Next Gen AI Chat** —your all-in-one chat for text generation,
 
 > In this we develop the frontend part of the desktop app. We develop the Python server separately in our repo  <a href="https://github.com/pinacai/PINAC-Nexus">PINAC Nexus</a>. We update the server in this repo with every new version of the server.
 
-## 📢 Annoucement !!!
 
-We have successfully tested our Python server **PINAC-Nexus** on the cloud, therefore, we will soon shift the server to the cloud, making the app super smooth to use. Additionally, we will have our cloud login system, instead of local login which is typically useless. Development is going on, please stay tuned.
+## ⬆️ Some Updates !!!
+
+We will soon start development of a united cloud login system for PINAC, instead of local login which is typically useless. In this preview we have removed local login system.
+
 
 ## 🎨 Themes
 
@@ -53,7 +64,6 @@ The best file structure ever!
     .
     ├── backend /              # medium between frontend & server
     |    ├── main.ts
-    |    ├── server /          # Python server
     |    └── user data /       # for storing user data
     |
     ├── electron /
@@ -62,7 +72,7 @@ The best file structure ever!
     |
     └── frontend /
          ├── App.tsx
-         ├── App.css           # All Theme's colours
+         ├── App.css           # All Theme's colors
          ├── assets /          # Img, Icons, Fonts
          ├── Components /      # Page's components 
          └── pages /
@@ -74,37 +84,24 @@ The best file structure ever!
 
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-### Setup the backend
+
+### Setup the App
 
 1. Clone the Repository
     ```bash
     git clone https://github.com/pinacai/PINAC_Workspace.git && cd PINAC_Workspace
     ```
 
-2. create virtualenv and activate it
-    ```bash
-    python -m venv env && source env/bin/activate
-    ```
-
-3. install the Python dependencies with
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-### Install the App
-
-1. Install Node dependencies
+2. Install Node dependencies
     ```bash
     npm install
     ```
 
-2. Start the App
+3. Start the App
     ```bash
     npm run dev
     ```
-> **NOTICE**: Currently you have to give both OPENAI & GEMINI API otherwise the server will go through an error, if you have one key, put the other one randomly anything, but don't select that Model to use.
 
-> **Remember**: Always activate the Python virtual env with the command `source env/bin/activate` before starting the app with the command `npm run dev`. Otherwise, the server will not start.
 
 ## 🎉 Contributing
 
