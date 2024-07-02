@@ -3,7 +3,16 @@ import * as fs from "fs";
 
 //
 // for sending requests to the server
+// Set the timeout duration (in milliseconds)
+const REQUEST_TIMEOUT = 18000000;
+
+// Function for sending requests to the server with a timeout
 async function sendDataToFlask(client_request: object) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => {
+    controller.abort(); // Abort the fetch request on timeout
+  }, REQUEST_TIMEOUT);
+
   try {
     const response = await fetch(
       "https://pinac-nexus.vercel.app/send_request",
@@ -13,8 +22,11 @@ async function sendDataToFlask(client_request: object) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(client_request),
+        signal: controller.signal, // Attach the AbortController's signal to the fetch request
       }
     );
+
+    clearTimeout(timeoutId); // Clear the timeout when the response is received
 
     if (response.ok) {
       const data = await response.json();
@@ -27,11 +39,20 @@ async function sendDataToFlask(client_request: object) {
       };
     }
   } catch (error) {
-    return {
-      error_occurred: true,
-      response: null,
-      error: error,
-    };
+    if (error.name === "AbortError") {
+      // Handle the timeout error specifically
+      return {
+        error_occurred: true,
+        response: null,
+        error: "Request timed out",
+      };
+    } else {
+      return {
+        error_occurred: true,
+        response: null,
+        error: error,
+      };
+    }
   }
 }
 
