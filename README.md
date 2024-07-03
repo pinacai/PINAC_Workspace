@@ -1,11 +1,3 @@
-## 📢 **Exciting Announcement!** 🚀
-
-We're thrilled to unveil the preview of our Cloud **PINAC-Nexus** seamlessly integrating with the desktop App! Despite a tiny hiccup in the form of **Error 504**, rest assured that we are already on the case, working diligently to resolve it. Stay tuned for updates!
-
-Thank you for being part of this journey ! ✨
-
----
----
 
 <div align="center">
 
@@ -41,11 +33,6 @@ Leveraging multiple AI tools for your workflow sounds smart. However, does the c
 Experience the **Next Gen AI Chat** —your all-in-one chat for text generation, document summarization, web searching, code generation, and a wide range of office tools.
 
 > In this we develop the frontend part of the desktop app. We develop the Python server separately in our repo  <a href="https://github.com/pinacai/PINAC-Nexus">PINAC Nexus</a>. We update the server in this repo with every new version of the server.
-
-
-## ⬆️ Some Updates !!!
-
-We will soon start development of a united cloud login system for PINAC, instead of local login which is typically useless. In this preview we have removed local login system.
 
 
 ## 🎨 Themes
