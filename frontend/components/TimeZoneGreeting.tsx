@@ -23,7 +23,7 @@ const GreetingComponent = () => {
         } else if (currentHourTime >= 17) {
             greetingMessage = 'Good Evening';
         }
-        greetingMessage += (firstName != "" ? ` ${firstName}, \n how can I help you?` : ', how can I assist you?')
+        greetingMessage += (firstName ? ` ${firstName}, \n how can I help you?` : ', how can I assist you?')
         setGreeting(greetingMessage);
     }
 
