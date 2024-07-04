@@ -13,6 +13,7 @@
   "dependencies": {
     "highlight.js": "^11.9.0",
     "moment": "^2.30.1",
+    "ollama": "^0.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",
