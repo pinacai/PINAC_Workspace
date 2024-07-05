@@ -25,9 +25,14 @@ release
 *.sln
 *.sw?
 
+# Python files
+venv
+.venv
+.env
 env
-configs
-config
+__pycache__
+configs/
+config/
 
 # user data
 backend/user data/

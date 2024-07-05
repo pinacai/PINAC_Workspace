@@ -76,25 +76,21 @@ export const SettingsPage: React.FC = () => {
         <Header title="Settings" />
         <div className="setting-container">
           {/* ------------------- */}
-          {/* Section 1 ( AI Models ) */}
+          {/* Section 1 ( Theme ) */}
           <div className="section">
             <div className="section-title">
               <span>AI Model</span>
             </div>
-            <div className="modelSelector-container">
-              {/* <DropdownMenu
-                optionList={["Local LLMs"]}
-                defaultOption="Local LLMs"
-              /> */}
-              <DropdownMenu
+            <DropdownMenu
               optionList={[
+                "ChatGPT-3.5 turbo",
                 "Gemini 1.5 Pro",
                 "Gemini 1.0 Pro",
                 "Gemini Flash 1.5",
+                // "Gemma 2B"
               ]}
               defaultOption="Gemini Flash 1.5"
             />
-            </div>
           </div>
 
           {/* Section 2 ( Theme ) */}

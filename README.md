@@ -1,4 +1,3 @@
-
 <div align="center">
 
 <h1 style="border-bottom: none">
@@ -32,12 +31,13 @@ Leveraging multiple AI tools for your workflow sounds smart. However, does the c
 
 Experience the **Next Gen AI Chat** —your all-in-one chat for text generation, document summarization, web searching, code generation, and a wide range of office tools.
 
-> In this we develop the frontend part of the desktop app. We develop the Python server separately in our repo  <a href="https://github.com/pinacai/PINAC-Nexus">PINAC Nexus</a>. We update the server in this repo with every new version of the server.
+> View our Roadmap & Progress: https://github.com/orgs/pinacai/projects/1  
 
+> In this we develop the frontend part of the desktop app. We develop the python server separately in our repo  <a href="https://github.com/pinacai/PINAC-Nexus">PINAC Nexus</a>. We update the server in this repo with every new version of the server.
 
 ## 🎨 Themes
 
-Do you have a new color theme idea? We got you!
+You have a new color theme idea ? We got you !
 <br />
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_&_Dusk.jpg" alt="Dawn & Dusk Screenshot">
@@ -51,6 +51,7 @@ The best file structure ever!
     .
     ├── backend /              # medium between frontend & server
     |    ├── main.ts
+    |    ├── server /          # Python server
     |    └── user data /       # for storing user data
     |
     ├── electron /
@@ -71,24 +72,37 @@ The best file structure ever!
 
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-
-### Setup the App
+### Setup the backend
 
 1. Clone the Repository
     ```bash
     git clone https://github.com/pinacai/PINAC_Workspace.git && cd PINAC_Workspace
     ```
 
-2. Install Node dependencies
+2. create virtualenv and activate it
+    ```bash
+    python -m venv env && source env/bin/activate
+    ```
+
+3. install the Python dependencies with
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Install the App
+
+1. Install Node dependencies
     ```bash
     npm install
     ```
 
-3. Start the App
+2. Start the App
     ```bash
     npm run dev
     ```
+> **NOTICE**: Currently you have to give both OPENAI & GEMINI API otherwise the server will go through an error, if you have one key, put the other one randomly anything, but don't select that Model to use.
 
+> **Remember**: Always activate the Python virtual env with the command `source env/bin/activate` before starting the app with the command `npm run dev`. Otherwise, the server will not start.
 
 ## 🎉 Contributing
 
