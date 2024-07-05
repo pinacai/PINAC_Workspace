@@ -90,7 +90,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   );
   const [currentText, setCurrentText] = useState(""); // Text state for typing effect
   const [currentIndex, setCurrentIndex] = useState(0); // Index state to emulate writing effect by displaying till certain index
-  const delay = 40; // Delay for writing each character
+  const delay = 10; // Delay for writing each character
 
   //
   const copyToClipboard = () => {
