@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style/LogInPage.css";
 
 interface LogInPagePrompt {
@@ -11,6 +11,12 @@ export const LogInPage: React.FC<LogInPagePrompt> = ({ changeLogInStatus }) => {
   const [emailId, setEmailId] = useState<string>("");
   const [openaiKey, setOpenaiKey] = useState<string>("");
   const [geminiKey, setGeminiKey] = useState<string>("");
+
+  //
+  // switch to full screen for LoginPage
+  useEffect(() => {
+    window.ipcRenderer.send("setFullScreen");
+  }, []);
 
   //
   const submit = () => {
@@ -31,6 +37,8 @@ export const LogInPage: React.FC<LogInPagePrompt> = ({ changeLogInStatus }) => {
       request_type: "start-server",
     });
     changeLogInStatus();
+    // escape full screen for LoginPage
+    window.ipcRenderer.send("escFullScreen");
   };
 
   return (

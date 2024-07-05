@@ -159,3 +159,12 @@ ipcMain.on("reload-app", () => {
   }
   win?.reload();
 });
+
+// Listen for toggling FullScreen
+ipcMain.on("setFullScreen", () => {
+  win?.setFullScreen(true);
+});
+
+ipcMain.on("escFullScreen", () => {
+  win?.setFullScreen(false);
+});
