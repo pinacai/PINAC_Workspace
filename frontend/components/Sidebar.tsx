@@ -8,7 +8,6 @@ import chevronRightIcon from "../assets/icon/chevron_right.svg";
 import homeIcon from "../assets/icon/home.svg";
 import groupIcon from "../assets/icon/group.svg";
 import settingsIcon from "../assets/icon/settings.svg";
-import { FaVolumeHigh, FaVolumeXmark } from "react-icons/fa6";
 
 export const Sidebar: React.FC = () => {
   const location = useLocation();
@@ -19,7 +18,6 @@ export const Sidebar: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [speakerState, setSpeakerState] = useState(true);
 
   //
   useEffect(() => {
@@ -106,7 +104,7 @@ export const Sidebar: React.FC = () => {
                   <img id="user-image" src={userIcon} alt="User Image" />
                 )}
                 <span id="user-name" className="sidebar-text">
-                  {firstName} {lastName}
+                  {firstName ? firstName : "Profile"} {lastName ? lastName : ""}
                 </span>
               </div>
               <img
@@ -223,33 +221,6 @@ export const Sidebar: React.FC = () => {
           <div className="lower-part">
             <nav>
               <ul>
-                <li className="li">
-                  <div>
-                    <button
-                      id="volume-btn"
-                      className={speakerState ? "enabled" : ""}
-                      onClick={() => setSpeakerState(!speakerState)}
-                    >
-                      {speakerState ? (
-                        <FaVolumeHigh
-                          size={20}
-                          className="non-changeable-icon speaker"
-                        />
-                      ) : (
-                        <FaVolumeXmark
-                          size={20}
-                          className="non-changeable-icon speaker"
-                        />
-                      )}
-                    </button>
-                    <span
-                      className="sidebar-text"
-                      style={{ marginLeft: "10px" }}
-                    >
-                      Auto Speak
-                    </span>
-                  </div>
-                </li>
                 <li className="li">
                   <div>
                     <input
