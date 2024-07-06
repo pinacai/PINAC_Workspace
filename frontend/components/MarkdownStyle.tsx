@@ -9,6 +9,7 @@ import "./style/MarkdownStyle.css";
 interface MarkdownStyleProps {
   text: string;
   setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   chatScrollRef: any;
 }
 
@@ -18,6 +19,11 @@ const SyntaxHighlight = ({ children, ...props }: any) => (
     style={nightOwl}
     language="javascript"
     showLineNumbers
+    customStyle={{
+      padding: "1rem",
+      borderRadius: "5px",
+      fontSize: "1rem",
+    }}
     {...props}
   >
     {children}
@@ -40,6 +46,7 @@ export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
       behavior: "smooth",
       block: "end",
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);
 
   // Handle typing effect for the entire Markdown content
@@ -60,15 +67,24 @@ export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
   }, [currentIndex, delay]);
 
   return (
-    <>
-      <div className="markdownText">
-        <Markdown
-          remarkPlugins={[remarkGfm]}
-          components={{ code: SyntaxHighlight }}
-        >
-          {currentText}
-        </Markdown>
-      </div>
-    </>
+    <div className="markdownText">
+      <Markdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          code({ className, children, ...props }) {
+            if (className?.includes("language-")) {
+              return <SyntaxHighlight {...props}>{children}</SyntaxHighlight>;
+            }
+            return (
+              <code {...props} className="inlineCode">
+                {children}
+              </code>
+            );
+          },
+        }}
+      >
+        {currentText}
+      </Markdown>
+    </div>
   );
 };
