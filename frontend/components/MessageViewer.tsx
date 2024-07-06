@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { MarkdownStyle } from "../components/MarkdownStyle";
-import { useStopContext } from "./context_file";
 import "./style/MessageViewer.css";
 
 // Icons
@@ -84,13 +83,9 @@ interface AiMessageProps {
 
 export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const { setButtonsDisabled } = props;
-  const { stop, setStop } = useStopContext();
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   );
-  const [currentText, setCurrentText] = useState(""); // Text state for typing effect
-  const [currentIndex, setCurrentIndex] = useState(0); // Index state to emulate writing effect by displaying till certain index
-  const delay = 10; // Delay for writing each character
 
   //
   const copyToClipboard = () => {
@@ -103,28 +98,6 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   //
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const chatScrollRef = useRef<any>(null); // Ref for empty Div to server as end of messages
-  useEffect(() => {
-    chatScrollRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-    });
-  }, [currentIndex]);
-
-  //
-  useEffect(() => {
-    if (currentIndex >= props.response.length - 5) setButtonsDisabled(false);
-    if (stop) {
-      setButtonsDisabled(false);
-      setStop(false);
-    } else if (currentIndex < props.response.length) {
-      const timeout = setTimeout(() => {
-        setCurrentText((prevText) => prevText + props.response[currentIndex]);
-        setCurrentIndex((prevIndex) => prevIndex + 1);
-      }, delay);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [currentIndex, delay]); // Handle the typing effect by creating a timeout while whole string is not written
 
   //
   // Handle window resize and update avatar visibility
@@ -149,7 +122,11 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
             <div className="msg-name">PINAC</div>
           </div>
           <div className="msg-text ai-msg">
-            <MarkdownStyle text={currentText} />
+            <MarkdownStyle
+              text={props.response}
+              setButtonsDisabled={setButtonsDisabled}
+              chatScrollRef={chatScrollRef}
+            />
           </div>
           <div className="ai-msg-copy-btn">
             <button className="copy-btn" onClick={() => copyToClipboard()}>

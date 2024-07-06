@@ -36,3 +36,8 @@ config/
 
 # user data
 backend/user data/
+
+# testing
+test.ts
+test.js
+test.tsx

@@ -43,19 +43,19 @@
 }
 
 /* for code blocks */
-.markdownText pre code {
+/* .markdownText pre code {
   white-space: pre-wrap;
   font-size: 15px;
   background-color: var(--codeBlocks-bg);
   border-radius: 10px;
   border: var(--codeBlocks-border);
-}
+} */
 
 /* for inline code */
-.markdownText code {
+/* .markdownText code {
   padding: 2px 4px;
   border-radius: 4px;
   font-size: 13.5px;
   background-color: var(--inlineCode-bg);
   box-shadow: var(--inlineCode-shadow);
-}
+} */
