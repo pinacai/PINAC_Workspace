@@ -31,8 +31,6 @@ Leveraging multiple AI tools for your workflow sounds smart. However, does the c
 
 Experience the **Next Gen AI Chat** —your all-in-one chat for text generation, document summarization, web searching, code generation, and a wide range of office tools.
 
-> View our Roadmap & Progress: https://github.com/orgs/pinacai/projects/1  
-
 > In this we develop the frontend part of the desktop app. We develop the python server separately in our repo  <a href="https://github.com/pinacai/PINAC-Nexus">PINAC Nexus</a>. We update the server in this repo with every new version of the server.
 
 ## 🎨 Themes
@@ -45,7 +43,7 @@ You have a new color theme idea ? We got you !
 
 
 ## 📂 File Structure
-The best file structure ever!
+Just the overview you need to get started !
 
     .
     ├── backend /
@@ -120,10 +118,17 @@ PINAC Workspace is licensed under the **GPL-3.0 license**. See the <a href="http
 
 If you have any support questions or to report issues, please file an issue through the GitHub issue tracker associated with the repository.
 
-## Contributors
+## 🧑‍💻 About Us
 
-Our project had come a long way from starting, thanks to our contributors for shaping our project beautifully.
+A GitHub organization committed to creating AI-powered applications that address practical problems, making AI accessible to everyone.
 
-## Author
+**Maintainer**: Rajesh Mondal (@RajeshTechForge) 
 
-**Rajesh Mondal** - @RajeshTechForge
+
+![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
+
+<div align="center">
+  <h1>Tip from us 😇</h1>
+  <p>It always takes time to understand and learn. So, don't worry at all. We know <b>you have got this</b>! 💪</p>
+  <h3>Show some &nbsp;❤️&nbsp; by &nbsp;🌟&nbsp; this repository!</h3>
+</div>
