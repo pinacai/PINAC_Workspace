@@ -1,7 +1,3 @@
-.changeable-icon {
-  filter: var(--changeable-icon-filter);
-}
-
 /* Chat Container */
 .chat-container {
   width: 100%;
@@ -147,7 +143,7 @@ button.disabled {
   cursor: not-allowed;
 }
 
-.stop-icon{
+.stop-icon {
   height: 45px;
   width: 45px;
   display: flex;
@@ -160,14 +156,10 @@ button.disabled {
   padding-top: 5px;
   padding-bottom: 5px;
   margin-right: 15px;
-  color:white;
+  color: white;
 }
 
-.submit-icon {
-  height: 30px;
-  width: 30px;
-}
-
+/* ------------------ */
 /* Responsive Styles */
 @media (max-width: 1200px) {
   .msg-box {
@@ -269,9 +261,5 @@ button.disabled {
     height: 35px;
     width: 35px;
     margin-right: 5px;
-  }
-
-  #submit-btn img {
-    height: 25px;
   }
 }

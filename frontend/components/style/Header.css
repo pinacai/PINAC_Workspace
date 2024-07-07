@@ -37,11 +37,6 @@
   background: var(--headerMenu-btn-hover-bg);
 }
 
-.left-side button img {
-  height: 30px;
-  background: transparent;
-}
-
 .header-menu .dropdown-menu {
   display: none;
 }
@@ -121,10 +116,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-}
-
-.pageHeader .newChatButton img {
-  height: 32px;
 }
 
 .pageHeader .newChatButton span {
@@ -285,10 +276,6 @@
 
   .title {
     font-size: 25px;
-  }
-
-  .pageHeader .newChatButton img {
-    height: 25px;
   }
 
   .logout-btn {

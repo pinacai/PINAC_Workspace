@@ -29,7 +29,6 @@
   --text-color1: #ffffff;
   --text-color2: #1f2937;
   --placeholder-text-color: #666666;
-  --changeable-icon-filter: none;
   --inputGroup-bg: #ffffff;
   --inputGroup-border-color: grey;
   --inputGroupBtn-hover-color: #e0e4e8;
@@ -104,7 +103,6 @@
   --text-color1: #ffffff;
   --text-color2: #ffffff;
   --placeholder-text-color: #bebebe;
-  --changeable-icon-filter: invert(100%);
   --inputGroup-bg: #3c3c3c;
   --inputGroup-border-color: #5e43f3;
   --inputGroupBtn-hover-color: #6e6e6e;
@@ -180,7 +178,6 @@
   --text-color1: #ece2d5;
   --text-color2: #0c0a18;
   --placeholder-text-color: #64696e;
-  --changeable-icon-filter: none;
   --inputGroup-bg: #e2e8f0;
   --inputGroup-border-color: #153fc5;
   --inputGroupBtn-hover-color: rgba(109, 108, 108, 0.2);
@@ -255,7 +252,6 @@
   --text-color1: #ece2d5;
   --text-color2: #ece2d5;
   --placeholder-text-color: #b9b9b9;
-  --changeable-icon-filter: invert(100%);
   --inputGroup-bg: rgba(109, 108, 108, 0.15);
   --inputGroup-border-color: #433788;
   --inputGroupBtn-hover-color: rgba(109, 108, 108, 0.15);
@@ -332,7 +328,6 @@
   --text-color1: #fff4e4;
   --text-color2: #000000;
   --placeholder-text-color: #77716c;
-  --changeable-icon-filter: none;
   --inputGroup-bg: #ffffff;
   --inputGroup-border-color: #dc6d18;
   --inputGroupBtn-hover-color: #f8e0c9;
@@ -407,7 +402,6 @@
   --text-color1: #f0ebe7;
   --text-color2: #d1c7bb;
   --placeholder-text-color: #645f58;
-  --changeable-icon-filter: invert(100%);
   --inputGroup-bg: #1a1515;
   --inputGroup-border-color: #d83b26b7;
   --inputGroupBtn-hover-color: #322c2b;

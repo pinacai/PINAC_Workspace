@@ -7,7 +7,7 @@ import GreetingComponent from "../components/TimeZoneGreeting";
 import "./style/HomePage.css";
 
 // Icons
-import sendIcon from "../assets/icon/send.svg";
+import { VscSend } from "react-icons/vsc";
 import { FaRegStopCircle } from "react-icons/fa";
 
 export const HomePage: React.FC = () => {
@@ -193,11 +193,7 @@ export const HomePage: React.FC = () => {
                     }
                     disabled={buttonsDisabled}
                   >
-                    <img
-                      src={sendIcon}
-                      alt="Submit"
-                      className="submit-icon changeable-icon"
-                    />
+                    <VscSend size={30} color="var(--text-color2)" />
                   </button>
                 ) : (
                   <button onClick={() => setStop(true)} className="stop-icon">

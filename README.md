@@ -41,7 +41,6 @@ You have a new color theme idea ? We got you !
 <br />
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_&_Dusk.jpg" alt="Dawn & Dusk Screenshot">
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Cyber_Tech_01.jpg" alt="Cyber_Tech_01 Screenshot">
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Aesthetic_Unbound.jpg" alt="Aesthetic_Unbound Screenshot">
 
 
@@ -49,8 +48,8 @@ You have a new color theme idea ? We got you !
 The best file structure ever!
 
     .
-    ├── backend /              # medium between frontend & server
-    |    ├── main.ts
+    ├── backend /
+    |    ├── main.ts           # medium between frontend & server
     |    ├── server /          # Python server
     |    └── user data /       # for storing user data
     |
@@ -60,7 +59,7 @@ The best file structure ever!
     |
     └── frontend /
          ├── App.tsx
-         ├── App.css           # All Theme's colors
+         ├── App.css           # All element,s colors theme-wise
          ├── assets /          # Img, Icons, Fonts
          ├── Components /      # Page's components 
          └── pages /

@@ -3,11 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./style/Sidebar.css";
 
 // Icons
+import { IoMdChatbubbles } from "react-icons/io";
+import { MdGroup } from "react-icons/md";
+import { IoMdSettings } from "react-icons/io";
+import { FaAngleRight } from "react-icons/fa6";
+import { FaAngleLeft } from "react-icons/fa6";
 import userIcon from "../assets/icon/user_icon.png";
-import chevronRightIcon from "../assets/icon/chevron_right.svg";
-import homeIcon from "../assets/icon/home.svg";
-import groupIcon from "../assets/icon/group.svg";
-import settingsIcon from "../assets/icon/settings.svg";
 
 export const Sidebar: React.FC = () => {
   const location = useLocation();
@@ -54,6 +55,41 @@ export const Sidebar: React.FC = () => {
   };
 
   //
+  // Selecting Icon Color for Present Page
+  const getPresentPageIconColor = () => {
+    const preferredThemePair = localStorage.getItem("preferred-theme-pair");
+    //
+    if (isDarkTheme && preferredThemePair === "Dawn_n_Dusk") {
+      return "white";
+    } else if (isDarkTheme && preferredThemePair === "Cyber_Tech_01") {
+      return "white";
+    } else if (isDarkTheme && preferredThemePair === "Aesthetics_Unbound") {
+      return "#d83b26";
+    } else if (!isDarkTheme && preferredThemePair === "Dawn_n_Dusk") {
+      return "#1f2937";
+    } else if (!isDarkTheme && preferredThemePair === "Cyber_Tech_01") {
+      return "#153fc5";
+    } else if (!isDarkTheme && preferredThemePair === "Aesthetics_Unbound") {
+      return "#dc6d18";
+    }
+
+    // If none of the conditions match, you can return a default value or null
+    return undefined;
+  };
+
+  //
+  useEffect(() => {
+    window.ipcRenderer.send("request-to-backend", {
+      request_type: "give-user-info",
+    });
+    window.ipcRenderer.once("backend-response", (_, response) => {
+      setImageUrl(response.image);
+      setFirstName(response.first_name);
+      setLastName(response.last_name);
+    });
+  }, []);
+
+  //
   // Retrieve the preferred theme from local storage and set that theme
   useEffect(() => {
     const preferredTheme = localStorage.getItem("preferred-theme");
@@ -79,17 +115,6 @@ export const Sidebar: React.FC = () => {
     }
   }, [isDarkTheme]);
 
-  useEffect(() => {
-    window.ipcRenderer.send("request-to-backend", {
-      request_type: "give-user-info",
-    });
-    window.ipcRenderer.once("backend-response", (_, response) => {
-      setImageUrl(response.image);
-      setFirstName(response.first_name);
-      setLastName(response.last_name);
-    });
-  }, []);
-
   return (
     <>
       {/* Render the sidebar */}
@@ -107,13 +132,21 @@ export const Sidebar: React.FC = () => {
                   {firstName ? firstName : "Profile"} {lastName ? lastName : ""}
                 </span>
               </div>
-              <img
-                id="sidebar-btn"
-                className="non-changeable-icon"
-                src={chevronRightIcon}
-                alt="Sidebar Toggle"
-                onClick={toggleSidebar}
-              />
+              {isActive ? (
+                <FaAngleLeft
+                  size={25}
+                  color="var(--text-color1)"
+                  id="sidebar-btn"
+                  onClick={toggleSidebar}
+                />
+              ) : (
+                <FaAngleRight
+                  size={25}
+                  color="var(--text-color1)"
+                  id="sidebar-btn"
+                  onClick={toggleSidebar}
+                />
+              )}
             </div>
             <div className="border-line"></div>
             <nav>
@@ -124,16 +157,12 @@ export const Sidebar: React.FC = () => {
                   className={location.pathname === "/" ? "present-page" : "li"}
                   onClick={() => changePage("/")}
                 >
-                  <img
-                    className="non-changeable-icon"
-                    src={homeIcon}
-                    alt="Home"
-                    style={
+                  <IoMdChatbubbles
+                    size={25}
+                    color={
                       location.pathname === "/"
-                        ? isDarkTheme
-                          ? { filter: "invert(100%)" }
-                          : { filter: "none" }
-                        : {}
+                        ? getPresentPageIconColor()
+                        : undefined
                     }
                   />
                   <span
@@ -146,7 +175,7 @@ export const Sidebar: React.FC = () => {
                         : {}
                     }
                   >
-                    Home
+                    Chat
                   </span>
                 </li>
                 <li
@@ -157,16 +186,12 @@ export const Sidebar: React.FC = () => {
                   }
                   onClick={() => changePage("/about")}
                 >
-                  <img
-                    className="non-changeable-icon"
-                    src={groupIcon}
-                    alt="About Us"
-                    style={
+                  <MdGroup
+                    size={25}
+                    color={
                       location.pathname === "/about"
-                        ? isDarkTheme
-                          ? { filter: "invert(100%)" }
-                          : { filter: "none" }
-                        : {}
+                        ? getPresentPageIconColor()
+                        : undefined
                     }
                   />
                   <span
@@ -190,16 +215,12 @@ export const Sidebar: React.FC = () => {
                   }
                   onClick={() => changePage("/settings")}
                 >
-                  <img
-                    className="non-changeable-icon"
-                    src={settingsIcon}
-                    alt="Settings"
-                    style={
+                  <IoMdSettings
+                    size={25}
+                    color={
                       location.pathname === "/settings"
-                        ? isDarkTheme
-                          ? { filter: "invert(100%)" }
-                          : { filter: "none" }
-                        : {}
+                        ? getPresentPageIconColor()
+                        : undefined
                     }
                   />
                   <span

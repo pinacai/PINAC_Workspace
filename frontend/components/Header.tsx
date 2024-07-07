@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./style/Header.css";
 
 // Icons
-import addLogo from "../assets/icon/add_circle.svg";
-import downArrow from "../assets/icon/arrow_down.svg";
-import upArrow from "../assets/icon/arrow_up.svg";
+import { IoAddCircleOutline } from "react-icons/io5";
+import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowUp } from "react-icons/io";
 
 interface HeaderProps {
   title: string;
@@ -35,9 +35,10 @@ export const Header: React.FC<HeaderProps> = (props) => {
     );
   };
 
+  //
   const logout = () => {
-    window.ipcRenderer.send("request-to-backend", {request_type: "logout"});
-    changePage("/")
+    window.ipcRenderer.send("request-to-backend", { request_type: "logout" });
+    changePage("/");
     window.ipcRenderer.send("reload-app");
   };
 
@@ -47,7 +48,11 @@ export const Header: React.FC<HeaderProps> = (props) => {
     return (
       <>
         <button className="newChatButton" onClick={props.clearChat}>
-          <img src={addLogo} className="non-changeable-icon" />
+          <IoAddCircleOutline
+            size={30}
+            color="var(--text-color1)"
+            style={{ zIndex: 2 }}
+          />
           <span>New Chat</span>
         </button>
       </>
@@ -82,6 +87,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
     localStorage.setItem("preferred-theme", isDarkTheme ? "light" : "dark");
   };
 
+  //
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 576) {
@@ -97,12 +103,14 @@ export const Header: React.FC<HeaderProps> = (props) => {
     };
   }, []);
 
+  //
   // Retrieve the preferred theme from local storage and set that theme
   useEffect(() => {
     const preferredTheme = localStorage.getItem("preferred-theme");
     setIsDarkTheme(preferredTheme === "dark");
   }, []);
 
+  //
   // Creating an event handler to close the dropdown menu by click elsewhere outside the menu
   useEffect(() => {
     const handleOutsideClicks = (e: MouseEvent) => {
@@ -158,11 +166,14 @@ export const Header: React.FC<HeaderProps> = (props) => {
                   className={location.pathname == "/" ? "home" : ""}
                   onClick={() => openMenu()}
                 >
-                  <img
-                    src={isDropdownActive ? upArrow : downArrow}
-                    alt="Menu"
-                    className="changeable-icon"
-                  />
+                  {isDropdownActive ? (
+                    <IoIosArrowUp size={25} color="var(--headerTitle-color)" />
+                  ) : (
+                    <IoIosArrowDown
+                      size={25}
+                      color="var(--headerTitle-color)"
+                    />
+                  )}
                 </button>
               </div>
               <div

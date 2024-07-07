@@ -31,10 +31,6 @@
   background: var(--dropdownBtn-hover-bg);
 }
 
-.dropdown .selector img {
-  width: 24px;
-}
-
 .dropdown .dropdown-menu {
   display: none;
 }
