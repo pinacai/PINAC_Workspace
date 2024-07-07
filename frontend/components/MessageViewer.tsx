@@ -86,29 +86,36 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   );
+  const chatScrollRef = useRef<any>(null);
 
-  //
   const copyToClipboard = () => {
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-      return navigator.clipboard.writeText(props.response);
+      navigator.clipboard
+        .writeText(props.response)
+        .then(() => {
+          //@ashharamir : added copy button animation (removed the promose.reject catch throw)
+          const copyBtn = document.querySelector(".copy-btn");
+          if (copyBtn) {
+            copyBtn.classList.add("animate");
+            setTimeout(() => {
+              copyBtn.classList.remove("animate");
+            }, 1000);
+          }
+        })
+        .catch((error) => {
+          console.error("Failed to copy:", error);
+        });
     }
-    return Promise.reject("Clipboard API not supported");
   };
 
-  //
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const chatScrollRef = useRef<any>(null); // Ref for empty Div to server as end of messages
-
-  //
-  // Handle window resize and update avatar visibility
   useEffect(() => {
     const updateAvatarVisibility = () => {
       setIsAvatarVisible(window.innerWidth > 576);
     };
     window.addEventListener("resize", updateAvatarVisibility);
-    // Cleanup function to remove the event listener
     return () => window.removeEventListener("resize", updateAvatarVisibility);
   }, []);
+
   return (
     <>
       <div className="msg-row">
