@@ -1,25 +1,29 @@
 from flask import Flask
 from flask_socketio import SocketIO
 from functools import cache
-from ai_models.ChatGPT import ChatGPT_3_5
-from ai_models.Gemini import Gemini_1_5_Pro, Gemini_1_Pro, Gemini_1_5_Flash
 from langchain.schema import HumanMessage, AIMessage
 
 
 # Initializing AI Models
-chatgpt_3_5 = ChatGPT_3_5()
-gemini_1_5_pro = Gemini_1_5_Pro()
-gemini_1_pro = Gemini_1_Pro()
-gemini_1_5_flash = Gemini_1_5_Flash()
+try:
+    from ai_models.ChatGPT import ChatGPT_3_5
+
+    chatgpt_3_5 = ChatGPT_3_5()
+except:
+    chatgpt_3_5 = None
+
+try:
+    from ai_models.Gemini import Gemini_1_5_Pro, Gemini_1_Pro, Gemini_1_5_Flash
+
+    gemini_1_5_pro = Gemini_1_5_Pro()
+    gemini_1_pro = Gemini_1_Pro()
+    gemini_1_5_flash = Gemini_1_5_Flash()
+except:
+    gemini_1_5_pro = gemini_1_pro = gemini_1_5_flash = None
 
 
 # Initialize the chat history
 chatHistory = []
-
-
-# Clearing chat history
-def clearHistory():
-    chatHistory.clear()
 
 
 @cache

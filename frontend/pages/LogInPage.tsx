@@ -20,35 +20,48 @@ export const LogInPage: React.FC<LogInPagePrompt> = ({ changeLogInStatus }) => {
 
   //
   const submit = () => {
-    window.ipcRenderer.send("request-to-backend", {
-      request_type: "save-user-info",
-      first_name: firstName,
-      last_name: lastName,
-      email_id: emailId,
-    });
+    if (firstName !== "" && (openaiKey !== "" || geminiKey !== "")) {
+      window.ipcRenderer.send("request-to-backend", {
+        request_type: "save-user-info",
+        first_name: firstName,
+        last_name: lastName,
+        email_id: emailId,
+      });
 
-    window.ipcRenderer.send("request-to-backend", {
-      request_type: "save-api-keys",
-      OPENAI_API_KEY: openaiKey,
-      GOOGLE_API_KEY: geminiKey,
-    });
+      window.ipcRenderer.send("request-to-backend", {
+        request_type: "save-api-keys",
+        OPENAI_API_KEY: openaiKey,
+        GOOGLE_API_KEY: geminiKey,
+      });
 
-    window.ipcRenderer.send("request-to-backend", {
-      request_type: "start-server",
-    });
-    changeLogInStatus();
-    // escape full screen for LoginPage
-    window.ipcRenderer.send("escFullScreen");
+      window.ipcRenderer.send("request-to-backend", {
+        request_type: "start-server",
+      });
+
+      changeLogInStatus();
+      // escape full screen for LoginPage
+      window.ipcRenderer.send("escFullScreen");
+    }
   };
 
   return (
     <div className="container">
       <div className="logIn-container">
         <form className="form">
-          <p className="title">Privacy Log In</p>
+          <div className="title">
+            <div className="spinner">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <span>Welcome</span>
+          </div>
           <p className="message">
-            This is our privacy-first local log in. Keep your data only in your
-            device.
+            Please enter the API keys for the LLM you’d like to use. You must
+            provide at least one API key.
           </p>
           <div className="flex">
             <label>

@@ -97,8 +97,7 @@ Just the overview you need to get started !
     ```bash
     npm run dev
     ```
-> **NOTICE**: Currently you have to give both OPENAI & GEMINI API otherwise the server will go through an error, if you have one key, put the other one randomly anything, but don't select that Model to use.
-
+    
 > **Remember**: Always activate the Python virtual env with the command `source env/bin/activate` before starting the app with the command `npm run dev`. Otherwise, the server will not start.
 
 ## 🎉 Contributing

@@ -162,9 +162,9 @@ ipcMain.on("reload-app", () => {
 
 // Listen for toggling FullScreen
 ipcMain.on("setFullScreen", () => {
-  win?.setFullScreen(true);
+  win?.maximize();
 });
 
 ipcMain.on("escFullScreen", () => {
-  win?.setFullScreen(false);
+  win?.unmaximize();
 });

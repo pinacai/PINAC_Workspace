@@ -34,6 +34,7 @@ export const ProfilePage: React.FC = () => {
     fileInputRef.current?.click();
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFileChange = (event:any) => {
     const file = event.target.files[0]
 

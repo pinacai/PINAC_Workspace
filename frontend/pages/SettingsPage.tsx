@@ -14,6 +14,7 @@ export const SettingsPage: React.FC = () => {
   const [Dawn_n_Dusk, setDawn_n_Dusk] = useState<boolean>(false);
   const [Cyber_Tech_01, setCyber_Tech_01] = useState<boolean>(false);
   const [Aesthetics_Unbound, setAesthetics_Unbound] = useState<boolean>(false);
+  const [availableLlmList, setAvailableLlmList] = useState<string[]>([]);
 
   //
   const changeToDawn_n_Dusk = () => {
@@ -35,6 +36,7 @@ export const SettingsPage: React.FC = () => {
     }
   };
 
+  //
   const changeToAesthetics_Unbound = () => {
     setAesthetics_Unbound(!Aesthetics_Unbound);
     if (!Aesthetics_Unbound) {
@@ -43,6 +45,18 @@ export const SettingsPage: React.FC = () => {
       localStorage.setItem("preferred-theme-pair", "Aesthetics_Unbound");
     }
   };
+
+  //
+  useEffect(() => {
+    window.ipcRenderer.send("request-to-backend", {
+      request_type: "give-available-llm",
+    });
+    window.ipcRenderer.on("backend-response", (_, response) => {
+      if (response.llm) {
+        setAvailableLlmList(response.llm);
+      }
+    });
+  });
 
   //
   useEffect(() => {
@@ -82,13 +96,7 @@ export const SettingsPage: React.FC = () => {
               <span>AI Model</span>
             </div>
             <DropdownMenu
-              optionList={[
-                "ChatGPT-3.5 turbo",
-                "Gemini 1.5 Pro",
-                "Gemini 1.0 Pro",
-                "Gemini Flash 1.5",
-                // "Gemma 2B"
-              ]}
+              optionList={availableLlmList}
               defaultOption="Gemini Flash 1.5"
             />
           </div>

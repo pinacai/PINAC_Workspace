@@ -1,11 +1,9 @@
 .logIn-container {
-  background: url("frontend/assets/img/login_page_bg.svg");
+  background: url("frontend/assets/img/login_page_bg.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   font-family: "Exo2", "Montserrat", sans-serif;
-  /* overflow: hidden; */
-
   width: 100%;
   height: 100vh;
   display: flex;
@@ -28,45 +26,90 @@
   position: relative;
 }
 
+/* ------------------------------------------------- */
+/*              Header Text & Animation              */
+/* ------------------------------------------------- */
+
 .logIn-container .title {
-  font-size: 28px;
+  display: flex;
+  align-items: center;
+  padding-left: 45px;
+  margin-bottom: 60px;
+}
+
+.logIn-container .title span {
+  font-size: 32px;
   color: royalblue;
   font-weight: 600;
   letter-spacing: -1px;
-  position: relative;
-  margin-bottom: 70px;
-  display: flex;
-  align-items: center;
-  padding-left: 30px;
+  padding-left: 20px;
 }
 
-.logIn-container .title::before,
-.logIn-container .title::after {
+.logIn-container .title .spinner {
+  width: 40.4px;
+  height: 40.4px;
+  --clr: rgb(247, 197, 159);
+  --clr-alpha: rgb(247, 197, 159, 0.1);
+  animation: spinner 1.6s infinite ease;
+  transform-style: preserve-3d;
+}
+
+.logIn-container .title .spinner > div {
+  background-color: var(--clr-alpha);
+  height: 100%;
   position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  left: 0px;
-  background-color: royalblue;
+  width: 100%;
+  border: 3.5px solid var(--clr);
 }
 
-.logIn-container .title::before {
-  width: 18px;
-  height: 18px;
-  background-color: royalblue;
+.logIn-container .title .spinner div:nth-of-type(1) {
+  transform: translateZ(-20px) rotateY(180deg);
 }
 
-.logIn-container .title::after {
-  width: 18px;
-  height: 18px;
-  animation: pulse 1s linear infinite;
+.logIn-container .title .spinner div:nth-of-type(2) {
+  transform: rotateY(-270deg) translateX(50%);
+  transform-origin: top right;
 }
 
+.logIn-container .title .spinner div:nth-of-type(3) {
+  transform: rotateY(270deg) translateX(-50%);
+  transform-origin: center left;
+}
+
+.logIn-container .title .spinner div:nth-of-type(4) {
+  transform: rotateX(90deg) translateY(-50%);
+  transform-origin: top center;
+}
+
+.logIn-container .title .spinner div:nth-of-type(5) {
+  transform: rotateX(-90deg) translateY(50%);
+  transform-origin: bottom center;
+}
+
+.logIn-container .title .spinner div:nth-of-type(6) {
+  transform: translateZ(20px);
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+  }
+
+  50% {
+    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
+  }
+
+  100% {
+    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+  }
+}
+
+/* ------------------------------------------------- */
 .logIn-container .message,
 .logIn-container .signin {
-  color: rgba(88, 87, 87, 0.822);
+  color: rgba(161, 161, 161, 0.822);
   font-size: 14px;
+  margin-bottom: 5px;
 }
 
 .logIn-container .signin {
