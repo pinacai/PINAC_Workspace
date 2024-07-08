@@ -52,7 +52,7 @@
   --newChatBtn-after-color: #6c82ff;
   --newChatBtn-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 
-  /* MessageViewer */
+  /* MessageBubble */
   --humanMsg-bg: #1f2937;
   --humanMsg-bg-shadow: none;
   --aiMsg-bg: #ffffff;
@@ -126,7 +126,7 @@
   --newChatBtn-after-color: linear-gradient(135deg, #5e43f3, #382bf0);
   --newChatBtn-shadow: none;
 
-  /* MessageViewer */
+  /* MessageBubble */
   --humanMsg-bg: #382bf0;
   --humanMsg-bg-shadow: none;
   --aiMsg-bg: #252525;
@@ -201,7 +201,7 @@
   --newChatBtn-after-color: var(--secondary-color);
   --newChatBtn-shadow: none;
 
-  /* MessageViewer */
+  /* MessageBubble */
   --humanMsg-bg: #153fc5;
   --humanMsg-bg-shadow: none;
   --aiMsg-bg: #e2e8f0;
@@ -275,7 +275,7 @@
   --newChatBtn-after-color: var(--secondary-color);
   --newChatBtn-shadow: 0 0 2px #ece2d5;
 
-  /* MessageViewer */
+  /* MessageBubble */
   --humanMsg-bg: linear-gradient(125deg, #0026ff, #5b00af);
   --humanMsg-bg-shadow: none;
   --aiMsg-bg: rgba(109, 108, 108, 0.15);
@@ -351,7 +351,7 @@
   --newChatBtn-after-color: #dc6d18;
   --newChatBtn-shadow: none;
 
-  /* MessageViewer */
+  /* MessageBubble */
   --humanMsg-bg: #2b1a12;
   --humanMsg-bg-shadow: none;
   --aiMsg-bg: #f8e0c9;
@@ -425,7 +425,7 @@
   --newChatBtn-after-color: #d83b26b7;
   --newChatBtn-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
 
-  /* MessageViewer */
+  /* MessageBubble */
   --humanMsg-bg: #d83b26b7;
   --humanMsg-bg-shadow: none;
   --aiMsg-bg: #3c3c3c;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { MarkdownStyle } from "../components/MarkdownStyle";
-import "./style/MessageViewer.css";
+import "./style/MessageBubble.css";
 
 // Icons
 import userIcon from "../assets/icon/user_icon.png";
@@ -86,6 +86,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const chatScrollRef = useRef<any>(null);
 
   const copyToClipboard = () => {
@@ -93,7 +94,6 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
       navigator.clipboard
         .writeText(props.response)
         .then(() => {
-          //@ashharamir : added copy button animation (removed the promose.reject catch throw)
           const copyBtn = document.querySelector(".copy-btn");
           if (copyBtn) {
             copyBtn.classList.add("animate");
