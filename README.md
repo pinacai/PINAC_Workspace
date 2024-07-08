@@ -31,8 +31,6 @@ Leveraging multiple AI tools for your workflow sounds smart. However, does the c
 
 Experience the **Next Gen AI Chat** —your all-in-one chat for text generation, document summarization, web searching, code generation, and a wide range of office tools.
 
-> In this we develop the frontend part of the desktop app. We develop the python server separately in our repo  <a href="https://github.com/pinacai/PINAC-Nexus">PINAC Nexus</a>. We update the server in this repo with every new version of the server.
-
 ## 🎨 Themes
 
 You have a new color theme idea ? We got you !
@@ -41,14 +39,13 @@ You have a new color theme idea ? We got you !
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_&_Dusk.jpg" alt="Dawn & Dusk Screenshot">
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Aesthetic_Unbound.jpg" alt="Aesthetic_Unbound Screenshot">
 
-
 ## 📂 File Structure
+
 Just the overview you need to get started !
 
     .
     ├── backend /
     |    ├── main.ts           # medium between frontend & server
-    |    ├── server /          # Python server
     |    └── user data /       # for storing user data
     |
     ├── electron /
@@ -59,46 +56,37 @@ Just the overview you need to get started !
          ├── App.tsx
          ├── App.css           # All element,s colors theme-wise
          ├── assets /          # Img, Icons, Fonts
-         ├── Components /      # Page's components 
+         ├── Components /      # Page's components
          └── pages /
 
-
-##  🚀 Project Setup
+## 🚀 Project Setup
 
 ### _Recommended IDE Setup_
 
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-### Setup the backend
+### Request 🙏
+
+We’ve established a development server to facilitate UI development. This allows developers who aren’t familiar with LLMs to use and test the app. Please refrain from spamming or overloading the AI chat, as the server is designed for testing and has usage limits. Feel free to use it for testing purposes and engage in normal chat for a pleasant experience.
+
+### Setup the App
 
 1. Clone the Repository
-    ```bash
-    git clone https://github.com/pinacai/PINAC_Workspace.git && cd PINAC_Workspace
-    ```
 
-2. create virtualenv and activate it
-    ```bash
-    python -m venv env && source env/bin/activate
-    ```
+   ```bash
+   git clone https://github.com/pinacai/PINAC_Workspace.git && cd PINAC_Workspace
+   ```
 
-3. install the Python dependencies with
-    ```bash
-    pip install -r requirements.txt
-    ```
+2. Install Node dependencies
 
-### Install the App
+   ```bash
+   npm install
+   ```
 
-1. Install Node dependencies
-    ```bash
-    npm install
-    ```
-
-2. Start the App
-    ```bash
-    npm run dev
-    ```
-    
-> **Remember**: Always activate the Python virtual env with the command `source env/bin/activate` before starting the app with the command `npm run dev`. Otherwise, the server will not start.
+3. Start the App
+   ```bash
+   npm run dev
+   ```
 
 ## 🎉 Contributing
 
@@ -121,8 +109,7 @@ If you have any support questions or to report issues, please file an issue thro
 
 A GitHub organization committed to creating AI-powered applications that address practical problems, making AI accessible to everyone.
 
-**Maintainer**: Rajesh Mondal (@RajeshTechForge) 
-
+**Maintainer**: Rajesh Mondal (@RajeshTechForge)
 
 ![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
 

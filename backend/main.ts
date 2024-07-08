@@ -1,12 +1,15 @@
 import { ipcMain, shell } from "electron";
-import { createRequire } from "node:module";
 import * as fs from "fs";
+import fetch from "node-fetch";
 
 //
-// Establishing communication with server using Socket
-const require = createRequire(import.meta.url);
-const io = require("socket.io-client");
-const socket = io("http://localhost:5000");
+// for using development server
+const callDevelopmentServer = async (input: string) => {
+  const response = await fetch(
+    `https://nexus-for-development.pinac.workers.dev/?input=${input}`
+  );
+  return await response.json();
+};
 
 //
 // =================================================== //
@@ -16,7 +19,7 @@ const socket = io("http://localhost:5000");
 ipcMain.on("request-to-backend", (event, request) => {
   //
   if (request["request_type"] == "check-user-login") {
-    fs.access("backend/user data/.env", fs.constants.F_OK, (err) => {
+    fs.access("backend/user data/user_info.json", fs.constants.F_OK, (err) => {
       const loggedIn = !err;
       event.reply("server-response", { logged_in: loggedIn });
     });
@@ -25,20 +28,6 @@ ipcMain.on("request-to-backend", (event, request) => {
   //
   else if (request["request_type"] == "clear-chat") {
     console.log("Chat Cleared");
-  }
-  //
-  //
-  else if (request["request_type"] == "give-available-llm") {
-    fs.readFile("backend/user data/available_llm.json", "utf8", (_, data) => {
-      try {
-        const llmList = JSON.parse(data);
-        event.reply("backend-response", llmList);
-      } catch {
-        event.reply("backend-response", {
-          llm: [],
-        });
-      }
-    });
   }
   //
   //
@@ -68,51 +57,10 @@ ipcMain.on("request-to-backend", (event, request) => {
   }
   //
   //
-  else if (request["request_type"] == "save-api-keys") {
-    if (request["OPENAI_API_KEY"] !== "" && request["GOOGLE_API_KEY"] !== "") {
-      const apiKeys = `OPENAI_API_KEY = "${request["OPENAI_API_KEY"]}"\nGOOGLE_API_KEY = "${request["GOOGLE_API_KEY"]}"`;
-      fs.writeFileSync("backend/user data/.env", apiKeys);
-      fs.writeFileSync(
-        "backend/user data/available_llm.json",
-        JSON.stringify({
-          llm: [
-            "ChatGPT-3.5 turbo",
-            "Gemini 1.5 Pro",
-            "Gemini 1.0 Pro",
-            "Gemini Flash 1.5",
-          ],
-        })
-      );
-    }
-    //
-    else if (request["OPENAI_API_KEY"] !== "") {
-      const apiKeys = `OPENAI_API_KEY = "${request["OPENAI_API_KEY"]}"`;
-      fs.writeFileSync("backend/user data/.env", apiKeys);
-      fs.writeFileSync(
-        "backend/user data/available_llm.json",
-        JSON.stringify({ llm: ["ChatGPT-3.5 turbo"] })
-      );
-    }
-    //
-    else {
-      const apiKeys = `GOOGLE_API_KEY = "${request["GOOGLE_API_KEY"]}"`;
-      fs.writeFileSync("backend/user data/.env", apiKeys);
-      fs.writeFileSync(
-        "backend/user data/available_llm.json",
-        JSON.stringify({
-          llm: ["Gemini 1.5 Pro", "Gemini 1.0 Pro", "Gemini Flash 1.5"],
-        })
-      );
-    }
-  }
-  //
-  //
   else if (request["request_type"] == "give-user-info") {
     fs.readFile("backend/user data/user_info.json", "utf8", (_, data) => {
       try {
         const userData = JSON.parse(data);
-        userData.OPENAI_API_KEY = "***********";
-        userData.GOOGLE_API_KEY = "***********";
         event.reply("backend-response", userData);
       } catch {
         const userData = {
@@ -130,7 +78,6 @@ ipcMain.on("request-to-backend", (event, request) => {
   //
   //
   else if (request["request_type"] == "logout") {
-    fs.unlink("backend/user data/.env", () => {});
     fs.unlink("backend/user data/user_info.json", () => {});
   }
   //
@@ -167,9 +114,16 @@ ipcMain.on("request-to-backend", (event, request) => {
 //       Frontend to Server         //
 // -------------------------------- //
 
-ipcMain.on("request-to-server", (event, request) => {
-  socket.emit("message", request);
-  socket.on("message-reply", (response: object) => {
-    event.reply("server-response", response);
-  });
+ipcMain.on("request-to-server", async (event, request) => {
+  const input = request["user_query"]
+    .replace(" ", "+")
+    .replace("  ", "+")
+    .replace("   ", "+");
+  const ai_response = await callDevelopmentServer(input);
+  const response = {
+    error_occurred: false,
+    response: { type: "others", content: ai_response[0].response.response },
+    error: null,
+  };
+  event.reply("server-response", response);
 });

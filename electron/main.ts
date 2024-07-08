@@ -1,8 +1,6 @@
 import { app, BrowserWindow, screen, ipcMain } from "electron";
 import { fileURLToPath } from "node:url";
-import { spawn } from "child_process";
 import path from "node:path";
-import * as fs from "fs";
 import "../backend/main";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -23,7 +21,6 @@ export const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 export const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 
-let pythonProcess = null;
 let loadingWindow: BrowserWindow | null;
 let win: BrowserWindow | null;
 
@@ -93,10 +90,6 @@ app.on("window-all-closed", () => {
     app.quit();
     win = null;
   }
-  // // Terminate the Python process
-  if (pythonProcess) {
-    pythonProcess.kill();
-  }
 });
 
 app.on("activate", () => {
@@ -112,59 +105,20 @@ app.whenReady().then(() => {
   createMainWindow();
 });
 
-// ================================================================= //
-//                            PYTHON SERVER                          //
-// ================================================================= //
-
-//
-const startPythonServer = () => {
-  // Spawn the Python process
-  pythonProcess = spawn("python", ["backend/server/main.py"]);
-
-  pythonProcess.stdout.on("data", (data) => {
-    console.log(data.toString());
-  });
-
-  pythonProcess.stderr.on("data", (data) => {
-    console.error(data.toString());
-  });
-
-  pythonProcess.on("close", (code) => {
-    console.log(`Python script exited with code ${code}`);
-  });
-};
-
-//
-// if user logged In then start server
-if (fs.existsSync("backend/user data/.env")) {
-  startPythonServer();
-}
-
-// ------------------------------------------ //
-//     frontend request to start server       //
-// ------------------------------------------ //
-
-ipcMain.on("request-to-backend", (_, request) => {
-  //
-  if (request["request_type"] == "start-server") {
-    startPythonServer();
-  }
-});
+// ------------------------------------------------------- //
+//      frontend request to backend (window related)       //
+// ------------------------------------------------------- //
 
 // Reload the app
 ipcMain.on("reload-app", () => {
-  // Terminate the Python process
-  if (pythonProcess) {
-    pythonProcess.kill();
-  }
   win?.reload();
 });
 
-// Listen for toggling FullScreen
-ipcMain.on("setFullScreen", () => {
+// Listen for toggling Window Size
+ipcMain.on("maximizeWindow", () => {
   win?.maximize();
 });
 
-ipcMain.on("escFullScreen", () => {
+ipcMain.on("unmaximizeWindow", () => {
   win?.unmaximize();
 });

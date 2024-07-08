@@ -9,38 +9,36 @@ export const LogInPage: React.FC<LogInPagePrompt> = ({ changeLogInStatus }) => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [emailId, setEmailId] = useState<string>("");
-  const [openaiKey, setOpenaiKey] = useState<string>("");
-  const [geminiKey, setGeminiKey] = useState<string>("");
+  const [bio, setBio] = useState<string>("");
+  // const [openaiKey, setOpenaiKey] = useState<string>("");
+  // const [geminiKey, setGeminiKey] = useState<string>("");
 
   //
   // switch to full screen for LoginPage
   useEffect(() => {
-    window.ipcRenderer.send("setFullScreen");
+    window.ipcRenderer.send("maximizeWindow");
   }, []);
 
   //
   const submit = () => {
-    if (firstName !== "" && (openaiKey !== "" || geminiKey !== "")) {
+    if (firstName !== "" && lastName !== "") {
       window.ipcRenderer.send("request-to-backend", {
         request_type: "save-user-info",
         first_name: firstName,
         last_name: lastName,
         email_id: emailId,
+        bio: bio,
       });
 
-      window.ipcRenderer.send("request-to-backend", {
-        request_type: "save-api-keys",
-        OPENAI_API_KEY: openaiKey,
-        GOOGLE_API_KEY: geminiKey,
-      });
-
-      window.ipcRenderer.send("request-to-backend", {
-        request_type: "start-server",
-      });
+      // window.ipcRenderer.send("request-to-backend", {
+      //   request_type: "save-api-keys",
+      //   OPENAI_API_KEY: openaiKey,
+      //   GOOGLE_API_KEY: geminiKey,
+      // });
 
       changeLogInStatus();
       // escape full screen for LoginPage
-      window.ipcRenderer.send("escFullScreen");
+      window.ipcRenderer.send("unmaximizeWindow");
     }
   };
 
@@ -110,6 +108,19 @@ export const LogInPage: React.FC<LogInPagePrompt> = ({ changeLogInStatus }) => {
           </label>
 
           <label>
+            <textarea
+              placeholder="Tell Us about yourself"
+              id="bio"
+              className="input"
+              value={bio}
+              onChange={(event) => {
+                setBio(event.target.value);
+              }}
+              style={{ height: "150px" }}
+            />
+          </label>
+
+          {/* <label>
             <input
               required
               placeholder=""
@@ -134,7 +145,7 @@ export const LogInPage: React.FC<LogInPagePrompt> = ({ changeLogInStatus }) => {
               }}
             />
             <span>GEMINI API KEY</span>
-          </label>
+          </label> */}
           <button className="submit" onClick={() => submit()}>
             Submit
           </button>

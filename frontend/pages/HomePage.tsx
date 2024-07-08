@@ -194,30 +194,33 @@ export const HomePage: React.FC = () => {
                 required
               />
               <div className="input-group-append">
-                {/* this button is for toggling options */}
-                <button
-                  id="options-btn"
-                  className={buttonsDisabled ? "disabled" : ""}
-                  onClick={() => setShowOptions(!showOptions)}
-                  disabled={buttonsDisabled}
-                >
-                  <FiMoreVertical
-                    size={30}
-                    color="var(--text-color2)"
-                    style={{ marginTop: "6px" }}
-                  />
-                </button>
                 {!buttonsDisabled ? (
-                  <button
-                    id="submit-btn"
-                    className={buttonsDisabled ? "disabled" : ""}
-                    onClick={() =>
-                      userInput !== undefined ? submit(userInput) : {}
-                    }
-                    disabled={buttonsDisabled}
-                  >
-                    <VscSend size={30} color="var(--text-color2)" />
-                  </button>
+                  <>
+                    {/* this button is for toggling options */}
+                    <button
+                      id="options-btn"
+                      className={buttonsDisabled ? "disabled" : ""}
+                      onClick={() => setShowOptions(!showOptions)}
+                      disabled={buttonsDisabled}
+                    >
+                      <FiMoreVertical
+                        size={29}
+                        color="var(--text-color2)"
+                        style={{ marginTop: "6px" }}
+                      />
+                    </button>
+
+                    <button
+                      id="submit-btn"
+                      className={buttonsDisabled ? "disabled" : ""}
+                      onClick={() =>
+                        userInput !== undefined ? submit(userInput) : {}
+                      }
+                      disabled={buttonsDisabled}
+                    >
+                      <VscSend size={30} color="var(--text-color2)" />
+                    </button>
+                  </>
                 ) : (
                   <button onClick={() => setStop(true)} className="stop-icon">
                     <FaRegStopCircle size={25} color={"gray"} />

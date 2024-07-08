@@ -11,8 +11,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/node-fetch": "^2.6.11",
     "highlight.js": "^11.9.0",
     "moment": "^2.30.1",
+    "node-fetch": "^3.3.2",
     "ollama": "^0.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
