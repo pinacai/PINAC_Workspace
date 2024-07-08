@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
@@ -10,7 +9,7 @@ import "./style/HomePage.css";
 // Icons
 import { VscSend } from "react-icons/vsc";
 import { FaRegStopCircle } from "react-icons/fa";
-import {  FiImage, FiFile, FiSearch, FiMoreVertical } from "react-icons/fi";
+import { FiImage, FiFile, FiSearch, FiMoreVertical } from "react-icons/fi";
 
 export const HomePage: React.FC = () => {
   const [welcomeBox, setWelcomeBox] = useState<JSX.Element>(
@@ -94,10 +93,7 @@ export const HomePage: React.FC = () => {
       }
     }
   };
-  //toggle option for showing adding files  options  
-  const toggleOptions = () => {
-    setShowOptions(!showOptions);
-  };
+
   // Scroll to the bottom whenever messages change
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const scrollRef = useRef<any>(null); // Ref for empty Div to server as end of messages
@@ -178,14 +174,14 @@ export const HomePage: React.FC = () => {
               onFocus={() => setUserInputActive(true)}
               onBlur={() => setUserInputActive(false)}
             >
-            {showOptions && (
-              // this is the class that has add files icons. 
-              <div className="options-menu">
-                <FiImage  title="Add Image" />
-                <FiFile  title="Add PDF" />
-                <FiSearch  title="Web Search" />
-              </div>
-            )}
+              {showOptions && (
+                // this is the class that has add files icons.
+                <div className="options-menu">
+                  <FiImage title="Add Image" className="options-menu-icon" />
+                  <FiFile title="Add PDF" className="options-menu-icon" />
+                  <FiSearch title="Web Search" className="options-menu-icon" />
+                </div>
+              )}
               <textarea
                 id="user-input"
                 className={buttonsDisabled ? "disabled" : ""}
@@ -199,15 +195,18 @@ export const HomePage: React.FC = () => {
               />
               <div className="input-group-append">
                 {/* this button is for toggling options */}
-              <button
-                id="options-btn"
-                className={buttonsDisabled ? "disabled" : ""}
-                onClick={toggleOptions}
-                disabled={buttonsDisabled}
-              >
-                
-                <FiMoreVertical size={30} color="var(--text-color2)" style={{ marginTop: '6px' }}  />
-              </button>
+                <button
+                  id="options-btn"
+                  className={buttonsDisabled ? "disabled" : ""}
+                  onClick={() => setShowOptions(!showOptions)}
+                  disabled={buttonsDisabled}
+                >
+                  <FiMoreVertical
+                    size={30}
+                    color="var(--text-color2)"
+                    style={{ marginTop: "6px" }}
+                  />
+                </button>
                 {!buttonsDisabled ? (
                   <button
                     id="submit-btn"
