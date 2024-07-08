@@ -67,6 +67,7 @@
 
 /* User Input Styles */
 .input-group {
+  position: relative; 
   width: 60%;
   display: flex;
   align-items: center;
@@ -111,7 +112,7 @@
 
 .input-group-append {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
 }
@@ -263,3 +264,33 @@ button.disabled {
     margin-right: 5px;
   }
 }
+
+
+.options-menu {
+  display: flex;
+  gap: 10px;
+  width: 15%;
+  position: absolute;
+ /* positions the .options-menu just above the .input-group. 
+ The 100% ensures it is placed just above the top of the .input-group,
+  and the + 2px adds a little spacing. */
+  bottom: calc(100% + 2px);
+  right: 3%; 
+  background: var(--inputGroup-bg);
+  box-shadow: var(--inputGroup-shadow);
+  padding: 5px;
+  border: 2px;
+  border-style: solid;
+  border-color: transparent;
+  flex-grow: 1;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+ 
+
+/* the icons width depends on screen size */
+.options-menu > * {
+  width: 30%;  
+  height: 30%;  
+}
+
