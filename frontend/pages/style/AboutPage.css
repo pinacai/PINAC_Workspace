@@ -8,6 +8,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+  padding-top: 15rem;
+  padding-bottom: 13rem;
 }
 
 .about-card {
