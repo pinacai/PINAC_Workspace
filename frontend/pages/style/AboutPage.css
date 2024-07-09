@@ -8,11 +8,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+  padding-top: 15rem;
+  padding-bottom: 12rem;
 }
 
 .about-card {
   width: 30%;
-  height: 70%;
   padding: 20px 20px;
   border-radius: 10px;
   background: var(--aboutCard-bg);
@@ -41,6 +43,10 @@
 
 .about-card span {
   font: normal medium "Exo2", "Montserrat", sans-serif;
+}
+
+.content{
+  padding-bottom: 10%
 }
 
 #aboutBtn {
@@ -72,28 +78,28 @@
 @media (max-width: 768px) {
   .about-card {
     width: 50%;
-    height: 70%;
+    min-height: 70%;
   }
 }
 
 @media (max-width: 576px) {
   .about-card {
     width: 60%;
-    height: 70%;
+    min-height: 70%;
   }
 }
 
 @media (max-width: 400px) {
   .about-card {
     width: 75%;
-    height: 70%;
+    min-height: 70%;
   }
 }
 
 @media (max-width: 320px) {
   .about-card {
     width: 90%;
-    height: 70%;
+    min-height: 70%;
   }
 
   .about-card .header {
