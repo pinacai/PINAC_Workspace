@@ -3,7 +3,7 @@ import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { ShowHumanMessage, ShowAiMessage } from "../components/MessageBubble";
 import { StopContext } from "../components/context_file";
-import GreetingComponent from "../components/TimeZoneGreeting";
+import { GreetingComponent } from "../components/TimeZoneGreeting";
 import "./style/HomePage.css";
 
 // Icons

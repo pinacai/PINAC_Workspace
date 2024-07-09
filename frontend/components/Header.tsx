@@ -180,11 +180,11 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 className={`dropdown-menu ${isDropdownActive ? "active" : ""}`}
               >
                 <ul>
-                  {location.pathname !== "/" && (
-                    <li onClick={() => changePage("/")}>Home</li>
-                  )}
                   {location.pathname !== "/profile" && (
                     <li onClick={() => changePage("/profile")}>Profile</li>
+                  )}
+                  {location.pathname !== "/" && (
+                    <li onClick={() => changePage("/")}>Chat</li>
                   )}
                   {location.pathname !== "/about" && (
                     <li onClick={() => changePage("/about")}>About Us</li>
