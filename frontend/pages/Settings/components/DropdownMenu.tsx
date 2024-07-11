@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import "./style/DropdownMenu.css";
+import "../style/DropdownMenu.css";
 
 // Icon
 import { IoIosArrowDown } from "react-icons/io";

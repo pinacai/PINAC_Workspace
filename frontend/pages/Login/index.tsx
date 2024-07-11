@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./style/LogInPage.css";
+import "./style/index.css";
 
-interface LogInPagePrompt {
+interface LoginPagePrompt {
   changeLogInStatus: () => void;
 }
 
-export const LogInPage: React.FC<LogInPagePrompt> = ({ changeLogInStatus }) => {
+export const LoginPage: React.FC<LoginPagePrompt> = ({ changeLogInStatus }) => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [emailId, setEmailId] = useState<string>("");

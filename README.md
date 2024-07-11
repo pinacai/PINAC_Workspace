@@ -56,8 +56,14 @@ Just the overview you need to get started!
          ├── App.tsx
          ├── App.css           # All element's colors theme-wise
          ├── assets /          # Img, Icons, Fonts
-         ├── Components /      # Page's components
+         ├── Components /      # common components
          └── pages /
+              |
+              ├── Home /
+              ├── About Us /
+              ├── Settings /
+              ├── Profile /
+              └── Login /
 
 ## 🚀 Project Setup
 

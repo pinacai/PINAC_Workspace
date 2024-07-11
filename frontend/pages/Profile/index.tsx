@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Sidebar } from "../components/Sidebar";
-import { Header } from "../components/Header";
-import "./style/ProfilePage.css";
+import { Sidebar } from "../../components/Sidebar";
+import { Header } from "../../components/Header";
+import "./style/index.css";
 
 // icons
-import profileImage from "../assets/icon/user_icon.png";
+import profileImage from "../../assets/icon/user_icon.png";
 
 export const ProfilePage: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");

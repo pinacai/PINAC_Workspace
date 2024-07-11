@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { MarkdownStyle } from "../components/MarkdownStyle";
-import "./style/MessageBubble.css";
+import { MarkdownStyle } from "./MarkdownStyle";
+import "../style/MessageBubble.css";
 
 // Icons
-import userIcon from "../assets/icon/user_icon.png";
-import pinacLogo from "../assets/icon/pinac-logo.png";
+import userIcon from "../../../assets/icon/user_icon.png";
+import pinacLogo from "../../../assets/icon/pinac-logo.png";
 
 //
 interface ShowAiMessageProps {

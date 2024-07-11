@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { LogInPage } from "./pages/LogInPage";
-import { HomePage } from "./pages/HomePage";
-import { ProfilePage } from "./pages/ProfilePage";
-import { AboutPage } from "./pages/AboutPage";
-import { SettingsPage } from "./pages/SettingsPage";
+import { LoginPage } from "./pages/Login/index";
+import { HomePage } from "./pages/Home/index";
+import { ProfilePage } from "./pages/Profile/index";
+import { AboutPage } from "./pages/About Us/index";
+import { SettingsPage } from "./pages/Settings/index";
 import "./App.css";
 
 const App = () => {
@@ -59,7 +59,7 @@ const App = () => {
             isLoggedIn ? (
               <HomePage />
             ) : (
-              <LogInPage changeLogInStatus={changeLogInStatus} />
+              <LoginPage changeLogInStatus={changeLogInStatus} />
             )
           }
         />

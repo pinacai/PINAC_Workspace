@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Sidebar } from "../components/Sidebar";
-import { Header } from "../components/Header";
-import { DropdownMenu } from "../components/DropdownMenu";
-import { Card } from "../components/Card";
-import "./style/SettingsPage.css";
+import { Sidebar } from "../../components/Sidebar";
+import { Header } from "../../components/Header";
+import { DropdownMenu } from "./components/DropdownMenu";
+import { Card } from "./components/Card";
+import "./style/index.css";
 
 // Icons
-import Cyber_Tech_o1_darkPreview from "../assets/img/Cyber_Tech_01_darkPreview.png";
-import Dawn_n_Dusk_darkPreview from "../assets/img/Dawn_n_Dusk_darkPreview.png";
-import Aesthetics_Unbound_darkPreview from "../assets/img/Aesthetic_Unbound_darkPreview.png";
+import Cyber_Tech_o1_darkPreview from "../../assets/img/Cyber_Tech_01_darkPreview.png";
+import Dawn_n_Dusk_darkPreview from "../../assets/img/Dawn_n_Dusk_darkPreview.png";
+import Aesthetics_Unbound_darkPreview from "../../assets/img/Aesthetic_Unbound_darkPreview.png";
 
 export const SettingsPage: React.FC = () => {
   const [Dawn_n_Dusk, setDawn_n_Dusk] = useState<boolean>(false);

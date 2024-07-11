@@ -3,8 +3,8 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { useStopContext } from "./context_file";
-import "./style/MarkdownStyle.css";
+import { useStopContext } from "../context/context_file";
+import "../style/MarkdownStyle.css";
 
 interface MarkdownStyleProps {
   text: string;

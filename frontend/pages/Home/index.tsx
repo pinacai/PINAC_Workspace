@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Sidebar } from "../components/Sidebar";
-import { Header } from "../components/Header";
-import { ShowHumanMessage, ShowAiMessage } from "../components/MessageBubble";
-import { StopContext } from "../components/context_file";
-import { GreetingComponent } from "../components/TimeZoneGreeting";
-import "./style/HomePage.css";
+import { Sidebar } from "../../components/Sidebar";
+import { Header } from "../../components/Header";
+import { ShowHumanMessage, ShowAiMessage } from "./components/MessageBubble";
+import { StopContext } from "./context/context_file";
+import { GreetingComponent } from "./components/TimeZoneGreeting";
+import "./style/index.css";
 
 // Icons
 import { VscSend } from "react-icons/vsc";

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Sidebar } from "../components/Sidebar";
-import { Header } from "../components/Header";
-import "./style/AboutPage.css";
+import { Sidebar } from "../../components/Sidebar";
+import { Header } from "../../components/Header";
+import "./style/index.css";
 
 export const AboutPage: React.FC = () => {
   // For smooth applying of current theme
