@@ -33,7 +33,7 @@ Experience the **Next Gen AI Chat** —your all-in-one chat for text generation,
 
 ## 🎨 Themes
 
-You have a new color theme idea ? We got you !
+Do you have a new color theme idea? We got you!
 <br />
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_&_Dusk.jpg" alt="Dawn & Dusk Screenshot">
@@ -41,7 +41,7 @@ You have a new color theme idea ? We got you !
 
 ## 📂 File Structure
 
-Just the overview you need to get started !
+Just the overview you need to get started!
 
     .
     ├── backend /
@@ -54,7 +54,7 @@ Just the overview you need to get started !
     |
     └── frontend /
          ├── App.tsx
-         ├── App.css           # All element,s colors theme-wise
+         ├── App.css           # All element's colors theme-wise
          ├── assets /          # Img, Icons, Fonts
          ├── Components /      # Page's components
          └── pages /
@@ -64,10 +64,6 @@ Just the overview you need to get started !
 ### _Recommended IDE Setup_
 
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-
-### Request 🙏
-
-We’ve established a development server to facilitate UI development. This allows developers who aren’t familiar with LLMs to use and test the app. Please refrain from spamming or overloading the AI chat, as the server is designed for testing and has usage limits. Feel free to use it for testing purposes and engage in normal chat for a pleasant experience.
 
 ### Setup the App
 

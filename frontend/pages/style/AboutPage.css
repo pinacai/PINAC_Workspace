@@ -2,19 +2,25 @@
   width: 100%;
   height: calc(100vh - 60px);
   padding-top: 20px;
+  padding-bottom: 20px;
   font-family: "Exo2", "Montserrat", sans-serif;
-  background: transparent;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  padding-top: 15rem;
-  padding-bottom: 12rem;
+  display: grid;
+  place-items: center;
+  overflow-y: scroll;
+}
+
+.about-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.about-container::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 50px;
 }
 
 .about-card {
-  width: 30%;
+  width: 25%;
   padding: 20px 20px;
   border-radius: 10px;
   background: var(--aboutCard-bg);
@@ -23,7 +29,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
 }
 
 .about-card:hover {
@@ -31,9 +36,9 @@
 }
 
 .about-card .header {
-  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-bottom: 40px;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
@@ -46,7 +51,7 @@
 }
 
 .content{
-  padding-bottom: 10%
+  padding-bottom: 35%
 }
 
 #aboutBtn {
@@ -78,32 +83,38 @@
 @media (max-width: 768px) {
   .about-card {
     width: 50%;
-    min-height: 70%;
+  }
+
+  .about-card .header {
+    margin-top: 0;
+    margin-bottom: 25px;
   }
 }
 
 @media (max-width: 576px) {
   .about-card {
     width: 60%;
-    min-height: 70%;
+  }
+
+  .about-card .header {
+    margin-top: 0;
+    margin-bottom: 20px;
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   .about-card {
     width: 75%;
-    min-height: 70%;
   }
 }
 
 @media (max-width: 320px) {
   .about-card {
     width: 90%;
-    min-height: 70%;
   }
 
   .about-card .header {
-    margin-bottom: 0px;
+    margin-bottom: 10px;
   }
 
   .about-card .header span {
