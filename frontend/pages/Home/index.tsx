@@ -1,51 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Sidebar } from "../../components/Sidebar";
 import { Header } from "../../components/Header";
-import { ShowHumanMessage, ShowAiMessage } from "./components/MessageBubble";
-import { StopContext } from "./context/context_file";
-import { GreetingComponent } from "./components/TimeZoneGreeting";
+import { WelcomeText } from "./components/WelcomeText";
+import { ShowAiMessage } from "./components/AiMsgBubble";
+import { UserMsgBubble } from "./components/UserMsgBubble";
+import { InputPanel } from "./components/InputPanel";
+import { StopTextGeneration } from "./context/StopTextGeneration";
 import "./style/index.css";
 
-// Icons
-import { VscSend } from "react-icons/vsc";
-import { FaRegStopCircle } from "react-icons/fa";
-import { FiImage, FiFile, FiSearch, FiMoreVertical } from "react-icons/fi";
-
 export const HomePage: React.FC = () => {
-  const [welcomeBox, setWelcomeBox] = useState<JSX.Element>(
-    <div className="welcome-text-row">
-      <div className="welcome-text">
-        <GreetingComponent />
-        <br />
-      </div>
-    </div>
-  );
+  const [welcomeText, setWelcomeText] = useState<boolean>(true);
   const [chatHistory, setChatHistory] = useState<JSX.Element[]>([]);
   const [userInput, setUserInput] = useState<string>(""); // Declare state for input value
   const [isUserInputActive, setUserInputActive] = useState<boolean>(false); // Declare state for input value
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [stop, setStop] = useState<boolean>(false);
-  const [showOptions, setShowOptions] = useState<boolean>(false); // State for showing options
-
-  // Handles changes in user input
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setUserInput(event.target.value);
-  };
-
-  // Handles Enter key press for submitting messages
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === "Enter") {
-      if (event.shiftKey) {
-        // Insert a new line
-        setUserInput((userInput) => userInput + "\n");
-        event.preventDefault(); // Prevent the default behavior of adding a new line
-      } else {
-        event.preventDefault(); // Prevent default Enter behavior
-        submit(userInput);
-      }
-    }
-  };
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const scrollRef = useRef<any>(null); // Scroll to the bottom whenever messages change
 
   //
   const startNewChat = () => {
@@ -53,13 +25,7 @@ export const HomePage: React.FC = () => {
     window.ipcRenderer.send("request-to-backend", {
       request_type: "clear-chat",
     });
-    setWelcomeBox(
-      <div className="welcome-text-row">
-        <div className="welcome-text">
-          <GreetingComponent />
-        </div>
-      </div>
-    );
+    setWelcomeText(true);
     setButtonsDisabled(false);
     setUserInput("");
   };
@@ -69,13 +35,11 @@ export const HomePage: React.FC = () => {
   const submit = (text: string) => {
     if (/\S/.test(userInput)) {
       setButtonsDisabled(true);
-      if (welcomeBox !== <></>) {
-        setWelcomeBox(<></>);
-      }
+      setWelcomeText(false);
 
       setChatHistory((prevChatHistory) => [
         ...prevChatHistory,
-        <ShowHumanMessage response={text} />,
+        <UserMsgBubble response={text} />,
       ]);
       const preferredModel = localStorage.getItem("preferred-model");
       window.ipcRenderer.send("request-to-server", {
@@ -94,10 +58,8 @@ export const HomePage: React.FC = () => {
     }
   };
 
-  // Scroll to the bottom whenever messages change
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const scrollRef = useRef<any>(null); // Ref for empty Div to server as end of messages
-
+  //
+  // for auto scrolling
   useEffect(() => {
     if (chatHistory.length) {
       scrollRef.current?.scrollIntoView({
@@ -106,32 +68,6 @@ export const HomePage: React.FC = () => {
       });
     }
   }, [chatHistory.length]);
-
-  //
-  //
-  useEffect(() => {
-    const handleKeyup = (e: KeyboardEvent) => {
-      const scHeight = (e.target as HTMLTextAreaElement).scrollHeight;
-      (e.target as HTMLTextAreaElement).style.height = "50px";
-      textareaRef.current!.style.height = `${scHeight}px`;
-
-      if ((e.target as HTMLTextAreaElement).value.trim() === "") {
-        // Set the textarea height back to the default
-        textareaRef.current!.style.height = "50px";
-      }
-    };
-
-    const textareaElement = textareaRef.current;
-    if (textareaElement) {
-      textareaElement.addEventListener("keyup", handleKeyup);
-    }
-
-    return () => {
-      if (textareaElement) {
-        textareaElement.removeEventListener("keyup", handleKeyup);
-      }
-    };
-  }, []);
 
   //
   //
@@ -154,81 +90,32 @@ export const HomePage: React.FC = () => {
     body.classList.add(`${preferredThemePair}-${preferredTheme}`);
   });
 
+  // ------------------------------------------ //
   return (
     <>
       <Sidebar />
       <div className="container">
         <Header title="PINAC" clearChat={startNewChat} />
         <div className="chat-container">
-          <StopContext.Provider value={{ stop, setStop }}>
+          <StopTextGeneration.Provider value={{ stop, setStop }}>
             <div className="msg-box">
-              {welcomeBox}
+              {welcomeText && <WelcomeText />}
               {chatHistory}
               <div ref={scrollRef} />
             </div>
-          </StopContext.Provider>
+          </StopTextGeneration.Provider>
 
-          <div className="input-box">
-            <div
-              className={`input-group ${isUserInputActive ? "active" : ""}`}
-              onFocus={() => setUserInputActive(true)}
-              onBlur={() => setUserInputActive(false)}
-            >
-              {showOptions && (
-                // this is the class that has add files icons.
-                <div className="options-menu">
-                  <FiImage title="Add Image" className="options-menu-icon" />
-                  <FiFile title="Add PDF" className="options-menu-icon" />
-                  <FiSearch title="Web Search" className="options-menu-icon" />
-                </div>
-              )}
-              <textarea
-                id="user-input"
-                className={buttonsDisabled ? "disabled" : ""}
-                value={userInput}
-                onChange={handleChange}
-                onKeyDown={handleKeyDown}
-                placeholder="Tell me your task..."
-                disabled={buttonsDisabled}
-                ref={textareaRef}
-                required
-              />
-              <div className="input-group-append">
-                {!buttonsDisabled ? (
-                  <>
-                    {/* this button is for toggling options */}
-                    <button
-                      id="options-btn"
-                      className={buttonsDisabled ? "disabled" : ""}
-                      onClick={() => setShowOptions(!showOptions)}
-                      disabled={buttonsDisabled}
-                    >
-                      <FiMoreVertical
-                        size={29}
-                        color="var(--text-color2)"
-                        style={{ marginTop: "6px" }}
-                      />
-                    </button>
-
-                    <button
-                      id="submit-btn"
-                      className={buttonsDisabled ? "disabled" : ""}
-                      onClick={() =>
-                        userInput !== undefined ? submit(userInput) : {}
-                      }
-                      disabled={buttonsDisabled}
-                    >
-                      <VscSend size={30} color="var(--text-color2)" />
-                    </button>
-                  </>
-                ) : (
-                  <button onClick={() => setStop(true)} className="stop-icon">
-                    <FaRegStopCircle size={25} color={"gray"} />
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
+          <InputPanel
+            userInput={userInput}
+            setUserInput={setUserInput}
+            isUserInputActive={isUserInputActive}
+            setUserInputActive={setUserInputActive}
+            buttonsDisabled={buttonsDisabled}
+            setButtonsDisabled={setButtonsDisabled}
+            textareaRef={textareaRef}
+            submit={submit}
+            setStop={setStop}
+          />
         </div>
       </div>
     </>

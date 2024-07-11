@@ -11,11 +11,12 @@ interface TimeData {
   datetime: string;
 }
 
-export const GreetingComponent = () => {
+export const WelcomeText = () => {
   const [greeting, setGreeting] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
   const [currentHour, setCurrentHour] = useState<number>(0);
 
+  //
   const getGreeting = (currentHourTime: number, firstName: string) => {
     let greetingMessage = "Good Morning";
     if (currentHourTime >= 12 && currentHourTime < 17) {
@@ -29,16 +30,32 @@ export const GreetingComponent = () => {
     setGreeting(greetingMessage);
   };
 
+  //
+  //
   useEffect(() => {
-    window.ipcRenderer.send("request-to-backend", {
-      request_type: "give-user-info",
-    });
-    window.ipcRenderer.once("backend-response", (_, response) => {
-      setFirstName(response.first_name);
-    });
-  }, []);
+    const fetchUserInfo = () => {
+      window.ipcRenderer.send("request-to-backend", {
+        request_type: "give-user-info",
+      });
+      window.ipcRenderer.once("backend-response", (_, response) => {
+        setFirstName(response.first_name);
+      });
+    };
 
-  useEffect(() => {
+    const fetchGeolocationAndLocalTime = async () => {
+      try {
+        const geoData = await fetchGeolocation();
+        const { timezone } = geoData;
+        const timeData = await fetchLocalTime(timezone);
+        const localTime = new Date(timeData.datetime);
+        const currentHour = localTime.getHours();
+        setCurrentHour(currentHour);
+      } catch (err) {
+        console.log("Failed to load greeting message.");
+        console.error(err);
+      }
+    };
+
     const fetchGeolocation = async (): Promise<GeolocationData> => {
       const response = await fetch(GEOLOCATION_API_URL);
       if (!response.ok) {
@@ -55,25 +72,23 @@ export const GreetingComponent = () => {
       return response.json();
     };
 
-    const fetchData = async () => {
-      try {
-        const geoData = await fetchGeolocation();
-        const { timezone } = geoData;
-        const timeData = await fetchLocalTime(timezone);
-        const localTime = new Date(timeData.datetime);
-        const currentHour = localTime.getHours();
-        setCurrentHour(currentHour);
-      } catch (err) {
-        console.log("Failed to load greeting message.");
-        console.error(err);
-      }
-    };
-    fetchData();
+    fetchUserInfo();
+    fetchGeolocationAndLocalTime();
   }, []);
 
+  //
+  //
   useEffect(() => {
     getGreeting(currentHour, firstName);
   }, [currentHour, firstName]);
 
-  return <div>{greeting}</div>;
+  // -------------------------------- //
+  return (
+    <div className="welcome-text-row">
+      <div className="welcome-text">
+        <>{greeting}</>
+        <br />
+      </div>
+    </div>
+  );
 };

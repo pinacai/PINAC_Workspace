@@ -14,6 +14,7 @@ export const ProfilePage: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  //
   const handleImageClick = () => {
     fileInputRef.current?.click();
   };

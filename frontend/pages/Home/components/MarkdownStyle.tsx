@@ -3,7 +3,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { useStopContext } from "../context/context_file";
+import { useStopTextGeneration } from "../context/StopTextGeneration";
 import "../style/MarkdownStyle.css";
 
 interface MarkdownStyleProps {
@@ -35,7 +35,7 @@ export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
   setButtonsDisabled,
   chatScrollRef,
 }) => {
-  const { stop, setStop } = useStopContext();
+  const { stop, setStop } = useStopTextGeneration();
   const [currentText, setCurrentText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const delay = 10;

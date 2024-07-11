@@ -3,7 +3,6 @@ import { MarkdownStyle } from "./MarkdownStyle";
 import "../style/MessageBubble.css";
 
 // Icons
-import userIcon from "../../../assets/icon/user_icon.png";
 import pinacLogo from "../../../assets/icon/pinac-logo.png";
 
 //
@@ -16,17 +15,18 @@ export const ShowAiMessage: React.FC<ShowAiMessageProps> = ({
 }) => {
   const [message, setMessage] = useState(<AiLoader />);
 
+  // fetching AI response from backend
   window.ipcRenderer.once("server-response", (_, response) => {
     if (response["error_occurred"]) {
       setMessage(
-        <AiMessage
+        <AiMsgBubble
           response={`**${response["error"]}**\nTry again :(`}
           setButtonsDisabled={setButtonsDisabled}
         />
       );
     } else {
       setMessage(
-        <AiMessage
+        <AiMsgBubble
           response={response["response"]["content"]}
           setButtonsDisabled={setButtonsDisabled}
         />
@@ -38,50 +38,12 @@ export const ShowAiMessage: React.FC<ShowAiMessageProps> = ({
 
 //
 //
-interface ShowHumanMessageProps {
-  response: string;
-}
-
-export const ShowHumanMessage: React.FC<ShowHumanMessageProps> = (props) => {
-  const [isAvatarVisible, setIsAvatarVisible] = useState(
-    window.innerWidth > 576
-  ); // Initial state based on window size
-
-  // Handle window resize and update avatar visibility
-  useEffect(() => {
-    const updateAvatarVisibility = () => {
-      setIsAvatarVisible(window.innerWidth > 576);
-    };
-    window.addEventListener("resize", updateAvatarVisibility);
-    // Cleanup function to remove the event listener
-    return () => window.removeEventListener("resize", updateAvatarVisibility);
-  }, []);
-
-  return (
-    <>
-      <div className="msg-row">
-        {isAvatarVisible && (
-          <div className="msg-avatar">
-            <img src={userIcon} alt="User Avatar" />
-          </div>
-        )}
-        <div className="msg-content">
-          <div className="msg-name">You</div>
-          <div className="msg-text human-msg">{props.response}</div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-//
-//
-interface AiMessageProps {
+interface AiMsgBubbleProps {
   response: string;
   setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const AiMessage: React.FC<AiMessageProps> = (props) => {
+const AiMsgBubble: React.FC<AiMsgBubbleProps> = (props) => {
   const { setButtonsDisabled } = props;
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
@@ -89,6 +51,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const chatScrollRef = useRef<any>(null);
 
+  // Button
   const copyToClipboard = () => {
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard
@@ -108,6 +71,8 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
     }
   };
 
+  //
+  // for UI responsiveness
   useEffect(() => {
     const updateAvatarVisibility = () => {
       setIsAvatarVisible(window.innerWidth > 576);
@@ -116,6 +81,7 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
     return () => window.removeEventListener("resize", updateAvatarVisibility);
   }, []);
 
+  // ---------------------------------- //
   return (
     <>
       <div className="msg-row">
@@ -150,11 +116,12 @@ export const AiMessage: React.FC<AiMessageProps> = (props) => {
 //
 //
 // Creating a AiLoader component similar to AiMessage. message state is initialized with this loader and replaced as soon as we have the data.
-export const AiLoader: React.FC = () => {
+const AiLoader: React.FC = () => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   );
 
+  //
   // Handle window resize and update avatar visibility
   useEffect(() => {
     const updateAvatarVisibility = () => {
@@ -165,6 +132,7 @@ export const AiLoader: React.FC = () => {
     return () => window.removeEventListener("resize", updateAvatarVisibility);
   }, []);
 
+  // ---------------------- //
   return (
     <>
       <div className="msg-row">
