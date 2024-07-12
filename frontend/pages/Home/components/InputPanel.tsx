@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "../style/InputPanel.module.css";
 
 // Icons
-import { VscSend } from "react-icons/vsc";
+import { VscSend, VscFilePdf } from "react-icons/vsc";
 import { FaRegStopCircle } from "react-icons/fa";
-import { FiImage, FiFile, FiSearch, FiMoreVertical } from "react-icons/fi";
+import { CgAttachment } from "react-icons/cg";
+import { FiImage } from "react-icons/fi";
 
 interface InputPanelProps {
   userInput: string;
@@ -28,6 +29,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   submit,
   setStop,
 }) => {
+  const optionMenuRef = useRef<HTMLDivElement>(null);
   const [showOptions, setShowOptions] = useState<boolean>(false); // State for showing options
 
   //
@@ -44,6 +46,24 @@ export const InputPanel: React.FC<InputPanelProps> = ({
       }
     }
   };
+
+  //
+  // Creating an event handler to close the option menu by click elsewhere outside the menu
+  useEffect(() => {
+    const handleOutsideClicks = (e: MouseEvent) => {
+      if (
+        showOptions &&
+        optionMenuRef.current &&
+        !optionMenuRef.current.contains(e.target as Node)
+      ) {
+        setShowOptions(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutsideClicks);
+
+    return () => window.removeEventListener("mousedown", handleOutsideClicks);
+  }, [showOptions]);
 
   //
   // for managing the height of the textarea automatically
@@ -75,18 +95,27 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   return (
     <div className={styles.input_box}>
       <div
-        className={`${styles.input_group} ${isUserInputActive ? `${styles.active}` : ""}`}
+        className={`${styles.input_group} ${
+          isUserInputActive ? `${styles.active}` : ""
+        }`}
         onFocus={() => setUserInputActive(true)}
         onBlur={() => setUserInputActive(false)}
       >
+        {/* ====== Attachment Options Menu ======= */}
         {showOptions && (
-          // this is the class that has add files icons.
-          <div className={styles.options_menu}>
-            <FiImage title="Add Image" className={styles.options_menu_icon} />
-            <FiFile title="Add PDF" className={styles.options_menu_icon} />
-            <FiSearch title="Web Search" className={styles.options_menu_icon} />
+          <div className={styles.options_menu} ref={optionMenuRef}>
+            <button className={styles.options_menu_btn}>
+              <FiImage title="Add Image" className={styles.options_menu_icon} />
+            </button>
+            <button className={styles.options_menu_btn}>
+              <VscFilePdf
+                title="Add PDF"
+                className={styles.options_menu_icon}
+              />
+            </button>
           </div>
         )}
+        {/* ====== Main Input Area ======= */}
         <textarea
           id={styles.user_input}
           className={buttonsDisabled ? `${styles.disabled}` : ""}
@@ -98,23 +127,21 @@ export const InputPanel: React.FC<InputPanelProps> = ({
           ref={textareaRef}
           required
         />
+        {/* ============ Buttons besides the text area ============= */}
         <div className={styles.input_group_append}>
           {!buttonsDisabled ? (
             <>
-              {/* this button is for toggling options */}
+              {/* ====== Attachment Button ======= */}
               <button
-                id={styles.options_btn}
+                id={styles.attachment_btn}
                 className={buttonsDisabled ? `${styles.disabled}` : ""}
                 onClick={() => setShowOptions(!showOptions)}
                 disabled={buttonsDisabled}
               >
-                <FiMoreVertical
-                  size={29}
-                  color="var(--text-color2)"
-                  style={{ marginTop: "6px" }}
-                />
+                <CgAttachment id={styles.attachment_icon} />
               </button>
 
+              {/* ====== Submit Button ======= */}
               <button
                 id={styles.submit_btn}
                 className={buttonsDisabled ? `${styles.disabled}` : ""}
@@ -123,10 +150,11 @@ export const InputPanel: React.FC<InputPanelProps> = ({
                 }
                 disabled={buttonsDisabled}
               >
-                <VscSend size={30} color="var(--text-color2)" />
+                <VscSend id={styles.submit_icon} />
               </button>
             </>
           ) : (
+            /* ====== Stop Text Generation Button ======= */
             <button onClick={() => setStop(true)} className={styles.stop_icon}>
               <FaRegStopCircle size={25} color={"gray"} />
             </button>

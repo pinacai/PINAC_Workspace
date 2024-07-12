@@ -82,6 +82,12 @@
   background-color: var(--inputGroupBtn-hover-color);
 }
 
+#submit_icon {
+  width: 30px;
+  height: 30px;
+  color: var(--text-color2);
+}
+
 /* Change the color when disabled and */
 /* Change the cursor to indicate the button is disabled */
 button.disabled {
@@ -105,25 +111,32 @@ button.disabled {
   color: white;
 }
 
-#options_btn {
+#attachment_btn {
   background: transparent;
   border: none;
   border-radius: 7px;
+  cursor: pointer;
 }
 
-#options_btn:hover {
+#attachment_btn:hover {
   background: var(--inputGroupBtn-hover-color);
+}
+
+#attachment_icon {
+  width: 25px;
+  height: 25px;
+  margin-top: 10px;
+  color: var(--text-color2)
 }
 
 .options_menu {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   position: absolute;
   bottom: calc(100% + 7px);
   right: 3%;
   background: var(--inputGroup-bg);
   box-shadow: var(--inputGroup-shadow);
-  padding: 7px 10px;
   border: 1.5px;
   border-style: solid;
   border-color: var(--inputGroup-border-color);
@@ -131,9 +144,25 @@ button.disabled {
   border-radius: 5px;
 }
 
+.options_menu_btn {
+  border: none;
+  background: transparent;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.options_menu_btn:nth-child(1) {
+  padding-right: 0;
+}
+
+.options_menu_btn:nth-child(2) {
+  padding-left: 0;
+}
+
 .options_menu_icon {
   width: 29px;
   height: 29px;
+  color: var(--text-color2)
 }
 
 /* ------------------ */
@@ -171,6 +200,10 @@ button.disabled {
   #submit_btn {
     margin-right: 10px;
   }
+
+  #attachment_icon {
+    margin-top: 4px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -198,5 +231,16 @@ button.disabled {
     height: 35px;
     width: 35px;
     margin-right: 5px;
+  }
+
+  #submit_icon {
+    width: 27px;
+    height: 27px;
+    color: var(--text-color2);
+  }
+
+  #attachment_icon {
+    height: 22px;
+    width: 22px;
   }
 }
