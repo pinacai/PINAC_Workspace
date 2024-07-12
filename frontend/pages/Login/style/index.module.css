@@ -1,4 +1,13 @@
-.logIn-container {
+/* common for all Pages */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Login Page's Style */
+.logIn_container {
   background: url("frontend/assets/img/login_page_bg.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -12,7 +21,7 @@
   box-sizing: content-box;
 }
 
-.logIn-container .form {
+.logIn_container .form {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -30,14 +39,14 @@
 /*              Header Text & Animation              */
 /* ------------------------------------------------- */
 
-.logIn-container .title {
+.logIn_container .title {
   display: flex;
   align-items: center;
   padding-left: 45px;
   margin-bottom: 60px;
 }
 
-.logIn-container .title span {
+.logIn_container .title span {
   font-size: 32px;
   color: royalblue;
   font-weight: 600;
@@ -45,7 +54,7 @@
   padding-left: 20px;
 }
 
-.logIn-container .title .spinner {
+.logIn_container .title .spinner {
   width: 40.4px;
   height: 40.4px;
   --clr: rgb(247, 197, 159);
@@ -54,7 +63,7 @@
   transform-style: preserve-3d;
 }
 
-.logIn-container .title .spinner > div {
+.logIn_container .title .spinner > div {
   background-color: var(--clr-alpha);
   height: 100%;
   position: absolute;
@@ -62,31 +71,31 @@
   border: 3.5px solid var(--clr);
 }
 
-.logIn-container .title .spinner div:nth-of-type(1) {
+.logIn_container .title .spinner div:nth-of-type(1) {
   transform: translateZ(-20px) rotateY(180deg);
 }
 
-.logIn-container .title .spinner div:nth-of-type(2) {
+.logIn_container .title .spinner div:nth-of-type(2) {
   transform: rotateY(-270deg) translateX(50%);
   transform-origin: top right;
 }
 
-.logIn-container .title .spinner div:nth-of-type(3) {
+.logIn_container .title .spinner div:nth-of-type(3) {
   transform: rotateY(270deg) translateX(-50%);
   transform-origin: center left;
 }
 
-.logIn-container .title .spinner div:nth-of-type(4) {
+.logIn_container .title .spinner div:nth-of-type(4) {
   transform: rotateX(90deg) translateY(-50%);
   transform-origin: top center;
 }
 
-.logIn-container .title .spinner div:nth-of-type(5) {
+.logIn_container .title .spinner div:nth-of-type(5) {
   transform: rotateX(-90deg) translateY(50%);
   transform-origin: bottom center;
 }
 
-.logIn-container .title .spinner div:nth-of-type(6) {
+.logIn_container .title .spinner div:nth-of-type(6) {
   transform: translateZ(20px);
 }
 
@@ -105,28 +114,28 @@
 }
 
 /* ------------------------------------------------- */
-.logIn-container .message,
-.logIn-container .signin {
+.logIn_container .message,
+.logIn_container .signin {
   color: rgba(161, 161, 161, 0.822);
   font-size: 14px;
   margin-bottom: 5px;
 }
 
-.logIn-container .signin {
+.logIn_container .signin {
   text-align: center;
 }
 
-.logIn-container .flex {
+.logIn_container .flex {
   display: flex;
   width: 100%;
   gap: 10px;
 }
 
-.logIn-container .form label {
+.logIn_container .form label {
   position: relative;
 }
 
-.logIn-container .form label .input {
+.logIn_container .form label .input {
   width: 100%;
   padding: 10px 10px 20px 10px;
   outline: 0;
@@ -135,12 +144,12 @@
   font-family: "Exo2", "Montserrat", sans-serif;
 }
 
-.logIn-container .form label #half-input {
+.logIn_container .form label #half_input {
   width: 100%;
   font-family: "Exo2", "Montserrat", sans-serif;
 }
 
-.logIn-container .form label .input + span {
+.logIn_container .form label .input + span {
   position: absolute;
   left: 10px;
   top: 15px;
@@ -150,23 +159,23 @@
   transition: 0.3s ease;
 }
 
-.logIn-container .form label .input:placeholder-shown + span {
+.logIn_container .form label .input:placeholder-shown + span {
   top: 15px;
   font-size: 0.9em;
 }
 
-.logIn-container .form label .input:focus + span,
-.logIn-container .form label .input:valid + span {
+.logIn_container .form label .input:focus + span,
+.logIn_container .form label .input:valid + span {
   top: 30px;
   font-size: 0.7em;
   font-weight: 600;
 }
 
-.logIn-container .form label .input:valid + span {
+.logIn_container .form label .input:valid + span {
   color: green;
 }
 
-.logIn-container .submit {
+.logIn_container .submit {
   width: 100%;
   border: none;
   outline: none;
@@ -178,7 +187,7 @@
   transform: 0.3s ease;
 }
 
-.logIn-container .submit:hover {
+.logIn_container .submit:hover {
   background-color: rgb(56, 90, 194);
 }
 

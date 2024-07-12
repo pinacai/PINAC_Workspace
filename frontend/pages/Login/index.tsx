@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./style/index.css";
+import styles from "./style/index.module.css";
 
 interface LoginPagePrompt {
   changeLogInStatus: () => void;
@@ -10,10 +10,7 @@ export const LoginPage: React.FC<LoginPagePrompt> = ({ changeLogInStatus }) => {
   const [lastName, setLastName] = useState<string>("");
   const [emailId, setEmailId] = useState<string>("");
   const [bio, setBio] = useState<string>("");
-  // const [openaiKey, setOpenaiKey] = useState<string>("");
-  // const [geminiKey, setGeminiKey] = useState<string>("");
 
-  //
   // switch to full screen for LoginPage
   useEffect(() => {
     window.ipcRenderer.send("maximizeWindow");
@@ -29,25 +26,19 @@ export const LoginPage: React.FC<LoginPagePrompt> = ({ changeLogInStatus }) => {
         email_id: emailId,
         bio: bio,
       });
-
-      // window.ipcRenderer.send("request-to-backend", {
-      //   request_type: "save-api-keys",
-      //   OPENAI_API_KEY: openaiKey,
-      //   GOOGLE_API_KEY: geminiKey,
-      // });
-
       changeLogInStatus();
       // escape full screen for LoginPage
       window.ipcRenderer.send("unmaximizeWindow");
     }
   };
 
+  // ------------------------------------ //
   return (
-    <div className="container">
-      <div className="logIn-container">
-        <form className="form">
-          <div className="title">
-            <div className="spinner">
+    <div className={styles.container}>
+      <div className={styles.logIn_container}>
+        <form className={styles.form}>
+          <div className={styles.title}>
+            <div className={styles.spinner}>
               <div></div>
               <div></div>
               <div></div>
@@ -57,18 +48,18 @@ export const LoginPage: React.FC<LoginPagePrompt> = ({ changeLogInStatus }) => {
             </div>
             <span>Welcome</span>
           </div>
-          <p className="message">
+          <p className={styles.message}>
             Please enter the API keys for the LLM you’d like to use. You must
             provide at least one API key.
           </p>
-          <div className="flex">
+          <div className={styles.flex}>
             <label>
               <input
                 required
                 placeholder=""
                 type="text"
-                className="input"
-                id="half-input"
+                className={styles.input}
+                id={styles.half_input}
                 value={firstName}
                 onChange={(event) => {
                   setFirstName(event.target.value);
@@ -82,8 +73,8 @@ export const LoginPage: React.FC<LoginPagePrompt> = ({ changeLogInStatus }) => {
                 required
                 placeholder=""
                 type="text"
-                className="input"
-                id="half-input"
+                className={styles.input}
+                id={styles.half_input}
                 value={lastName}
                 onChange={(event) => {
                   setLastName(event.target.value);
@@ -98,7 +89,7 @@ export const LoginPage: React.FC<LoginPagePrompt> = ({ changeLogInStatus }) => {
               required
               placeholder=""
               type="email"
-              className="input"
+              className={styles.input}
               value={emailId}
               onChange={(event) => {
                 setEmailId(event.target.value);
@@ -110,8 +101,8 @@ export const LoginPage: React.FC<LoginPagePrompt> = ({ changeLogInStatus }) => {
           <label>
             <textarea
               placeholder="Tell Us about yourself"
-              id="bio"
-              className="input"
+              id={styles.bio}
+              className={styles.input}
               value={bio}
               onChange={(event) => {
                 setBio(event.target.value);
@@ -120,33 +111,7 @@ export const LoginPage: React.FC<LoginPagePrompt> = ({ changeLogInStatus }) => {
             />
           </label>
 
-          {/* <label>
-            <input
-              required
-              placeholder=""
-              type="password"
-              className="input"
-              value={openaiKey}
-              onChange={(event) => {
-                setOpenaiKey(event.target.value);
-              }}
-            />
-            <span>OPENAI API KEY</span>
-          </label>
-          <label>
-            <input
-              required
-              placeholder=""
-              type="password"
-              className="input"
-              value={geminiKey}
-              onChange={(event) => {
-                setGeminiKey(event.target.value);
-              }}
-            />
-            <span>GEMINI API KEY</span>
-          </label> */}
-          <button className="submit" onClick={() => submit()}>
+          <button className={styles.submit} onClick={() => submit()}>
             Submit
           </button>
         </form>

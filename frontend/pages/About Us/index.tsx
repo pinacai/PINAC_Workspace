@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Sidebar } from "../../components/Sidebar";
 import { Header } from "../../components/Header";
-import "./style/index.css";
+import styles from "./style/index.module.css";
 
 export const AboutPage: React.FC = () => {
   // For smooth applying of current theme
@@ -22,15 +22,16 @@ export const AboutPage: React.FC = () => {
     body.classList.add(`${preferredThemePair}-${preferredTheme}`);
   });
 
+  // ---------------------------------------------------- //
   return (
     <>
       <Sidebar />
-      <div className="container">
+      <div className={styles.container}>
         <Header title="About Us" />
-        <div className="about-container">
-          <div className="about-card">
-            <div className="content">
-              <div className="header">
+        <div className={styles.about_container}>
+          <div className={styles.about_card}>
+            <div className={styles.content}>
+              <div className={styles.header}>
                 <span>About Us</span>
               </div>
               <span>
@@ -41,9 +42,9 @@ export const AboutPage: React.FC = () => {
                 latest technologies.
               </span>
             </div>
-            <div className="aboutBtn">
+            <div className={styles.aboutBtn}>
               <button
-                id="aboutBtn"
+                id={styles.aboutBtn}
                 onClick={() =>
                   window.ipcRenderer.send("request-to-backend", {
                     request_type: "open-url-in-browser",

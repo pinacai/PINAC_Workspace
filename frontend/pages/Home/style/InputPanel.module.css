@@ -1,60 +1,5 @@
-/* Chat Container */
-.chat-container {
-  width: 100%;
-  height: calc(100vh - 60px);
-  background-color: transparent;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.msg-box {
-  width: 100%;
-  padding-left: 20%;
-  padding-right: 20%;
-  height: calc(100vh - (60px + 12vh));
-  padding-top: 30px;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  flex-grow: 1;
-}
-
-.msg-box::-webkit-scrollbar {
-  width: 10px;
-}
-
-.msg-box::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.msg-box::-webkit-scrollbar-thumb {
-  background: #999;
-  border-radius: 50px;
-}
-
-/* Welcome Text Styles */
-.welcome-text {
-  background: var(--welcomeText-gradient);
-  background-clip: text;
-  color: transparent;
-  box-shadow: none;
-  font: bold 4.5vw "ubuntu", "Montserrat", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.welcome-text-row {
-  display: flex;
-  align-items: flex-start;
-}
-
 /* Lower part of ChatBox */
-.input-box {
+.input_box {
   width: 100%;
   background-color: transparent;
   display: flex;
@@ -66,7 +11,7 @@
 }
 
 /* User Input Styles */
-.input-group {
+.input_group {
   position: relative;
   width: 60%;
   display: flex;
@@ -81,11 +26,11 @@
   flex-grow: 1;
 }
 
-.input-group.active {
+.input_group.active {
   border-color: var(--inputGroup-border-color);
 }
 
-#user-input {
+#user_input {
   height: 50px;
   max-height: 200px;
   min-width: 300px;
@@ -99,18 +44,18 @@
   flex-grow: 1;
 }
 
-#user-input::placeholder {
+#user_input::placeholder {
   color: var(--placeholder-text-color);
   align-items: center;
   font: normal large "Exo2", "Montserrat", sans-serif;
   letter-spacing: 2px;
 }
 
-#user-input::-webkit-scrollbar {
+#user_input::-webkit-scrollbar {
   width: 0px;
 }
 
-.input-group-append {
+.input_group_append {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -118,7 +63,7 @@
 }
 
 /* Send Button Styles */
-#submit-btn {
+#submit_btn {
   height: 45px;
   width: 45px;
   display: flex;
@@ -133,7 +78,7 @@
   margin-right: 15px;
 }
 
-#submit-btn:hover {
+#submit_btn:hover {
   background-color: var(--inputGroupBtn-hover-color);
 }
 
@@ -144,7 +89,7 @@ button.disabled {
   cursor: not-allowed;
 }
 
-.stop-icon {
+.stop_icon {
   height: 45px;
   width: 45px;
   display: flex;
@@ -160,23 +105,20 @@ button.disabled {
   color: white;
 }
 
-#options-btn {
+#options_btn {
   background: transparent;
   border: none;
   border-radius: 7px;
 }
 
-#options-btn:hover {
+#options_btn:hover {
   background: var(--inputGroupBtn-hover-color);
 }
 
-.options-menu {
+.options_menu {
   display: flex;
   gap: 12px;
   position: absolute;
-  /* positions the .options-menu just above the .input-group. 
-  The 100% ensures it is placed just above the top of the .input-group,
-  and the + 7px adds a little spacing. */
   bottom: calc(100% + 7px);
   right: 3%;
   background: var(--inputGroup-bg);
@@ -189,7 +131,7 @@ button.disabled {
   border-radius: 5px;
 }
 
-.options-menu-icon {
+.options_menu_icon {
   width: 29px;
   height: 29px;
 }
@@ -197,107 +139,62 @@ button.disabled {
 /* ------------------ */
 /* Responsive Styles */
 @media (max-width: 1200px) {
-  .msg-box {
-    padding-left: 10%;
-    padding-right: 10%;
-  }
-
-  .input-group {
+  .input_group {
     width: 80%;
   }
 }
 
 @media (max-width: 992px) {
-  .msg-box {
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-
-  .welcome-text {
-    font-size: 7vw;
-  }
-
-  .input-group {
+  .input_group {
     width: 90%;
   }
 
-  #user-input {
+  #user_input {
     min-width: 200px;
   }
 }
 
 @media (max-width: 768px) {
-  .msg-box {
-    padding-left: calc(5% + 10px);
-    padding-right: calc(5% + 10px);
-  }
-
-  .input-group {
+  .input_group {
     width: 90%;
     padding: 3px;
   }
 
-  #user-input {
+  #user_input {
     min-width: 150px;
   }
 
-  .input-group-append {
+  .input_group_append {
     align-items: center;
   }
 
-  #submit-btn {
+  #submit_btn {
     margin-right: 10px;
   }
 }
 
 @media (max-width: 576px) {
-  .msg-box {
-    padding-left: calc(2.5% + 10px);
-    padding-right: 2%;
-  }
-
-  .msg-box::-webkit-scrollbar {
-    width: 7px;
-  }
-
-  .welcome-text {
-    font-size: 35px;
-  }
-
-  .input-group {
+  .input_group {
     width: 95%;
   }
 
-  #user-input::placeholder {
+  #user_input::placeholder {
     font: normal medium "Exo2", "Montserrat", sans-serif;
     letter-spacing: 2px;
   }
 
-  .input-group-append {
+  .input_group_append {
     align-items: center;
   }
 
-  .options-menu-icon {
+  .options_menu_icon {
     width: 22px;
     height: 22px;
   }
 }
 
 @media (max-width: 320px) {
-  .msg-box::-webkit-scrollbar {
-    width: 3px;
-  }
-
-  .msg-box::-webkit-scrollbar-thumb {
-    background: #999;
-    border-radius: 2px;
-  }
-
-  .welcome-text {
-    font-size: 10vw;
-  }
-
-  #submit-btn {
+  #submit_btn {
     height: 35px;
     width: 35px;
     margin-right: 5px;

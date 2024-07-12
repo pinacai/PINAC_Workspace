@@ -486,15 +486,7 @@ body {
   color: var(--text-color2);
 }
 
-.body-container {
+.body_container {
   width: 100%;
   display: flex;
-}
-
-/* Main Content */
-.container {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }

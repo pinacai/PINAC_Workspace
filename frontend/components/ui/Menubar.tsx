@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./style/Menubar.css";
+import styles from "../style/Menubar.module.css";
 
 interface MenubarProps {
   menuItems: { label: string; onClick: () => void }[];
@@ -21,12 +21,14 @@ export const Menubar: React.FC<MenubarProps> = ({ menuItems }) => {
   };
 
   return (
-    <nav className="menubar">
-      <ul className="menu-items">
+    <nav className={styles.menubar}>
+      <ul className={styles.menu_items}>
         {menuItems.map((item, index) => (
           <li
             key={index}
-            className={`menu-item ${activeIndex === index ? "active" : ""}`}
+            className={`${styles.menu_item} ${
+              activeIndex === index ? `${styles.active}` : ""
+            }`}
             onClick={() => handleItemClick(index, item.onClick)}
           >
             {item.label}

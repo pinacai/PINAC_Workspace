@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/Card.css";
+import styles from "../style/Card.module.css";
 
 interface CardProps {
   title: string;
@@ -10,16 +10,16 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = (props) => {
   return (
-    <div className="themeCard">
+    <div className={styles.themeCard}>
       <img src={props.cardImage} alt="Cyber Tech 01 Preview" />
-      <div className="themeCard-desc">
-        <label className="check-wrapper">
+      <div className={styles.themeCard_desc}>
+        <label className={styles.check_wrapper}>
           <input
             type="checkbox"
             checked={props.checkedFunc}
             onChange={props.onChangeFunc}
           />
-          <div className="checkmark"></div>
+          <div className={styles.checkmark}></div>
         </label>
         <span>{props.title}</span>
       </div>

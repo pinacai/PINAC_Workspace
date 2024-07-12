@@ -1,4 +1,13 @@
-.setting-container {
+/* common for all Pages */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Settings Page's Style */
+.setting_container {
   width: 100%;
   height: calc(100vh - 60px);
   padding-top: 20px;
@@ -10,15 +19,15 @@
   overflow-y: auto;
 }
 
-.setting-container::-webkit-scrollbar {
+.setting_container::-webkit-scrollbar {
   width: 10px;
 }
 
-.setting-container::-webkit-scrollbar-track {
+.setting_container::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.setting-container::-webkit-scrollbar-thumb {
+.setting_container::-webkit-scrollbar-thumb {
   background: #999;
   border-radius: 50px;
 }
@@ -37,30 +46,7 @@
   flex-direction: column;
 }
 
-.section-title {
+.section_title {
   font: normal 20px;
   padding-bottom: 20px;
-}
-
-/* ====================================================*/
-/*                 Section: Theme                      */
-/* ====================================================*/
-
-.themeCard-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .themeCard-container {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
-}
-
-@media (max-width: 320px) {
-  .themeCard-container {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  }
 }

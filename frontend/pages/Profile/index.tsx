@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Sidebar } from "../../components/Sidebar";
 import { Header } from "../../components/Header";
-import "./style/index.css";
+import styles from "./style/index.module.css";
 
 // icons
 import profileImage from "../../assets/icon/user_icon.png";
@@ -88,16 +88,17 @@ export const ProfilePage: React.FC = () => {
     body.classList.add(`${preferredThemePair}-${preferredTheme}`);
   });
 
+  // ------------------------------------------------------ //
   return (
     <>
       <Sidebar />
-      <div className="container">
+      <div className={styles.container}>
         <Header title="Profile" />
-        <div className="profile-container">
-          <div className="profile-card">
+        <div className={styles.profile_container}>
+          <div className={styles.profile_card}>
             <div>
               <div
-                className="profile-img"
+                className={styles.profile_img}
                 onClick={handleImageClick}
                 style={{ cursor: "pointer" }}
               >
@@ -115,15 +116,15 @@ export const ProfilePage: React.FC = () => {
                 onChange={(e) => handleFileChange(e)}
               />
             </div>
-            <div className="user-details">
-              <form className="form">
-                <div className="flex">
+            <div className={styles.user_details}>
+              <form className={styles.form}>
+                <div className={styles.flex}>
                   <label>
                     <input
                       required
                       placeholder=""
                       type="text"
-                      className="input"
+                      className={styles.input}
                       value={firstName}
                       onChange={(event) => {
                         setFirstName(event.target.value);
@@ -137,7 +138,7 @@ export const ProfilePage: React.FC = () => {
                       required
                       placeholder=""
                       type="text"
-                      className="input"
+                      className={styles.input}
                       value={lastName}
                       onChange={(event) => {
                         setLastName(event.target.value);
@@ -152,7 +153,7 @@ export const ProfilePage: React.FC = () => {
                     required
                     placeholder=""
                     type="email"
-                    className="input"
+                    className={styles.input}
                     value={emailId}
                     onChange={(event) => {
                       setEmailId(event.target.value);
@@ -164,8 +165,8 @@ export const ProfilePage: React.FC = () => {
                 <label>
                   <textarea
                     placeholder="Tell Us about yourself"
-                    id="bio"
-                    className="input"
+                    id={styles.bio}
+                    className={styles.input}
                     value={bio}
                     onChange={(event) => {
                       setBio(event.target.value);
@@ -174,7 +175,7 @@ export const ProfilePage: React.FC = () => {
                 </label>
 
                 <button
-                  className="submit"
+                  className={styles.submit}
                   onClick={() => {
                     saveUserInfo();
                   }}

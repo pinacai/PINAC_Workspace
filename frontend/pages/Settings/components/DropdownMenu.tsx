@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import "../style/DropdownMenu.css";
+import styles from "../style/DropdownMenu.module.css";
 
 // Icon
 import { IoIosArrowDown } from "react-icons/io";
@@ -15,24 +15,21 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
   const [isActive, setIsActive] = useState(false);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
 
-  const openMenu = () => {
-    setIsActive(!isActive);
-  };
-
+  //
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
     setIsActive(false);
-    // Saving choice
     localStorage.setItem("preferred-model", option);
   };
 
-  // At starting
-  // Selecting model based on local storage
+  //
+  // At starting selecting model based on local storage
   useEffect(() => {
     const preferredModel = localStorage.getItem("preferred-model");
     preferredModel !== null && setSelectedOption(preferredModel);
   }, []);
 
+  //
   // Creating an event handler to close the dropdown menu by click elsewhere outside the menu
   useEffect(() => {
     const handleOutsideClicks = (e: MouseEvent) => {
@@ -50,11 +47,12 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
     return () => window.removeEventListener("mousedown", handleOutsideClicks);
   }, [isActive]);
 
+  // -------------------------------------------- //
   return (
-    <div className="dropdown" ref={dropdownMenuRef}>
-      <div className="selector">
+    <div className={styles.dropdown} ref={dropdownMenuRef}>
+      <div className={styles.selector}>
         <span>{selectedOption}</span>
-        <button onClick={openMenu}>
+        <button onClick={() => setIsActive(!isActive)}>
           {isActive ? (
             <IoIosArrowUp size={24} color="var(--headerTitle-color)" />
           ) : (
@@ -62,12 +60,16 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
           )}
         </button>
       </div>
-      <div className={`dropdown-menu ${isActive ? "active" : ""}`}>
+      <div
+        className={`${styles.dropdown_menu} ${
+          isActive ? `${styles.active}` : ""
+        }`}
+      >
         <ul>
           {props.optionList.map((option, index) => (
             <li
               key={index}
-              className={selectedOption == option ? "selected" : ""}
+              className={selectedOption == option ? `${styles.selected}` : ""}
               onClick={() => handleOptionClick(option)}
             >
               {option}

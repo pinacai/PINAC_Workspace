@@ -1,0 +1,18 @@
+.themeCard_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .themeCard_container {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 320px) {
+  .themeCard_container {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}

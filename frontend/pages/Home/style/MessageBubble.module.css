@@ -1,11 +1,11 @@
 /* Message Styles (Conversations) */
-.msg-row {
+.msg_row {
   display: flex;
   align-items: flex-start;
   margin-bottom: 12px;
 }
 
-.msg-avatar {
+.msg_avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -16,58 +16,44 @@
   align-items: center;
 }
 
-.msg-avatar img {
+.msg_avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.msg-btn {
+.msg_btn {
   display: flex;
   justify-content: space-between;
   width: 100%;
   margin: 0 auto;
 }
 
-.vol-icon {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-#volume-btn {
-  background-color: transparent;
-  border: none;
-}
-.msg-content {
+.msg_content {
   max-width: calc(100% - 50px);
   white-space: pre-line;
 }
 
-.msg-name {
+.msg_name {
   font-weight: bold;
   margin-bottom: 5px;
   font-family: "ai-text", "Montserrat", sans-serif;
 }
 
-.msg-text {
+.msg_text {
   padding: 10px 20px;
   border-radius: 0.8rem;
   word-wrap: break-word;
 }
 
-.human-msg {
+.human_msg {
   color: var(--text-color1);
   background: var(--humanMsg-bg);
   box-shadow: var(--humanMsg-bg-shadow);
 }
 
-.ai-msg {
+.ai_msg {
   background: var(--aiMsg-bg);
   color: var(--text-color2);
   font: normal large "Exo2", "Montserrat", sans-serif;
@@ -78,7 +64,7 @@
   padding-bottom: 12px;
 }
 
-.ai-msg-copy-btn {
+.ai_msg_copy_btn {
   display: flex;
   flex-direction: row-reverse;
   position: relative;
@@ -86,7 +72,7 @@
   margin-right: 15px;
 }
 
-.copy-btn {
+.copy_btn {
   padding: 2px 10px;
   border: none;
   border-radius: 7px;
@@ -98,7 +84,7 @@
   box-shadow: var(--copyBtn-shadow);
 }
 
-.copy-btn.animate {
+.copy_btn.animate {
   animation: fadeInOut 1s ease-in-out;
 }
 
@@ -118,7 +104,7 @@
 }
 
 
-.copy-btn:hover {
+.copy_btn:hover {
   background: var(--aiMsg-bg);
 }
 
@@ -150,29 +136,29 @@
 /* --------------- */
 /* Responsiveness */
 @media (max-width: 768px) {
-  .msg-avatar {
+  .msg_avatar {
     width: 30px;
     height: 30px;
   }
 }
 
 @media (max-width: 576px) {
-  .msg-content {
+  .msg_content {
     max-width: 100%;
   }
 
-  .msg-text {
+  .msg_text {
     padding-left: 10px 15px;
   }
 
-  .ai-msg {
+  .ai_msg {
     font: normal 16.6px "Exo2", "Montserrat", sans-serif;
     line-height: 1.4;
   }
 }
 
 @media (max-width: 320px) {
-  .ai-msg {
+  .ai_msg {
     font: normal medium "Exo2", "Montserrat", sans-serif;
     line-height: 1.3;
   }

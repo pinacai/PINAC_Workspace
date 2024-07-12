@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../style/MessageBubble.css";
+import styles from "../style/MessageBubble.module.css";
 
 // Icons
 import userIcon from "../../../assets/icon/user_icon.png";
@@ -26,15 +26,15 @@ export const UserMsgBubble: React.FC<UserMsgBubbleProps> = (props) => {
   // ----------------------------------------- //
   return (
     <>
-      <div className="msg-row">
+      <div className={styles.msg_row}>
         {isAvatarVisible && (
-          <div className="msg-avatar">
+          <div className={styles.msg_avatar}>
             <img src={userIcon} alt="User Avatar" />
           </div>
         )}
-        <div className="msg-content">
-          <div className="msg-name">You</div>
-          <div className="msg-text human-msg">{props.response}</div>
+        <div className={styles.msg_content}>
+          <div className={styles.msg_name}>You</div>
+          <div className={`${styles.msg_text} ${styles.human_msg}`}>{props.response}</div>
         </div>
       </div>
     </>

@@ -6,7 +6,7 @@ import { ShowAiMessage } from "./components/AiMsgBubble";
 import { UserMsgBubble } from "./components/UserMsgBubble";
 import { InputPanel } from "./components/InputPanel";
 import { StopTextGeneration } from "./context/StopTextGeneration";
-import "./style/index.css";
+import styles from "./style/index.module.css";
 
 export const HomePage: React.FC = () => {
   const [welcomeText, setWelcomeText] = useState<boolean>(true);
@@ -90,15 +90,15 @@ export const HomePage: React.FC = () => {
     body.classList.add(`${preferredThemePair}-${preferredTheme}`);
   });
 
-  // ------------------------------------------ //
+  // --------------------------------------------------- //
   return (
     <>
       <Sidebar />
-      <div className="container">
+      <div className={styles.container}>
         <Header title="PINAC" clearChat={startNewChat} />
-        <div className="chat-container">
+        <div className={styles.chat_container}>
           <StopTextGeneration.Provider value={{ stop, setStop }}>
-            <div className="msg-box">
+            <div className={styles.msg_box}>
               {welcomeText && <WelcomeText />}
               {chatHistory}
               <div ref={scrollRef} />

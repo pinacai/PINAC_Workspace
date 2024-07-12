@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { MarkdownStyle } from "./MarkdownStyle";
-import "../style/MessageBubble.css";
+import styles from "../style/MessageBubble.module.css";
 
 // Icons
 import pinacLogo from "../../../assets/icon/pinac-logo.png";
@@ -57,7 +57,7 @@ const AiMsgBubble: React.FC<AiMsgBubbleProps> = (props) => {
       navigator.clipboard
         .writeText(props.response)
         .then(() => {
-          const copyBtn = document.querySelector(".copy-btn");
+          const copyBtn = document.querySelector(".copy_btn");
           if (copyBtn) {
             copyBtn.classList.add("animate");
             setTimeout(() => {
@@ -84,25 +84,28 @@ const AiMsgBubble: React.FC<AiMsgBubbleProps> = (props) => {
   // ---------------------------------- //
   return (
     <>
-      <div className="msg-row">
+      <div className={styles.msg_row}>
         {isAvatarVisible && (
-          <div className="msg-avatar">
+          <div className={styles.msg_avatar}>
             <img src={pinacLogo} alt="AI Avatar" />
           </div>
         )}
-        <div className="msg-content">
-          <div className="msg-btn">
-            <div className="msg-name">PINAC</div>
+        <div className={styles.msg_content}>
+          <div className={styles.msg_btn}>
+            <div className={styles.msg_name}>PINAC</div>
           </div>
-          <div className="msg-text ai-msg">
+          <div className={`${styles.msg_text} ${styles.ai_msg}`}>
             <MarkdownStyle
               text={props.response}
               setButtonsDisabled={setButtonsDisabled}
               chatScrollRef={chatScrollRef}
             />
           </div>
-          <div className="ai-msg-copy-btn">
-            <button className="copy-btn" onClick={() => copyToClipboard()}>
+          <div className={styles.ai_msg_copy_btn}>
+            <button
+              className={styles.copy_btn}
+              onClick={() => copyToClipboard()}
+            >
               copy
             </button>
           </div>
@@ -132,21 +135,21 @@ const AiLoader: React.FC = () => {
     return () => window.removeEventListener("resize", updateAvatarVisibility);
   }, []);
 
-  // ---------------------- //
+  // ---------------------------------- //
   return (
     <>
-      <div className="msg-row">
+      <div className={styles.msg_row}>
         {isAvatarVisible && (
-          <div className="msg-avatar">
+          <div className={styles.msg_avatar}>
             <img src={pinacLogo} alt="AI Avatar" />
           </div>
         )}
-        <div className="msg-content">
-          <div className="msg-btn">
-            <div className="msg-name">PINAC</div>
+        <div className={styles.msg_content}>
+          <div className={styles.msg_btn}>
+            <div className={styles.msg_name}>PINAC</div>
           </div>
-          <div className="msg-text ai-msg">
-            <div className="loader" />
+          <div className={`${styles.msg_text} ${styles.ai_msg}`}>
+            <div className={styles.loader} />
           </div>
         </div>
       </div>

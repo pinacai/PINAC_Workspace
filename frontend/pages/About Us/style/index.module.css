@@ -1,4 +1,13 @@
-.about-container {
+/* common for all Pages */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* About Page's Style */
+.about_container {
   width: 100%;
   height: calc(100vh - 60px);
   padding-top: 20px;
@@ -10,16 +19,16 @@
   overflow-y: scroll;
 }
 
-.about-container::-webkit-scrollbar {
+.about_container::-webkit-scrollbar {
   width: 10px;
 }
 
-.about-container::-webkit-scrollbar-thumb {
+.about_container::-webkit-scrollbar-thumb {
   background: #999;
   border-radius: 50px;
 }
 
-.about-card {
+.about_card {
   width: 25%;
   padding: 20px 20px;
   border-radius: 10px;
@@ -31,27 +40,27 @@
   align-items: center;
 }
 
-.about-card:hover {
+.about_card:hover {
   box-shadow: var(--themeCard-hover-shadow);
 }
 
-.about-card .header {
+.header {
   margin-top: 10px;
   margin-bottom: 40px;
   display: flex;
   justify-content: center;
 }
 
-.about-card .header span {
+.header span {
   font: bold xx-large "Exo2", "Montserrat", sans-serif;
 }
 
-.about-card span {
+.about_card span {
   font: normal medium "Exo2", "Montserrat", sans-serif;
 }
 
-.content{
-  padding-bottom: 35%
+.content {
+  padding-bottom: 35%;
 }
 
 #aboutBtn {
@@ -81,47 +90,47 @@
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .about-card {
+  .about_card {
     width: 50%;
   }
 
-  .about-card .header {
+  .about_card .header {
     margin-top: 0;
     margin-bottom: 25px;
   }
 }
 
 @media (max-width: 576px) {
-  .about-card {
+  .about_card {
     width: 60%;
   }
 
-  .about-card .header {
+  .about_card .header {
     margin-top: 0;
     margin-bottom: 20px;
   }
 }
 
 @media (max-width: 450px) {
-  .about-card {
+  .about_card {
     width: 75%;
   }
 }
 
 @media (max-width: 320px) {
-  .about-card {
+  .about_card {
     width: 90%;
   }
 
-  .about-card .header {
+  .about_card .header {
     margin-bottom: 10px;
   }
 
-  .about-card .header span {
+  .about_card .header span {
     font-size: x-large;
   }
 
-  .about-card span {
+  .about_card span {
     font-size: 16.6px;
   }
 

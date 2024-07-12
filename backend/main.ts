@@ -115,11 +115,8 @@ ipcMain.on("request-to-backend", (event, request) => {
 // -------------------------------- //
 
 ipcMain.on("request-to-server", async (event, request) => {
-  const input = request["user_query"]
-    .replace(" ", "+")
-    .replace("  ", "+")
-    .replace("   ", "+");
-  const ai_response = await callDevelopmentServer(input);
+  const input = request["user_query"].replace(" ", "+");
+  const ai_response: any = (await callDevelopmentServer(input))
   const response = {
     error_occurred: false,
     response: { type: "others", content: ai_response[0].response.response },

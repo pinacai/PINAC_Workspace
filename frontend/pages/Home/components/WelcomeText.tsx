@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styles from "../style/WelcomeText.module.css"
 
 const GEOLOCATION_API_URL = "http://ip-api.com/json/";
 const TIME_API_URL = "http://worldtimeapi.org/api/timezone/";
@@ -82,10 +83,10 @@ export const WelcomeText = () => {
     getGreeting(currentHour, firstName);
   }, [currentHour, firstName]);
 
-  // -------------------------------- //
+  // ----------------------------------- //
   return (
-    <div className="welcome-text-row">
-      <div className="welcome-text">
+    <div className={styles.welcome_text_row}>
+      <div className={styles.welcome_text}>
         <>{greeting}</>
         <br />
       </div>

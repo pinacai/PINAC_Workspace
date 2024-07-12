@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useStopTextGeneration } from "../context/StopTextGeneration";
-import "../style/MarkdownStyle.css";
+import styles from "../style/MarkdownStyle.module.css";
 
 interface MarkdownStyleProps {
   text: string;
@@ -67,7 +67,7 @@ export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
   }, [currentIndex, delay]);
 
   return (
-    <div className="markdownText">
+    <div className={styles.markdownText}>
       <Markdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -76,7 +76,7 @@ export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
               return <SyntaxHighlight {...props}>{children}</SyntaxHighlight>;
             }
             return (
-              <code {...props} className="inlineCode">
+              <code {...props} className={styles.inlineCode}>
                 {children}
               </code>
             );

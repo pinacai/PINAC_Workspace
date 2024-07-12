@@ -1,0 +1,135 @@
+/* header */
+.pageHeader {
+  height: 60px;
+  width: 100%;
+  color: var(--headerTitle-color);
+  background-color: transparent;
+  padding: 10px 20px 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left_side {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ------------------------------------------------- */
+/*    Header Dropdown Menu for Sidebar functions     */
+/* ------------------------------------------------- */
+
+.left_side button {
+  border: none;
+  margin-left: 10px;
+  margin-top: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.left_side button.home {
+  margin-top: 3px;
+}
+
+.left_side button:hover {
+  border-radius: 7px;
+  background: var(--headerMenu-btn-hover-bg);
+}
+
+.header_menu .dropdown_menu {
+  display: none;
+}
+
+.header_menu .dropdown_menu.active {
+  display: block;
+  position: absolute;
+
+  width: 140px;
+  margin-top: 5px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 7px;
+  font: normal medium "Exo2", "Montserrat", sans-serif;
+  color: var(--text-color2);
+  backdrop-filter: blur(5px);
+  background: var(--headerMenu-bg);
+  box-shadow: var(--headerMenu-shadow);
+  z-index: 1;
+}
+
+.header_menu .dropdown_menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header_menu .dropdown_menu ul li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 7px;
+  padding: 10px 10px;
+  cursor: pointer;
+}
+
+.header_menu .dropdown_menu ul li:hover {
+  background: var(--headerMenu-opt-hover-bg);
+}
+
+.header_menu .dropdown_last_menu ul li:hover {
+  background: transparent;
+}
+
+/* ----------------------------------- */
+/*       for other page titles         */
+/* ----------------------------------- */
+.title {
+  font: normal 30px "Exo2", "Montserrat", sans-serif;
+}
+
+/* for PINAC Logo */
+.home_title {
+  font: bold 40px "nasa", sans-serif;
+}
+
+.bottom_line {
+  margin-top: 3px;
+  border-bottom: 2px solid var(--headerTitle-underline-color);
+}
+
+/* ------------------ */
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .header {
+    height: 60px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .home_title {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 320px) {
+  .title,
+  .home_title {
+    font-size: 30px;
+  }
+
+  .title {
+    font-size: 25px;
+  }
+
+  .header_menu .dropdown_menu.active {
+    width: 120px;
+  }
+}
+
+@media (max-width: 280px) {
+  .header_menu .dropdown_menu.active {
+    width: 100px;
+  }
+}

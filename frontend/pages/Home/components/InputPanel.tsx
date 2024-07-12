@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styles from "../style/InputPanel.module.css";
 
 // Icons
 import { VscSend } from "react-icons/vsc";
@@ -35,7 +36,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
     if (event.key === "Enter") {
       if (event.shiftKey) {
         // Insert a new line
-        setUserInput((userInput) => userInput + "\n");
+        setUserInput(userInput + "\n");
         event.preventDefault(); // Prevent the default behavior of adding a new line
       } else {
         event.preventDefault(); // Prevent default Enter behavior
@@ -72,23 +73,23 @@ export const InputPanel: React.FC<InputPanelProps> = ({
 
   // -------------------------------------------------------- //
   return (
-    <div className="input-box">
+    <div className={styles.input_box}>
       <div
-        className={`input-group ${isUserInputActive ? "active" : ""}`}
+        className={`${styles.input_group} ${isUserInputActive ? `${styles.active}` : ""}`}
         onFocus={() => setUserInputActive(true)}
         onBlur={() => setUserInputActive(false)}
       >
         {showOptions && (
           // this is the class that has add files icons.
-          <div className="options-menu">
-            <FiImage title="Add Image" className="options-menu-icon" />
-            <FiFile title="Add PDF" className="options-menu-icon" />
-            <FiSearch title="Web Search" className="options-menu-icon" />
+          <div className={styles.options_menu}>
+            <FiImage title="Add Image" className={styles.options_menu_icon} />
+            <FiFile title="Add PDF" className={styles.options_menu_icon} />
+            <FiSearch title="Web Search" className={styles.options_menu_icon} />
           </div>
         )}
         <textarea
-          id="user-input"
-          className={buttonsDisabled ? "disabled" : ""}
+          id={styles.user_input}
+          className={buttonsDisabled ? `${styles.disabled}` : ""}
           value={userInput}
           onChange={(event) => setUserInput(event.target.value)}
           onKeyDown={handleKeyDown}
@@ -97,13 +98,13 @@ export const InputPanel: React.FC<InputPanelProps> = ({
           ref={textareaRef}
           required
         />
-        <div className="input-group-append">
+        <div className={styles.input_group_append}>
           {!buttonsDisabled ? (
             <>
               {/* this button is for toggling options */}
               <button
-                id="options-btn"
-                className={buttonsDisabled ? "disabled" : ""}
+                id={styles.options_btn}
+                className={buttonsDisabled ? `${styles.disabled}` : ""}
                 onClick={() => setShowOptions(!showOptions)}
                 disabled={buttonsDisabled}
               >
@@ -115,8 +116,8 @@ export const InputPanel: React.FC<InputPanelProps> = ({
               </button>
 
               <button
-                id="submit-btn"
-                className={buttonsDisabled ? "disabled" : ""}
+                id={styles.submit_btn}
+                className={buttonsDisabled ? `${styles.disabled}` : ""}
                 onClick={() =>
                   userInput !== undefined ? submit(userInput) : {}
                 }
@@ -126,7 +127,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
               </button>
             </>
           ) : (
-            <button onClick={() => setStop(true)} className="stop-icon">
+            <button onClick={() => setStop(true)} className={styles.stop_icon}>
               <FaRegStopCircle size={25} color={"gray"} />
             </button>
           )}

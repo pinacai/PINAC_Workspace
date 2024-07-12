@@ -9,19 +9,19 @@
   box-shadow:  var(--menubar-shadow);
 }
 
-.menu-items {
+.menu_items {
   display: flex;
   list-style-type: none;
 }
 
-.menu-item {
+.menu_item {
   cursor: pointer;
   padding: 7px 15px;
   border-radius: 10px;
   transition: background-color 0.3s ease;
 }
 
-.menu-item.active {
+.menu_item.active {
   pointer-events: none;
   background: var(--menubar-active-item-bg);
   color: var(--menubar-active-text-color);

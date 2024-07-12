@@ -1,4 +1,13 @@
-.profile-container {
+/* common for all Pages */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Profile Page's Style */
+.profile_container {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -7,7 +16,7 @@
   font-family: "Exo2", "Montserrat", sans-serif;
 }
 
-.profile-card {
+.profile_card {
   width: 100%;
   padding: 50px 20px;
   display: flex;
@@ -17,16 +26,16 @@
   overflow-y: auto;
 }
 
-.profile-card::-webkit-scrollbar {
+.profile_card::-webkit-scrollbar {
   width: 10px;
 }
 
-.profile-card::-webkit-scrollbar-thumb {
+.profile_card::-webkit-scrollbar-thumb {
   background: #999;
   border-radius: 50px;
 }
 
-.profile-img {
+.profile_img {
   height: 150px;
   margin: 20px 20px 20px 100px;
   border-radius: 50%;
@@ -35,20 +44,20 @@
   align-items: center;
 }
 
-.profile-img img {
+.profile_img img {
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.user-details {
+.user_details {
   margin-left: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.user-details .form {
+.user_details .form {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -58,17 +67,17 @@
   position: relative;
 }
 
-.user-details .flex {
+.user_details .flex {
   display: flex;
   width: 100%;
   gap: 10px;
 }
 
-.user-details .form label {
+.user_details .form label {
   position: relative;
 }
 
-.user-details .form label .input {
+.user_details .form label .input {
   width: 100%;
   padding: 10px 10px 20px 10px;
   outline: 0;
@@ -80,17 +89,17 @@
   font: normal medium "Exo2", "Montserrat", sans-serif;
 }
 
-.user-details .form #bio {
+.user_details .form #bio {
   height: 200px;
   resize: none;
 }
 
-.user-details .form #bio::placeholder {
+.user_details .form #bio::placeholder {
   font-size: medium;
   color: var(--placeholder-text-color);
 }
 
-.user-details .form label .input + span {
+.user_details .form label .input + span {
   position: absolute;
   left: 10px;
   top: 15px;
@@ -100,23 +109,23 @@
   transition: 0.3s ease;
 }
 
-.user-details .form label .input:placeholder-shown + span {
+.user_details .form label .input:placeholder-shown + span {
   top: 15px;
   font-size: 0.9em;
 }
 
-.user-details .form label .input:focus + span,
-.user-details .form label .input:valid + span {
+.user_details .form label .input:focus + span,
+.user_details .form label .input:valid + span {
   top: 30px;
   font-size: 0.7em;
   font-weight: 600;
 }
 
-.user-details .form label .input:valid + span {
+.user_details .form label .input:valid + span {
   color: var(--profile-input-valid-color);
 }
 
-.user-details .submit {
+.user_details .submit {
   width: 100%;
   border: none;
   outline: none;
@@ -128,11 +137,11 @@
   transform: 0.3s ease;
 }
 
-.user-details .submit:hover {
+.user_details .submit:hover {
   box-shadow: 7px 5px 56px -14px var(--profile-btn-bg);
 }
 
-.user-details .submit:active {
+.user_details .submit:active {
   transform: scale(0.97);
   box-shadow: 7px 5px 56px -10px var(--profile-btn-bg);
 }
@@ -152,18 +161,18 @@
 /* ------------------ */
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .profile-img {
+  .profile_img {
     height: 100px;
     margin: 20px 0 20px 50px;
   }
 
-  .user-details {
+  .user_details {
     margin-left: 25px;
   }
 }
 
 @media (max-width: 576px) {
-  .profile-card {
+  .profile_card {
     padding: 20px 0;
     display: flex;
     flex-direction: column;
@@ -171,13 +180,13 @@
     align-items: center;
   }
 
-  .profile-img {
+  .profile_img {
     width: 100%;
     height: 100px;
     margin: 0;
   }
 
-  .user-details {
+  .user_details {
     width: 100%;
     margin-top: 20px;
     margin-left: 0;
