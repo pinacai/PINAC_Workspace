@@ -44,14 +44,14 @@
   box-shadow: var(--themeCard-hover-shadow);
 }
 
-.header {
+.about_card .header {
   margin-top: 10px;
   margin-bottom: 40px;
   display: flex;
   justify-content: center;
 }
 
-.header span {
+.about_card .header span {
   font: bold xx-large "Exo2", "Montserrat", sans-serif;
 }
 

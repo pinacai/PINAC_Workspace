@@ -14,12 +14,15 @@ import userIcon from "../assets/icon/user_icon.png";
 export const Sidebar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState(false);
-  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const isDarkTheme = localStorage.getItem("preferred-theme");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [isDarkTheme] = useState<boolean>(() => {
+    const theme = localStorage.getItem("preferred-theme");
+    return theme === "dark";
+  });
 
   //
   useEffect(() => {
