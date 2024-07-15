@@ -10,7 +10,8 @@
   margin-bottom: 20px;
 }
 
-/* User Input Styles */
+/* =========== Overall Input Panel Style =========== */
+
 .input_group {
   position: relative;
   width: 60%;
@@ -29,6 +30,8 @@
 .input_group.active {
   border-color: var(--inputGroup-border-color);
 }
+
+/* =========== Textarea Style =========== */
 
 #user_input {
   height: 50px;
@@ -54,6 +57,8 @@
 #user_input::-webkit-scrollbar {
   width: 0px;
 }
+
+/* =========== For Buttons (send, stop, etc) =========== */
 
 .input_group_append {
   display: flex;
@@ -126,8 +131,10 @@ button.disabled {
   width: 25px;
   height: 25px;
   margin-top: 10px;
-  color: var(--text-color2)
+  color: var(--text-color2);
 }
+
+/* =========== File Attachemnt Option-Menu =========== */
 
 .options_menu {
   display: flex;
@@ -162,11 +169,52 @@ button.disabled {
 .options_menu_icon {
   width: 29px;
   height: 29px;
-  color: var(--text-color2)
+  color: var(--text-color2);
 }
 
-/* ------------------ */
-/* Responsive Styles */
+/* =========== Uploaded Image Preview =========== */
+
+/* --- for large screen --- */
+.image_preview {
+  max-width: 200px;
+  max-height: 200px;
+  min-width: 60px;
+  margin-right: 10px;
+}
+
+.image_preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* --- for narrow screen --- */
+.outer_image_preview {
+  width: 100%;
+  padding: 0 10px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.outer_image_preview div {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.outer_image_preview div img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: var(--inputGroup-shadow);
+}
+
+/* ============================ */
+/*      Responsive Styles       */
+/* ============================ */
+
 @media (max-width: 1200px) {
   .input_group {
     width: 80%;

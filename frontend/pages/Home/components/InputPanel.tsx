@@ -31,6 +31,10 @@ export const InputPanel: React.FC<InputPanelProps> = ({
 }) => {
   const optionMenuRef = useRef<HTMLDivElement>(null);
   const [showOptions, setShowOptions] = useState<boolean>(false); // State for showing options
+  const [isOutImgPreview, setIsOutImgPreview] = useState(
+    window.innerWidth > 320
+  );
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
   //
   // Handles Enter key press for submitting messages
@@ -43,6 +47,19 @@ export const InputPanel: React.FC<InputPanelProps> = ({
       } else {
         event.preventDefault(); // Prevent default Enter behavior
         submit(userInput);
+      }
+    }
+  };
+
+  //
+  const handleFileUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    fileType: string
+  ) => {
+    if (fileType === "image") {
+      const file = event.target.files?.[0];
+      if (file) {
+        setUploadedImage(file);
       }
     }
   };
@@ -64,6 +81,16 @@ export const InputPanel: React.FC<InputPanelProps> = ({
 
     return () => window.removeEventListener("mousedown", handleOutsideClicks);
   }, [showOptions]);
+
+  //
+  // for UI responsiveness
+  useEffect(() => {
+    const updateOutImgPreview = () => {
+      setIsOutImgPreview(window.innerWidth > 320);
+    };
+    window.addEventListener("resize", updateOutImgPreview);
+    return () => window.removeEventListener("resize", updateOutImgPreview);
+  }, []);
 
   //
   // for managing the height of the textarea automatically
@@ -94,6 +121,15 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   // -------------------------------------------------------- //
   return (
     <div className={styles.input_box}>
+      {/* ====== Image Preview ======= */}
+      {!isOutImgPreview && uploadedImage && (
+        <div className={styles.outer_image_preview}>
+          <div>
+            <img src={URL.createObjectURL(uploadedImage)} alt="Uploaded" />
+          </div>
+        </div>
+      )}
+      {/* ============================ */}
       <div
         className={`${styles.input_group} ${
           isUserInputActive ? `${styles.active}` : ""
@@ -101,20 +137,40 @@ export const InputPanel: React.FC<InputPanelProps> = ({
         onFocus={() => setUserInputActive(true)}
         onBlur={() => setUserInputActive(false)}
       >
+        {/* ====== Image Preview ======= */}
+        {isOutImgPreview && uploadedImage && (
+          <div className={styles.image_preview}>
+            <img src={URL.createObjectURL(uploadedImage)} alt="Uploaded" />
+          </div>
+        )}
+
         {/* ====== Attachment Options Menu ======= */}
         {showOptions && (
           <div className={styles.options_menu} ref={optionMenuRef}>
-            <button className={styles.options_menu_btn}>
+            <label className={styles.options_menu_btn}>
               <FiImage title="Add Image" className={styles.options_menu_icon} />
-            </button>
-            <button className={styles.options_menu_btn}>
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={(e) => handleFileUpload(e, "image")}
+              />
+            </label>
+            <label className={styles.options_menu_btn}>
               <VscFilePdf
                 title="Add PDF"
                 className={styles.options_menu_icon}
               />
-            </button>
+              <input
+                type="file"
+                accept=".pdf"
+                style={{ display: "none" }}
+                // onChange={(e) => handleFileUpload(e, "pdf")}
+              />
+            </label>
           </div>
         )}
+
         {/* ====== Main Input Area ======= */}
         <textarea
           id={styles.user_input}
