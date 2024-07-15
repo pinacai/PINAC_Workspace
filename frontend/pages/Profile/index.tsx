@@ -19,9 +19,9 @@ export const ProfilePage: React.FC = () => {
     fileInputRef.current?.click();
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleFileChange = (event: any) => {
-    const file = event.target.files[0];
+  //
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
 
     if (file) {
       const reader = new FileReader();
@@ -97,6 +97,8 @@ export const ProfilePage: React.FC = () => {
         <div className={styles.profile_container}>
           <div className={styles.profile_card}>
             <div>
+
+              {/* ======= profile Image ======= */}
               <div
                 className={styles.profile_img}
                 onClick={handleImageClick}
@@ -108,6 +110,8 @@ export const ProfilePage: React.FC = () => {
                   <img src={profileImage} alt="Profile" />
                 )}{" "}
               </div>
+
+              {/* ======= Profile Input Form ======= */}
               <input
                 type="file"
                 ref={fileInputRef}
@@ -174,6 +178,7 @@ export const ProfilePage: React.FC = () => {
                   />
                 </label>
 
+              {/* ======= Sunmit Button ======= */}
                 <button
                   className={styles.submit}
                   onClick={() => {

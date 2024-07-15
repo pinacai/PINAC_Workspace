@@ -25,25 +25,29 @@ One Next-Gen AI Chat for all your needs.
 
 <br />
 
-## Why PINAC Workspace ?
+## ⚡ What is PINAC Workspace ?
 
 Leveraging multiple AI tools for your workflow sounds smart. However, does the constant context switching between them slow you down?
 
-Experience the **Next Gen AI Chat** —your all-in-one chat for text generation, document summarization, web searching, code generation, and a wide range of office tools.
+Introducing PINAC Workspace, the all-in-one solution for text generation, document summarization, web searching, code generation, and a wide range of office tools. This powerful platform brings together the best AI capabilities, seamlessly integrated into a intuitive chat-based interface.
+
+But PINAC Workspace offers more than just convenience. It also prioritizes security and privacy, allowing you to switch between private and cloud-based AI models to keep your sensitive data protected. Experience a new level of efficiency, where all your AI needs converge into a single, powerful workspace.
+
 
 ## 🎨 Themes
 
 Do you have a new color theme idea? We got you!
 <br />
 
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_&_Dusk.jpg" alt="Dawn & Dusk Screenshot">
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Aesthetic_Unbound.jpg" alt="Aesthetic_Unbound Screenshot">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_%26_Dusk.jpg" alt="Dawn & Dusk Screenshot">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Cyber_Tech_01.jpg" alt="Cyber Tech 01 Screenshot">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Aesthetic_Unbound.jpg" alt="Aesthetic Unbound Screenshot">
 
 ## 📂 File Structure
 
 <details>
 <summary>
-<b>Overview of File Strcture to Help You Get Started</b>
+Overview of File Strcture to Help You Get Started
 </summary>
 
     .
@@ -81,6 +85,12 @@ Do you have a new color theme idea? We got you!
 
 </details>
 
+
+## 🔐 Upcoming Authentication System
+
+We are in the process of implementing the Single Sign-On (SSO) system for PINAC. Following this, we will commence work on our official website. To utilize the PINAC Workspace Desktop app, you will need to sign in on the PINAC official website. Upon doing so, you will receive an API key, which you can then paste into the Desktop app to enable its functionality.
+
+This design will make the overall system better and easy to use.
 
 ## 🚀 Project Setup
 
