@@ -59,8 +59,8 @@ Do you have a new color theme idea? We got you!
          ├── App.tsx
          ├── App.css           # All element's colors theme-wise
          ├── assets /          # Img, Icons, Fonts
+         |
          ├── Components /      # common components
-         |    |
          |    ├── style /      # all css files component-wise
          |    ├── ui /         # for small ui elements
          |    ├── Header.tsx

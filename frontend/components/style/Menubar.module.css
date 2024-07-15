@@ -2,7 +2,7 @@
   display: flex;
   width: fit-content;
   justify-content: flex-start;
-  margin: 0 20px 10px 20px;
+  margin: 0 0 0 20px;
   border-radius: 10px;
   color: var(--text-color2);
   background: var(--menubar-bg);
@@ -25,4 +25,11 @@
   pointer-events: none;
   background: var(--menubar-active-item-bg);
   color: var(--menubar-active-text-color);
+}
+
+/* Responsive Styles */
+@media (max-width: 320px) {
+  .menubar {
+    margin: 0;
+  }
 }

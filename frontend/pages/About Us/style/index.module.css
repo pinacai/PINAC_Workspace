@@ -101,6 +101,10 @@
 }
 
 @media (max-width: 576px) {
+  .about_container::-webkit-scrollbar {
+    width: 7px;
+  }
+
   .about_card {
     width: 60%;
   }
@@ -118,6 +122,15 @@
 }
 
 @media (max-width: 320px) {
+  .about_container::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .about_container::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 2px;
+  }
+
   .about_card {
     width: 90%;
   }

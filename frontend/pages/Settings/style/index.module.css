@@ -32,6 +32,13 @@
   border-radius: 50px;
 }
 
+.menubar_container {
+  width: 100%;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
 /* ====================================================*/
 /*                 Common for all                      */
 /* ====================================================*/
@@ -39,6 +46,7 @@
 .section {
   width: 90%;
   margin: 10px 10px;
+  margin-left: 50px;
   padding-top: 20px;
   padding-bottom: 20px;
   border-bottom: 2px var(--SettingsBorder-color) solid;
@@ -49,4 +57,37 @@
 .section_title {
   font: normal 20px;
   padding-bottom: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .section {
+    margin-left: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .setting_container::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  .section {
+    margin-left: 10px;
+  }
+
+  .menubar_container {
+    padding-bottom: 20px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 320px) {
+  .setting_container::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .setting_container::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 2px;
+  }
 }
