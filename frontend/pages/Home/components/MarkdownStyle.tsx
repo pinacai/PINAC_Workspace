@@ -9,8 +9,6 @@ import styles from "../style/MarkdownStyle.module.css";
 interface MarkdownStyleProps {
   text: string;
   setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  chatScrollRef: any;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,7 +31,6 @@ const SyntaxHighlight = ({ children, ...props }: any) => (
 export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
   text,
   setButtonsDisabled,
-  chatScrollRef,
 }) => {
   const { stop, setStop } = useStopTextGeneration();
   const [currentText, setCurrentText] = useState("");
@@ -41,14 +38,6 @@ export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
   const delay = 10;
 
   //
-  useEffect(() => {
-    chatScrollRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentIndex]);
-
   // Handle typing effect for the entire Markdown content
   useEffect(() => {
     if (currentIndex >= text.length - 5) setButtonsDisabled(false);
@@ -60,10 +49,8 @@ export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
         setCurrentText((prevText) => prevText + text[currentIndex]);
         setCurrentIndex((prevIndex) => prevIndex + 1);
       }, delay);
-
       return () => clearTimeout(timeout);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex, delay]);
 
   return (

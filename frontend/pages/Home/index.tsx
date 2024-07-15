@@ -16,8 +16,7 @@ export const HomePage: React.FC = () => {
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
   const [stop, setStop] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const scrollRef = useRef<any>(null); // Scroll to the bottom whenever messages change
+  const scrollRef = useRef<HTMLDivElement>(null); // Scroll to the bottom whenever messages change
 
   //
   const startNewChat = () => {

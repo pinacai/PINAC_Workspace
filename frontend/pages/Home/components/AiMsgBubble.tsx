@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { MarkdownStyle } from "./MarkdownStyle";
 import styles from "../style/MessageBubble.module.css";
 
@@ -48,8 +48,6 @@ const AiMsgBubble: React.FC<AiMsgBubbleProps> = (props) => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   );
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const chatScrollRef = useRef<any>(null);
 
   // Button
   const copyToClipboard = () => {
@@ -98,7 +96,6 @@ const AiMsgBubble: React.FC<AiMsgBubbleProps> = (props) => {
             <MarkdownStyle
               text={props.response}
               setButtonsDisabled={setButtonsDisabled}
-              chatScrollRef={chatScrollRef}
             />
           </div>
           <div className={styles.ai_msg_copy_btn}>
@@ -109,7 +106,6 @@ const AiMsgBubble: React.FC<AiMsgBubbleProps> = (props) => {
               copy
             </button>
           </div>
-          <div ref={chatScrollRef} />
         </div>
       </div>
     </>
