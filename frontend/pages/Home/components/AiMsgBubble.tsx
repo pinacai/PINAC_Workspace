@@ -43,8 +43,10 @@ interface AiMsgBubbleProps {
   setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AiMsgBubble: React.FC<AiMsgBubbleProps> = (props) => {
-  const { setButtonsDisabled } = props;
+const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
+  response,
+  setButtonsDisabled,
+}) => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   );
@@ -53,7 +55,7 @@ const AiMsgBubble: React.FC<AiMsgBubbleProps> = (props) => {
   const copyToClipboard = () => {
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard
-        .writeText(props.response)
+        .writeText(response)
         .then(() => {
           const copyBtn = document.querySelector(`.${styles.copy_btn}`);
           if (copyBtn) {
@@ -94,7 +96,7 @@ const AiMsgBubble: React.FC<AiMsgBubbleProps> = (props) => {
           </div>
           <div className={`${styles.msg_text} ${styles.ai_msg}`}>
             <MarkdownStyle
-              text={props.response}
+              text={response}
               setButtonsDisabled={setButtonsDisabled}
             />
           </div>

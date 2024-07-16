@@ -38,7 +38,10 @@ export const HomePage: React.FC = () => {
 
       setChatHistory((prevChatHistory) => [
         ...prevChatHistory,
-        <UserMsgBubble response={text} />,
+        <UserMsgBubble
+          response={text}
+          key={`user-${chatHistory.length}`}
+        />,
       ]);
       const preferredModel = localStorage.getItem("preferred-model");
       window.ipcRenderer.send("request-to-server", {
@@ -48,7 +51,10 @@ export const HomePage: React.FC = () => {
       });
       setChatHistory((prevChatHistory) => [
         ...prevChatHistory,
-        <ShowAiMessage setButtonsDisabled={setButtonsDisabled} />,
+        <ShowAiMessage
+          key={`ai-${chatHistory.length + 1}`}
+          setButtonsDisabled={setButtonsDisabled}
+        />,
       ]);
       setUserInput("");
       if (textareaRef.current) {
