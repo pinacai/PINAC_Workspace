@@ -6,6 +6,7 @@ import { VscSend, VscFilePdf } from "react-icons/vsc";
 import { FaRegStopCircle } from "react-icons/fa";
 import { CgAttachment } from "react-icons/cg";
 import { FiImage } from "react-icons/fi";
+import { AiOutlineClose } from "react-icons/ai"; 
 
 interface InputPanelProps {
   userInput: string;
@@ -62,6 +63,11 @@ export const InputPanel: React.FC<InputPanelProps> = ({
         setUploadedImage(file);
       }
     }
+  };
+
+  // 
+  const handleCancelUpload = () => {
+    setUploadedImage(null);
   };
 
   //
@@ -126,6 +132,12 @@ export const InputPanel: React.FC<InputPanelProps> = ({
         <div className={styles.outer_image_preview}>
           <div>
             <img src={URL.createObjectURL(uploadedImage)} alt="Uploaded" />
+            <button
+              className={styles.cancel_button}
+              onClick={handleCancelUpload}
+            >
+              <AiOutlineClose />
+            </button>
           </div>
         </div>
       )}
@@ -141,6 +153,12 @@ export const InputPanel: React.FC<InputPanelProps> = ({
         {isOutImgPreview && uploadedImage && (
           <div className={styles.image_preview}>
             <img src={URL.createObjectURL(uploadedImage)} alt="Uploaded" />
+            <button
+              className={styles.cancel_button}
+              onClick={handleCancelUpload}
+            >
+              <AiOutlineClose />
+            </button>
           </div>
         )}
 

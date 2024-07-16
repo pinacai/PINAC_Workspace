@@ -180,6 +180,7 @@ button.disabled {
   max-height: 200px;
   min-width: 60px;
   margin-right: 10px;
+  position: relative;
 }
 
 .image_preview img {
@@ -187,6 +188,28 @@ button.disabled {
   max-height: 100%;
   object-fit: contain;
   border-radius: 10px;
+}
+
+.cancel_button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  padding: 0;
+}
+
+.cancel_button:hover {
+  background: rgba(0, 0, 0, 0.7);
 }
 
 /* --- for narrow screen --- */
@@ -201,6 +224,7 @@ button.disabled {
 .outer_image_preview div {
   max-width: 150px;
   max-height: 150px;
+  position: relative;
 }
 
 .outer_image_preview div img {
