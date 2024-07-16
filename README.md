@@ -31,12 +31,10 @@ Leveraging multiple AI tools for your workflow sounds smart. However, does the c
 
 Introducing PINAC Workspace, the all-in-one solution for text generation, document summarization, web searching, code generation, and a wide range of office tools. This powerful platform brings together the best AI capabilities, seamlessly integrated into a intuitive chat-based interface.
 
-But PINAC Workspace offers more than just convenience. It also prioritizes security and privacy, allowing you to switch between private and cloud-based AI models to keep your sensitive data protected. Experience a new level of efficiency, where all your AI needs converge into a single, powerful workspace.
 
+## 🎨 App Interface
 
-## 🎨 Themes
-
-Do you have a new color theme idea? We got you!
+Introducing our distraction-free, user-friendly app interface with three stunning themes. Designed to help you stay focused and productive.
 <br />
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_%26_Dusk.jpg" alt="Dawn & Dusk Screenshot">
@@ -47,7 +45,7 @@ Do you have a new color theme idea? We got you!
 
 <details>
 <summary>
-Overview of File Strcture to Help You Get Started
+Overview of File Structure to Help You Get Started
 </summary>
 
     .
@@ -85,12 +83,6 @@ Overview of File Strcture to Help You Get Started
 
 </details>
 
-
-## 🔐 Upcoming Authentication System
-
-We are in the process of implementing the Single Sign-On (SSO) system for PINAC. Following this, we will commence work on our official website. To utilize the PINAC Workspace Desktop app, you will need to sign in on the PINAC official website. Upon doing so, you will receive an API key, which you can then paste into the Desktop app to enable its functionality.
-
-This design will make the overall system better and easy to use.
 
 ## 🚀 Project Setup
 

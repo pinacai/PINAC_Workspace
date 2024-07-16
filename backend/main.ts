@@ -4,12 +4,24 @@ import fetch from "node-fetch";
 
 //
 // for using development server
-const callDevelopmentServer = async (input: string) => {
-  const response = await fetch(
-    `https://nexus-for-development.pinac.workers.dev/?input=${input}`
-  );
-  return await response.json();
-};
+async function callDevelopmentServer() {
+  const response = await fetch("https://deployment-testing.pinac.workers.dev", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      preferred_model: "Gemma 2b",
+      user_query: "hello there",
+    }),
+  });
+
+  const data = response.json();
+  return data;
+}
+
+const response = callDevelopmentServer();
+console.log(response);
 
 //
 // =================================================== //
@@ -114,13 +126,13 @@ ipcMain.on("request-to-backend", (event, request) => {
 //       Frontend to Server         //
 // -------------------------------- //
 
-ipcMain.on("request-to-server", async (event, request) => {
-  const input = request["user_query"].replace(" ", "+");
-  const ai_response: any = (await callDevelopmentServer(input))
-  const response = {
-    error_occurred: false,
-    response: { type: "others", content: ai_response[0].response.response },
-    error: null,
-  };
-  event.reply("server-response", response);
-});
+// ipcMain.on("request-to-server", async (event, request) => {
+//   const input = request["user_query"].replace(" ", "+");
+//   const ai_response: any = await callDevelopmentServer(input);
+//   const response = {
+//     error_occurred: false,
+//     response: { type: "others", content: ai_response[0].response.response },
+//     error: null,
+//   };
+//   event.reply("server-response", response);
+// });
