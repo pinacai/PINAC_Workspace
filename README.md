@@ -47,7 +47,7 @@ Do you have a new color theme idea? We got you!
 
 <details>
 <summary>
-Overview of File Strcture to Help You Get Started
+Overview of File Structure to Help You Get Started
 </summary>
 
     .
