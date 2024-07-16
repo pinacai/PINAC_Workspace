@@ -55,11 +55,11 @@ const AiMsgBubble: React.FC<AiMsgBubbleProps> = (props) => {
       navigator.clipboard
         .writeText(props.response)
         .then(() => {
-          const copyBtn = document.querySelector(".copy_btn");
+          const copyBtn = document.querySelector(`.${styles.copy_btn}`);
           if (copyBtn) {
-            copyBtn.classList.add("animate");
+            copyBtn.classList.add(styles.animate);
             setTimeout(() => {
-              copyBtn.classList.remove("animate");
+              copyBtn.classList.remove(styles.animate);
             }, 1000);
           }
         })

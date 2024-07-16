@@ -62,6 +62,7 @@ const createMainWindow = () => {
       preload: path.join(__dirname, "preload.mjs"),
       sandbox: true,
       contextIsolation: true,
+      nodeIntegration: false,
     },
   });
 
