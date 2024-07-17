@@ -5,6 +5,10 @@ import styles from "../style/MessageBubble.module.css";
 // Icons
 import pinacLogo from "../../../assets/icon/pinac-logo.png";
 
+// ============================================================================ //
+//                     For Managing to show AI Response                         //
+// ============================================================================ //
+
 //
 interface ShowAiMessageProps {
   setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,8 +40,10 @@ export const ShowAiMessage: React.FC<ShowAiMessageProps> = ({
   return <>{message}</>;
 };
 
-//
-//
+// ============================================================================ //
+//                            AI Message Bubble                                 //
+// ============================================================================ //
+
 interface AiMsgBubbleProps {
   response: string;
   setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -114,15 +120,17 @@ const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
   );
 };
 
+// ============================================================================ //
+//                        AI Response Loading Animation                         //
+// ============================================================================ //
+
 //
-//
-// Creating a AiLoader component similar to AiMessage. message state is initialized with this loader and replaced as soon as we have the data.
+// Component similar to AiMessage and replaced as soon as we have the data.
 const AiLoader: React.FC = () => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   );
 
-  //
   // Handle window resize and update avatar visibility
   useEffect(() => {
     const updateAvatarVisibility = () => {

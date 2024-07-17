@@ -103,11 +103,6 @@
   }
 }
 
-
-.copy_btn:hover {
-  background: var(--aiMsg-bg);
-}
-
 /* CSS for loader component */
 .loader {
   width: 10px;
@@ -120,15 +115,18 @@
 }
 @keyframes d5 {
   0% {
-    box-shadow: 20px 0 var(--aiLoader-primary), -20px 0 var(--aiLoader-secondary);
+    box-shadow: 20px 0 var(--aiLoader-primary),
+      -20px 0 var(--aiLoader-secondary);
     background: var(--aiLoader-primary);
   }
   33% {
-    box-shadow: 20px 0 var(--aiLoader-primary), -20px 0 var(--aiLoader-secondary);
+    box-shadow: 20px 0 var(--aiLoader-primary),
+      -20px 0 var(--aiLoader-secondary);
     background: var(--aiLoader-secondary);
   }
   66% {
-    box-shadow: 20px 0 var(--aiLoader-secondary), -20px 0 var(--aiLoader-primary);
+    box-shadow: 20px 0 var(--aiLoader-secondary),
+      -20px 0 var(--aiLoader-primary);
     background: var(--aiLoader-secondary);
   }
 }
