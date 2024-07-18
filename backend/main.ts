@@ -1,3 +1,4 @@
+import { askLocalLLM } from "./model/ollama";
 import { ipcMain, shell } from "electron";
 import * as fs from "fs";
 import fetch from "node-fetch";
@@ -115,12 +116,24 @@ ipcMain.on("request-to-backend", (event, request) => {
 // -------------------------------- //
 
 ipcMain.on("request-to-server", async (event, request) => {
-  const input = request["user_query"].replace(" ", "+");
-  const ai_response: any = await callDevelopmentServer(input);
-  const response = {
-    error_occurred: false,
-    response: { type: "others", content: ai_response[0].response.response },
-    error: null,
-  };
-  event.reply("server-response", response);
+  //
+  if (request["preferred_model_type"] == "Cloud LLM") {
+    const input = request["user_query"].replace(" ", "+");
+    const ai_response: any = await callDevelopmentServer(input);
+    const response = {
+      error_occurred: false,
+      response: { type: "others", content: ai_response[0].response.response },
+      error: null,
+    };
+    event.reply("server-response", response);
+  }
+  //
+  else if (request["preferred_model_type"] == "Private LLM") {
+    const input = request["user_query"];
+    const response: object = await askLocalLLM(
+      request["preferred_model"],
+      input
+    );
+    event.reply("server-response", response);
+  }
 });

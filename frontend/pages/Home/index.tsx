@@ -46,6 +46,7 @@ export const HomePage: React.FC = () => {
       const preferredModel = localStorage.getItem("preferred-model");
       window.ipcRenderer.send("request-to-server", {
         request_type: "user-input",
+        preferred_model_type: "Cloud LLM",
         preferred_model: preferredModel,
         user_query: text,
       });
