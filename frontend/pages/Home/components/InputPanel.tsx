@@ -6,7 +6,8 @@ import { VscSend, VscFilePdf } from "react-icons/vsc";
 import { FaRegStopCircle } from "react-icons/fa";
 import { CgAttachment } from "react-icons/cg";
 import { FiImage } from "react-icons/fi";
-import { AiOutlineClose } from "react-icons/ai"; 
+import { AiOutlineClose } from "react-icons/ai";
+import DropdownMenu from "./DropDownMenu";
 
 interface InputPanelProps {
   userInput: string;
@@ -37,7 +38,8 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   );
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
-  //
+  const options = ["Option 1", "Option 2", "Option 3"];
+
   // Handles Enter key press for submitting messages
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter") {
@@ -52,7 +54,6 @@ export const InputPanel: React.FC<InputPanelProps> = ({
     }
   };
 
-  //
   const handleFileUpload = (
     event: React.ChangeEvent<HTMLInputElement>,
     fileType: string
@@ -65,12 +66,10 @@ export const InputPanel: React.FC<InputPanelProps> = ({
     }
   };
 
-  // 
   const handleCancelUpload = () => {
     setUploadedImage(null);
   };
 
-  //
   // Creating an event handler to close the option menu by click elsewhere outside the menu
   useEffect(() => {
     const handleOutsideClicks = (e: MouseEvent) => {
@@ -88,7 +87,6 @@ export const InputPanel: React.FC<InputPanelProps> = ({
     return () => window.removeEventListener("mousedown", handleOutsideClicks);
   }, [showOptions]);
 
-  //
   // for UI responsiveness
   useEffect(() => {
     const updateOutImgPreview = () => {
@@ -98,7 +96,6 @@ export const InputPanel: React.FC<InputPanelProps> = ({
     return () => window.removeEventListener("resize", updateOutImgPreview);
   }, []);
 
-  //
   // for managing the height of the textarea automatically
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
@@ -127,6 +124,10 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   // -------------------------------------------------------- //
   return (
     <div className={styles.input_box}>
+      {/* ====== Dropdown Menus ======= */}
+      <div className={styles.dropdown_wrapper}>
+        <DropdownMenu defaultOption={options[0]} optionList={options} />
+      </div>
       {/* ====== Image Preview ======= */}
       {!isOutImgPreview && uploadedImage && (
         <div className={styles.outer_image_preview}>

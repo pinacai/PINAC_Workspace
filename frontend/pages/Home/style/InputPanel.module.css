@@ -239,6 +239,38 @@ button.disabled {
 /*      Responsive Styles       */
 /* ============================ */
 
+/* Dropdown Styles */
+.dropdown_wrapper {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.dropdown_wrapper > div {
+  width: 100%;
+}
+
+/* Responsive Styles for Dropdown */
+@media (min-width: 769px) {
+  .dropdown_wrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .dropdown_wrapper {
+    display: block;
+  }
+
+  .dropdown .selector {
+    flex-direction: column;
+  }
+
+  .dropdown .dropdown_menu.active {
+    top: 35px; /* Adjust this value based on the height of the dropdown selector */
+  }
+}
+
 @media (max-width: 1200px) {
   .input_group {
     width: 80%;
