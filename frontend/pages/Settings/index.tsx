@@ -65,6 +65,18 @@ export const SettingsPage: React.FC = () => {
               {/*     Section 1 (Select LLM)      */}
               {/* =============================== */}
               <div className={styles.section}>
+                {/*     Warning card     */}
+                {selectedLlmType === "Private LLM" && (
+                  <div className={styles.warning_card}>
+                    <div className={styles.warning_content}>
+                      <div className={styles.warning_icon}>⚠</div>
+                      <div className={styles.warning_text}>
+                        Write the exact name of model as in Ollama. For getting
+                        pulled model list run <b>ollama list</b> in terminal.
+                      </div>
+                    </div>
+                  </div>
+                )}
                 <div className={styles.section_title}>
                   <span>Select LLM</span>
                 </div>

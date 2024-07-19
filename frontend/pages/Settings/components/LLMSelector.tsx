@@ -33,12 +33,16 @@ export const LLMSelector: React.FC<LLMSelectorProps> = ({
   // -------------------------------- //
   return (
     <div className={styles.llm_selection_container}>
+      {/* Dropdown menu for selecting the LLM type */}
+      {/* ---------------------------------------- */}
       <DropdownMenu
         defaultOption="Cloud LLM"
         optionList={["Cloud LLM", "Private LLM"]}
         localStorageVariableName="preferred-model-type"
         updateValue={setSelectedLlmType}
       />
+      {/*    for selecting the LLM    */}
+      {/* --------------------------- */}
       {selectedLlmType === "Cloud LLM" ? (
         <DropdownMenu
           defaultOption="Llama 3"
@@ -46,7 +50,7 @@ export const LLMSelector: React.FC<LLMSelectorProps> = ({
           localStorageVariableName="preferred-cloud-model"
         />
       ) : (
-        <div>
+        <div className={styles.input_container}>
           <input
             ref={inputRef}
             placeholder="Ollama Model"

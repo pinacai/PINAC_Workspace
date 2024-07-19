@@ -59,7 +59,36 @@
   padding-bottom: 20px;
 }
 
-/* Responsive Styles */
+/* ====================================== */
+/*             Warninng Card              */
+/* ====================================== */
+
+.warning_card {
+  background-color: #fff3cd;
+  border-radius: 7px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  max-width: 500px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.warning_content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.warning_icon {
+  color: #856404;
+  font-size: 24px;
+}
+.warning_text {
+  color: #856404;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ============================ */
+/*     Responsive Styles        */
+/* ============================ */
 @media (max-width: 768px) {
   .section {
     margin-left: 40px;

@@ -77,7 +77,6 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
           {optionList.map((option, index) => (
             <li
               key={index}
-              className={selectedOption == option ? `${styles.selected}` : ""}
               onClick={() => handleOptionClick(option)}
             >
               {option}

@@ -64,8 +64,8 @@
   cursor: pointer;
 }
 
-.dropdown .dropdown_menu ul li.selected {
-  background: var(--dropdownMenu-selected-bg);
+.dropdown .dropdown_menu ul li:hover {
+  background: var(--dropdownMenu-opt-hover-bg);
 }
 
 /* Responsive Styles */

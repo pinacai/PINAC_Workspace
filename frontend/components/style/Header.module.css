@@ -74,7 +74,7 @@
 }
 
 .header_menu .dropdown_menu ul li:hover {
-  background: var(--headerMenu-opt-hover-bg);
+  background: var(--dropdownMenu-opt-hover-bg);
 }
 
 .header_menu .dropdown_last_menu ul li:hover {

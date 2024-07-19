@@ -45,7 +45,6 @@
   --headerMenu-btn-hover-bg: #e0e4e8;
   --headerMenu-bg: #ffffff;
   --headerMenu-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  --headerMenu-opt-hover-bg: #6c82ff;
   --headerTitle-color: #1f2937;
   --headerTitle-underline-color: #6c82ff;
   --newChatBtn-color: #1f2937;
@@ -66,7 +65,7 @@
   --dropdownBtn-hover-bg: rgba(0, 0, 0, 0.3);
   --dropdownBtn-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   --dropdownMenu-bg: #e0e4e8;
-  --dropdownMenu-selected-bg: #6c82ff;
+  --dropdownMenu-opt-hover-bg: #6c82ff;
   --dropdownMenu-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 
   /* Menubar */
@@ -119,7 +118,6 @@
   --headerMenu-btn-hover-bg: #3c3c3c;
   --headerMenu-bg: #3c3c3c;
   --headerMenu-shadow: 0 0 20px #000;
-  --headerMenu-opt-hover-bg: linear-gradient(135deg, #5e43f3, #382bf0);
   --headerTitle-color: #f5f7fa;
   --headerTitle-underline-color: #5e43f3;
   --newChatBtn-color: #3c3c3c;
@@ -140,7 +138,7 @@
   --dropdownBtn-hover-bg: rgba(255, 255, 255, 0.1);
   --dropdownBtn-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   --dropdownMenu-bg: #3c3c3c;
-  --dropdownMenu-selected-bg: linear-gradient(135deg, #5e43f3, #382bf0);
+  --dropdownMenu-opt-hover-bg: linear-gradient(135deg, #5e43f3, #382bf0);
   --dropdownMenu-shadow: 0 0 20px #000;
 
   /* Menubar */
@@ -194,7 +192,6 @@
   --headerMenu-btn-hover-bg: rgba(108, 108, 108, 0.2);
   --headerMenu-bg: #e2e8f0;
   --headerMenu-shadow: 0 0 10px #6885a3;
-  --headerMenu-opt-hover-bg: #c1cdf3;
   --headerTitle-color: #2e3236;
   --headerTitle-underline-color: #153fc5;
   --newChatBtn-color: #3b3f44;
@@ -215,7 +212,7 @@
   --dropdownBtn-hover-bg: rgba(0, 0, 0, 0.1);
   --dropdownBtn-shadow: 0 0 5px #607080;
   --dropdownMenu-bg: #e2e8f0;
-  --dropdownMenu-selected-bg: #90a6ee;
+  --dropdownMenu-opt-hover-bg: #c1cdf3;
   --dropdownMenu-shadow: 0 0 5px #607080;
 
   /* Menubar */
@@ -268,7 +265,6 @@
   --headerMenu-btn-hover-bg: rgba(109, 108, 108, 0.2);
   --headerMenu-bg: #1a1924b3;
   --headerMenu-shadow: 0 0 2px #ece2d5;
-  --headerMenu-opt-hover-bg: linear-gradient(125deg, #0026ff, #5b00af);
   --headerTitle-color: #ece2d5;
   --headerTitle-underline-color: #5e43f3;
   --newChatBtn-color: #1a1924;
@@ -289,7 +285,7 @@
   --dropdownBtn-hover-bg: rgba(255, 255, 255, 0.1);
   --dropdownBtn-shadow: 0 0 2px #ece2d5;
   --dropdownMenu-bg: rgba(26, 25, 36, 0.8);
-  --dropdownMenu-selected-bg: linear-gradient(125deg, #0026ff, #5b00af);
+  --dropdownMenu-opt-hover-bg: linear-gradient(125deg, #0026ff, #5b00af);
   --dropdownMenu-shadow: 0 0 2px #ece2d5;
 
   /* Menubar */
@@ -344,7 +340,6 @@
   --headerMenu-btn-hover-bg: #f8e0c9;
   --headerMenu-bg: #f8e0c9;
   --headerMenu-shadow: 0 0 5px rgba(43, 26, 18, 0.5);
-  --headerMenu-opt-hover-bg: #b1aa81;
   --headerTitle-color: #524b44;
   --headerTitle-underline-color: #dc6d18;
   --newChatBtn-color: #635a51;
@@ -365,7 +360,7 @@
   --dropdownBtn-hover-bg: #b1aa81;
   --dropdownBtn-shadow: 0 0 5px rgba(43, 26, 18, 0.4);
   --dropdownMenu-bg: #f8e0c9;
-  --dropdownMenu-selected-bg: #dc6d18;
+  --dropdownMenu-opt-hover-bg: #b1aa81;
   --dropdownMenu-shadow: 0 0 10px rgba(43, 26, 18, 0.5);
 
   /* Menubar */
@@ -418,7 +413,6 @@
   --headerMenu-btn-hover-bg: #3c3c3c;
   --headerMenu-bg: #3c3c3c;
   --headerMenu-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  --headerMenu-opt-hover-bg: #d83b26b7;
   --headerTitle-color: #d1c7bb;
   --headerTitle-underline-color: #d83b26b7;
   --newChatBtn-color: #322c2b;
@@ -439,7 +433,7 @@
   --dropdownBtn-hover-bg: #555555;
   --dropdownBtn-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   --dropdownMenu-bg: #3c3c3c;
-  --dropdownMenu-selected-bg: #d83b26b7;
+  --dropdownMenu-opt-hover-bg: #d83b26b7;
   --dropdownMenu-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 
   /* Menubar */
