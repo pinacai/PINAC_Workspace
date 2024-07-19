@@ -8,10 +8,17 @@ import { IoIosArrowUp } from "react-icons/io";
 interface DropdownMenuProps {
   defaultOption: string;
   optionList: Array<string>;
+  localStorageVariableName: string;
+  updateValue?: (value: string) => void;
 }
 
-export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
-  const [selectedOption, setSelectedOption] = useState(props.defaultOption);
+export const DropdownMenu: React.FC<DropdownMenuProps> = ({
+  defaultOption,
+  optionList,
+  localStorageVariableName,
+  updateValue,
+}) => {
+  const [selectedOption, setSelectedOption] = useState(defaultOption);
   const [isActive, setIsActive] = useState(false);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
 
@@ -19,15 +26,16 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
     setIsActive(false);
-    localStorage.setItem("preferred-model", option);
+    localStorage.setItem(localStorageVariableName, option);
+    updateValue && updateValue(option);
   };
 
   //
   // At starting selecting model based on local storage
   useEffect(() => {
-    const preferredModel = localStorage.getItem("preferred-model");
-    preferredModel !== null && setSelectedOption(preferredModel);
-  }, []);
+    const preferredOption = localStorage.getItem(localStorageVariableName);
+    preferredOption !== null && setSelectedOption(preferredOption);
+  }, [localStorageVariableName]);
 
   //
   // Creating an event handler to close the dropdown menu by click elsewhere outside the menu
@@ -66,7 +74,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
         }`}
       >
         <ul>
-          {props.optionList.map((option, index) => (
+          {optionList.map((option, index) => (
             <li
               key={index}
               className={selectedOption == option ? `${styles.selected}` : ""}

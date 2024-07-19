@@ -38,16 +38,20 @@ export const HomePage: React.FC = () => {
 
       setChatHistory((prevChatHistory) => [
         ...prevChatHistory,
-        <UserMsgBubble
-          response={text}
-          key={`user-${chatHistory.length}`}
-        />,
+        <UserMsgBubble response={text} key={`user-${chatHistory.length}`} />,
       ]);
-      const preferredModel = localStorage.getItem("preferred-model");
+      const preferredModelType = localStorage.getItem("preferred-model-type");
+      const preferredCloudModel = localStorage.getItem("preferred-cloud-model");
+      const preferredPrivateModel = localStorage.getItem(
+        "preferred-private-model"
+      );
       window.ipcRenderer.send("request-to-server", {
         request_type: "user-input",
-        preferred_model_type: "Cloud LLM",
-        preferred_model: preferredModel,
+        preferred_model_type: preferredModelType,
+        preferred_model:
+          preferredModelType === "Cloud LLM"
+            ? preferredCloudModel
+            : preferredPrivateModel,
         user_query: text,
       });
       setChatHistory((prevChatHistory) => [

@@ -3,7 +3,7 @@
   width: fit-content;
   justify-content: flex-start;
   margin: 0 0 0 20px;
-  border-radius: 10px;
+  border-radius: 7px;
   color: var(--text-color2);
   background: var(--menubar-bg);
   box-shadow:  var(--menubar-shadow);
@@ -17,7 +17,7 @@
 .menu_item {
   cursor: pointer;
   padding: 7px 15px;
-  border-radius: 10px;
+  border-radius: 7px;
   transition: background-color 0.3s ease;
 }
 
