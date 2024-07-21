@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage } from "./pages/Home/index";
 import { ProfilePage } from "./pages/Profile/index";
-import { AboutPage } from "./pages/About Us/index";
+import { HistoryPage } from "./pages/History/index";
+import { AboutPage } from "./pages/About/index";
 import { SettingsPage } from "./pages/Settings/index";
 import "./App.css";
 
@@ -26,6 +27,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/history" element={<HistoryPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/settings" element={<SettingsPage />} />
       </Routes>

@@ -4,11 +4,10 @@ import { ThemeToggle } from "./ui/ThemeToggle";
 import styles from "./style/Sidebar.module.css";
 
 // Icons
-import { IoMdChatbubbles } from "react-icons/io";
 import { MdGroup } from "react-icons/md";
-import { IoMdSettings } from "react-icons/io";
-import { FaAngleRight } from "react-icons/fa6";
-import { FaAngleLeft } from "react-icons/fa6";
+import { IoMdChatbubbles, IoMdSettings } from "react-icons/io";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import { LuHistory } from "react-icons/lu";
 import userIcon from "../assets/icon/user_icon.png";
 
 export const Sidebar: React.FC = () => {
@@ -25,6 +24,7 @@ export const Sidebar: React.FC = () => {
   });
 
   //
+  // for handeling sidebar visibility according to screen size
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 576) {
@@ -40,6 +40,7 @@ export const Sidebar: React.FC = () => {
     };
   }, []);
 
+  //
   // Function to handle page navigation
   const changePage = (path: string) => {
     navigate(path);
@@ -66,6 +67,7 @@ export const Sidebar: React.FC = () => {
   };
 
   //
+  // Get User Info
   useEffect(() => {
     window.ipcRenderer.send("request-to-backend", {
       request_type: "give-user-info",
@@ -85,8 +87,13 @@ export const Sidebar: React.FC = () => {
         <div
           className={`${styles.sidebar} ${isActive ? `${styles.active}` : ""}`}
         >
+          {/*          Upper Part of Sidebar          */}
+          {/* --------------------------------------- */}
           <div className={styles.upper_part}>
             <div className={styles.top}>
+              {/* ============================== */}
+              {/*         Profile Page           */}
+              {/* ============================== */}
               <div
                 className={styles.profile}
                 onClick={() => changePage("/profile")}
@@ -119,8 +126,11 @@ export const Sidebar: React.FC = () => {
             <div className={styles.border_line}></div>
             <nav>
               <ul>
+                {/* =========================== */}
+                {/*            Chat             */}
+                {/* =========================== */}
                 <li
-                  title="Homepage"
+                  title="Chat"
                   id={styles.go_home}
                   className={
                     location.pathname === "/"
@@ -150,6 +160,43 @@ export const Sidebar: React.FC = () => {
                     Chat
                   </span>
                 </li>
+                {/* ============================== */}
+                {/*          Chat History          */}
+                {/* ============================== */}
+                <li
+                  title="Chat History"
+                  id={styles.go_home}
+                  className={
+                    location.pathname === "/history"
+                      ? `${styles.present_page}`
+                      : `${styles.li}`
+                  }
+                  onClick={() => changePage("/history")}
+                >
+                  <LuHistory
+                    size={25}
+                    color={
+                      location.pathname === "/history"
+                        ? getPresentPageIconColor()
+                        : undefined
+                    }
+                  />
+                  <span
+                    className={styles.sidebar_text}
+                    style={
+                      location.pathname === "/history"
+                        ? isDarkTheme
+                          ? {}
+                          : { color: "var(--text-color2)" }
+                        : {}
+                    }
+                  >
+                    Chat History
+                  </span>
+                </li>
+                {/* ============================== */}
+                {/*            About Us            */}
+                {/* ============================== */}
                 <li
                   title="About Us"
                   id={styles.go_about}
@@ -181,6 +228,9 @@ export const Sidebar: React.FC = () => {
                     About Us
                   </span>
                 </li>
+                {/* ============================== */}
+                {/*          Settings Page         */}
+                {/* ============================== */}
                 <li
                   title="Settings"
                   id={styles.go_settings}
@@ -215,6 +265,8 @@ export const Sidebar: React.FC = () => {
               </ul>
             </nav>
           </div>
+          {/*          Lower Part of Sidebar          */}
+          {/* --------------------------------------- */}
           <div className={styles.lower_part}>
             <nav>
               <ul>

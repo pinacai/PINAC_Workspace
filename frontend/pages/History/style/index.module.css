@@ -1,0 +1,50 @@
+/* common for all Pages */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chat History Page's Style */
+.history_container {
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: "Exo2", "Montserrat", sans-serif;
+
+  display: grid;
+  place-items: center;
+  overflow-y: scroll;
+}
+
+.history_container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.history_container::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 50px;
+}
+
+/* ============================ */
+/*     Responsive Styles        */
+/* ============================ */
+
+@media (max-width: 576px) {
+  .history_container::-webkit-scrollbar {
+    width: 7px;
+  }
+}
+
+@media (max-width: 320px) {
+  .history_container::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .history_container::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 2px;
+  }
+}
