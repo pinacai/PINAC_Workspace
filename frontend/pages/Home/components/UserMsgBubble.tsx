@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "../style/MessageBubble.module.css";
 
 // Icons
-import userIcon from "../../../assets/icon/user_icon.png";
+import userIcon from "/icon/user_icon.png";
 
 interface UserMsgBubbleProps {
   response: string;

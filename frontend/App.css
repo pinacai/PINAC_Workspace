@@ -4,17 +4,17 @@
 
 @font-face {
   font-family: "nasa";
-  src: url("assets/font/nasalization-rg.otf");
+  src: url("/font/nasalization-rg.otf");
 }
 
 @font-face {
   font-family: "ai-text";
-  src: url("assets/font/KodeMono.ttf");
+  src: url("/font/KodeMono.ttf");
 }
 
 @font-face {
   font-family: "exo2";
-  src: url("assets/font/Exo2.ttf");
+  src: url("/font/Exo2.ttf");
 }
 
 /* ====================================================*/

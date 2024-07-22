@@ -1,7 +1,7 @@
 {
   "name": "pinac-workspace",
   "version": "2.0.0",
-  "description": "A better alternative of 'Copilot on Windows'",
+  "description": "AI-powered beautiful desktop app for effortless, high-quality results from simple prompts.",
   "author": "RajeshTechForge",
   "type": "module",
   "scripts": {

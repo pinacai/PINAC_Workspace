@@ -3,7 +3,7 @@ import { MarkdownStyle } from "./MarkdownStyle";
 import styles from "../style/MessageBubble.module.css";
 
 // Icons
-import pinacLogo from "../../../assets/icon/pinac-logo.png";
+import pinacLogo from "/icon/pinac-logo.png";
 
 // ============================================================================ //
 //                     For Managing to show AI Response                         //

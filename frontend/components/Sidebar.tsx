@@ -8,7 +8,7 @@ import { MdGroup } from "react-icons/md";
 import { IoMdChatbubbles, IoMdSettings } from "react-icons/io";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { LuHistory } from "react-icons/lu";
-import userIcon from "../assets/icon/user_icon.png";
+import userIcon from "/icon/user_icon.png";
 
 export const Sidebar: React.FC = () => {
   const location = useLocation();

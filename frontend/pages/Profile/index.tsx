@@ -4,7 +4,7 @@ import { Header } from "../../components/Header";
 import styles from "./style/index.module.css";
 
 // icons
-import profileImage from "../../assets/icon/user_icon.png";
+import profileImage from "/icon/user_icon.png";
 
 export const ProfilePage: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");
