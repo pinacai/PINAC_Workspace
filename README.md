@@ -14,7 +14,7 @@
 ![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
 [![View Repositories](https://img.shields.io/badge/View-Our_Repositories-blue?logo=GitHub)](https://github.com/pinacai?tab=repositories)
 
-A user-centric, cross-platform, open-source, and powerful desktop AI assistant
+A user-first, cross-platform, open-source desktop AI assistant for all
 
 One Next-Gen AI Chat for all your needs.
 <br>
@@ -28,11 +28,7 @@ One Next-Gen AI Chat for all your needs.
 
 ## What is PINAC Workspace ?
 
-PINAC Workspace elevates the AI interaction experience, bringing the power of advanced language models to your desktop with an intuitive and elegant interface. Born from the success of <a href="https://github.com/pinacai/NexusGPT">NexusGPT</a> , this application takes the concept of simplified AI interactions to new heights, offering a rich set of features in a user-friendly environment.
-
-At its core, PINAC Workspace addresses the challenge of leveraging AI's full potential without the need for complex prompt engineering. We've crafted a desktop application that allows users to communicate their ideas, questions, and tasks in natural language, then harnesses sophisticated AI algorithms to deliver exceptional results. This approach democratizes access to AI capabilities, making them accessible to professionals, creatives, and enthusiasts alike.
-
-By providing a seamless, visually appealing platform for AI interactions, PINAC Workspace not only enhances productivity but also opens up new avenues for creativity and problem-solving. Its expanded feature set, coupled with the convenience of a desktop application, empowers users to integrate AI assistance into their daily workflows effortlessly. Whether you're a developer, writer, analyst, or simply an individual seeking to augment your capabilities, PINAC Workspace stands ready to transform the way you interact with AI.
+PINAC Workspace simplifies AI use for everyone, allowing users to get high-quality results without complex prompts. Our easy-to-use beautiful desktop app allows you to express your needs in simple language and receive optimal outcomes. This empowers users to tap into powerful AI capabilities, saving time and boosting creativity across various fields.
 
 ## 🎨 App Interface
 
@@ -138,9 +134,6 @@ PINAC Workspace is licensed under the **GPL-3.0 license**. See the <a href="http
 
 If you have any support questions or to report issues, please file an issue through the GitHub issue tracker associated with the repository.
 
-## 🧑‍💻 About Us
-
-A GitHub organization committed to creating AI-powered applications that address practical problems, making AI accessible to everyone.
 
 ![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
 
