@@ -5,6 +5,7 @@ import styles from "../style/InputPanel.module.css";
 // Icons
 import { VscSend, VscFilePdf } from "react-icons/vsc";
 import { FaRegStopCircle } from "react-icons/fa";
+import { FaAngleRight } from "react-icons/fa6";
 import { CgAttachment } from "react-icons/cg";
 import { FiImage } from "react-icons/fi";
 import { AiOutlineClose } from "react-icons/ai";
@@ -32,11 +33,32 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   setStop,
 }) => {
   const optionMenuRef = useRef<HTMLDivElement>(null);
-  const [showOptions, setShowOptions] = useState<boolean>(false); // State for showing options
+  const [showAttachmentOptions, setShowAttachmentOptions] =
+    useState<boolean>(false);
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [currentDropdownIndex, setCurrentDropdownIndex] = useState(0); // To track the active dropdown
   const [isOutImgPreview, setIsOutImgPreview] = useState(
     window.innerWidth > 320
   );
-  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [isShowAllAdvanceOptions, setIsShowAllAdvanceOptions] = useState(
+    window.innerWidth > 576
+  );
+
+  //
+  const dropdowns = [
+    {
+      label: "Prompt: ",
+      defaultOption: "None",
+      optionList: ["None"],
+      localStorageVariableName: "applied-prompt",
+    },
+    {
+      label: "Output: ",
+      defaultOption: "Markdown Format",
+      optionList: ["Markdown Format"],
+      localStorageVariableName: "ai-response-format",
+    },
+  ];
 
   //
   // Handles Enter key press for submitting messages
@@ -76,24 +98,26 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   useEffect(() => {
     const handleOutsideClicks = (e: MouseEvent) => {
       if (
-        showOptions &&
+        showAttachmentOptions &&
         optionMenuRef.current &&
         !optionMenuRef.current.contains(e.target as Node)
       ) {
-        setShowOptions(false);
+        setShowAttachmentOptions(false);
       }
     };
 
     window.addEventListener("mousedown", handleOutsideClicks);
 
     return () => window.removeEventListener("mousedown", handleOutsideClicks);
-  }, [showOptions]);
+  }, [showAttachmentOptions]);
 
+  //
   //
   // for UI responsiveness
   useEffect(() => {
     const updateOutImgPreview = () => {
       setIsOutImgPreview(window.innerWidth > 320);
+      setIsShowAllAdvanceOptions(window.innerWidth > 576);
     };
     window.addEventListener("resize", updateOutImgPreview);
     return () => window.removeEventListener("resize", updateOutImgPreview);
@@ -142,20 +166,50 @@ export const InputPanel: React.FC<InputPanelProps> = ({
           </div>
         </div>
       )}
-      {/* ======== Input Options (Dropdown) ============ */}
+      {/* ======== Advance Options (Dropdown) ============ */}
       <div className={styles.input_option_menu}>
-        <DropdownMenu
-          lebelText="Prompt: "
-          defaultOption="None"
-          optionList={["None"]}
-          localStorageVariableName="applied-prompt"
-        />
-        <DropdownMenu
-          lebelText="Output: "
-          defaultOption="Markdown Format"
-          optionList={["Markdown Format"]}
-          localStorageVariableName="ai-response-format"
-        />
+        {/* Render both dropdowns on wider screens */}
+        {isShowAllAdvanceOptions ? (
+          <>
+            <DropdownMenu
+              lebelText={dropdowns[0].label}
+              defaultOption={dropdowns[0].defaultOption}
+              optionList={dropdowns[0].optionList}
+              localStorageVariableName={dropdowns[0].localStorageVariableName}
+            />
+            <DropdownMenu
+              lebelText={dropdowns[1].label}
+              defaultOption={dropdowns[1].defaultOption}
+              optionList={dropdowns[1].optionList}
+              localStorageVariableName={dropdowns[1].localStorageVariableName}
+            />
+          </>
+        ) : (
+          // Render the current dropdown when on smaller screens
+          <>
+            <DropdownMenu
+              lebelText={dropdowns[currentDropdownIndex].label}
+              defaultOption={dropdowns[currentDropdownIndex].defaultOption}
+              optionList={dropdowns[currentDropdownIndex].optionList}
+              localStorageVariableName={
+                dropdowns[currentDropdownIndex].localStorageVariableName
+              }
+            />
+            <button
+              className={styles.next_button}
+              onClick={() =>
+                setCurrentDropdownIndex(
+                  (currentDropdownIndex + 1) % dropdowns.length
+                )
+              }
+            >
+              <FaAngleRight
+                size={25}
+                color="var(--headerTitle-color)"
+              />
+            </button>
+          </>
+        )}
       </div>
 
       {/* ============================ */}
@@ -180,7 +234,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
         )}
 
         {/* ====== Attachment Options Menu ======= */}
-        {showOptions && (
+        {showAttachmentOptions && (
           <div className={styles.options_menu} ref={optionMenuRef}>
             <label className={styles.options_menu_btn}>
               <FiImage title="Add Image" className={styles.options_menu_icon} />
@@ -226,7 +280,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
               <button
                 id={styles.attachment_btn}
                 className={buttonsDisabled ? `${styles.disabled}` : ""}
-                onClick={() => setShowOptions(!showOptions)}
+                onClick={() => setShowAttachmentOptions(!showAttachmentOptions)}
                 disabled={buttonsDisabled}
               >
                 <CgAttachment id={styles.attachment_icon} />
@@ -247,7 +301,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
           ) : (
             /* ====== Stop Text Generation Button ======= */
             <button onClick={() => setStop(true)} className={styles.stop_icon}>
-              <FaRegStopCircle size={25} color={"gray"} />
+              <FaRegStopCircle size={25} color="var(--headerTitle-color)" />
             </button>
           )}
         </div>

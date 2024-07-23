@@ -90,7 +90,7 @@
 #submit_icon {
   width: 30px;
   height: 30px;
-  color: var(--text-color2);
+  color: var(--headerTitle-color);
 }
 
 /* Change the color when disabled and */
@@ -131,7 +131,7 @@ button.disabled {
   width: 25px;
   height: 25px;
   margin-top: 10px;
-  color: var(--text-color2);
+  color: var(--headerTitle-color);
 }
 
 /* =========== File Attachemnt Option-Menu =========== */
@@ -172,7 +172,7 @@ button.disabled {
   color: var(--text-color2);
 }
 
-/* =========== Input Options (Dropdown) =========== */
+/* =========== Advance Options (Dropdown) =========== */
 
 .input_option_menu {
   display: flex;
@@ -180,6 +180,15 @@ button.disabled {
   width: 60%;
   gap: 10px;
   padding: 10px 2px;
+}
+
+.next_button {
+  height: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background: var(--dropdownBtn-bg);
+  box-shadow: var(--dropdownBtn-shadow);
 }
 
 /* =========== Uploaded Image Preview =========== */
