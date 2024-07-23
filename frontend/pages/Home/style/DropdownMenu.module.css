@@ -1,0 +1,78 @@
+.dropdown {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.dropdown .selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 35px;
+  border: none;
+  border-radius: 7px;
+  background: var(--dropdownBtn-bg);
+  box-shadow: var(--dropdownBtn-shadow);
+  padding-left: 10px;
+}
+
+.dropdown .selector .label {
+  margin-right: 10px;
+}
+
+.dropdown .selector button {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 10px 5px;
+  border-radius: 0 7px 7px 0;
+}
+
+.dropdown .selector button:hover {
+  background: var(--dropdownBtn-hover-bg);
+}
+
+.dropdown .dropdown_menu {
+  display: none;
+  width: 100%;
+}
+
+.dropdown .dropdown_menu.active {
+  display: block;
+  position: absolute;
+
+  bottom: 100%; /* Position above the button */
+  left: 0;
+  margin-bottom: 7px;
+  margin-top: 7px;
+  border: none;
+  border-radius: 7px;
+  color: var(--text-color2);
+  backdrop-filter: blur(5px);
+  background: var(--dropdownMenu-bg);
+  box-shadow: var(--dropdownMenu-shadow);
+}
+
+.dropdown .dropdown_menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dropdown .dropdown_menu ul li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 5px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.dropdown .dropdown_menu ul li:hover {
+  background: var(--dropdownMenu-opt-hover-bg);
+}

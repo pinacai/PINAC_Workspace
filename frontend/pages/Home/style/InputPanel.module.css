@@ -172,6 +172,16 @@ button.disabled {
   color: var(--text-color2);
 }
 
+/* =========== Input Options (Dropdown) =========== */
+
+.input_option_menu {
+  display: flex;
+  align-items: center;
+  width: 60%;
+  gap: 10px;
+  padding: 10px 2px;
+}
+
 /* =========== Uploaded Image Preview =========== */
 
 /* --- for large screen --- */
@@ -243,10 +253,18 @@ button.disabled {
   .input_group {
     width: 80%;
   }
+
+  .input_option_menu {
+    width: 80%;
+  }
 }
 
 @media (max-width: 992px) {
   .input_group {
+    width: 90%;
+  }
+
+  .input_option_menu {
     width: 90%;
   }
 
@@ -259,6 +277,10 @@ button.disabled {
   .input_group {
     width: 90%;
     padding: 3px;
+  }
+
+  .input_option_menu {
+    width: 90%;
   }
 
   #user_input {
@@ -280,6 +302,10 @@ button.disabled {
 
 @media (max-width: 576px) {
   .input_group {
+    width: 95%;
+  }
+
+  .input_option_menu {
     width: 95%;
   }
 

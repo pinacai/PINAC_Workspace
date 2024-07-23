@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { DropdownMenu } from "./DropdownMenu";
 import styles from "../style/InputPanel.module.css";
 
 // Icons
@@ -6,7 +7,7 @@ import { VscSend, VscFilePdf } from "react-icons/vsc";
 import { FaRegStopCircle } from "react-icons/fa";
 import { CgAttachment } from "react-icons/cg";
 import { FiImage } from "react-icons/fi";
-import { AiOutlineClose } from "react-icons/ai"; 
+import { AiOutlineClose } from "react-icons/ai";
 
 interface InputPanelProps {
   userInput: string;
@@ -65,7 +66,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
     }
   };
 
-  // 
+  //
   const handleCancelUpload = () => {
     setUploadedImage(null);
   };
@@ -127,7 +128,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   // -------------------------------------------------------- //
   return (
     <div className={styles.input_box}>
-      {/* ====== Image Preview ======= */}
+      {/* ============ Image Preview ============ */}
       {!isOutImgPreview && uploadedImage && (
         <div className={styles.outer_image_preview}>
           <div>
@@ -141,6 +142,22 @@ export const InputPanel: React.FC<InputPanelProps> = ({
           </div>
         </div>
       )}
+      {/* ======== Input Options (Dropdown) ============ */}
+      <div className={styles.input_option_menu}>
+        <DropdownMenu
+          lebelText="Prompt: "
+          defaultOption="None"
+          optionList={["None"]}
+          localStorageVariableName="applied-prompt"
+        />
+        <DropdownMenu
+          lebelText="Output: "
+          defaultOption="Markdown Format"
+          optionList={["Markdown Format"]}
+          localStorageVariableName="ai-response-format"
+        />
+      </div>
+
       {/* ============================ */}
       <div
         className={`${styles.input_group} ${
