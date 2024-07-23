@@ -76,7 +76,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
       </div>
       {/* =========== Dropdown Button ========== */}
       <div className={styles.selector}>
-        <span className={styles.label}>{lebelText}</span>
+        <span>{lebelText}</span>
         <span>{selectedOption}</span>
         <button onClick={() => setIsActive(!isActive)}>
           {isActive ? (

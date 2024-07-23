@@ -18,10 +18,6 @@
   padding-left: 10px;
 }
 
-.dropdown .selector .label {
-  margin-right: 10px;
-}
-
 .dropdown .selector button {
   height: 35px;
   display: flex;
