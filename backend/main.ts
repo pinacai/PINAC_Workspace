@@ -2,6 +2,7 @@ import { askLocalLLM } from "./model/ollama";
 import { ipcMain, shell } from "electron";
 import * as fs from "fs";
 import fetch from "node-fetch";
+import { applyPrompt } from "./prompts/prompt";
 
 //
 // for using development server
@@ -111,14 +112,17 @@ ipcMain.on("request-to-backend", (event, request) => {
   }
 });
 
-// -------------------------------- //
-//       Frontend to Server         //
-// -------------------------------- //
+// ========================================= //
+//            Frontend to Server             //
+// ========================================= //
 
 ipcMain.on("request-to-server", async (event, request) => {
+  const prompt = request["prompt"];
+  const final_prompt = applyPrompt(prompt, request["user_query"]);
+  //
   //
   if (request["preferred_model_type"] == "Cloud LLM") {
-    const input = request["user_query"].replace(" ", "+");
+    const input = final_prompt.replace(" ", "+");
     const ai_response: any = await callDevelopmentServer(input);
     const response = {
       error_occurred: false,
@@ -129,10 +133,9 @@ ipcMain.on("request-to-server", async (event, request) => {
   }
   //
   else if (request["preferred_model_type"] == "Private LLM") {
-    const input = request["user_query"];
     const response: object = await askLocalLLM(
       request["preferred_model"],
-      input
+      final_prompt
     );
     event.reply("server-response", response);
   }

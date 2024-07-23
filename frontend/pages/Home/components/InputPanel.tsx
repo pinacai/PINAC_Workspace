@@ -45,11 +45,41 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   );
 
   //
+  const availablePrompts = [
+    "None",
+    "Write Code",
+    "Explain Code",
+    "Improve Writing",
+    "Improve Academic Writing",
+    "Summarize it",
+    "Summarize in Micro",
+    "General Formal Email",
+    "General Informal Email",
+    // "Business Email (B2B, B2Employee, B2Investor)",
+    // "Proposal Submission Email",
+    // "Complaint Email",
+    // "Welcome Email",
+    // "Announcement Email",
+    // "Inquiry Email",
+    // "Confirmation Email",
+    // "Resignation Email",
+    // "Acknowledgment Email",
+    // "Thank You Email",
+    // "Acceptance Email",
+    // "Formal Apology Email",
+    // "Formal Congratulation Email",
+    // "Academic Email",
+    // "Recommendation Email",
+    "Write Essay",
+    "Write Micro Essay",
+  ];
+
+  //
   const dropdowns = [
     {
       label: "Prompt: ",
       defaultOption: "None",
-      optionList: ["None"],
+      optionList: availablePrompts,
       localStorageVariableName: "applied-prompt",
     },
     {
@@ -203,10 +233,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
                 )
               }
             >
-              <FaAngleRight
-                size={25}
-                color="var(--headerTitle-color)"
-              />
+              <FaAngleRight size={25} color="var(--headerTitle-color)" />
             </button>
           </>
         )}

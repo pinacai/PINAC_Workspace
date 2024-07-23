@@ -40,6 +40,7 @@ export const HomePage: React.FC = () => {
         ...prevChatHistory,
         <UserMsgBubble response={text} key={`user-${chatHistory.length}`} />,
       ]);
+      const preferredPrompt = localStorage.getItem("applied-prompt");
       const preferredModelType = localStorage.getItem("preferred-model-type");
       const preferredCloudModel = localStorage.getItem("preferred-cloud-model");
       const preferredPrivateModel = localStorage.getItem(
@@ -52,6 +53,7 @@ export const HomePage: React.FC = () => {
           preferredModelType === "Cloud LLM"
             ? preferredCloudModel
             : preferredPrivateModel,
+        prompt: preferredPrompt,
         user_query: text,
       });
       setChatHistory((prevChatHistory) => [
