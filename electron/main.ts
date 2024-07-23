@@ -1,6 +1,7 @@
 import { app, BrowserWindow, screen, ipcMain } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import * as fs from "fs";
 import "../backend/main";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -24,19 +25,46 @@ export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 let loadingWindow: BrowserWindow | null;
 let win: BrowserWindow | null;
 
+const userDataPath = app.getPath("userData");
+const sizeFile = path.join(userDataPath, "window-size.json");
+
 //
-const createLoadingWindow = () => {
+// Returns the default window size
+const getDefaultSize = (): { width: number; height: number } => {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
-  const windowX = width - 20;
+  return { width, height }; // max-windown
+};
+
+// Retrieves the saved window size
+const getSavedSize = (): { width: number; height: number } | null => {
+  if (fs.existsSync(sizeFile)) {
+    const sizeData = fs.readFileSync(sizeFile);
+    return JSON.parse(sizeData.toString());
+  }
+  return null;
+};
+
+// Saves the current window size to a file
+const saveSize = (width: number, height: number): void => {
+  fs.writeFileSync(sizeFile, JSON.stringify({ width, height }));
+};
+
+//
+//
+// This Loading Window is only for development version
+const createLoadingWindow = () => {
+  const savedSize = getSavedSize();
+  const defaultSize = getDefaultSize();
+
+  const { width, height } = savedSize || defaultSize;
+
   // Create the browser window.
   loadingWindow = new BrowserWindow({
-    width: 320,
+    width: width,
     height: height,
-    x: windowX,
-    y: 20,
     autoHideMenuBar: true,
-    frame: false,
+    // frame: false,
     resizable: false,
     show: false,
   });
@@ -48,15 +76,15 @@ const createLoadingWindow = () => {
 
 //
 const createMainWindow = () => {
-  const primaryDisplay = screen.getPrimaryDisplay();
-  const { width, height } = primaryDisplay.workAreaSize;
-  const windowX = width - 20;
+  const savedSize = getSavedSize();
+  const defaultSize = getDefaultSize();
+
+  const { width, height } = savedSize || defaultSize;
+
   // Create the browser window.
   win = new BrowserWindow({
-    width: 320,
+    width: width,
     height: height,
-    x: windowX,
-    y: 20,
     autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
@@ -81,6 +109,11 @@ const createMainWindow = () => {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
+
+  // Save the window size when it is resized.
+  win.on("resize", () => {
+    win && saveSize(win.getBounds().width, win.getBounds().height);
+  });
 };
 
 // Quit when all windows are closed, except on macOS. There, it's common
