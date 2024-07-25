@@ -14,9 +14,12 @@
   padding-bottom: 20px;
   font-family: "Exo2", "Montserrat", sans-serif;
 
-  display: grid;
+  /* display: grid;
   place-items: center;
-  overflow-y: scroll;
+  overflow-y: scroll; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .history_container::-webkit-scrollbar {
@@ -26,6 +29,11 @@
 .history_container::-webkit-scrollbar-thumb {
   background: #999;
   border-radius: 50px;
+}
+
+.history_container span {
+  font: bold 30px "Exo2", "Montserrat", sans-serif;
+  color: var(--text-color2);
 }
 
 /* ============================ */

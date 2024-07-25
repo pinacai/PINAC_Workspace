@@ -28,7 +28,9 @@ export const HistoryPage: React.FC = () => {
       <Sidebar />
       <div className={styles.container}>
         <Header title="Chat History" />
-        <div className={styles.history_container}></div>
+        <div className={styles.history_container}>
+          <span>Comming Soon...</span>
+        </div>
       </div>
     </>
   );
