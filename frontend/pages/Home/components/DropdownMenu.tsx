@@ -10,6 +10,7 @@ interface DropdownMenuProps {
   defaultOption: string;
   optionList: Array<string>;
   localStorageVariableName: string;
+  searchBar: boolean;
   updateValue?: (value: string) => void;
 }
 
@@ -18,29 +19,30 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   defaultOption,
   optionList,
   localStorageVariableName,
+  searchBar,
   updateValue,
 }) => {
-  const [selectedOption, setSelectedOption] = useState(defaultOption);
-  const [isActive, setIsActive] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string>(defaultOption);
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
 
-  //
+  // Handle option click
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
     setIsActive(false);
     localStorage.setItem(localStorageVariableName, option);
     updateValue && updateValue(option);
+    setSearchQuery("");
   };
 
-  //
-  // At starting selecting model based on local storage
+  // Initialize selected option from local storage
   useEffect(() => {
     const preferredOption = localStorage.getItem(localStorageVariableName);
     preferredOption !== null && setSelectedOption(preferredOption);
   }, [localStorageVariableName]);
 
-  //
-  // Creating an event handler to close the dropdown menu by click elsewhere outside the menu
+  // Close dropdown on outside click
   useEffect(() => {
     const handleOutsideClicks = (e: MouseEvent) => {
       if (
@@ -57,6 +59,11 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     return () => window.removeEventListener("mousedown", handleOutsideClicks);
   }, [isActive]);
 
+  // Filter options based on search query
+  const filteredOptions = optionList.filter((option) =>
+    option.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   // -------------------------------------------- //
   return (
     <div className={styles.dropdown} ref={dropdownMenuRef}>
@@ -67,12 +74,21 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         }`}
       >
         <ul>
-          {optionList.map((option, index) => (
+          {filteredOptions.map((option, index) => (
             <li key={index} onClick={() => handleOptionClick(option)}>
               {option}
             </li>
           ))}
         </ul>
+        {searchBar && (
+          <input
+            type="text"
+            className={styles.searchInput}
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        )}
       </div>
       {/* =========== Dropdown Button ========== */}
       <div className={styles.selector}>

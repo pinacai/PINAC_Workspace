@@ -33,15 +33,25 @@
   background: var(--dropdownBtn-hover-bg);
 }
 
+.dropdown .searchInput {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  outline: none;
+}
+
 .dropdown .dropdown_menu {
   display: none;
   width: 100%;
+  max-height: 200px; /* Set a maximum height */
+  overflow: hidden;
 }
 
 .dropdown .dropdown_menu.active {
   display: block;
   position: absolute;
-
   bottom: 100%; /* Position above the button */
   left: 0;
   margin-bottom: 7px;
@@ -58,6 +68,8 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  max-height: 150px;
+  overflow-y: scroll;
 }
 
 .dropdown .dropdown_menu ul li {

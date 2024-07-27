@@ -206,13 +206,16 @@ export const InputPanel: React.FC<InputPanelProps> = ({
               defaultOption={dropdowns[0].defaultOption}
               optionList={dropdowns[0].optionList}
               localStorageVariableName={dropdowns[0].localStorageVariableName}
+              searchBar={true}
             />
             <DropdownMenu
               lebelText={dropdowns[1].label}
               defaultOption={dropdowns[1].defaultOption}
               optionList={dropdowns[1].optionList}
               localStorageVariableName={dropdowns[1].localStorageVariableName}
+              searchBar={false}
             />
+            <button />
           </>
         ) : (
           // Render the current dropdown when on smaller screens
@@ -224,6 +227,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
               localStorageVariableName={
                 dropdowns[currentDropdownIndex].localStorageVariableName
               }
+              searchBar={false}
             />
             <button
               className={styles.next_button}
