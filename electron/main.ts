@@ -22,7 +22,6 @@ export const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 export const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 
-let loadingWindow: BrowserWindow | null;
 let win: BrowserWindow | null;
 
 const userDataPath = app.getPath("userData");
@@ -51,30 +50,6 @@ const saveSize = (width: number, height: number): void => {
 };
 
 //
-//
-// This Loading Window is only for development version
-const createLoadingWindow = () => {
-  const savedSize = getSavedSize();
-  const defaultSize = getDefaultSize();
-
-  const { width, height } = savedSize || defaultSize;
-
-  // Create the browser window.
-  loadingWindow = new BrowserWindow({
-    width: width,
-    height: height,
-    autoHideMenuBar: true,
-    // frame: false,
-    resizable: false,
-    show: false,
-  });
-  loadingWindow.loadFile("loading.html");
-  loadingWindow.on("ready-to-show", () => {
-    loadingWindow?.show();
-  });
-};
-
-//
 const createMainWindow = () => {
   const savedSize = getSavedSize();
   const defaultSize = getDefaultSize();
@@ -96,10 +71,6 @@ const createMainWindow = () => {
 
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
-    if (loadingWindow) {
-      loadingWindow.close();
-      loadingWindow = null;
-    }
     win?.webContents.send("main-process-message", new Date().toLocaleString());
   });
 
@@ -135,7 +106,6 @@ app.on("activate", () => {
 });
 
 app.whenReady().then(() => {
-  createLoadingWindow();
   createMainWindow();
 });
 

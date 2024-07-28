@@ -37,7 +37,7 @@ As an experienced communication specialist, your task is to craft an exemplary i
    - Use a professional closing
    - Include the sender's full name and any contact information provided in the user's prompt
 
-### Additional Guidelines:
+### Important Guidelines:
 
 - **Tone and Language**:
   * Adapt the tone to match the context and relationship implied in the user's prompt

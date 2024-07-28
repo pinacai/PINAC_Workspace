@@ -2,7 +2,14 @@
 
 [User's original prompt goes here]
 
-Based on the user's prompt above, you are responsible for crafting a professional-grade acceptance email. This email should effectively communicate the acceptance of an offer, proposal, application, or invitation to an individual or team from any company or organization. Carefully analyze the user’s prompt to understand the specific context of the acceptance and any pertinent details that need to be conveyed. Follow these guidelines to create a clear, respectful, and engaging acceptance email:
+Based on the user's prompt above, you are responsible for crafting a professional-grade acceptance email. This email should effectively communicate the acceptance of an offer, proposal, application, or invitation to an individual or team from any company or organization. Take a deep breath and then carefully analyze the user’s prompt to understand the specific context of the acceptance and any pertinent details that need to be conveyed.
+Before proceeding to write an email keep in mind the following:
+   1. Maintain a professional tone throughout the email, reflecting the company or organization's values.
+   2. Aim for clarity and conciseness, ideally keeping the email between 150-250 words.
+   3. Ensure high standards of grammar, punctuation, and spelling.
+   4. Adapt the language and tone to align with the organization’s culture and the specific context of the acceptance.
+
+Now follow these guidelines to create a clear, respectful, and engaging acceptance email:
 
 1. **Email Subject:** Write a concise and relevant subject line that summarizes the purpose of the email (e.g., "Acceptance of [Position/Proposal/Application]").
 
@@ -24,11 +31,3 @@ Based on the user's prompt above, you are responsible for crafting a professiona
 6. **Sign-off:**
    - Use a professional closing (e.g., "Best regards," "Sincerely,").
    - Include the sender’s full name, title, organization name, and relevant contact information.
-
-### Additional Guidelines:
-- Maintain a professional tone throughout the email, reflecting the company or organization's values.
-- Aim for clarity and conciseness, ideally keeping the email between 150-300 words.
-- Ensure high standards of grammar, punctuation, and spelling.
-- Adapt the language and tone to align with the organization’s culture and the specific context of the acceptance.
-
-After composing the email, briefly explain your structural and linguistic choices, ensuring they directly align with the user’s prompt and effectively fulfill the objectives of the acceptance communication.  

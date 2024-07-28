@@ -33,12 +33,10 @@ Now, compose an email that:
 8. Closes with a clear call-to-action or next steps
 9. Ends with an appropriate sign-off
 
-### Additional guidelines:
+### Important guidelines, must to follow:
 - Keep paragraphs concise and focused (3-4 sentences max)
 - Use transition words to ensure smooth flow between paragraphs
 - Incorporate power words and persuasive language appropriate to the context
 - Ensure the email is free of grammatical errors and typos
 - Optimize for mobile readability with short paragraphs and ample white space
 - If including links or attachments, mention them clearly in the body of the email
-
-After composing the email, provide a brief explanation of your choices in terms of structure, language, and persuasion techniques used, tailored to the specific business context (B2B, B2Employee, or B2Investor) and how they address the user's original prompt.
