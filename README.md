@@ -1,3 +1,6 @@
+> **NOTICE**: Due to unforeseen circumstances, I will be unavailable to maintain this project for the next two weeks, starting from July 29, 2024. We will resume work promptly after this period.  
+> -by maintainer @RajeshTechForge
+
 <div align="center">
 
 <h1 style="border-bottom: none">
