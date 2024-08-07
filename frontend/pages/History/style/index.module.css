@@ -1,12 +1,3 @@
-/* common for all Pages */
-.container {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Chat History Page's Style */
 .history_container {
   width: 100%;
   height: calc(100vh - 60px);

@@ -1,15 +1,11 @@
-/* Sidebar Styles */
 .sidebar {
   height: 100vh;
   width: 60px;
-  background: var(--sidebar-color);
-  border-radius: 0 10px 10px 0;
   border: none;
+  background: var(--sidebar-color);
+  border-radius: 0 7px 7px 0;
   box-shadow: var(--sidebar-shadow);
-  font: normal 17px "Exo2", "Montserrat", sans-serif;
-  letter-spacing: 1.5px;
-  position: relative;
-  transition: width 0.3s ease-in-out;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -17,187 +13,59 @@
   overflow: hidden;
 }
 
-.sidebar_text {
-  display: inline;
-  opacity: 0;
-  max-width: 0;
-  color: var(--text-color1);
-  text-decoration: none;
-  overflow: hidden;
-  white-space: nowrap;
-  transition: opacity 0.3s ease-in-out, max-width 0.3s ease-in-out;
-}
-
-.sidebar.active {
-  width: 250px;
-}
-
-.sidebar.active .sidebar_text {
-  opacity: 1;
-  max-width: 200px;
-  padding-left: 10px;
-}
-
-.sidebar.active .profile {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  overflow: hidden;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.sidebar.active .present_page {
-  margin-left: 5px;
-}
-
-.sidebar.active .lower_part div {
-  padding-left: 10px;
-}
-
-/* Sidebar Upper Part */
-.upper_part {
+/*  Sidebar Upper Part  */
+/* -------------------- */
+.upperPart {
+  height: auto;
   width: 100%;
 }
 
-.top {
-  display: flex;
-  padding: 10px 15px 10px 15px;
-  margin: 10px 0 10px 0;
-}
-
-.profile {
-  display: none;
-}
-
-#user_image {
-  width: 35px;
-  height: 35px;
+.userImage {
+  height: 30px;
+  width: 30px;
   border-radius: 50%;
-  overflow: hidden;
 }
 
-#user_name {
-  font-size: medium;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.dividerLine {
+  margin: 15px 15px;
+  border-bottom: 2px solid grey;
 }
 
-#sidebar_btn {
-  cursor: pointer;
-}
-
-.upper_part .border_line {
-  border-bottom: 1px black solid;
-  margin: 0 15px 0 15px;
-}
-
-/* Sidebar Navigation */
 nav ul {
   list-style: none;
 }
 
-.li {
+/*   Sidebar Navigation   */
+/* ---------------------- */
+
+.upperPart li {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 5px 0;
   border-radius: 10px;
   padding: 15px;
   color: var(--text-color1);
   transition: all 0.5s ease;
 }
 
-.li:hover {
+.upperPart li:hover {
   background: var(--sidebar-hover-color);
   border-radius: 10px;
 }
 
-.present_page {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  margin-top: 5px;
-  margin-left: 3px;
-  border-radius: 10px 0 0 10px;
-  padding: 15px;
-  color: var(--text-color1);
-  background: var(--sidebar-present-page-color);
-  box-shadow: var(--sidebar-present-page-shadow);
-}
-
-/* Lower Part of Sidebar */
-.lower_part {
+/*  Lower Part of Sidebar  */
+/* ----------------------- */
+.lowerPart {
   width: 100%;
 }
 
-.lower_part li {
+.lowerPart li {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 15px 15px 5px 5px;
+  justify-content: center;
+  margin-bottom: 15px;
   transition: all 0.5s ease;
-}
-
-.lower_part li:hover {
-  background: none;
-}
-
-.lower_part div {
-  display: flex;
-  align-items: center;
-}
-
-/* ------------------ */
-/* Responsive Styles */
-@media (max-width: 1200px) {
-  .sidebar.active {
-    width: 200px;
-  }
-
-  .sidebar.active .profile {
-    width: 200px;
-    padding-left: 5%;
-  }
-
-  .sidebar.active .sidebar_text {
-    max-width: 150px;
-  }
-}
-
-@media (max-width: 768px) {
-  .sidebar.active {
-    width: 200px;
-  }
-
-  .sidebar.active .profile {
-    width: 180px;
-    padding-left: 5%;
-  }
-
-  .sidebar.active .sidebar_text {
-    max-width: 130px;
-  }
-}
-
-@media (max-width: 576px) {
-  .sidebar.active {
-    width: 160px;
-  }
-
-  .sidebar.active .profile {
-    width: 160px;
-    padding-left: 5%;
-  }
-
-  .sidebar.active .sidebar_text {
-    max-width: 110px;
-  }
 }

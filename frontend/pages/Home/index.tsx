@@ -106,7 +106,7 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <Sidebar />
-      <div className={styles.container}>
+      <div className="container">
         <Header title="PINAC" clearChat={startNewChat} />
         <div className={styles.chat_container}>
           <StopTextGeneration.Provider value={{ stop, setStop }}>

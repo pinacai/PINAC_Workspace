@@ -26,7 +26,7 @@ export const AboutPage: React.FC = () => {
   return (
     <>
       <Sidebar />
-      <div className={styles.container}>
+      <div className="container">
         <Header title="About Us" />
         <div className={styles.about_container}>
           <div className={styles.about_card}>

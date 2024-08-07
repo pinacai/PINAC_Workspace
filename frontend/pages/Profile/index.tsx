@@ -92,7 +92,7 @@ export const ProfilePage: React.FC = () => {
   return (
     <>
       <Sidebar />
-      <div className={styles.container}>
+      <div className="container">
         <Header title="Profile" />
         <div className={styles.profile_container}>
           <div className={styles.profile_card}>

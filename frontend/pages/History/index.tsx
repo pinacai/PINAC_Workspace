@@ -26,10 +26,10 @@ export const HistoryPage: React.FC = () => {
   return (
     <>
       <Sidebar />
-      <div className={styles.container}>
+      <div className="container">
         <Header title="Chat History" />
         <div className={styles.history_container}>
-          <span>Comming Soon...</span>
+          <span>Coming Soon...</span>
         </div>
       </div>
     </>

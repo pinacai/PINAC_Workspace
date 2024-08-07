@@ -40,7 +40,7 @@ export const SettingsPage: React.FC = () => {
   return (
     <>
       <Sidebar />
-      <div className={styles.container}>
+      <div className="container">
         <Header title="Settings" />
         <div className={styles.setting_container}>
           <div className={styles.menubar_container}>

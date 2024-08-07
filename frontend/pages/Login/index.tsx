@@ -34,7 +34,7 @@ export const LoginPage: React.FC<LoginPagePrompt> = ({ changeLogInStatus }) => {
 
   // ------------------------------------ //
   return (
-    <div className={styles.container}>
+    <div className="container">
       <div className={styles.logIn_container}>
         <form className={styles.form}>
           <div className={styles.title}>

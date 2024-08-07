@@ -480,7 +480,15 @@ body {
   color: var(--text-color2);
 }
 
-.body_container {
+#root {
   width: 100%;
   display: flex;
+}
+
+/* Common for all pages */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
