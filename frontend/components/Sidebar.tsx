@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ThemeToggle } from "./ui/ThemeToggle";
-import styles from "./style/Sidebar.module.css";
+import { ThemeToggle } from "./ThemeToggle";
+import styles from "./styles/Sidebar.module.css";
 
 // Icons
 import { MdGroup } from "react-icons/md";

@@ -63,24 +63,11 @@ Overview of File Structure to Help You Get Started
          ├── App.css           # All element's colors theme-wise
          ├── assets /          # Img, Icons, Fonts
          |
-         ├── Components /      # common components
-         |    ├── style /      # all css files component-wise
-         |    ├── ui /         # for small ui elements
-         |    ├── Header.tsx
-         |    └── Sidebar.tsx
-         |         
-         └── pages /
-              |
-              ├── Home /
-              |    ├── index.tsx       # main file
-              |    ├── components /    # for elements only used here
-              |    ├── context /       # if required
-              |    └── style /         # all css component-wise
-              |
-              ├── About Us /           # same as HomePage
-              ├── Settings /           # same as HomePage
-              ├── Profile /            # same as HomePage
-              └── Login /              # same as HomePage
+         ├── Components /
+
+         =====================================================
+                         ***Updating Soon*
+         =====================================================
 
 </details>
 
