@@ -69,7 +69,7 @@
 }
 
 /* Responsive Styles */
-@media (max-width: 320px) {
+@container (max-width: 320px) {
   .dropdown .selector {
     width: 200px;
   }

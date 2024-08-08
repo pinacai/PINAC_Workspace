@@ -258,7 +258,7 @@ button.disabled {
 /*      Responsive Styles       */
 /* ============================ */
 
-@media (max-width: 1200px) {
+@container (max-width: 1200px) {
   .inputGroup {
     width: 80%;
   }
@@ -268,7 +268,7 @@ button.disabled {
   }
 }
 
-@media (max-width: 992px) {
+@container (max-width: 992px) {
   .inputGroup {
     width: 90%;
   }
@@ -282,7 +282,7 @@ button.disabled {
   }
 }
 
-@media (max-width: 768px) {
+@container (max-width: 768px) {
   .inputGroup {
     width: 90%;
     padding: 3px;
@@ -309,7 +309,7 @@ button.disabled {
   }
 }
 
-@media (max-width: 576px) {
+@container (max-width: 576px) {
   .inputGroup {
     width: 95%;
   }
@@ -333,7 +333,7 @@ button.disabled {
   }
 }
 
-@media (max-width: 320px) {
+@container (max-width: 320px) {
   #submitBtn {
     height: 35px;
     width: 35px;

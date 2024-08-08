@@ -1,20 +1,21 @@
-import { useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "../../components/ThemeToggle";
 import { LogoutBtn } from "./components/LogoutBtn";
 import { NewChatBtn } from "./components/NewChatBtn";
+import { SubPageContext } from "../../context/subPage";
 import styles from "./styles/index.module.css";
 
 // Icons
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 
-interface HeaderProps {
+interface HomeHeaderProps {
   title: string;
-  clearChat?: () => void;
+  clearChat: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ title, clearChat }) => {
+export const HomeHeader: React.FC<HomeHeaderProps> = ({ title, clearChat }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
@@ -59,30 +60,17 @@ export const Header: React.FC<HeaderProps> = ({ title, clearChat }) => {
   // --------------------------------------------------- //
   return (
     <>
-      <div className={styles.pageHeader}>
+      <div className={`${styles.pageHeader} ${styles.homePageHeader}`}>
         <div className={styles.leftSide}>
           <div>
-            <span
-              className={
-                location.pathname == "/"
-                  ? `${styles.homeTitle}`
-                  : `${styles.title}`
-              }
-            >
-              {title}
-            </span>
-            {location.pathname !== "/" ? (
-              <>
-                <div className={styles.bottomLine}></div>
-              </>
-            ) : null}
+            <span className={styles.homeTitle}>{title}</span>
           </div>
-          {/* Render the sidebar button */}
+          {/* Render the menubar button */}
           {isMenuVisible && (
             <div className={styles.headerMenu} ref={dropdownMenuRef}>
               <div>
                 <button
-                  className={location.pathname == "/" ? `${styles.home}` : ""}
+                  className={styles.home}
                   onClick={() => setIsDropdownActive(!isDropdownActive)}
                 >
                   {isDropdownActive ? (
@@ -117,9 +105,9 @@ export const Header: React.FC<HeaderProps> = ({ title, clearChat }) => {
               </div>
               {/* Special section at last for theme change */}
               <div
-                className={`${styles.dropdownLastMenu} ${
-                  styles.dropdownMenu
-                } ${isDropdownActive ? `${styles.active}` : ""}`}
+                className={`${styles.dropdownLastMenu} ${styles.dropdownMenu} ${
+                  isDropdownActive ? `${styles.active}` : ""
+                }`}
                 style={{ marginTop: "130px" }}
               >
                 <ul>
@@ -137,12 +125,38 @@ export const Header: React.FC<HeaderProps> = ({ title, clearChat }) => {
           )}
         </div>
         <div className={styles.rightSide}>
-          {/* Render the new chat button only for Home Page */}
-          {location.pathname == "/" && clearChat && (
-            <NewChatBtn clearChat={clearChat} />
-          )}
+          <NewChatBtn clearChat={clearChat} />
+        </div>
+      </div>
+    </>
+  );
+};
+
+//
+//
+//
+interface SubPageHeaderProps {
+  title: string;
+}
+
+export const SubPageHeader: React.FC<SubPageHeaderProps> = ({ title }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const subPageContext = useContext(SubPageContext);
+
+  return (
+    <>
+      <div className={styles.pageHeader}>
+        <div className={styles.leftSide}>
+          <div>
+            <span className={styles.title}>{title}</span>
+            <div className={styles.bottomLine}></div>
+          </div>
+        </div>
+        <div className={styles.rightSide}>
           {/* Render the logout button only for Profile Page */}
-          {location.pathname == "/profile" ? (
+          {location.pathname == "/profile" ||
+          subPageContext?.subPage == "/profile" ? (
             <LogoutBtn changePage={navigate} />
           ) : null}
         </div>

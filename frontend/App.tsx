@@ -1,10 +1,12 @@
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage } from "./pages/Home";
-import { ProfilePage } from "./features/profile/index";
-import { AboutPage } from "./features/aboutUs/index";
-import { SettingsPage } from "./features/settings/index";
 import { SubPageProvider } from "./context/subPage";
 import "./App.css";
+
+// sub-pages
+import AboutUs from "./features/aboutUs/index";
+import Settings from "./features/settings/index";
+import Profile from "./features/profile/index";
 
 const App = () => {
   // Setting the default theme
@@ -33,9 +35,36 @@ const App = () => {
             </SubPageProvider>
           }
         />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
+        <Route
+          path="/profile"
+          element={
+            <>
+              <div className="container">
+                <Profile />
+              </div>
+            </>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <>
+              <div className="container">
+                <AboutUs />
+              </div>
+            </>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <>
+              <div className="container">
+                <Settings />
+              </div>
+            </>
+          }
+        />
       </Routes>
     </Router>
   );

@@ -1,22 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { Sidebar } from "../components/Sidebar";
-import { Header } from "../features/header/index";
+import { HomeHeader } from "../features/header/index";
 import { WelcomeText } from "../features/welcomeText/index";
+import ShowAiMessage from "../features/msgBubble/AiMsgBubble";
+import UserMsgBubble from "../features/msgBubble/UserMsgBubble";
 import { InputPanel } from "../features/inputPanel/index";
 import { StopTextGeneration } from "../context/StopTextGeneration";
-// import { SubPageContext } from "../context/subPage";
+import { SubPageContext } from "../context/subPage";
 import styles from "./styles/Home.module.css";
 
-//lazy loading
-const ShowAiMessage = React.lazy(
-  () => import("../features/msgBubble/AiMsgBubble")
-);
-const UserMsgBubble = React.lazy(
-  () => import("../features/msgBubble/UserMsgBubble")
-);
+// sub-pages
+import AboutUs from "../features/aboutUs/index";
+import Settings from "../features/settings/index";
+import Profile from "../features/profile/index";
 
 export const HomePage: React.FC = () => {
-  // const subPageContext = useContext(SubPageContext);
+  const subPageContext = useContext(SubPageContext);
   const [welcomeText, setWelcomeText] = useState<boolean>(true);
   const [chatHistory, setChatHistory] = useState<JSX.Element[]>([]);
   const [userInput, setUserInput] = useState<string>(""); // Declare state for input value
@@ -114,10 +113,18 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <Sidebar />
-      <div className="container">
-        <Header title="PINAC" clearChat={startNewChat} />
-        {/* <div className={styles.subPageContainer}></div> */}
+      <div className={styles.container}>
+        <div className={styles.subPageContainer}>
+          {subPageContext?.subPage === "/profile" ? (
+            <Profile />
+          ) : subPageContext?.subPage === "/about" ? (
+            <AboutUs />
+          ) : subPageContext?.subPage === "/settings" ? (
+            <Settings />
+          ) : null}
+        </div>
         <div className={styles.chatContainer}>
+          <HomeHeader title="PINAC" clearChat={startNewChat} />
           <StopTextGeneration.Provider value={{ stop, setStop }}>
             <div className={styles.msgBox}>
               {welcomeText && <WelcomeText />}

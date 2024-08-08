@@ -5,13 +5,13 @@
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
+@container (max-width: 768px) {
   .themeCardContainer {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }
 
-@media (max-width: 320px) {
+@container (max-width: 320px) {
   .themeCardContainer {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }

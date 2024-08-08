@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Sidebar } from "../../components/Sidebar";
-import { Header } from "../header/index";
+import { SubPageHeader } from "../header/index";
 import styles from "./styles/index.module.css";
 
 // icons
 import profileImage from "/icon/user_icon.png";
 
-export const ProfilePage: React.FC = () => {
+const Profile: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [emailId, setEmailId] = useState<string>("");
@@ -91,106 +90,105 @@ export const ProfilePage: React.FC = () => {
   // ------------------------------------------------------ //
   return (
     <>
-      <Sidebar />
-      <div className="container">
-        <Header title="Profile" />
-        <div className={styles.profileContainer}>
-          <div className={styles.profileCard}>
-            <div>
-              {/* ======= profile Image ======= */}
-              <div
-                className={styles.profileImg}
-                onClick={handleImageClick}
-                style={{ cursor: "pointer" }}
-              >
-                {imageUrl ? (
-                  <img src={imageUrl} alt="Profile" />
-                ) : (
-                  <img src={profileImage} alt="Profile" />
-                )}{" "}
-              </div>
-
-              {/* ======= Profile Input Form ======= */}
-              <input
-                type="file"
-                ref={fileInputRef}
-                required
-                style={{ display: "none" }}
-                onChange={(e) => handleFileChange(e)}
-              />
+      <div className={styles.profileContainer}>
+      <SubPageHeader title="Profile" />
+        <div className={styles.profileCard}>
+          <div>
+            {/* ======= profile Image ======= */}
+            <div
+              className={styles.profileImg}
+              onClick={handleImageClick}
+              style={{ cursor: "pointer" }}
+            >
+              {imageUrl ? (
+                <img src={imageUrl} alt="Profile" />
+              ) : (
+                <img src={profileImage} alt="Profile" />
+              )}{" "}
             </div>
-            <div className={styles.userDetails}>
-              <form className={styles.form}>
-                <div className={styles.flex}>
-                  <label>
-                    <input
-                      required
-                      placeholder=""
-                      type="text"
-                      className={styles.input}
-                      value={firstName}
-                      onChange={(event) => {
-                        setFirstName(event.target.value);
-                      }}
-                    />
-                    <span>First Name</span>
-                  </label>
 
-                  <label>
-                    <input
-                      required
-                      placeholder=""
-                      type="text"
-                      className={styles.input}
-                      value={lastName}
-                      onChange={(event) => {
-                        setLastName(event.target.value);
-                      }}
-                    />
-                    <span>Last Name</span>
-                  </label>
-                </div>
+            {/* ======= Profile Input Form ======= */}
+            <input
+              type="file"
+              ref={fileInputRef}
+              required
+              style={{ display: "none" }}
+              onChange={(e) => handleFileChange(e)}
+            />
+          </div>
+          <div className={styles.userDetails}>
+            <form className={styles.form}>
+              <div className={styles.flex}>
+                <label>
+                  <input
+                    required
+                    placeholder=""
+                    type="text"
+                    className={styles.input}
+                    value={firstName}
+                    onChange={(event) => {
+                      setFirstName(event.target.value);
+                    }}
+                  />
+                  <span>First Name</span>
+                </label>
 
                 <label>
                   <input
                     required
                     placeholder=""
-                    type="email"
+                    type="text"
                     className={styles.input}
-                    value={emailId}
+                    value={lastName}
                     onChange={(event) => {
-                      setEmailId(event.target.value);
+                      setLastName(event.target.value);
                     }}
                   />
-                  <span>Email</span>
+                  <span>Last Name</span>
                 </label>
+              </div>
 
-                <label>
-                  <textarea
-                    placeholder="Tell Us about yourself"
-                    id={styles.bio}
-                    className={styles.input}
-                    value={bio}
-                    onChange={(event) => {
-                      setBio(event.target.value);
-                    }}
-                  />
-                </label>
-
-                {/* ======= Sunmit Button ======= */}
-                <button
-                  className={styles.submit}
-                  onClick={() => {
-                    saveUserInfo();
+              <label>
+                <input
+                  required
+                  placeholder=""
+                  type="email"
+                  className={styles.input}
+                  value={emailId}
+                  onChange={(event) => {
+                    setEmailId(event.target.value);
                   }}
-                >
-                  Save Changes
-                </button>
-              </form>
-            </div>
+                />
+                <span>Email</span>
+              </label>
+
+              <label>
+                <textarea
+                  placeholder="Tell Us about yourself"
+                  id={styles.bio}
+                  className={styles.input}
+                  value={bio}
+                  onChange={(event) => {
+                    setBio(event.target.value);
+                  }}
+                />
+              </label>
+
+              {/* ======= Sunmit Button ======= */}
+              <button
+                className={styles.submit}
+                onClick={() => {
+                  saveUserInfo();
+                }}
+              >
+                Save Changes
+              </button>
+            </form>
           </div>
         </div>
       </div>
     </>
   );
 };
+
+export default Profile;

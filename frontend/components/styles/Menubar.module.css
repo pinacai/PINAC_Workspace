@@ -2,7 +2,6 @@
   display: flex;
   width: fit-content;
   justify-content: flex-start;
-  margin: 0 0 0 20px;
   border-radius: 7px;
   color: var(--text-color2);
   background: var(--menubar-bg);

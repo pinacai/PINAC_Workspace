@@ -1,12 +1,12 @@
 .aboutContainer {
+  height: 100%;
   width: 100%;
-  height: calc(100vh - 60px);
-  padding-top: 20px;
-  padding-bottom: 20px;
   font-family: "Exo2", "Montserrat", sans-serif;
 
-  display: grid;
-  place-items: center;
+  display: flex;
+  container-type: inline-size;
+  flex-direction: column;
+  align-items: start;
   overflow-y: scroll;
 }
 
@@ -17,6 +17,13 @@
 .aboutContainer::-webkit-scrollbar-thumb {
   background: #999;
   border-radius: 50px;
+}
+
+.down {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .aboutCard {
@@ -80,7 +87,7 @@
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
+@container (max-width: 768px) {
   .aboutCard {
     width: 50%;
   }
@@ -91,7 +98,7 @@
   }
 }
 
-@media (max-width: 576px) {
+@container (max-width: 576px) {
   .aboutContainer::-webkit-scrollbar {
     width: 7px;
   }
@@ -106,13 +113,13 @@
   }
 }
 
-@media (max-width: 450px) {
+@container (max-width: 450px) {
   .aboutCard {
     width: 75%;
   }
 }
 
-@media (max-width: 320px) {
+@container (max-width: 320px) {
   .aboutContainer::-webkit-scrollbar {
     width: 3px;
   }

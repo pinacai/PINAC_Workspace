@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { Header } from "../header/index";
-import { Sidebar } from "../../components/Sidebar";
+import { SubPageHeader } from "../header/index";
 import styles from "./styles/index.module.css";
 
-export const AboutPage: React.FC = () => {
+const AboutUs: React.FC = () => {
   // For smooth applying of current theme
   useEffect(() => {
     const body = document.body;
@@ -25,10 +24,9 @@ export const AboutPage: React.FC = () => {
   // ---------------------------------------------------- //
   return (
     <>
-      <Sidebar />
-      <div className="container">
-        <Header title="About Us" />
-        <div className={styles.aboutContainer}>
+      <div className={styles.aboutContainer}>
+        <SubPageHeader title="About Us" />
+        <div className={styles.down}>
           <div className={styles.aboutCard}>
             <div className={styles.content}>
               <div className={styles.header}>
@@ -61,3 +59,5 @@ export const AboutPage: React.FC = () => {
     </>
   );
 };
+
+export default AboutUs;

@@ -92,14 +92,14 @@
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
+@container (max-width: 768px) {
   .themeCard {
     width: 150px;
     height: 200px;
   }
 }
 
-@media (max-width: 320px) {
+@container (max-width: 320px) {
   .themeCard {
     width: 120px;
     height: 180px;

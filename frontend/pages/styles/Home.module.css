@@ -1,9 +1,25 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+/* Sub-page Container */
+.subPageContainer {
+  width: 30%;
+  height: auto;
+  margin: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
 /* Chat Container */
 .chatContainer {
-  width: 100%;
-  height: calc(100vh - 60px);
+  width: 60%;
+  height: 100%;
   background-color: transparent;
   display: flex;
+  container-type: inline-size;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -38,28 +54,28 @@
 
 /* ------------------ */
 /* Responsive Styles */
-@media (max-width: 1200px) {
+@container (max-width: 1200px) {
   .msgBox {
     padding-left: 10%;
     padding-right: 10%;
   }
 }
 
-@media (max-width: 992px) {
+@container (max-width: 992px) {
   .msgBox {
     padding-left: 5%;
     padding-right: 5%;
   }
 }
 
-@media (max-width: 768px) {
+@container (max-width: 768px) {
   .msgBox {
     padding-left: calc(5% + 10px);
     padding-right: calc(5% + 10px);
   }
 }
 
-@media (max-width: 576px) {
+@container (max-width: 576px) {
   .msgBox {
     padding-left: calc(2.5% + 10px);
     padding-right: 2%;
@@ -70,7 +86,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@container (max-width: 320px) {
   .msgBox::-webkit-scrollbar {
     width: 3px;
   }

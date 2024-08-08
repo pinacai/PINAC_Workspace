@@ -36,13 +36,13 @@
 }
 
 /* Responsive Styles */
-@media (max-width: 400px) {
+@container (max-width: 400px) {
   .llmSelectionContainer {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
 
-@media (max-width: 320px) {
+@container (max-width: 320px) {
   .inputContainer {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 0));
