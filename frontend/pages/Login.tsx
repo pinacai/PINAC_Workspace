@@ -35,7 +35,7 @@ export const LoginPage: React.FC<LoginPagePrompt> = ({ changeLogInStatus }) => {
   // ------------------------------------ //
   return (
     <div className="container">
-      <div className={styles.logIn_container}>
+      <div className={styles.logInContainer}>
         <form className={styles.form}>
           <div className={styles.title}>
             <div className={styles.spinner}>
@@ -59,7 +59,7 @@ export const LoginPage: React.FC<LoginPagePrompt> = ({ changeLogInStatus }) => {
                 placeholder=""
                 type="text"
                 className={styles.input}
-                id={styles.half_input}
+                id={styles.halfInput}
                 value={firstName}
                 onChange={(event) => {
                   setFirstName(event.target.value);
@@ -74,7 +74,7 @@ export const LoginPage: React.FC<LoginPagePrompt> = ({ changeLogInStatus }) => {
                 placeholder=""
                 type="text"
                 className={styles.input}
-                id={styles.half_input}
+                id={styles.halfInput}
                 value={lastName}
                 onChange={(event) => {
                   setLastName(event.target.value);

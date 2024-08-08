@@ -3,6 +3,7 @@ import { HomePage } from "./pages/Home";
 import { ProfilePage } from "./features/profile/index";
 import { AboutPage } from "./features/aboutUs/index";
 import { SettingsPage } from "./features/settings/index";
+import { SubPageProvider } from "./context/subPage";
 import "./App.css";
 
 const App = () => {
@@ -24,7 +25,14 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={
+            <SubPageProvider>
+              <HomePage />
+            </SubPageProvider>
+          }
+        />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/settings" element={<SettingsPage />} />

@@ -14,7 +14,7 @@ interface ShowAiMessageProps {
   setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ShowAiMessage: React.FC<ShowAiMessageProps> = ({
+const ShowAiMessage: React.FC<ShowAiMessageProps> = ({
   setButtonsDisabled,
 }) => {
   const [message, setMessage] = useState(<AiLoader />);
@@ -162,3 +162,5 @@ const AiLoader: React.FC = () => {
     </>
   );
 };
+
+export default ShowAiMessage;

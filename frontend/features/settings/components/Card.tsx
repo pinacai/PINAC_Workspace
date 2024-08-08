@@ -12,8 +12,8 @@ export const Card: React.FC<CardProps> = (props) => {
   return (
     <div className={styles.themeCard}>
       <img src={props.cardImage} alt="Cyber Tech 01 Preview" />
-      <div className={styles.themeCard_desc}>
-        <label className={styles.check_wrapper}>
+      <div className={styles.themeCardDesc}>
+        <label className={styles.checkWrapper}>
           <input
             type="checkbox"
             checked={props.checkedFunc}

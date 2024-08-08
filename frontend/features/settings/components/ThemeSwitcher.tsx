@@ -67,7 +67,7 @@ export const ThemeSwitcher: React.FC = () => {
 
   // ----------------------------------------------------------- //
   return (
-    <div className={styles.themeCard_container}>
+    <div className={styles.themeCardContainer}>
       {/* Theme 1 */}
       <Card
         title="Dawn & Dusk"

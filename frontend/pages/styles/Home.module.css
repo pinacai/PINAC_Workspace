@@ -1,5 +1,5 @@
 /* Chat Container */
-.chat_container {
+.chatContainer {
   width: 100%;
   height: calc(100vh - 60px);
   background-color: transparent;
@@ -10,7 +10,7 @@
   flex-grow: 1;
 }
 
-.msg_box {
+.msgBox {
   width: 100%;
   padding-left: 20%;
   padding-right: 20%;
@@ -23,15 +23,15 @@
   flex-grow: 1;
 }
 
-.msg_box::-webkit-scrollbar {
+.msgBox::-webkit-scrollbar {
   width: 10px;
 }
 
-.msg_box::-webkit-scrollbar-track {
+.msgBox::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.msg_box::-webkit-scrollbar-thumb {
+.msgBox::-webkit-scrollbar-thumb {
   background: #999;
   border-radius: 50px;
 }
@@ -39,43 +39,43 @@
 /* ------------------ */
 /* Responsive Styles */
 @media (max-width: 1200px) {
-  .msg_box {
+  .msgBox {
     padding-left: 10%;
     padding-right: 10%;
   }
 }
 
 @media (max-width: 992px) {
-  .msg_box {
+  .msgBox {
     padding-left: 5%;
     padding-right: 5%;
   }
 }
 
 @media (max-width: 768px) {
-  .msg_box {
+  .msgBox {
     padding-left: calc(5% + 10px);
     padding-right: calc(5% + 10px);
   }
 }
 
 @media (max-width: 576px) {
-  .msg_box {
+  .msgBox {
     padding-left: calc(2.5% + 10px);
     padding-right: 2%;
   }
 
-  .msg_box::-webkit-scrollbar {
+  .msgBox::-webkit-scrollbar {
     width: 7px;
   }
 }
 
 @media (max-width: 320px) {
-  .msg_box::-webkit-scrollbar {
+  .msgBox::-webkit-scrollbar {
     width: 3px;
   }
 
-  .msg_box::-webkit-scrollbar-thumb {
+  .msgBox::-webkit-scrollbar-thumb {
     background: #999;
     border-radius: 2px;
   }

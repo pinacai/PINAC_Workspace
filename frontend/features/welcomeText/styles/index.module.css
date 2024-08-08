@@ -1,4 +1,4 @@
-.welcome_text {
+.welcomeText {
     background: var(--welcomeText-gradient);
     background-clip: text;
     color: transparent;
@@ -9,7 +9,7 @@
     align-items: center;
   }
   
-  .welcome_text_row {
+  .welcomeTextRow {
     display: flex;
     align-items: flex-start;
   }
@@ -18,19 +18,19 @@
   /* Responsive Styles */
   
   @media (max-width: 992px) {
-    .welcome_text {
+    .welcomeText {
       font-size: 7vw;
     }
   }
   
   @media (max-width: 576px) {
-    .welcome_text {
+    .welcomeText {
       font-size: 35px;
     }
   }
   
   @media (max-width: 320px) {
-    .welcome_text {
+    .welcomeText {
       font-size: 10vw;
     }
   }

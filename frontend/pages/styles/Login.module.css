@@ -1,4 +1,4 @@
-.logIn_container {
+.logInContainer {
   background: url("frontend/assets/img/login_page_bg.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -12,7 +12,7 @@
   box-sizing: content-box;
 }
 
-.logIn_container .form {
+.logInContainer .form {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -30,14 +30,14 @@
 /*              Header Text & Animation              */
 /* ------------------------------------------------- */
 
-.logIn_container .title {
+.logInContainer .title {
   display: flex;
   align-items: center;
   padding-left: 45px;
   margin-bottom: 60px;
 }
 
-.logIn_container .title span {
+.logInContainer .title span {
   font-size: 32px;
   color: royalblue;
   font-weight: 600;
@@ -45,7 +45,7 @@
   padding-left: 20px;
 }
 
-.logIn_container .title .spinner {
+.logInContainer .title .spinner {
   width: 40.4px;
   height: 40.4px;
   --clr: rgb(247, 197, 159);
@@ -54,7 +54,7 @@
   transform-style: preserve-3d;
 }
 
-.logIn_container .title .spinner > div {
+.logInContainer .title .spinner > div {
   background-color: var(--clr-alpha);
   height: 100%;
   position: absolute;
@@ -62,31 +62,31 @@
   border: 3.5px solid var(--clr);
 }
 
-.logIn_container .title .spinner div:nth-of-type(1) {
+.logInContainer .title .spinner div:nth-of-type(1) {
   transform: translateZ(-20px) rotateY(180deg);
 }
 
-.logIn_container .title .spinner div:nth-of-type(2) {
+.logInContainer .title .spinner div:nth-of-type(2) {
   transform: rotateY(-270deg) translateX(50%);
   transform-origin: top right;
 }
 
-.logIn_container .title .spinner div:nth-of-type(3) {
+.logInContainer .title .spinner div:nth-of-type(3) {
   transform: rotateY(270deg) translateX(-50%);
   transform-origin: center left;
 }
 
-.logIn_container .title .spinner div:nth-of-type(4) {
+.logInContainer .title .spinner div:nth-of-type(4) {
   transform: rotateX(90deg) translateY(-50%);
   transform-origin: top center;
 }
 
-.logIn_container .title .spinner div:nth-of-type(5) {
+.logInContainer .title .spinner div:nth-of-type(5) {
   transform: rotateX(-90deg) translateY(50%);
   transform-origin: bottom center;
 }
 
-.logIn_container .title .spinner div:nth-of-type(6) {
+.logInContainer .title .spinner div:nth-of-type(6) {
   transform: translateZ(20px);
 }
 
@@ -105,28 +105,28 @@
 }
 
 /* ------------------------------------------------- */
-.logIn_container .message,
-.logIn_container .signin {
+.logInContainer .message,
+.logInContainer .signin {
   color: rgba(161, 161, 161, 0.822);
   font-size: 14px;
   margin-bottom: 5px;
 }
 
-.logIn_container .signin {
+.logInContainer .signin {
   text-align: center;
 }
 
-.logIn_container .flex {
+.logInContainer .flex {
   display: flex;
   width: 100%;
   gap: 10px;
 }
 
-.logIn_container .form label {
+.logInContainer .form label {
   position: relative;
 }
 
-.logIn_container .form label .input {
+.logInContainer .form label .input {
   width: 100%;
   padding: 10px 10px 20px 10px;
   outline: 0;
@@ -135,12 +135,12 @@
   font-family: "Exo2", "Montserrat", sans-serif;
 }
 
-.logIn_container .form label #half_input {
+.logInContainer .form label #halfInput {
   width: 100%;
   font-family: "Exo2", "Montserrat", sans-serif;
 }
 
-.logIn_container .form label .input + span {
+.logInContainer .form label .input + span {
   position: absolute;
   left: 10px;
   top: 15px;
@@ -150,23 +150,23 @@
   transition: 0.3s ease;
 }
 
-.logIn_container .form label .input:placeholder-shown + span {
+.logInContainer .form label .input:placeholder-shown + span {
   top: 15px;
   font-size: 0.9em;
 }
 
-.logIn_container .form label .input:focus + span,
-.logIn_container .form label .input:valid + span {
+.logInContainer .form label .input:focus + span,
+.logInContainer .form label .input:valid + span {
   top: 30px;
   font-size: 0.7em;
   font-weight: 600;
 }
 
-.logIn_container .form label .input:valid + span {
+.logInContainer .form label .input:valid + span {
   color: green;
 }
 
-.logIn_container .submit {
+.logInContainer .submit {
   width: 100%;
   border: none;
   outline: none;
@@ -178,7 +178,7 @@
   transform: 0.3s ease;
 }
 
-.logIn_container .submit:hover {
+.logInContainer .submit:hover {
   background-color: rgb(56, 90, 194);
 }
 

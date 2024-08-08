@@ -37,7 +37,7 @@ const SyntaxHighlight = ({ children, code, ...props }: any) => {
       >
         {children}
       </SyntaxHighlighter>
-      <div className={styles.copy_btn_container}>
+      <div className={styles.copyBtnContainer}>
         <CopyToClipboard text={code} onCopy={handleCopy}>
           <button className={styles.copyButton}>
             {isCopied ? "Copied!" : "Copy"}

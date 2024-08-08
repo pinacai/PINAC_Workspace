@@ -181,14 +181,14 @@ export const InputPanel: React.FC<InputPanelProps> = ({
 
   // -------------------------------------------------------- //
   return (
-    <div className={styles.input_box}>
+    <div className={styles.inputBox}>
       {/* ============ Image Preview ============ */}
       {!isOutImgPreview && uploadedImage && (
-        <div className={styles.outer_image_preview}>
+        <div className={styles.outerImagePreview}>
           <div>
             <img src={URL.createObjectURL(uploadedImage)} alt="Uploaded" />
             <button
-              className={styles.cancel_button}
+              className={styles.cancelButton}
               onClick={handleCancelUpload}
             >
               <AiOutlineClose />
@@ -197,7 +197,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
         </div>
       )}
       {/* ======== Advance Options (Dropdown) ============ */}
-      <div className={styles.input_option_menu}>
+      <div className={styles.inputOptionMenu}>
         {/* Render both dropdowns on wider screens */}
         {isShowAllAdvanceOptions ? (
           <>
@@ -230,7 +230,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
               searchBar={false}
             />
             <button
-              className={styles.next_button}
+              className={styles.nextButton}
               onClick={() =>
                 setCurrentDropdownIndex(
                   (currentDropdownIndex + 1) % dropdowns.length
@@ -245,7 +245,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
 
       {/* ============================ */}
       <div
-        className={`${styles.input_group} ${
+        className={`${styles.inputGroup} ${
           isUserInputActive ? `${styles.active}` : ""
         }`}
         onFocus={() => setUserInputActive(true)}
@@ -253,10 +253,10 @@ export const InputPanel: React.FC<InputPanelProps> = ({
       >
         {/* ====== Image Preview ======= */}
         {isOutImgPreview && uploadedImage && (
-          <div className={styles.image_preview}>
+          <div className={styles.imagePreview}>
             <img src={URL.createObjectURL(uploadedImage)} alt="Uploaded" />
             <button
-              className={styles.cancel_button}
+              className={styles.cancelButton}
               onClick={handleCancelUpload}
             >
               <AiOutlineClose />
@@ -266,9 +266,9 @@ export const InputPanel: React.FC<InputPanelProps> = ({
 
         {/* ====== Attachment Options Menu ======= */}
         {showAttachmentOptions && (
-          <div className={styles.options_menu} ref={optionMenuRef}>
-            <label className={styles.options_menu_btn}>
-              <FiImage title="Add Image" className={styles.options_menu_icon} />
+          <div className={styles.optionsMenu} ref={optionMenuRef}>
+            <label className={styles.optionsMenuBtn}>
+              <FiImage title="Add Image" className={styles.optionsMenuIcon} />
               <input
                 type="file"
                 accept="image/*"
@@ -276,10 +276,10 @@ export const InputPanel: React.FC<InputPanelProps> = ({
                 onChange={(e) => handleFileUpload(e, "image")}
               />
             </label>
-            <label className={styles.options_menu_btn}>
+            <label className={styles.optionsMenuBtn}>
               <VscFilePdf
                 title="Add PDF"
-                className={styles.options_menu_icon}
+                className={styles.optionsMenuIcon}
               />
               <input
                 type="file"
@@ -293,7 +293,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
 
         {/* ====== Main Input Area ======= */}
         <textarea
-          id={styles.user_input}
+          id={styles.userInput}
           className={buttonsDisabled ? `${styles.disabled}` : ""}
           value={userInput}
           onChange={(event) => setUserInput(event.target.value)}
@@ -304,34 +304,34 @@ export const InputPanel: React.FC<InputPanelProps> = ({
           required
         />
         {/* ============ Buttons besides the text area ============= */}
-        <div className={styles.input_group_append}>
+        <div className={styles.inputGroupAppend}>
           {!buttonsDisabled ? (
             <>
               {/* ====== Attachment Button ======= */}
               <button
-                id={styles.attachment_btn}
+                id={styles.attachmentBtn}
                 className={buttonsDisabled ? `${styles.disabled}` : ""}
                 onClick={() => setShowAttachmentOptions(!showAttachmentOptions)}
                 disabled={buttonsDisabled}
               >
-                <CgAttachment id={styles.attachment_icon} />
+                <CgAttachment id={styles.attachmentIcon} />
               </button>
 
               {/* ====== Submit Button ======= */}
               <button
-                id={styles.submit_btn}
+                id={styles.submitBtn}
                 className={buttonsDisabled ? `${styles.disabled}` : ""}
                 onClick={() =>
                   userInput !== undefined ? submit(userInput) : {}
                 }
                 disabled={buttonsDisabled}
               >
-                <VscSend id={styles.submit_icon} />
+                <VscSend id={styles.submitIcon} />
               </button>
             </>
           ) : (
             /* ====== Stop Text Generation Button ======= */
-            <button onClick={() => setStop(true)} className={styles.stop_icon}>
+            <button onClick={() => setStop(true)} className={styles.stopIcon}>
               <FaRegStopCircle size={25} color="var(--headerTitle-color)" />
             </button>
           )}

@@ -10,7 +10,7 @@
   justify-content: space-between;
 }
 
-.left_side {
+.leftSide {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,7 +20,7 @@
 /*    Header Dropdown Menu for Sidebar functions     */
 /* ------------------------------------------------- */
 
-.left_side button {
+.leftSide button {
   border: none;
   margin-left: 10px;
   margin-top: 10px;
@@ -28,20 +28,20 @@
   cursor: pointer;
 }
 
-.left_side button.home {
+.leftSide button.home {
   margin-top: 3px;
 }
 
-.left_side button:hover {
+.leftSide button:hover {
   border-radius: 7px;
   background: var(--headerMenu-btn-hover-bg);
 }
 
-.header_menu .dropdown_menu {
+.headerMenu .dropdownMenu {
   display: none;
 }
 
-.header_menu .dropdown_menu.active {
+.headerMenu .dropdownMenu.active {
   display: block;
   position: absolute;
 
@@ -58,13 +58,13 @@
   z-index: 1;
 }
 
-.header_menu .dropdown_menu ul {
+.headerMenu .dropdownMenu ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.header_menu .dropdown_menu ul li {
+.headerMenu .dropdownMenu ul li {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -73,11 +73,11 @@
   cursor: pointer;
 }
 
-.header_menu .dropdown_menu ul li:hover {
+.headerMenu .dropdownMenu ul li:hover {
   background: var(--dropdownMenu-opt-hover-bg);
 }
 
-.header_menu .dropdown_last_menu ul li:hover {
+.headerMenu .dropdownLastMenu ul li:hover {
   background: transparent;
 }
 
@@ -89,11 +89,11 @@
 }
 
 /* for PINAC Logo */
-.home_title {
+.homeTitle {
   font: bold 40px "nasa", sans-serif;
 }
 
-.bottom_line {
+.bottomLine {
   margin-top: 3px;
   border-bottom: 2px solid var(--headerTitle-underline-color);
 }
@@ -108,14 +108,14 @@
 }
 
 @media (max-width: 576px) {
-  .home_title {
+  .homeTitle {
     font-size: 35px;
   }
 }
 
 @media (max-width: 320px) {
   .title,
-  .home_title {
+  .homeTitle {
     font-size: 30px;
   }
 
@@ -123,13 +123,13 @@
     font-size: 25px;
   }
 
-  .header_menu .dropdown_menu.active {
+  .headerMenu .dropdownMenu.active {
     width: 120px;
   }
 }
 
 @media (max-width: 280px) {
-  .header_menu .dropdown_menu.active {
+  .headerMenu .dropdownMenu.active {
     width: 100px;
   }
 }

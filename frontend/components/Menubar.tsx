@@ -22,11 +22,11 @@ export const Menubar: React.FC<MenubarProps> = ({ menuItems }) => {
 
   return (
     <nav className={styles.menubar}>
-      <ul className={styles.menu_items}>
+      <ul className={styles.menuItems}>
         {menuItems.map((item, index) => (
           <li
             key={index}
-            className={`${styles.menu_item} ${
+            className={`${styles.menuItem} ${
               activeIndex === index ? `${styles.active}` : ""
             }`}
             onClick={() => handleItemClick(index, item.onClick)}

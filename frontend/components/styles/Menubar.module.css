@@ -6,22 +6,22 @@
   border-radius: 7px;
   color: var(--text-color2);
   background: var(--menubar-bg);
-  box-shadow:  var(--menubar-shadow);
+  box-shadow: var(--menubar-shadow);
 }
 
-.menu_items {
+.menuItems {
   display: flex;
   list-style-type: none;
 }
 
-.menu_item {
+.menuItem {
   cursor: pointer;
   padding: 7px 15px;
   border-radius: 7px;
   transition: background-color 0.3s ease;
 }
 
-.menu_item.active {
+.menuItem.active {
   pointer-events: none;
   background: var(--menubar-active-item-bg);
   color: var(--menubar-active-text-color);

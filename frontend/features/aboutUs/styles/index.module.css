@@ -1,4 +1,4 @@
-.about_container {
+.aboutContainer {
   width: 100%;
   height: calc(100vh - 60px);
   padding-top: 20px;
@@ -10,16 +10,16 @@
   overflow-y: scroll;
 }
 
-.about_container::-webkit-scrollbar {
+.aboutContainer::-webkit-scrollbar {
   width: 10px;
 }
 
-.about_container::-webkit-scrollbar-thumb {
+.aboutContainer::-webkit-scrollbar-thumb {
   background: #999;
   border-radius: 50px;
 }
 
-.about_card {
+.aboutCard {
   width: 25%;
   padding: 20px 20px;
   border-radius: 10px;
@@ -31,22 +31,22 @@
   align-items: center;
 }
 
-.about_card:hover {
+.aboutCard:hover {
   box-shadow: var(--themeCard-hover-shadow);
 }
 
-.about_card .header {
+.aboutCard .header {
   margin-top: 10px;
   margin-bottom: 40px;
   display: flex;
   justify-content: center;
 }
 
-.about_card .header span {
+.aboutCard .header span {
   font: bold xx-large "Exo2", "Montserrat", sans-serif;
 }
 
-.about_card span {
+.aboutCard span {
   font: normal medium "Exo2", "Montserrat", sans-serif;
 }
 
@@ -81,60 +81,60 @@
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .about_card {
+  .aboutCard {
     width: 50%;
   }
 
-  .about_card .header {
+  .aboutCard .header {
     margin-top: 0;
     margin-bottom: 25px;
   }
 }
 
 @media (max-width: 576px) {
-  .about_container::-webkit-scrollbar {
+  .aboutContainer::-webkit-scrollbar {
     width: 7px;
   }
 
-  .about_card {
+  .aboutCard {
     width: 60%;
   }
 
-  .about_card .header {
+  .aboutCard .header {
     margin-top: 0;
     margin-bottom: 20px;
   }
 }
 
 @media (max-width: 450px) {
-  .about_card {
+  .aboutCard {
     width: 75%;
   }
 }
 
 @media (max-width: 320px) {
-  .about_container::-webkit-scrollbar {
+  .aboutContainer::-webkit-scrollbar {
     width: 3px;
   }
 
-  .about_container::-webkit-scrollbar-thumb {
+  .aboutContainer::-webkit-scrollbar-thumb {
     background: #999;
     border-radius: 2px;
   }
 
-  .about_card {
+  .aboutCard {
     width: 90%;
   }
 
-  .about_card .header {
+  .aboutCard .header {
     margin-bottom: 10px;
   }
 
-  .about_card .header span {
+  .aboutCard .header span {
     font-size: x-large;
   }
 
-  .about_card span {
+  .aboutCard span {
     font-size: 16.6px;
   }
 

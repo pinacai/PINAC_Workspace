@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
 import { ThemeToggle } from "./ThemeToggle";
+import { SubPageContext } from "../context/subPage";
 import styles from "./styles/Sidebar.module.css";
 
 // Icons
@@ -11,22 +11,11 @@ import defaultUserIcon from "/icon/user_icon.png";
 
 const BREAKPOINT = 576;
 
-// type ThemePair = "Dawn_n_Dusk" | "Cyber_Tech_01" | "Aesthetics_Unbound";
-
-// type ColorMap = {
-//   [key in ThemePair]: {
-//     dark: string;
-//     light: string;
-//   };
-// };
-
 export const Sidebar: React.FC = () => {
-  const navigate = useNavigate();
+  const subPageContext = useContext(SubPageContext);
   const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(false);
   const [userImageUrl] = useState<string | null>(null);
-  // const [isDarkTheme] = useState<boolean>(
-  //   () => localStorage.getItem("preferred-theme") === "dark"
-  // );
+
   //
   useEffect(() => {
     const handleResize = () => {
@@ -40,16 +29,16 @@ export const Sidebar: React.FC = () => {
   }, []);
 
   //
-  const navigateToPage = (path: string): void => {
-    navigate(path);
+  const changeSubPage = (subPage: string): void => {
+    subPageContext?.setSubPage(subPage);
   };
 
   //
   const renderNavItem = (
-    path: string,
+    subPage: string,
     Icon: React.ElementType
   ): JSX.Element => (
-    <li onClick={() => navigateToPage(path)}>
+    <li onClick={() => changeSubPage(subPage)}>
       <Icon size={30} />
     </li>
   );
@@ -64,7 +53,7 @@ export const Sidebar: React.FC = () => {
       <div className={styles.upperPart}>
         <nav>
           <ul>
-            <li onClick={() => navigateToPage("/profile")}>
+            <li onClick={() => changeSubPage("/profile")}>
               <img
                 className={styles.userImage}
                 src={userImageUrl || defaultUserIcon}

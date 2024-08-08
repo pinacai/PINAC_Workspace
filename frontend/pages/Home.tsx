@@ -2,12 +2,21 @@ import React, { useState, useEffect, useRef } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../features/header/index";
 import { WelcomeText } from "../features/welcomeText/index";
-import { ShowAiMessage, UserMsgBubble } from "../features/msgBubble/index";
 import { InputPanel } from "../features/inputPanel/index";
 import { StopTextGeneration } from "../context/StopTextGeneration";
+// import { SubPageContext } from "../context/subPage";
 import styles from "./styles/Home.module.css";
 
+//lazy loading
+const ShowAiMessage = React.lazy(
+  () => import("../features/msgBubble/AiMsgBubble")
+);
+const UserMsgBubble = React.lazy(
+  () => import("../features/msgBubble/UserMsgBubble")
+);
+
 export const HomePage: React.FC = () => {
+  // const subPageContext = useContext(SubPageContext);
   const [welcomeText, setWelcomeText] = useState<boolean>(true);
   const [chatHistory, setChatHistory] = useState<JSX.Element[]>([]);
   const [userInput, setUserInput] = useState<string>(""); // Declare state for input value
@@ -107,10 +116,10 @@ export const HomePage: React.FC = () => {
       <Sidebar />
       <div className="container">
         <Header title="PINAC" clearChat={startNewChat} />
-        <div className={styles.subPageContainer}></div>
-        <div className={styles.chat_container}>
+        {/* <div className={styles.subPageContainer}></div> */}
+        <div className={styles.chatContainer}>
           <StopTextGeneration.Provider value={{ stop, setStop }}>
-            <div className={styles.msg_box}>
+            <div className={styles.msgBox}>
               {welcomeText && <WelcomeText />}
               {chatHistory}
               <div ref={scrollRef} />

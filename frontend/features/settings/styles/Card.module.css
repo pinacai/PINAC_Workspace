@@ -24,7 +24,7 @@
   object-fit: cover;
 }
 
-.themeCard_desc {
+.themeCardDesc {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,16 +34,16 @@
 }
 
 /* Theme Card Title */
-.themeCard_desc span {
+.themeCardDesc span {
   margin-left: 10px;
 }
 
 /* Checkbox */
-.check_wrapper input {
+.checkWrapper input {
   display: none;
 }
 
-.check_wrapper {
+.checkWrapper {
   display: block;
   position: relative;
   cursor: pointer;
@@ -63,7 +63,7 @@
   transition: all 0.25s;
 }
 
-.check_wrapper input:checked ~ .checkmark {
+.checkWrapper input:checked ~ .checkmark {
   background-color: #2196f3;
 }
 
@@ -80,7 +80,7 @@
   transition: all 0.2s ease, border-width 0.1s;
 }
 
-.check_wrapper input:checked ~ .checkmark:after {
+.checkWrapper input:checked ~ .checkmark:after {
   left: 0.45em;
   top: 0.25em;
   width: 0.25em;
@@ -105,11 +105,11 @@
     height: 180px;
   }
 
-  .check_wrapper {
+  .checkWrapper {
     margin-left: 5px;
   }
 
-  .themeCard_desc span {
+  .themeCardDesc span {
     margin-left: 5px;
     margin-right: 5px;
     font-size: small;

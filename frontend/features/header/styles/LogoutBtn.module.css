@@ -1,4 +1,4 @@
-.logout_btn {
+.logoutBtn {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -15,7 +15,7 @@
 }
 
 /* plus sign */
-.logout_img {
+.logoutImg {
   width: 100%;
   transition-duration: 0.3s;
   display: flex;
@@ -23,16 +23,16 @@
   justify-content: center;
 }
 
-.logout_img svg {
+.logoutImg svg {
   width: 17px;
 }
 
-.logout_img svg path {
+.logoutImg svg path {
   fill: white;
 }
 
 /* text */
-.logout_text {
+.logoutText {
   position: absolute;
   right: 0%;
   width: 0%;
@@ -43,52 +43,52 @@
   transition-duration: 0.3s;
 }
 /* hover effect on button width */
-.logout_btn:hover {
+.logoutBtn:hover {
   width: 125px;
   border-radius: 40px;
   transition-duration: 0.3s;
 }
 
-.logout_btn:hover .logout_img {
+.logoutBtn:hover .logoutImg {
   width: 30%;
   transition-duration: 0.3s;
   padding-left: 20px;
 }
 /* hover effect button's text */
-.logout_btn:hover .logout_text {
+.logoutBtn:hover .logoutText {
   opacity: 1;
   width: 70%;
   transition-duration: 0.3s;
   padding-right: 10px;
 }
 /* button click effect*/
-.logout_btn:active {
+.logoutBtn:active {
   transform: translate(2px, 2px);
 }
 
 /* ------------------ */
 /* Responsive Styles */
 @media (max-width: 320px) {
-  .logout_btn {
+  .logoutBtn {
     width: 32px;
     height: 32px;
   }
 }
 
 @media (max-width: 280px) {
-  .logout_btn:hover .logout_img {
+  .logoutBtn:hover .logoutImg {
     padding-left: 0px;
   }
 
-  .logout_btn:hover .logout_img svg {
+  .logoutBtn:hover .logoutImg svg {
     width: 0;
   }
 
-  .logout_btn:hover {
+  .logoutBtn:hover {
     width: 60px;
   }
 
-  .logout_btn:hover .logout_text {
+  .logoutBtn:hover .logoutText {
     width: 100%;
     padding-right: 0px;
   }

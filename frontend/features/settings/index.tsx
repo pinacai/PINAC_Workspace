@@ -42,8 +42,8 @@ export const SettingsPage: React.FC = () => {
       <Sidebar />
       <div className="container">
         <Header title="Settings" />
-        <div className={styles.setting_container}>
-          <div className={styles.menubar_container}>
+        <div className={styles.settingContainer}>
+          <div className={styles.menubarContainer}>
             <Menubar menuItems={menuItems} />
           </div>
           {/* --------------------------------------------------------- */}
@@ -52,7 +52,7 @@ export const SettingsPage: React.FC = () => {
               {/*     Section 1 ( Theme )     */}
               {/* =========================== */}
               <div className={styles.section}>
-                <div className={styles.section_title}>
+                <div className={styles.sectionTitle}>
                   <span>Theme</span>
                 </div>
                 <ThemeSwitcher />
@@ -67,17 +67,17 @@ export const SettingsPage: React.FC = () => {
               <div className={styles.section}>
                 {/*     Warning card     */}
                 {selectedLlmType === "Private LLM" && (
-                  <div className={styles.warning_card}>
-                    <div className={styles.warning_content}>
-                      <div className={styles.warning_icon}>⚠</div>
-                      <div className={styles.warning_text}>
+                  <div className={styles.warningCard}>
+                    <div className={styles.warningContent}>
+                      <div className={styles.warningIcon}>⚠</div>
+                      <div className={styles.warningText}>
                         Write the exact name of model as in Ollama. For getting
                         pulled model list run <b>ollama list</b> in terminal.
                       </div>
                     </div>
                   </div>
                 )}
-                <div className={styles.section_title}>
+                <div className={styles.sectionTitle}>
                   <span>Select LLM</span>
                 </div>
                 <LLMSelector
@@ -88,7 +88,7 @@ export const SettingsPage: React.FC = () => {
               {/*   Section 2 (Output Language)    */}
               {/* ================================= */}
               <div className={styles.section}>
-                <div className={styles.section_title}>
+                <div className={styles.sectionTitle}>
                   <span>Output Language</span>
                 </div>
                 <DropdownMenu

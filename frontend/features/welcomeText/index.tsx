@@ -50,8 +50,8 @@ export const WelcomeText = () => {
 
   // ----------------------------------- //
   return (
-    <div className={styles.welcome_text_row}>
-      <div className={styles.welcome_text}>
+    <div className={styles.welcomeTextRow}>
+      <div className={styles.welcomeText}>
         <>{greeting}</>
         <br />
       </div>

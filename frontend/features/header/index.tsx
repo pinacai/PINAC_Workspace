@@ -60,12 +60,12 @@ export const Header: React.FC<HeaderProps> = ({ title, clearChat }) => {
   return (
     <>
       <div className={styles.pageHeader}>
-        <div className={styles.left_side}>
+        <div className={styles.leftSide}>
           <div>
             <span
               className={
                 location.pathname == "/"
-                  ? `${styles.home_title}`
+                  ? `${styles.homeTitle}`
                   : `${styles.title}`
               }
             >
@@ -73,13 +73,13 @@ export const Header: React.FC<HeaderProps> = ({ title, clearChat }) => {
             </span>
             {location.pathname !== "/" ? (
               <>
-                <div className={styles.bottom_line}></div>
+                <div className={styles.bottomLine}></div>
               </>
             ) : null}
           </div>
           {/* Render the sidebar button */}
           {isMenuVisible && (
-            <div className={styles.header_menu} ref={dropdownMenuRef}>
+            <div className={styles.headerMenu} ref={dropdownMenuRef}>
               <div>
                 <button
                   className={location.pathname == "/" ? `${styles.home}` : ""}
@@ -96,7 +96,7 @@ export const Header: React.FC<HeaderProps> = ({ title, clearChat }) => {
                 </button>
               </div>
               <div
-                className={`${styles.dropdown_menu} ${
+                className={`${styles.dropdownMenu} ${
                   isDropdownActive ? `${styles.active}` : ""
                 }`}
               >
@@ -117,8 +117,8 @@ export const Header: React.FC<HeaderProps> = ({ title, clearChat }) => {
               </div>
               {/* Special section at last for theme change */}
               <div
-                className={`${styles.dropdown_last_menu} ${
-                  styles.dropdown_menu
+                className={`${styles.dropdownLastMenu} ${
+                  styles.dropdownMenu
                 } ${isDropdownActive ? `${styles.active}` : ""}`}
                 style={{ marginTop: "130px" }}
               >
@@ -136,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({ title, clearChat }) => {
             </div>
           )}
         </div>
-        <div className={styles.right_side}>
+        <div className={styles.rightSide}>
           {/* Render the new chat button only for Home Page */}
           {location.pathname == "/" && clearChat && (
             <NewChatBtn clearChat={clearChat} />

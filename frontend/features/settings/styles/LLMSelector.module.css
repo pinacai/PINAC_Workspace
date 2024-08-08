@@ -1,14 +1,14 @@
-.llm_selection_container {
+.llmSelectionContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 20px;
 }
 
-.input_container {
+.inputContainer {
   display: flex;
 }
 
-.input_style {
+.inputStyle {
   height: 35px;
   width: 250px;
   padding: 10px;
@@ -23,7 +23,7 @@
   outline: none;
 }
 
-.save_btn {
+.saveBtn {
   height: 35px;
   width: 60px;
   padding: 5px 10px;
@@ -37,23 +37,23 @@
 
 /* Responsive Styles */
 @media (max-width: 400px) {
-  .llm_selection_container {
+  .llmSelectionContainer {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
 
 @media (max-width: 320px) {
-  .input_container {
+  .inputContainer {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 0));
     gap: 5px;
   }
 
-  .input_style {
+  .inputStyle {
     width: 200px;
   }
 
-  .save_btn {
+  .saveBtn {
     height: 30px;
     width: 100%;
   }

@@ -28,8 +28,8 @@ export const AboutPage: React.FC = () => {
       <Sidebar />
       <div className="container">
         <Header title="About Us" />
-        <div className={styles.about_container}>
-          <div className={styles.about_card}>
+        <div className={styles.aboutContainer}>
+          <div className={styles.aboutCard}>
             <div className={styles.content}>
               <div className={styles.header}>
                 <span>About Us</span>
@@ -47,7 +47,7 @@ export const AboutPage: React.FC = () => {
                 id={styles.aboutBtn}
                 onClick={() =>
                   window.ipcRenderer.send("request-to-backend", {
-                    request_type: "open-url-in-browser",
+                    requestType: "open-url-in-browser",
                     url: "https://github.com/pinacai/PINAC_Workspace",
                   })
                 }

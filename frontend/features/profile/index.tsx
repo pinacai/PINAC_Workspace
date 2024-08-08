@@ -94,12 +94,12 @@ export const ProfilePage: React.FC = () => {
       <Sidebar />
       <div className="container">
         <Header title="Profile" />
-        <div className={styles.profile_container}>
-          <div className={styles.profile_card}>
+        <div className={styles.profileContainer}>
+          <div className={styles.profileCard}>
             <div>
               {/* ======= profile Image ======= */}
               <div
-                className={styles.profile_img}
+                className={styles.profileImg}
                 onClick={handleImageClick}
                 style={{ cursor: "pointer" }}
               >
@@ -119,7 +119,7 @@ export const ProfilePage: React.FC = () => {
                 onChange={(e) => handleFileChange(e)}
               />
             </div>
-            <div className={styles.user_details}>
+            <div className={styles.userDetails}>
               <form className={styles.form}>
                 <div className={styles.flex}>
                   <label>

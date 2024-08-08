@@ -69,7 +69,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         </button>
       </div>
       <div
-        className={`${styles.dropdown_menu} ${
+        className={`${styles.dropdownMenu} ${
           isActive ? `${styles.active}` : ""
         }`}
       >
