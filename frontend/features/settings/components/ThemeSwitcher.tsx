@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Card } from "./Card";
+import { ThemeStyleContext } from "../../../context/ThemeStyle";
+// import { ThemeModeContext } from "../../../context/ThemeMode";
 import styles from "../styles/ThemeSwitcher.module.css";
 
 // Icons
@@ -8,6 +10,8 @@ import Dawn_n_Dusk_darkPreview from "/img/Dawn_n_Dusk_darkPreview.png";
 import Aesthetics_Unbound_darkPreview from "/img/Aesthetic_Unbound_darkPreview.png";
 
 export const ThemeSwitcher: React.FC = () => {
+  const themeStyleContext = useContext(ThemeStyleContext);
+  // const themeModeContext = useContext(ThemeModeContext);
   const [Dawn_n_Dusk, setDawn_n_Dusk] = useState<boolean>(false);
   const [Cyber_Tech_01, setCyber_Tech_01] = useState<boolean>(false);
   const [Aesthetics_Unbound, setAesthetics_Unbound] = useState<boolean>(false);
@@ -17,7 +21,7 @@ export const ThemeSwitcher: React.FC = () => {
     if (!Dawn_n_Dusk) {
       setCyber_Tech_01(false);
       setAesthetics_Unbound(false);
-      localStorage.setItem("preferred-theme-pair", "Dawn_n_Dusk");
+      themeStyleContext?.setThemeStyle("Dawn_n_Dusk");
     }
   };
 
@@ -26,7 +30,7 @@ export const ThemeSwitcher: React.FC = () => {
     if (!Cyber_Tech_01) {
       setDawn_n_Dusk(false);
       setAesthetics_Unbound(false);
-      localStorage.setItem("preferred-theme-pair", "Cyber_Tech_01");
+      themeStyleContext?.setThemeStyle("Cyber_Tech_01");
     }
   };
 
@@ -35,35 +39,17 @@ export const ThemeSwitcher: React.FC = () => {
     if (!Aesthetics_Unbound) {
       setDawn_n_Dusk(false);
       setCyber_Tech_01(false);
-      localStorage.setItem("preferred-theme-pair", "Aesthetics_Unbound");
+      themeStyleContext?.setThemeStyle("Aesthetics_Unbound");
     }
   };
 
   //
   useEffect(() => {
-    const preferredThemePair = localStorage.getItem("preferred-theme-pair");
-    setDawn_n_Dusk(preferredThemePair === "Dawn_n_Dusk");
-    setCyber_Tech_01(preferredThemePair === "Cyber_Tech_01");
-    setAesthetics_Unbound(preferredThemePair === "Aesthetics_Unbound");
-  }, []);
+    setDawn_n_Dusk(themeStyleContext?.themeStyle === "Dawn_n_Dusk");
+    setCyber_Tech_01(themeStyleContext?.themeStyle === "Cyber_Tech_01");
+    setAesthetics_Unbound(themeStyleContext?.themeStyle === "Aesthetics_Unbound");
+  }, [themeStyleContext?.themeStyle]);
 
-  //
-  // For smooth applying of current theme
-  useEffect(() => {
-    const body = document.body;
-    const preferredTheme = localStorage.getItem("preferred-theme");
-    const preferredThemePair = localStorage.getItem("preferred-theme-pair");
-    // Remove all theme classes first
-    body.classList.remove(
-      "Dawn_n_Dusk-light",
-      "Dawn_n_Dusk-dark",
-      "Cyber_Tech_01-light",
-      "Cyber_Tech_01-dark",
-      "Aesthetics_Unbound-light",
-      "Aesthetics_Unbound-dark"
-    );
-    body.classList.add(`${preferredThemePair}-${preferredTheme}`);
-  });
 
   // ----------------------------------------------------------- //
   return (

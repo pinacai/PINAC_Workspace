@@ -6,11 +6,34 @@
 
 /* Sub-page Container */
 .subPageContainer {
-  width: 30%;
   height: auto;
-  margin: 20px;
+  margin: 15px 20px 20px 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 1440px) {
+  .subPageContainer {
+    width: 460px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .subPageContainer {
+    width: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .subPageContainer {
+    width: 228px;
+  }
+}
+
+@media (max-width: 576px) {
+  .subPageContainer {
+    display: none;
+  }
 }
 
 /* Chat Container */

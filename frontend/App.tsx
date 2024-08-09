@@ -1,5 +1,8 @@
+import { useContext, useEffect } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage } from "./pages/Home";
+import { ThemeModeContext } from "./context/ThemeMode";
+import { ThemeStyleContext } from "./context/ThemeStyle";
 import { SubPageProvider } from "./context/subPage";
 import "./App.css";
 
@@ -9,21 +12,29 @@ import Settings from "./features/settings/index";
 import Profile from "./features/profile/index";
 
 const App = () => {
-  // Setting the default theme
-  const preferredTheme = localStorage.getItem("preferred-theme");
-  const preferredThemePair = localStorage.getItem("preferred-theme-pair");
+  const themeModeContext = useContext(ThemeModeContext);
+  const themeStyleContext = useContext(ThemeStyleContext);
 
-  if (
-    preferredThemePair !== "Dawn_n_Dusk" &&
-    preferredThemePair !== "Cyber_Tech_01" &&
-    preferredThemePair !== "Aesthetics_Unbound"
-  ) {
-    localStorage.setItem("preferred-theme-pair", "Dawn_n_Dusk");
-  }
-  if (preferredTheme !== "light" && preferredTheme !== "dark") {
-    localStorage.setItem("preferred-theme", "light");
-  }
+  //
+  // For app applying theme
+  useEffect(() => {
+    const body = document.body;
+    // Remove all theme classes first
+    body.classList.remove(
+      "Dawn_n_Dusk-light",
+      "Dawn_n_Dusk-dark",
+      "Cyber_Tech_01-light",
+      "Cyber_Tech_01-dark",
+      "Aesthetics_Unbound-light",
+      "Aesthetics_Unbound-dark"
+    );
+    // Add desired theme pair with mode as user previous preference
+    body.classList.add(
+      `${themeStyleContext?.themeStyle}-${themeModeContext?.themeMode}`
+    );
+  });
 
+  // ---------------------------------------------------- //
   return (
     <Router>
       <Routes>

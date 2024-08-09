@@ -1,6 +1,6 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
-export const ThemeStyleContext = createContext<{
+const ThemeStyleContext = createContext<{
   themeStyle: string;
   setThemeStyle: React.Dispatch<React.SetStateAction<string>>;
 } | null>(null);
@@ -9,13 +9,25 @@ interface ThemeStyleProviderProps {
   children: React.ReactNode;
 }
 
-export const ThemeStyleProvider: React.FC<ThemeStyleProviderProps> = ({
+const ThemeStyleProvider: React.FC<ThemeStyleProviderProps> = ({
   children,
 }) => {
-  const [themeStyle, setThemeStyle] = useState("Dawn_n_Dusk");
+  // Initialize themeStyle state from localStorage or default
+  const [themeStyle, setThemeStyle] = useState(() => {
+    const style = localStorage.getItem("themeStyle");
+    return style ? style : "Dawn_n_Dusk";
+  });
+
+  // Update localStorage on themeStyle change
+  useEffect(() => {
+    localStorage.setItem("themeStyle", themeStyle);
+  }, [themeStyle]);
+
   return (
     <ThemeStyleContext.Provider value={{ themeStyle, setThemeStyle }}>
       {children}
     </ThemeStyleContext.Provider>
   );
 };
+
+export { ThemeStyleContext, ThemeStyleProvider };

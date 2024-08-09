@@ -215,7 +215,6 @@ export const InputPanel: React.FC<InputPanelProps> = ({
               localStorageVariableName={dropdowns[1].localStorageVariableName}
               searchBar={false}
             />
-            <button />
           </>
         ) : (
           // Render the current dropdown when on smaller screens
@@ -277,10 +276,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
               />
             </label>
             <label className={styles.optionsMenuBtn}>
-              <VscFilePdf
-                title="Add PDF"
-                className={styles.optionsMenuIcon}
-              />
+              <VscFilePdf title="Add PDF" className={styles.optionsMenuIcon} />
               <input
                 type="file"
                 accept=".pdf"
