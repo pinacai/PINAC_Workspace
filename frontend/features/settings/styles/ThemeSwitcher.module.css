@@ -4,7 +4,10 @@
   gap: 20px;
 }
 
-/* Responsive Styles */
+/* =========================== */
+/*     Responsive Styles       */
+/* =========================== */
+
 @container (max-width: 768px) {
   .themeCardContainer {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -14,5 +17,17 @@
 @container (max-width: 320px) {
   .themeCardContainer {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+@container (max-width: 280px) {
+  .themeCardContainer {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+
+@container (max-width: 228px) {
+  .themeCardContainer {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   }
 }

@@ -8,6 +8,10 @@
   box-shadow: var(--menubar-shadow);
 }
 
+.giveMargin {
+  margin: 0 0 0 20px;
+}
+
 .menuItems {
   display: flex;
   list-style-type: none;
@@ -26,9 +30,23 @@
   color: var(--menubar-active-text-color);
 }
 
-/* Responsive Styles */
-@media (max-width: 320px) {
+/* =========================== */
+/*     Responsive Styles       */
+/* =========================== */
+
+@container (max-width: 320px) {
   .menubar {
     margin: 0;
+  }
+}
+
+@container (max-width: 280px) {
+  .menuItem span {
+    font-size: small;
+  }
+
+  .menuItem {
+    padding: 5px 10px;
+    border-radius: 5px;
   }
 }

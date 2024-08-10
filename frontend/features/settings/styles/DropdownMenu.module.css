@@ -68,7 +68,10 @@
   background: var(--dropdownMenu-opt-hover-bg);
 }
 
-/* Responsive Styles */
+/* =========================== */
+/*     Responsive Styles       */
+/* =========================== */
+
 @container (max-width: 320px) {
   .dropdown .selector {
     width: 200px;

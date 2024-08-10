@@ -85,7 +85,10 @@
   box-shadow: 7px 5px 56px -10px var(--aboutBtn-shadow);
 }
 
-/* Responsive Styles */
+/* =========================== */
+/*     Responsive Styles       */
+/* =========================== */
+
 @container (max-width: 768px) {
   .aboutCard {
     width: 50%;

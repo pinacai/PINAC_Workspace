@@ -108,8 +108,10 @@
   border-bottom: 2px solid var(--headerTitle-underline-color);
 }
 
-/* ------------------ */
-/* Responsive Styles */
+/* =========================== */
+/*     Responsive Styles       */
+/* =========================== */
+
 @media (max-width: 992px) {
   .header {
     height: 60px;

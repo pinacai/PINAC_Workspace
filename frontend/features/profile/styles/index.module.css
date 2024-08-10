@@ -161,6 +161,7 @@
 @container (max-width: 768px) {
   .profileImg {
     height: 100px;
+    width: 100px;
     margin: 20px 0 20px 50px;
   }
 
@@ -183,8 +184,8 @@
   }
 
   .profileImg {
-    width: 100px;
     height: 100px;
+    width: 100px;
     margin: 0;
   }
 

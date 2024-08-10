@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styles from "./styles/Menubar.module.css";
 
 interface MenubarProps {
@@ -6,6 +7,8 @@ interface MenubarProps {
 }
 
 export const Menubar: React.FC<MenubarProps> = ({ menuItems }) => {
+  const location = useLocation();
+  const currentPath = location.pathname;
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   // active by default
@@ -21,7 +24,7 @@ export const Menubar: React.FC<MenubarProps> = ({ menuItems }) => {
   };
 
   return (
-    <nav className={styles.menubar}>
+    <nav className={`${styles.menubar} ${currentPath === "/" && styles.giveMargin}`}>
       <ul className={styles.menuItems}>
         {menuItems.map((item, index) => (
           <li
@@ -31,7 +34,7 @@ export const Menubar: React.FC<MenubarProps> = ({ menuItems }) => {
             }`}
             onClick={() => handleItemClick(index, item.onClick)}
           >
-            {item.label}
+            <span>{item.label}</span>
           </li>
         ))}
       </ul>

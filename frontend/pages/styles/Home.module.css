@@ -7,6 +7,7 @@
 /* Sub-page Container */
 .subPageContainer {
   height: auto;
+  padding: 10px 0;
   margin: 15px 20px 20px 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -69,8 +70,10 @@
   border-radius: 50px;
 }
 
-/* ------------------ */
-/* Responsive Styles */
+/* =========================== */
+/*     Responsive Styles       */
+/* =========================== */
+
 @container (max-width: 1200px) {
   .msgBox {
     padding-left: 10%;

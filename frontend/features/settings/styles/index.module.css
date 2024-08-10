@@ -81,6 +81,7 @@
 /* ============================ */
 /*     Responsive Styles        */
 /* ============================ */
+
 @container (max-width: 768px) {
   .section {
     margin-left: 40px;

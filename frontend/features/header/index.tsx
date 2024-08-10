@@ -66,7 +66,9 @@ export const Header: React.FC<HeaderProps> = ({
   // --------------------------------------------------- //
   return (
     <>
-      <div className={`${styles.pageHeader} ${!subPage && styles.homePageHeader}`}>
+      <div
+        className={`${styles.pageHeader} ${!subPage && styles.homePageHeader}`}
+      >
         <div className={styles.leftSide}>
           {subPage ? (
             <div>
@@ -131,9 +133,9 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
               {/* Special section at last for theme change */}
               <div
-                className={`${styles.dropdownLastMenu} ${
-                  styles.dropdownMenu
-                } ${isDropdownActive ? `${styles.active}` : ""}`}
+                className={`${styles.dropdownLastMenu} ${styles.dropdownMenu} ${
+                  isDropdownActive ? `${styles.active}` : ""
+                }`}
                 style={{ marginTop: "130px" }}
               >
                 <ul>
@@ -157,7 +159,7 @@ export const Header: React.FC<HeaderProps> = ({
           )}
           {/* Render the logout button only for Profile Page */}
           {location.pathname == "/profile" ||
-          subPageContext?.subPage == "/profile" ? (
+          (subPage && subPageContext?.subPage == "/profile") ? (
             <LogoutBtn changePage={navigate} />
           ) : null}
         </div>

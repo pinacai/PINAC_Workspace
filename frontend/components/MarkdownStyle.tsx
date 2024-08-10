@@ -48,6 +48,8 @@ const SyntaxHighlight = ({ children, code, ...props }: any) => {
   );
 };
 
+// =============================================================== //
+
 export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
   text,
   setButtonsDisabled,

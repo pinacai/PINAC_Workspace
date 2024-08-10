@@ -53,8 +53,10 @@
   transform: scale(0.95);
 }
 
-/* ------------------ */
-/* Responsive Styles */
+/* =========================== */
+/*     Responsive Styles       */
+/* =========================== */
+
 @media (max-width: 992px) {
   .newChatButton {
     padding: 5px 10px 5px 5px;

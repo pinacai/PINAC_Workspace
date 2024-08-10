@@ -6,7 +6,7 @@ import styles from "./styles/Sidebar.module.css";
 
 // Icons
 import { MdGroup } from "react-icons/md";
-import { IoMdSettings } from "react-icons/io";
+import { IoMdChatbubbles, IoMdSettings } from "react-icons/io";
 import { LuHistory } from "react-icons/lu";
 import defaultUserIcon from "/icon/user_icon.png";
 
@@ -17,12 +17,14 @@ export const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const subPageContext = useContext(SubPageContext);
   const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(false);
+  const [isChatIconVisible, setIsChatIconVisible] = useState<boolean>(false);
   const [userImageUrl] = useState<string | null>(null);
 
   //
   useEffect(() => {
     const handleResize = () => {
       setIsSidebarVisible(window.innerWidth >= BREAKPOINT);
+      setIsChatIconVisible(window.innerWidth <= BREAKPOINT2);
     };
 
     window.addEventListener("resize", handleResize);
@@ -72,6 +74,7 @@ export const Sidebar: React.FC = () => {
               />
             </li>
             <div className={styles.dividerLine} />
+            { isChatIconVisible && renderNavItem("/", IoMdChatbubbles) }
             {renderNavItem("/history", LuHistory)}
             {renderNavItem("/about", MdGroup)}
             {renderNavItem("/settings", IoMdSettings)}
