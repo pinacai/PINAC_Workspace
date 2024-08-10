@@ -26,12 +26,6 @@
 
 @media (max-width: 768px) {
   .subPageContainer {
-    width: 228px;
-  }
-}
-
-@media (max-width: 576px) {
-  .subPageContainer {
     display: none;
   }
 }

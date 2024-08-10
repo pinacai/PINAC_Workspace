@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import { SubPageHeader } from "../header/index";
+import { useLocation } from "react-router-dom";
+import { Header } from "../header/index";
 import styles from "./styles/index.module.css";
 
 // icons
 import profileImage from "/icon/user_icon.png";
 
 const Profile: React.FC = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [emailId, setEmailId] = useState<string>("");
@@ -73,7 +76,11 @@ const Profile: React.FC = () => {
   return (
     <>
       <div className={styles.profileContainer}>
-      <SubPageHeader title="Profile" />
+      {currentPath !== "/" ? (
+          <Header title="Profile" subPage={false} />
+        ) : (
+          <Header title="Profile" subPage={true} />
+        )}
         <div className={styles.profileCard}>
           <div>
             {/* ======= profile Image ======= */}

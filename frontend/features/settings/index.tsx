@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { SubPageHeader } from "../header";
+import { useLocation } from "react-router-dom";
+import { Header } from "../header";
 import { Menubar } from "../../components/Menubar";
 import { ThemeSwitcher } from "./components/ThemeSwitcher";
 import { LLMSelector } from "./components/LLMSelector";
@@ -7,6 +8,8 @@ import { DropdownMenu } from "./components/DropdownMenu";
 import styles from "./styles/index.module.css";
 
 const Settings: React.FC = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
   const [isPage1, setIsPage1] = useState<boolean>(true); // show by default
   const [isPage2, setIsPage2] = useState<boolean>(false);
   const [selectedLlmType, setSelectedLlmType] = useState<string>("Cloud LLM"); // default value
@@ -39,7 +42,11 @@ const Settings: React.FC = () => {
   return (
     <>
       <div className={styles.settingContainer}>
-        <SubPageHeader title="Settings" />
+        {currentPath !== "/" ? (
+          <Header title="Settings" subPage={false} />
+        ) : (
+          <Header title="Settings" subPage={true} />
+        )}
         <div className={styles.menubarContainer}>
           <Menubar menuItems={menuItems} />
         </div>

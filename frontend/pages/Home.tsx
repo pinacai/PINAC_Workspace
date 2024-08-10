@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import { Sidebar } from "../components/Sidebar";
-import { HomeHeader } from "../features/header/index";
+import { Header } from "../features/header/index";
 import { WelcomeText } from "../features/welcomeText/index";
 import ShowAiMessage from "../features/msgBubble/AiMsgBubble";
 import UserMsgBubble from "../features/msgBubble/UserMsgBubble";
@@ -103,7 +103,7 @@ export const HomePage: React.FC = () => {
           ) : null}
         </div>
         <div className={styles.chatContainer}>
-          <HomeHeader title="PINAC" clearChat={startNewChat} />
+          <Header title="PINAC" subPage={false} clearChat={startNewChat} />
           <StopTextGeneration.Provider value={{ stop, setStop }}>
             <div className={styles.msgBox}>
               {welcomeText && <WelcomeText />}

@@ -10,14 +10,20 @@ import styles from "./styles/index.module.css";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 
-interface HomeHeaderProps {
+interface HeaderProps {
   title: string;
-  clearChat: () => void;
+  subPage: boolean;
+  clearChat?: () => void;
 }
 
-export const HomeHeader: React.FC<HomeHeaderProps> = ({ title, clearChat }) => {
+export const Header: React.FC<HeaderProps> = ({
+  title,
+  subPage,
+  clearChat,
+}) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const subPageContext = useContext(SubPageContext);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
   const [isDropdownActive, setIsDropdownActive] = useState<boolean>(false);
@@ -25,7 +31,7 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ title, clearChat }) => {
   //
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 576) {
+      if (window.innerWidth < 460) {
         setIsMenuVisible(true);
       } else {
         setIsMenuVisible(false);
@@ -60,17 +66,37 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ title, clearChat }) => {
   // --------------------------------------------------- //
   return (
     <>
-      <div className={`${styles.pageHeader} ${styles.homePageHeader}`}>
+      <div className={`${styles.pageHeader} ${!subPage && styles.homePageHeader}`}>
         <div className={styles.leftSide}>
-          <div>
-            <span className={styles.homeTitle}>{title}</span>
-          </div>
-          {/* Render the menubar button */}
-          {isMenuVisible && (
+          {subPage ? (
+            <div>
+              <span className={styles.title}>{title}</span>
+              <div className={styles.bottomLine}></div>
+            </div>
+          ) : (
+            <div>
+              <span
+                className={
+                  location.pathname == "/"
+                    ? `${styles.homeTitle}`
+                    : `${styles.title}`
+                }
+              >
+                {title}
+              </span>
+              {location.pathname !== "/" ? (
+                <>
+                  <div className={styles.bottomLine}></div>
+                </>
+              ) : null}
+            </div>
+          )}
+          {/* Render the sidebar button */}
+          {isMenuVisible && !subPage && (
             <div className={styles.headerMenu} ref={dropdownMenuRef}>
               <div>
                 <button
-                  className={styles.home}
+                  className={location.pathname == "/" ? `${styles.home}` : ""}
                   onClick={() => setIsDropdownActive(!isDropdownActive)}
                 >
                   {isDropdownActive ? (
@@ -105,9 +131,9 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ title, clearChat }) => {
               </div>
               {/* Special section at last for theme change */}
               <div
-                className={`${styles.dropdownLastMenu} ${styles.dropdownMenu} ${
-                  isDropdownActive ? `${styles.active}` : ""
-                }`}
+                className={`${styles.dropdownLastMenu} ${
+                  styles.dropdownMenu
+                } ${isDropdownActive ? `${styles.active}` : ""}`}
                 style={{ marginTop: "130px" }}
               >
                 <ul>
@@ -125,35 +151,10 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ title, clearChat }) => {
           )}
         </div>
         <div className={styles.rightSide}>
-          <NewChatBtn clearChat={clearChat} />
-        </div>
-      </div>
-    </>
-  );
-};
-
-//
-//
-//
-interface SubPageHeaderProps {
-  title: string;
-}
-
-export const SubPageHeader: React.FC<SubPageHeaderProps> = ({ title }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const subPageContext = useContext(SubPageContext);
-
-  return (
-    <>
-      <div className={styles.pageHeader}>
-        <div className={styles.leftSide}>
-          <div>
-            <span className={styles.title}>{title}</span>
-            <div className={styles.bottomLine}></div>
-          </div>
-        </div>
-        <div className={styles.rightSide}>
+          {/* Render the new chat button only for Home Page */}
+          {location.pathname == "/" && clearChat && (
+            <NewChatBtn clearChat={clearChat} />
+          )}
           {/* Render the logout button only for Profile Page */}
           {location.pathname == "/profile" ||
           subPageContext?.subPage == "/profile" ? (

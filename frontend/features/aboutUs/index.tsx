@@ -1,14 +1,21 @@
-import React, { useEffect } from "react";
-import { SubPageHeader } from "../header/index";
+import React from "react";
+import { useLocation } from "react-router-dom";
+import { Header } from "../header/index";
 import styles from "./styles/index.module.css";
 
 const AboutUs: React.FC = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   // ---------------------------------------------------- //
   return (
     <>
       <div className={styles.aboutContainer}>
-        <SubPageHeader title="About Us" />
+        {currentPath !== "/" ? (
+          <Header title="About Us" subPage={false} />
+        ) : (
+          <Header title="About Us" subPage={true} />
+        )}
         <div className={styles.down}>
           <div className={styles.aboutCard}>
             <div className={styles.content}>

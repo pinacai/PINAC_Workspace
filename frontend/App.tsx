@@ -1,6 +1,8 @@
 import { useContext, useEffect } from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "./pages/Home";
+import { Sidebar } from "./components/Sidebar";
 import { ThemeModeContext } from "./context/ThemeMode";
 import { ThemeStyleContext } from "./context/ThemeStyle";
 import { SubPageProvider } from "./context/subPage";
@@ -11,7 +13,12 @@ import AboutUs from "./features/aboutUs/index";
 import Settings from "./features/settings/index";
 import Profile from "./features/profile/index";
 
+const BREAKPOINT = 768;
+
 const App = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const navigate = useNavigate();
   const themeModeContext = useContext(ThemeModeContext);
   const themeStyleContext = useContext(ThemeStyleContext);
 
@@ -34,50 +41,74 @@ const App = () => {
     );
   });
 
+  //
+  // For sub-pages
+  useEffect(() => {
+    const handleFunc = () => {
+      if (currentPath !== "/" && window.innerWidth > BREAKPOINT) {
+        navigate("/");
+      }
+    };
+    window.addEventListener("resize", handleFunc);
+    handleFunc();
+
+    return () => window.removeEventListener("resize", handleFunc);
+  }, [currentPath, navigate]);
+
   // ---------------------------------------------------- //
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <SubPageProvider>
-              <HomePage />
-            </SubPageProvider>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <>
-              <div className="container">
-                <Profile />
-              </div>
-            </>
-          }
-        />
-        <Route
-          path="/about"
-          element={
-            <>
-              <div className="container">
-                <AboutUs />
-              </div>
-            </>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <>
-              <div className="container">
-                <Settings />
-              </div>
-            </>
-          }
-        />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <SubPageProvider>
+            <HomePage />
+          </SubPageProvider>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <>
+            <Sidebar />
+            <div className="container">
+              <Profile />
+            </div>
+          </>
+        }
+      />
+      <Route
+        path="/history"
+        element={
+          <>
+            <Sidebar />
+            <div className="container" />
+          </>
+        }
+      />
+      <Route
+        path="/about"
+        element={
+          <>
+            <Sidebar />
+            <div className="container">
+              <AboutUs />
+            </div>
+          </>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <>
+            <Sidebar />
+            <div className="container">
+              <Settings />
+            </div>
+          </>
+        }
+      />
+    </Routes>
   );
 };
 

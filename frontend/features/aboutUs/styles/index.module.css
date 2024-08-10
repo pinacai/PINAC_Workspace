@@ -11,7 +11,7 @@
 }
 
 .aboutContainer::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 .aboutContainer::-webkit-scrollbar-thumb {
@@ -66,12 +66,11 @@
   padding-right: 33px;
   padding-bottom: 16px;
   padding-top: 16px;
-  border-radius: 9px;
+  border-radius: 10px;
   color: var(--text-color1);
   background: var(--aboutBtn-bg);
   border: none;
-  font-style: bold;
-  font-family: "Exo2", "Montserrat", sans-serif;
+  font: bold auto "Exo2", "Montserrat", sans-serif;
   text-align: center;
   cursor: pointer;
   transition: 0.4s;
@@ -113,7 +112,7 @@
   }
 }
 
-@container (max-width: 450px) {
+@container (max-width: 460px) {
   .aboutCard {
     width: 75%;
   }
@@ -147,5 +146,29 @@
 
   #aboutBtn {
     padding: 15px 10px;
+  }
+}
+
+@container (max-width: 228px) {
+  .aboutCard .header {
+    margin-bottom: 20px;
+  }
+
+  .aboutCard .header span {
+    font-size: large;
+  }
+
+  .aboutCard span {
+    font-size: small;
+  }
+
+  .content {
+    padding-bottom: 20%;
+  }
+
+  #aboutBtn {
+    padding: 10px 10px;
+    border-radius: 5px;
+    font: normal small "Exo2", "Montserrat", sans-serif;
   }
 }

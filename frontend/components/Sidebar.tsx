@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import { SubPageContext } from "../context/subPage";
 import styles from "./styles/Sidebar.module.css";
@@ -9,9 +10,11 @@ import { IoMdSettings } from "react-icons/io";
 import { LuHistory } from "react-icons/lu";
 import defaultUserIcon from "/icon/user_icon.png";
 
-const BREAKPOINT = 576;
+const BREAKPOINT = 460;
+const BREAKPOINT2 = 768;
 
 export const Sidebar: React.FC = () => {
+  const navigate = useNavigate();
   const subPageContext = useContext(SubPageContext);
   const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(false);
   const [userImageUrl] = useState<string | null>(null);
@@ -34,11 +37,19 @@ export const Sidebar: React.FC = () => {
   };
 
   //
+  const changePage = (subPage: string): void => {
+    changeSubPage(subPage);
+    if (window.innerWidth < BREAKPOINT2) {
+      navigate(subPage);
+    }
+  };
+
+  //
   const renderNavItem = (
     subPage: string,
     Icon: React.ElementType
   ): JSX.Element => (
-    <li onClick={() => changeSubPage(subPage)}>
+    <li onClick={() => changePage(subPage)}>
       <Icon size={30} />
     </li>
   );
@@ -53,7 +64,7 @@ export const Sidebar: React.FC = () => {
       <div className={styles.upperPart}>
         <nav>
           <ul>
-            <li onClick={() => changeSubPage("/profile")}>
+            <li onClick={() => changePage("/profile")}>
               <img
                 className={styles.userImage}
                 src={userImageUrl || defaultUserIcon}
