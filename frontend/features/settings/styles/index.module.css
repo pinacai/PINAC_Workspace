@@ -41,7 +41,8 @@
   margin-left: 50px;
   padding-top: 20px;
   padding-bottom: 20px;
-  border-bottom: 2px var(--SettingsBorder-color) solid;
+  color: var(--text-color-opposite);
+  border-bottom: 2px var(--settingsBorder-color) solid;
   display: flex;
   flex-direction: column;
 }

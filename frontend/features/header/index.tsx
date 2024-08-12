@@ -102,11 +102,11 @@ export const Header: React.FC<HeaderProps> = ({
                   onClick={() => setIsDropdownActive(!isDropdownActive)}
                 >
                   {isDropdownActive ? (
-                    <IoIosArrowUp size={25} color="var(--headerTitle-color)" />
+                    <IoIosArrowUp size={25} color="var(--text-color-iconic)" />
                   ) : (
                     <IoIosArrowDown
                       size={25}
-                      color="var(--headerTitle-color)"
+                      color="var(--text-color-iconic)"
                     />
                   )}
                 </button>

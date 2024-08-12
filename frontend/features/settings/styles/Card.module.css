@@ -38,6 +38,7 @@
 /* ------------------- */
 .themeCardDesc span {
   margin-left: 10px;
+  color: var(--text-color-opposite);
 }
 
 /*       Checkbox      */

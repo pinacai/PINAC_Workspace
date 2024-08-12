@@ -10,7 +10,8 @@
   padding: 10px 0;
   margin: 15px 20px 20px 20px;
   border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background: var(--primary-color);
+  box-shadow: var(--shadow);
 }
 
 @media (max-width: 1440px) {

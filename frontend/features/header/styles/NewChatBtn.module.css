@@ -2,7 +2,7 @@
   width: auto;
   height: auto;
   background: var(--newChatBtn-after-color);
-  color: var(--text-color1);
+  color: var(--text-color-light);
   border: none;
   box-shadow: var(--newChatBtn-shadow);
   padding: 5px 15px 5px 5px;

@@ -22,129 +22,147 @@
 /* ====================================================*/
 
 /* Theme 1: Dawn_n_Dusk */
+
 .Dawn_n_Dusk-light {
-  /* Common */
-  --primary-color: #f5f7fa;
+  /* General */
+  --primary-color: #f5f5f5;
   --secondary-color: #1f2937;
-  --text-color1: #ffffff;
-  --text-color2: #1f2937;
-  --placeholder-text-color: #666666;
-  --inputGroup-bg: #ffffff;
-  --inputGroup-border-color: grey;
-  --inputGroupBtn-hover-color: #e0e4e8;
-  --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  --tertiary-color: #2196f3;
+  --quaternary-color: #d3d3d3;
+  --quinary-color: #ffffff;
 
-  /* Sidebar */
-  --sidebar-hover-color: rgba(255, 255, 255, 0.1);
-  --sidebar-color: #1f2937;
-  --sidebar-shadow: none;
-  --sidebar-present-page-color: var(--primary-color);
-  --sidebar-present-page-shadow: none;
+  --text-color-light: #ffffff;
+  --text-color-opposite: #000000;
+  --text-color-iconic: #1f2937;
+  --placeholder-color: #666666;
 
-  /* Header */
-  --headerMenu-btn-hover-bg: #e0e4e8;
-  --headerMenu-bg: #ffffff;
-  --headerMenu-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  --headerTitle-color: #1f2937;
-  --headerTitle-underline-color: #6c82ff;
-  --newChatBtn-color: #1f2937;
-  --newChatBtn-after-color: #6c82ff;
-  --newChatBtn-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  --inputBox-bg: var(--primary-color);
+  --inputBox-border-color: transparent;
+  --inputBoxBtn-hover-color: rgba(108, 108, 108, 0.15);
+  --inputBox-shadow: var(--shadow);
 
-  /* MessageBubble */
-  --humanMsg-bg: #1f2937;
-  --humanMsg-bg-shadow: none;
-  --aiMsg-bg: #ffffff;
-  --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  --aiLoader-primary: var(--primary-color);
-  --aiLoader-secondary: #656e7a;
+  --shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  --dark-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  --hover-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
   --copyBtn-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
 
+  /* Sidebar */
+  --sidebar-color: var(--secondary-color);
+  --sidebar-hover-color: rgba(255, 255, 255, 0.1);
+  --sidebar-shadow: none;
+
+  /* Header */
+  --headerMenu-btn-hover-bg: var(--quaternary-color);
+  --headerMenu-bg: var(--quaternary-color);
+  --headerMenu-shadow: var(--dark-shadow);
+  --headerTitle-color: var(--text-color-iconic);
+  --headerTitle-underline-color: var(--tertiary-color);
+  --newChatBtn-color: var(--secondary-color);
+  --newChatBtn-after-color: var(--tertiary-color);
+  --newChatBtn-shadow: var(--shadow);
+
+  /* MessageBubble */
+  --userMsg-bg: var(--secondary-color);
+  --userMsg-bg-shadow: none;
+  --aiMsg-bg: var(--primary-color);
+  --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  --aiLoader-primary: var(--primary-color);
+  --aiLoader-secondary: #656e7a;
+
   /* DropdownMenu */
-  --dropdownBtn-bg: #e0e4e8;
+  --dropdownBtn-bg: var(--quaternary-color);
   --dropdownBtn-hover-bg: rgba(0, 0, 0, 0.3);
-  --dropdownBtn-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
-  --dropdownMenu-bg: #e0e4e8;
-  --dropdownMenu-opt-hover-bg: #6c82ff;
-  --dropdownMenu-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  --dropdownBtn-shadow: none;
+  --dropdownMenu-bg: var(--quaternary-color);
+  --dropdownMenu-shadow: var(--dark-shadow);
+  --dropdownMenu-opt-hover-bg: var(--secondary-color);
 
   /* Menubar */
-  --menubar-bg: #e0e4e8;
-  --menubar-active-item-bg: #1f2937;
-  --menubar-active-text-color: var(--text-color1);
+  --menubar-bg: var(--quaternary-color);
+  --menubar-active-item-bg: var(--secondary-color);
+  --menubar-shadow: none;
 
   /* HomePage */
   --welcomeText-gradient: linear-gradient(125deg, #ff7300, #f12b6d, #0026ff);
 
   /* ProfilePage */
-  --profile-input-border-color: rgba(105, 105, 105, 0.397);
+  --profile-input-border-color: var(--quaternary-color);
   --profile-input-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  --profile-input-valid-color: green;
-  --profile-btn-bg: #1f2937;
+  --profile-input-valid-color: rgb(7, 134, 7);
+  --profile-btn-bg: var(--secondary-color);
+  --profileBtn-hover-shadow: var(--secondary-color);
 
   /* AboutPage */
-  --aboutCard-bg: #ffffff;
-  --aboutCard-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  --aboutBtn-bg: #1f2937;
-  --aboutBtn-shadow: #1f2937;
+  --aboutCard-bg: var(--primary-color);
+  --aboutCard-shadow: var(--shadow);
+  --aboutBtn-bg: var(--secondary-color);
+  --aboutBtn-shadow: var(--secondary-color);
 
   /* SettingsPage */
-  --SettingsBorder-color: #cccccc;
-  --themeCard-bg: transparent;
-  --themeCard-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  --themeCard-hover-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  --settingsBorder-color: var(--quaternary-color);
+  --themeCard-bg: var(--quaternary-color);
+  --themeCard-shadow: none;
+  --themeCard-hover-shadow: var(--hover-shadow);
 }
 
 .Dawn_n_Dusk-dark {
-  /* Common */
+  /* General */
   --primary-color: #121212;
   --secondary-color: #3c3c3c;
-  --text-color1: #ffffff;
-  --text-color2: #ffffff;
-  --placeholder-text-color: #bebebe;
-  --inputGroup-bg: #3c3c3c;
-  --inputGroup-border-color: #5e43f3;
-  --inputGroupBtn-hover-color: #6e6e6e;
-  --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 5);
+  --tertiary-color: #5e43f3;
+  --tertiary-linear-gradient: linear-gradient(135deg, #5e43f3, #382bf0);
+  --quaternary-color: #252525;
+
+  --text-color-light: #ffffff;
+  --text-color-opposite: #ffffff;
+  --text-color-iconic: #f5f7fa;
+  --placeholder-color: #bebebe;
+
+  --inputBox-bg: var(--secondary-color);
+  --inputBox-border-color: transparent;
+  --inputBoxBtn-hover-color: rgba(108, 108, 108, 0.4);
+  --inputBox-shadow: var(--shadow);
+
+  --shadow: 0 0 10px rgba(0, 0, 0, 5);
+  --dark-shadow: 0 0 10px rgba(0, 0, 0);
+  --hover-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+  --copyBtn-shadow: 0 0 2px rgba(0, 0, 0);
 
   /* Sidebar */
-  --sidebar-hover-color: linear-gradient(135deg, #5e43f3, #382bf0);
-  --sidebar-color: #3c3c3c;
+  --sidebar-color: var(--secondary-color);
+  --sidebar-hover-color: var(--tertiary-linear-gradient);
   --sidebar-shadow: none;
-  --sidebar-present-page-color: var(--primary-color);
-  --sidebar-present-page-shadow: none;
 
   /* Header */
-  --headerMenu-btn-hover-bg: #3c3c3c;
-  --headerMenu-bg: #3c3c3c;
-  --headerMenu-shadow: 0 0 20px #000;
-  --headerTitle-color: #f5f7fa;
-  --headerTitle-underline-color: #5e43f3;
-  --newChatBtn-color: #3c3c3c;
-  --newChatBtn-after-color: linear-gradient(135deg, #5e43f3, #382bf0);
+  --headerMenu-bg: var(--secondary-color);
+  --headerMenu-btn-hover-bg: var(--secondary-color);
+  --headerMenu-shadow: var(--shadow);
+  --headerTitle-color: var(--text-color-iconic);
+  --headerTitle-underline-color: var(--tertiary-color);
+  --newChatBtn-color: var(--secondary-color);
+  --newChatBtn-after-color: var(--tertiary-linear-gradient);
   --newChatBtn-shadow: none;
 
   /* MessageBubble */
-  --humanMsg-bg: #382bf0;
-  --humanMsg-bg-shadow: none;
-  --aiMsg-bg: #252525;
-  --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  --aiLoader-primary: #252525;
+  --userMsg-bg: var(--tertiary-linear-gradient);
+  --userMsg-bg-shadow: none;
+  --aiMsg-bg: var(--quaternary-color);
+  --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  --aiLoader-primary: var(--quaternary-color);
   --aiLoader-secondary: #757575;
-  --copyBtn-shadow: 0 0 3px #000000;
 
   /* DropdownMenu */
-  --dropdownBtn-bg: #3c3c3c;
+  --dropdownBtn-bg: var(--secondary-color);
   --dropdownBtn-hover-bg: rgba(255, 255, 255, 0.1);
-  --dropdownBtn-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-  --dropdownMenu-bg: #3c3c3c;
-  --dropdownMenu-opt-hover-bg: linear-gradient(135deg, #5e43f3, #382bf0);
-  --dropdownMenu-shadow: 0 0 20px #000;
+  --dropdownBtn-shadow: none;
+  --dropdownMenu-bg: var(--secondary-color);
+  --dropdownMenu-shadow: var(--dark-shadow);
+  --dropdownMenu-opt-hover-bg: var(--tertiary-linear-gradient);
 
   /* Menubar */
-  --menubar-bg: #3c3c3c;
-  --menubar-active-item-bg: linear-gradient(135deg, #5e43f3, #382bf0);
-  --menubar-item-hover-bg: rgba(255, 255, 255, 0.1);
+  --menubar-bg: var(--secondary-color);
+  --menubar-active-item-bg: var(--tertiary-linear-gradient);
+  --menubar-shadow: none;
 
   /* HomePage */
   --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #f12b6d, #0026ff);
@@ -152,25 +170,27 @@
   /* ProfilePage */
   --profile-input-border-color: none;
   --profile-input-shadow: none;
-  --profile-input-valid-color: #655beb;
-  --profile-btn-bg: #382bf0;
+  --profile-input-valid-color: var(--tertiary-color);
+  --profileBtn-bg: var(--tertiary-linear-gradient);
+  --profileBtn-hover-shadow: var(--tertiary-color);
 
   /* AboutPage */
-  --aboutCard-bg: #252525;
-  --aboutCard-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
-  --aboutBtn-bg: linear-gradient(135deg, #5e43f3, #382bf0);
-  --aboutBtn-shadow: #382bf0;
+  --aboutCard-bg: var(--secondary-color);
+  --aboutCard-shadow: var(--shadow);
+  --aboutBtn-bg: var(--tertiary-linear-gradient);
+  --aboutBtn-shadow: var(--tertiary-color);
 
   /* SettingsPage */
-  --SettingsBorder-color: #3c3c3c;
-  --themeCard-bg: #3c3c3c;
-  --themeCard-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-  --themeCard-hover-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+  --settingsBorder-color: var(--secondary-color);
+  --themeCard-bg: var(--secondary-color);
+  --themeCard-shadow: none;
+  --themeCard-hover-shadow: var(--hover-shadow);
 }
 
 /*  Theme 2: Cyber_Tech_01 */
+
 .Cyber_Tech_01-light {
-  /* Common */
+  /* General */
   --primary-color: #bdc8d3;
   --secondary-color: #153fc5;
   --text-color1: #ece2d5;
@@ -199,8 +219,8 @@
   --newChatBtn-shadow: none;
 
   /* MessageBubble */
-  --humanMsg-bg: #153fc5;
-  --humanMsg-bg-shadow: none;
+  --userMsg-bg: #153fc5;
+  --userMsg-bg-shadow: none;
   --aiMsg-bg: #e2e8f0;
   --aiMsg-bg-shadow: 0 0 5px #808f9e;
   --aiLoader-primary: #e2e8f0;
@@ -236,136 +256,149 @@
   --aboutBtn-shadow: #153fc5;
 
   /* SettingsPage */
-  --SettingsBorder-color: #ece2d5;
+  --settingsBorder-color: #ece2d5;
   --themeCard-bg: #e2e8f0;
   --themeCard-shadow: 0 0 10px #a3b3c4;
   --themeCard-hover-shadow: 0 0 10px #607080;
 }
 
 .Cyber_Tech_01-dark {
-  /* Common */
+  /* General */
   --primary-color: #0c0a18;
-  --secondary-color: linear-gradient(125deg, #0026ff, #5b00af);
-  --text-color1: #ece2d5;
-  --text-color2: #ece2d5;
-  --placeholder-text-color: #b9b9b9;
-  --inputGroup-bg: rgba(109, 108, 108, 0.15);
-  --inputGroup-border-color: #433788;
-  --inputGroupBtn-hover-color: rgba(109, 108, 108, 0.15);
-  --inputGroup-shadow: 0 0 2px #ece2d5;
+  --secondary-color: rgba(108, 108, 108, 0.15);
+  --secondary-color-opaque: #1a1924;
+  --tertiary-color: #0026ff;
+  --tertiary-linear-gradient: linear-gradient(125deg, #0026ff, #5b00af);
+
+  --text-color-light: #ece2d5;
+  --text-color-opposite: #ece2d5;
+  --text-color-iconic: #ece2d5;
+  --placeholder-color: #b9b9b9;
+
+  --inputBox-bg: var(--secondary-color);
+  --inputBox-border-color: transparent;
+  --inputBoxBtn-hover-color: var(--secondary-color);
+  --inputBox-shadow: var(--shadow);
+
+  --shadow: 0 0 2px #ece2d5;
+  --hover-shadow: 0 0 10px #857e76;
+  --copyBtn-shadow: var(--shadow);
 
   /* Sidebar */
-  --sidebar-hover-color: linear-gradient(125deg, #0026ff, #5b00af);
-  --sidebar-color: #0c0a18;
-  --sidebar-shadow: 0 0 2px #ece2d5;
-  --sidebar-present-page-color: #6d6c6c26;
-  --sidebar-present-page-shadow: 0 0 2px #ece2d5;
+  --sidebar-color: var(--primary-color);
+  --sidebar-hover-color: var(--tertiary-linear-gradient);
+  --sidebar-shadow: var(--shadow);
 
   /* Header */
-  --headerMenu-btn-hover-bg: rgba(109, 108, 108, 0.2);
+  --headerMenu-btn-hover-bg: var(--secondary-color);
   --headerMenu-bg: #1a1924b3;
-  --headerMenu-shadow: 0 0 2px #ece2d5;
-  --headerTitle-color: #ece2d5;
-  --headerTitle-underline-color: #5e43f3;
-  --newChatBtn-color: #1a1924;
-  --newChatBtn-after-color: var(--secondary-color);
-  --newChatBtn-shadow: 0 0 2px #ece2d5;
+  --headerMenu-shadow: var(--shadow);
+  --headerTitle-underline-color: var(--tertiary-color);
+  --newChatBtn-color: var(--secondary-color-opaque);
+  --newChatBtn-after-color: var(--tertiary-color);
+  --newChatBtn-shadow: var(--shadow);
 
   /* MessageBubble */
-  --humanMsg-bg: linear-gradient(125deg, #0026ff, #5b00af);
-  --humanMsg-bg-shadow: none;
-  --aiMsg-bg: rgba(109, 108, 108, 0.15);
-  --aiMsg-bg-shadow: 0 0 2px #ece2d5;
-  --aiLoader-primary: rgba(109, 108, 108, 0.1);
+  --userMsg-bg: var(--tertiary-linear-gradient);
+  --userMsg-bg-shadow: none;
+  --aiMsg-bg: var(--secondary-color);
+  --aiMsg-bg-shadow: var(--shadow);
+  --aiLoader-primary: var(--secondary-color);
   --aiLoader-secondary: #ece2d5;
-  --copyBtn-shadow: 0 0 2px #ece2d5;
 
   /* DropdownMenu */
-  --dropdownBtn-bg: rgba(109, 108, 108, 0.15);
+  --dropdownBtn-bg: var(--secondary-color);
   --dropdownBtn-hover-bg: rgba(255, 255, 255, 0.1);
-  --dropdownBtn-shadow: 0 0 2px #ece2d5;
+  --dropdownBtn-shadow: var(--shadow);
   --dropdownMenu-bg: rgba(26, 25, 36, 0.8);
-  --dropdownMenu-opt-hover-bg: linear-gradient(125deg, #0026ff, #5b00af);
-  --dropdownMenu-shadow: 0 0 2px #ece2d5;
+  --dropdownMenu-shadow: var(--shadow);
+  --dropdownMenu-opt-hover-bg: var(--tertiary-linear-gradient);
 
   /* Menubar */
-  --menubar-bg: rgba(109, 108, 108, 0.15);
-  --menubar-shadow: 0 0 2px #ece2d5;
-  --menubar-active-item-bg: linear-gradient(125deg, #0026ff, #5b00af);
-  --menubar-item-hover-bg: rgba(255, 255, 255, 0.1);
+  --menubar-bg: var(--secondary-color);
+  --menubar-active-item-bg: var(--tertiary-linear-gradient);
+  --menubar-shadow: var(--shadow);
 
   /* HomePage */
   --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #f12b6d, #0026ff);
 
   /* ProfilePage */
   --profile-input-border-color: none;
-  --profile-input-shadow: 0 0 2px #ece2d5;
-  --profile-input-valid-color: #0026ff;
-  --profile-btn-bg: linear-gradient(125deg, #0026ff, #5b00af);
+  --profile-input-shadow: var(--shadow);
+  --profile-input-valid-color: var(--tertiary-color);
+  --profileBtn-bg: var(--tertiary-linear-gradient);
+  --profileBtn-hover-shadow: var(--tertiary-color);
 
   /* AboutPage */
-  --aboutCard-bg: rgba(109, 108, 108, 0.15);
-  --aboutCard-shadow: 0 0 2px #ece2d5;
-  --aboutBtn-bg: linear-gradient(125deg, #0026ff, #5b00af);
-  --aboutBtn-shadow: #0026ff;
+  --aboutCard-bg: var(--secondary-color);
+  --aboutCard-shadow: var(--shadow);
+  --aboutBtn-bg: var(--tertiary-linear-gradient);
+  --aboutBtn-shadow: var(--tertiary-color);
 
   /* SettingsPage */
-  --SettingsBorder-color: #3c3c3c;
-  --themeCard-bg: rgba(109, 108, 108, 0.15);
-  --themeCard-shadow: 0 0 2px #ece2d5;
-  --themeCard-hover-shadow: 0 0 10px #857e76;
+  --settingsBorder-color: #3c3c3c;
+  --themeCard-bg: var(--secondary-color);
+  --themeCard-shadow: var(--shadow);
+  --themeCard-hover-shadow: var(--hover-shadow);
 }
 
 /* Theme 3: Aesthetics_Unbound */
+
 .Aesthetics_Unbound-light {
-  /* Common */
+  /* General */
   --primary-color: #fff4e4;
   --secondary-color: #2b1a12;
-  --text-color1: #fff4e4;
-  --text-color2: #000000;
-  --placeholder-text-color: #77716c;
-  --inputGroup-bg: #ffffff;
-  --inputGroup-border-color: #dc6d18;
-  --inputGroupBtn-hover-color: #f8e0c9;
-  --inputGroup-shadow: 0 0 10px rgba(43, 26, 18, 0.5);
+  --tertiary-color: #dc6d18;
+  --quaternary-color: #f8e0c9;
+
+  --text-color-light: #fff4e4;
+  --text-color-opposite: #000000;
+  --text-color-iconic: #524b44;
+  --placeholder-color: #77716c;
+
+  --inputBox-bg: var(--primary-color);
+  --inputBox-border-color: var(--tertiary-color);
+  --inputBoxBtn-hover-color: var(--quaternary-color);
+  --inputBox-shadow: var(--shadow);
+
+  --shadow: 0 0 5px rgba(43, 26, 18, 0.5);
+  --shadow-wide: 0 0 10px rgba(43, 26, 18, 0.5);
+  --hover-shadow: 0 0 15px rgba(43, 26, 18, 0.8);
+  --copyBtn-shadow: 0 0 2px #2b1a12;
 
   /* Sidebar */
   --sidebar-hover-color: rgba(255, 255, 255, 0.2);
-  --sidebar-color: #2b1a12;
+  --sidebar-color: var(--secondary-color);
   --sidebar-shadow: none;
-  --sidebar-present-page-color: var(--primary-color);
-  --sidebar-present-page-shadow: none;
 
   /* Header */
-  --headerMenu-btn-hover-bg: #f8e0c9;
-  --headerMenu-bg: #f8e0c9;
-  --headerMenu-shadow: 0 0 5px rgba(43, 26, 18, 0.5);
-  --headerTitle-color: #524b44;
-  --headerTitle-underline-color: #dc6d18;
+  --headerMenu-btn-hover-bg: var(--quaternary-color);
+  --headerMenu-bg: var(--quaternary-color);
+  --headerMenu-shadow: var(--shadow);
+  --headerTitle-underline-color: var(--tertiary-color);
   --newChatBtn-color: #635a51;
-  --newChatBtn-after-color: #dc6d18;
+  --newChatBtn-after-color: var(--tertiary-color);
   --newChatBtn-shadow: none;
 
   /* MessageBubble */
-  --humanMsg-bg: #2b1a12;
-  --humanMsg-bg-shadow: none;
-  --aiMsg-bg: #f8e0c9;
+  --userMsg-bg: var(--secondary-color);
+  --userMsg-bg-shadow: none;
+  --aiMsg-bg: var(--quaternary-color);
   --aiMsg-bg-shadow: none;
-  --aiLoader-primary: #f8e0c9;
+  --aiLoader-primary: var(--quaternary-color);
   --aiLoader-secondary: #866454;
-  --copyBtn-shadow: 0 0 2px #2b1a12;
 
   /* DropdownMenu */
-  --dropdownBtn-bg: #f8e0c9;
+  --dropdownBtn-bg: var(--quaternary-color);
   --dropdownBtn-hover-bg: #b1aa81;
-  --dropdownBtn-shadow: 0 0 5px rgba(43, 26, 18, 0.4);
-  --dropdownMenu-bg: #f8e0c9;
+  --dropdownBtn-shadow: var(--shadow);
+  --dropdownMenu-bg: var(--quaternary-color);
   --dropdownMenu-opt-hover-bg: #b1aa81;
-  --dropdownMenu-shadow: 0 0 10px rgba(43, 26, 18, 0.5);
+  --dropdownMenu-shadow: var(--shadow-wide);
 
   /* Menubar */
-  --menubar-bg: #f8e0c9;
-  --menubar-active-item-bg: #dc6d18;
+  --menubar-bg: var(--quaternary-color);
+  --menubar-active-item-bg: var(--tertiary-color);
   --menubar-item-hover-bg: transparent;
 
   /* HomePage */
@@ -374,71 +407,76 @@
   /* ProfilePage */
   --profile-input-border-color: #ccac93;
   --profile-input-shadow: none;
-  --profile-input-valid-color: #dc6d18;
-  --profile-btn-bg: #dc6d18;
+  --profile-input-valid-color: var(--tertiary-color);
+  --profile-btn-bg: var(--tertiary-color);
 
   /* AboutPage */
-  --aboutCard-bg: #f8e0c9;
-  --aboutCard-shadow: 0 0 10px rgba(43, 26, 18, 0.5);
-  --aboutBtn-bg: #dc6d18;
+  --aboutCard-bg: var(--quaternary-color);
+  --aboutCard-shadow: var(--shadow-wide);
+  --aboutBtn-bg: var(--tertiary-color);
   --aboutBtn-shadow: #9b4300;
 
   /* SettingsPage */
-  --SettingsBorder-color: #dc6d18;
-  --themeCard-bg: #f8e0c9;
-  --themeCard-shadow: 0 0 10px rgba(43, 26, 18, 0.5);
-  --themeCard-hover-shadow: 0 0 15px rgba(43, 26, 18, 0.8);
+  --settingsBorder-color: var(--tertiary-color);
+  --themeCard-bg: var(--quaternary-color);
+  --themeCard-shadow: var(--shadow-wide);
+  --themeCard-hover-shadow: var(--hover-shadow);
 }
 
 .Aesthetics_Unbound-dark {
-  /* Common */
+  /* General */
   --primary-color: #322c2b;
   --secondary-color: #1a1515;
-  --text-color1: #f0ebe7;
-  --text-color2: #d1c7bb;
-  --placeholder-text-color: #645f58;
-  --inputGroup-bg: #1a1515;
-  --inputGroup-border-color: #d83b26b7;
-  --inputGroupBtn-hover-color: #322c2b;
-  --inputGroup-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  --tertiary-color: #3c3c3c;
+  --quaternary-color: #d83b26b7;
 
-  /* Sidebar */
-  --sidebar-hover-color: rgba(0, 0, 0, 0.3);
-  --sidebar-color: #1a1515;
-  --sidebar-shadow: none;
-  --sidebar-present-page-color: var(--primary-color);
-  --sidebar-present-page-shadow: none;
+  --text-color-light: #f0ebe7;
+  --text-color-opposite: #d1c7bb;
+  --text-color-iconic: #d1c7bb;
+  --placeholder-color: #645f58;
 
-  /* Header */
-  --headerMenu-btn-hover-bg: #3c3c3c;
-  --headerMenu-bg: #3c3c3c;
-  --headerMenu-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  --headerTitle-color: #d1c7bb;
-  --headerTitle-underline-color: #d83b26b7;
-  --newChatBtn-color: #322c2b;
-  --newChatBtn-after-color: #d83b26b7;
-  --newChatBtn-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+  --inputBox-bg: var(--secondary-color);
+  --inputBox-border-color: var(--quaternary-color);
+  --inputBoxBtn-hover-color: var(--primary-color);
+  --inputBox-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
-  /* MessageBubble */
-  --humanMsg-bg: #d83b26b7;
-  --humanMsg-bg-shadow: none;
-  --aiMsg-bg: #3c3c3c;
-  --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
-  --aiLoader-primary: #3c3c3c;
-  --aiLoader-secondary: #d66455b7;
+  --shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  --hover-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
   --copyBtn-shadow: 0 0 2.5px #000000;
 
+  /* Sidebar */
+  --sidebar-color: var(--secondary-color);
+  --sidebar-hover-color: rgba(0, 0, 0, 0.3);
+  --sidebar-shadow: none;
+
+  /* Header */
+  --headerMenu-btn-hover-bg: var(--tertiary-color);
+  --headerMenu-bg: var(--tertiary-color);
+  --headerMenu-shadow: var(--shadow);
+  --headerTitle-underline-color: var(--quaternary-color);
+  --newChatBtn-color: var(--tertiary-color);
+  --newChatBtn-after-color: var(--quaternary-color);
+  --newChatBtn-shadow: var(--shadow);
+
+  /* MessageBubble */
+  --userMsg-bg: var(--quaternary-color);
+  --userMsg-bg-shadow: none;
+  --aiMsg-bg: var(--tertiary-color);
+  --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  --aiLoader-primary: var(--tertiary-color);
+  --aiLoader-secondary: #d66455b7;
+
   /* DropdownMenu */
-  --dropdownBtn-bg: #3c3c3c;
+  --dropdownBtn-bg: var(--tertiary-color);
   --dropdownBtn-hover-bg: #555555;
-  --dropdownBtn-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  --dropdownMenu-bg: #3c3c3c;
-  --dropdownMenu-opt-hover-bg: #d83b26b7;
-  --dropdownMenu-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  --dropdownBtn-shadow: var(--shadow);
+  --dropdownMenu-bg: var(--tertiary-color);
+  --dropdownMenu-opt-hover-bg: var(--quaternary-color);
+  --dropdownMenu-shadow: var(--shadow);
 
   /* Menubar */
-  --menubar-bg: #3c3c3c;
-  --menubar-active-item-bg: #d83b26b7;
+  --menubar-bg: var(--tertiary-color);
+  --menubar-active-item-bg: var(--quaternary-color);
   --menubar-item-hover-bg: transparent;
 
   /* HomePage */
@@ -446,21 +484,22 @@
 
   /* ProfilePage */
   --profile-input-border-color: #68433db7;
-  --profile-input-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  --profile-input-valid-color: #d83b26b7;
-  --profile-btn-bg: #d83b26b7;
+  --profile-input-shadow: var(--shadow);
+  --profile-input-valid-color: var(--quaternary-color);
+  --profileBtn-bg: var(--quaternary-color);
+  --profileBtn-hover-shadow: var(--quaternary-color);
 
   /* AboutPage */
-  --aboutCard-bg: #3c3c3c;
-  --aboutCard-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  --aboutBtn-bg: #d83b26b7;
-  --aboutBtn-shadow: #d83b26b7;
+  --aboutCard-bg: var(--tertiary-color);
+  --aboutCard-shadow: var(--shadow);
+  --aboutBtn-bg: var(--quaternary-color);
+  --aboutBtn-shadow: var(--quaternary-color);
 
   /* SettingsPage */
-  --SettingsBorder-color: #d83b26b7;
-  --themeCard-bg: #3c3c3c;
-  --themeCard-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  --themeCard-hover-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  --settingsBorder-color: var(--quaternary-color);
+  --themeCard-bg: var(--tertiary-color);
+  --themeCard-shadow: var(--shadow);
+  --themeCard-hover-shadow: var(--hover-shadow);
 }
 
 /* ====================================================*/

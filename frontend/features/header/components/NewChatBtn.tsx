@@ -14,7 +14,7 @@ export const NewChatBtn: React.FC<NewChatBtnProps> = ({clearChat}) => {
       <button className={styles.newChatButton} onClick={clearChat}>
         <IoAddCircleOutline
           size={30}
-          color="var(--text-color1)"
+          color="var(--text-color-light)"
           style={{ zIndex: 2 }}
         />
         <span>New Chat</span>

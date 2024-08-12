@@ -38,6 +38,7 @@
 .msg_name {
   font-weight: bold;
   margin-bottom: 5px;
+  color: var(--text-color-opposite);
   font-family: "ai-text", "Montserrat", sans-serif;
 }
 
@@ -48,14 +49,14 @@
 }
 
 .human_msg {
-  color: var(--text-color1);
-  background: var(--humanMsg-bg);
-  box-shadow: var(--humanMsg-bg-shadow);
+  color: var(--text-color-light);
+  background: var(--userMsg-bg);
+  box-shadow: var(--userMsg-bg-shadow);
 }
 
 .ai_msg {
   background: var(--aiMsg-bg);
-  color: var(--text-color2);
+  color: var(--text-color-opposite);
   font: normal large "Exo2", "Montserrat", sans-serif;
   line-height: 1.4;
   letter-spacing: 0.3px;
@@ -79,7 +80,7 @@
   cursor: pointer;
   background: var(--aiMsg-bg);
   backdrop-filter: blur(10px);
-  color: var(--text-color2);
+  color: var(--text-color-opposite);
   font: normal small "Exo2", "Montserrat", sans-serif;
   box-shadow: var(--copyBtn-shadow);
 }

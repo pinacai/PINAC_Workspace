@@ -2,7 +2,7 @@
 .pageHeader {
   height: 60px;
   width: 100%;
-  color: var(--headerTitle-color);
+  color: var(--text-color-iconic);
   background-color: transparent;
   padding: 10px 20px 10px 20px;
   display: flex;
@@ -40,6 +40,7 @@
 
 .leftSide button.home {
   margin-top: 3px;
+  color: var(--text-color-iconic)
 }
 
 .leftSide button:hover {
@@ -61,7 +62,6 @@
   border: none;
   border-radius: 7px;
   font: normal medium "Exo2", "Montserrat", sans-serif;
-  color: var(--text-color2);
   backdrop-filter: blur(5px);
   background: var(--headerMenu-bg);
   box-shadow: var(--headerMenu-shadow);
@@ -80,6 +80,7 @@
   justify-content: flex-start;
   border-radius: 7px;
   padding: 10px 10px;
+  color: var(--text-color-opposite);
   cursor: pointer;
 }
 

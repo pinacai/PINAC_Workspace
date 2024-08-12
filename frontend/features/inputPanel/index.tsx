@@ -328,7 +328,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
           ) : (
             /* ====== Stop Text Generation Button ======= */
             <button onClick={() => setStop(true)} className={styles.stopIcon}>
-              <FaRegStopCircle size={25} color="var(--headerTitle-color)" />
+              <FaRegStopCircle size={25} color="var(--text-color-iconic)" />
             </button>
           )}
         </div>

@@ -18,17 +18,17 @@
   display: flex;
   align-items: center;
   padding: 5px;
-  background: var(--inputGroup-bg);
+  background: var(--inputBox-bg);
   border-radius: 0.8rem;
   border: 2px;
   border-style: solid;
   border-color: transparent;
-  box-shadow: var(--inputGroup-shadow);
+  box-shadow: var(--inputBox-shadow);
   flex-grow: 1;
 }
 
 .inputGroup.active {
-  border-color: var(--inputGroup-border-color);
+  border-color: var(--inputBox-border-color);
 }
 
 /* =========== Textarea Style =========== */
@@ -41,14 +41,14 @@
   outline: none;
   resize: none;
   border: none;
-  color: var(--text-color2);
+  color: var(--text-color-opposite);
   font: normal medium "Montserrat", sans-serif;
   background: transparent;
   flex-grow: 1;
 }
 
 #userInput::placeholder {
-  color: var(--placeholder-text-color);
+  color: var(--placeholder-color);
   align-items: center;
   font: normal large "Exo2", "Montserrat", sans-serif;
   letter-spacing: 2px;
@@ -84,13 +84,13 @@
 }
 
 #submitBtn:hover {
-  background-color: var(--inputGroupBtn-hover-color);
+  background-color: var(--inputBoxBtn-hover-color);
 }
 
 #submitIcon {
   width: 30px;
   height: 30px;
-  color: var(--headerTitle-color);
+  color: var(--text-color-iconic);
 }
 
 /* Change the color when disabled and */
@@ -117,6 +117,7 @@ button.disabled {
 }
 
 #attachmentBtn {
+  color: var(--text-color-iconic);
   background: transparent;
   border: none;
   border-radius: 7px;
@@ -124,17 +125,17 @@ button.disabled {
 }
 
 #attachmentBtn:hover {
-  background: var(--inputGroupBtn-hover-color);
+  background: var(--inputBoxBtn-hover-color);
 }
 
 #attachmentIcon {
   width: 25px;
   height: 25px;
   margin-top: 10px;
-  color: var(--headerTitle-color);
+  color: var(--text-color-iconic);
 }
 
-/* =========== File Attachemnt Option-Menu =========== */
+/* =========== File Attachment Option-Menu =========== */
 
 .optionsMenu {
   display: flex;
@@ -142,11 +143,11 @@ button.disabled {
   position: absolute;
   bottom: calc(100% + 7px);
   right: 3%;
-  background: var(--inputGroup-bg);
-  box-shadow: var(--inputGroup-shadow);
+  background: var(--inputBox-bg);
+  box-shadow: var(--inputBox-shadow);
   border: 1.5px;
   border-style: solid;
-  border-color: var(--inputGroup-border-color);
+  border-color: var(--inputBox-border-color);
   flex-grow: 1;
   border-radius: 5px;
 }
@@ -169,7 +170,7 @@ button.disabled {
 .optionsMenuIcon {
   width: 29px;
   height: 29px;
-  color: var(--text-color2);
+  color: var(--text-color-opposite);
 }
 
 /* =========== Advance Options (Dropdown) =========== */
@@ -251,7 +252,7 @@ button.disabled {
   max-height: 100%;
   object-fit: contain;
   border-radius: 10px;
-  box-shadow: var(--inputGroup-shadow);
+  box-shadow: var(--inputBox-shadow);
 }
 
 /* ============================ */
@@ -343,7 +344,7 @@ button.disabled {
   #submitIcon {
     width: 27px;
     height: 27px;
-    color: var(--text-color2);
+    color: var(--text-color-opposite);
   }
 
   #attachmentIcon {
