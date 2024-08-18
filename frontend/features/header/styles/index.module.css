@@ -86,6 +86,7 @@
 
 .headerMenu .dropdownMenu ul li:hover {
   background: var(--dropdownMenu-opt-hover-bg);
+  color: var(--text-color-light);
 }
 
 .headerMenu .dropdownLastMenu ul li:hover {

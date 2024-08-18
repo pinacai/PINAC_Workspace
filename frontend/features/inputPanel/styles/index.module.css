@@ -143,6 +143,7 @@ button.disabled {
   position: absolute;
   bottom: calc(100% + 7px);
   right: 3%;
+  backdrop-filter: blur(10px);
   background: var(--inputBox-bg);
   box-shadow: var(--inputBox-shadow);
   border: 1.5px;

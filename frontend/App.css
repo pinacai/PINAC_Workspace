@@ -30,6 +30,7 @@
   --tertiary-color: #2196f3;
   --quaternary-color: #d3d3d3;
   --quinary-color: #ffffff;
+  --subPage-bg: var(--primary-color);
 
   --text-color-light: #ffffff;
   --text-color-opposite: #000000;
@@ -53,8 +54,8 @@
 
   /* Header */
   --headerMenu-btn-hover-bg: var(--quaternary-color);
-  --headerMenu-bg: var(--quaternary-color);
-  --headerMenu-shadow: var(--dark-shadow);
+  --headerMenu-bg: var(--primary-color);
+  --headerMenu-shadow: var(--shadow);
   --headerTitle-color: var(--text-color-iconic);
   --headerTitle-underline-color: var(--tertiary-color);
   --newChatBtn-color: var(--secondary-color);
@@ -87,9 +88,9 @@
 
   /* ProfilePage */
   --profile-input-border-color: var(--quaternary-color);
-  --profile-input-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  --profile-input-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   --profile-input-valid-color: rgb(7, 134, 7);
-  --profile-btn-bg: var(--secondary-color);
+  --profileBtn-bg: var(--secondary-color);
   --profileBtn-hover-shadow: var(--secondary-color);
 
   /* AboutPage */
@@ -112,6 +113,7 @@
   --tertiary-color: #5e43f3;
   --tertiary-linear-gradient: linear-gradient(135deg, #5e43f3, #382bf0);
   --quaternary-color: #252525;
+  --subPage-bg: var(--primary-color);
 
   --text-color-light: #ffffff;
   --text-color-opposite: #ffffff;
@@ -183,7 +185,7 @@
   /* SettingsPage */
   --settingsBorder-color: var(--secondary-color);
   --themeCard-bg: var(--secondary-color);
-  --themeCard-shadow: none;
+  --themeCard-shadow: var(--shadow);
   --themeCard-hover-shadow: var(--hover-shadow);
 }
 
@@ -269,6 +271,7 @@
   --secondary-color-opaque: #1a1924;
   --tertiary-color: #0026ff;
   --tertiary-linear-gradient: linear-gradient(125deg, #0026ff, #5b00af);
+  --subPage-bg: rgba(108, 108, 108, 0.05);
 
   --text-color-light: #ece2d5;
   --text-color-opposite: #ece2d5;
@@ -350,6 +353,7 @@
   --secondary-color: #2b1a12;
   --tertiary-color: #dc6d18;
   --quaternary-color: #f8e0c9;
+  --subPage-bg: var(--primary-color);
 
   --text-color-light: #fff4e4;
   --text-color-opposite: #000000;
@@ -361,7 +365,7 @@
   --inputBoxBtn-hover-color: var(--quaternary-color);
   --inputBox-shadow: var(--shadow);
 
-  --shadow: 0 0 5px rgba(43, 26, 18, 0.5);
+  --shadow: 0 0 6px rgba(43, 26, 18, 0.5);
   --shadow-wide: 0 0 10px rgba(43, 26, 18, 0.5);
   --hover-shadow: 0 0 15px rgba(43, 26, 18, 0.8);
   --copyBtn-shadow: 0 0 2px #2b1a12;
@@ -384,7 +388,7 @@
   --userMsg-bg: var(--secondary-color);
   --userMsg-bg-shadow: none;
   --aiMsg-bg: var(--quaternary-color);
-  --aiMsg-bg-shadow: none;
+  --aiMsg-bg-shadow: 0 0 4px rgba(43, 26, 18, 0.5);
   --aiLoader-primary: var(--quaternary-color);
   --aiLoader-secondary: #866454;
 
@@ -406,9 +410,10 @@
 
   /* ProfilePage */
   --profile-input-border-color: #ccac93;
-  --profile-input-shadow: none;
+  --profile-input-shadow: 0 0 7px rgba(43, 26, 18, 0.3);
   --profile-input-valid-color: var(--tertiary-color);
-  --profile-btn-bg: var(--tertiary-color);
+  --profileBtn-bg: var(--tertiary-color);
+  --profileBtn-hover-shadow: var(--tertiary-color);
 
   /* AboutPage */
   --aboutCard-bg: var(--quaternary-color);
@@ -429,6 +434,7 @@
   --secondary-color: #1a1515;
   --tertiary-color: #3c3c3c;
   --quaternary-color: #d83b26b7;
+  --subPage-bg: var(--primary-color);
 
   --text-color-light: #f0ebe7;
   --text-color-opposite: #d1c7bb;

@@ -236,7 +236,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
                 )
               }
             >
-              <FaAngleRight size={25} color="var(--headerTitle-color)" />
+              <FaAngleRight size={25} color="var(--text-color-iconic)" />
             </button>
           </>
         )}

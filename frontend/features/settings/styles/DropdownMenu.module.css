@@ -66,6 +66,7 @@
 }
 
 .dropdown .dropdownMenu ul li:hover {
+  color: var(--text-color-light);
   background: var(--dropdownMenu-opt-hover-bg);
 }
 
