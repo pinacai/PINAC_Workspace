@@ -1,4 +1,3 @@
-/* Message Styles (Conversations) */
 .msg_row {
   display: flex;
   align-items: flex-start;
@@ -104,7 +103,9 @@
   }
 }
 
-/* CSS for loader component */
+/*     CSS for loader component    */
+/* =============================== */
+
 .loader {
   width: 10px;
   height: 10px;
@@ -136,14 +137,14 @@
 /*     Responsive Styles       */
 /* =========================== */
 
-@media (max-width: 768px) {
+@container (max-width: 768px) {
   .msg_avatar {
     width: 30px;
     height: 30px;
   }
 }
 
-@media (max-width: 576px) {
+@container (max-width: 576px) {
   .msg_content {
     max-width: 100%;
   }
@@ -158,9 +159,21 @@
   }
 }
 
-@media (max-width: 320px) {
+@container (max-width: 460px) {
+  .msg_name {
+    margin-bottom: 5px;
+    font-size: 15px;
+  }
+}
+
+@container (max-width: 320px) {
   .ai_msg {
     font: normal medium "Exo2", "Montserrat", sans-serif;
     line-height: 1.3;
+  }
+
+  .msg_name {
+    margin-bottom: 3px;
+    font-size: 13px;
   }
 }

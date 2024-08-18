@@ -6,7 +6,7 @@ import ShowAiMessage from "../features/msgBubble/AiMsgBubble";
 import UserMsgBubble from "../features/msgBubble/UserMsgBubble";
 import { InputPanel } from "../features/inputPanel/index";
 import { StopTextGeneration } from "../context/StopTextGeneration";
-import { SubPageContext } from "../context/subPage";
+import { SubPageContext } from "../context/SubPage";
 import styles from "./styles/Home.module.css";
 
 // sub-pages

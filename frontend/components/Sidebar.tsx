@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
-import { SubPageContext } from "../context/subPage";
+import { SubPageContext } from "../context/SubPage";
 import styles from "./styles/Sidebar.module.css";
 
 // Icons

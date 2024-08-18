@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "../../components/ThemeToggle";
 import { LogoutBtn } from "./components/LogoutBtn";
 import { NewChatBtn } from "./components/NewChatBtn";
-import { SubPageContext } from "../../context/subPage";
+import { SubPageContext } from "../../context/SubPage";
 import styles from "./styles/index.module.css";
 
 // Icons

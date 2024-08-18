@@ -3,7 +3,7 @@
     background-clip: text;
     color: transparent;
     box-shadow: none;
-    font: bold 4.5vw "ubuntu", "Montserrat", sans-serif;
+    font: bold 55px "ubuntu", "Montserrat", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,19 +17,31 @@
   /* ------------------ */
   /* Responsive Styles */
   
-  @media (max-width: 992px) {
+  @container (max-width: 992px) {
     .welcomeText {
-      font-size: 7vw;
+      font-size: 55px;
     }
   }
   
-  @media (max-width: 576px) {
+  @container (max-width: 768px) {
+    .welcomeText {
+      font-size: 45px;
+    }
+  }
+
+  @container (max-width: 576px) {
+    .welcomeText {
+      font-size: 40px;
+    }
+  }
+
+  @container (max-width: 420px) {
     .welcomeText {
       font-size: 35px;
     }
   }
   
-  @media (max-width: 320px) {
+  @container (max-width: 320px) {
     .welcomeText {
       font-size: 10vw;
     }

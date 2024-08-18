@@ -5,7 +5,7 @@ import { HomePage } from "./pages/Home";
 import { Sidebar } from "./components/Sidebar";
 import { ThemeModeContext } from "./context/ThemeMode";
 import { ThemeStyleContext } from "./context/ThemeStyle";
-import { SubPageProvider } from "./context/subPage";
+import { SubPageProvider } from "./context/SubPage";
 import "./App.css";
 
 // sub-pages
