@@ -51,6 +51,7 @@
   --sidebar-color: var(--secondary-color);
   --sidebar-hover-color: rgba(255, 255, 255, 0.1);
   --sidebar-shadow: none;
+  --sidebar-icon-color: var(--text-color-light);
 
   /* Header */
   --headerMenu-btn-hover-bg: var(--quaternary-color);
@@ -134,6 +135,7 @@
   --sidebar-color: var(--secondary-color);
   --sidebar-hover-color: var(--tertiary-linear-gradient);
   --sidebar-shadow: none;
+  --sidebar-icon-color: var(--text-color-light);
 
   /* Header */
   --headerMenu-bg: var(--secondary-color);
@@ -193,75 +195,83 @@
 
 .Cyber_Tech_01-light {
   /* General */
-  --primary-color: #bdc8d3;
-  --secondary-color: #153fc5;
-  --text-color1: #ece2d5;
-  --text-color2: #0c0a18;
-  --placeholder-text-color: #64696e;
-  --inputGroup-bg: #e2e8f0;
-  --inputGroup-border-color: #153fc5;
-  --inputGroupBtn-hover-color: rgba(109, 108, 108, 0.2);
-  --inputGroup-shadow: 0 0 10px #6885a3;
+  --primary-color: #f7f6f0;
+  --secondary-color: #d3f36b;
+  --tertiary-color: #ffffff;
+  --quaternary-color: #232B2B;
+  --subPage-bg: var(--primary-color);
+
+  --text-color-light: #000000;
+  --text-color-opposite: #000000;
+  --text-color-iconic: #3d4145;
+  --placeholder-color: #64696e;
+
+  --inputBox-bg: var(--tertiary-color);
+  --inputBox-border-color: transparent;
+  --inputBoxBtn-hover-color: rgba(108, 108, 108, 0.2);
+  --inputBox-shadow: var(--shadow);
+
+  --shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  --hover-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  --copyBtn-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 
   /* Sidebar */
+  --sidebar-color: var(--quaternary-color);
   --sidebar-hover-color: rgba(255, 255, 255, 0.2);
-  --sidebar-color: #153fc5;
   --sidebar-shadow: none;
-  --sidebar-present-page-color: var(--primary-color);
-  --sidebar-present-page-shadow: none;
+  --sidebar-icon-color: #ffffff;
 
   /* Header */
+  --headerMenu-bg: var(--tertiary-color);
   --headerMenu-btn-hover-bg: rgba(108, 108, 108, 0.2);
-  --headerMenu-bg: #e2e8f0;
-  --headerMenu-shadow: 0 0 10px #6885a3;
-  --headerTitle-color: #2e3236;
-  --headerTitle-underline-color: #153fc5;
-  --newChatBtn-color: #3b3f44;
+  --headerMenu-shadow: var(--shadow);
+  --headerTitle-underline-color: var(--secondary-color);
+  --newChatBtn-color: var(--tertiary-color);
   --newChatBtn-after-color: var(--secondary-color);
-  --newChatBtn-shadow: none;
+  --newChatBtn-shadow: var(--shadow);
 
   /* MessageBubble */
-  --userMsg-bg: #153fc5;
+  --userMsg-bg: var(--secondary-color);
   --userMsg-bg-shadow: none;
-  --aiMsg-bg: #e2e8f0;
-  --aiMsg-bg-shadow: 0 0 5px #808f9e;
-  --aiLoader-primary: #e2e8f0;
-  --aiLoader-secondary: #3a68ff;
-  --copyBtn-shadow: 0 0 2px #3b3f44;
+  --aiMsg-bg: var(--tertiary-color);
+  --aiMsg-bg-shadow: var(--shadow);
+  --aiLoader-primary: var(--tertiary-color);
+  --aiLoader-secondary: var(--secondary-color);
 
   /* DropdownMenu */
-  --dropdownBtn-bg: #e2e8f0;
+  --dropdownBtn-bg: var(--tertiary-color);
   --dropdownBtn-hover-bg: rgba(0, 0, 0, 0.1);
-  --dropdownBtn-shadow: 0 0 5px #607080;
-  --dropdownMenu-bg: #e2e8f0;
-  --dropdownMenu-opt-hover-bg: #c1cdf3;
-  --dropdownMenu-shadow: 0 0 5px #607080;
+  --dropdownBtn-shadow: var(--shadow);
+  --dropdownMenu-bg: var(--tertiary-color);
+  --dropdownMenu-opt-hover-bg: var(--secondary-color);
+  --dropdownMenu-shadow: var(--shadow);
 
   /* Menubar */
-  --menubar-bg: #e2e8f0;
-  --menubar-active-item-bg: #90a6ee;
-  --menubar-item-hover-bg: transparent;
+  --menubar-bg: var(--tertiary-color);
+  --menubar-active-item-bg: var(--secondary-color);
+  --menubar-shadow: none;
 
   /* HomePage */
-  --welcomeText-gradient: linear-gradient(90deg, #0021df, #3d91ff);
+  --welcomeText-gradient: linear-gradient(120deg, #a5c63f, #d3f36b);
 
   /* ProfilePage */
-  --profile-input-border-color: #4c6ace;
-  --profile-input-shadow: none;
-  --profile-input-valid-color: #153fc5;
-  --profile-btn-bg: #153fc5;
+  --profile-input-border-color: transparent;
+  --profile-input-shadow: var(--shadow);
+  --profile-input-valid-color: #a5c63f;
+  --profileBtn-bg: var(--secondary-color);
+  --profileBtn-hover-shadow: var(--secondary-color);
 
   /* AboutPage */
-  --aboutCard-bg: #e2e8f0;
-  --aboutCard-shadow: 0 0 10px #a3b3c4;
-  --aboutBtn-bg: #153fc5;
-  --aboutBtn-shadow: #153fc5;
+  --aboutCard-bg: var(--tertiary-color);
+  --aboutCard-shadow: var(--shadow);
+  --aboutBtn-bg: var(--secondary-color);
+  --aboutBtn-shadow: var(--secondary-color);
 
   /* SettingsPage */
-  --settingsBorder-color: #ece2d5;
-  --themeCard-bg: #e2e8f0;
-  --themeCard-shadow: 0 0 10px #a3b3c4;
-  --themeCard-hover-shadow: 0 0 10px #607080;
+  --settingsBorder-color: #cfcfcf;
+  --themeCard-bg: var(--tertiary-color);
+  --themeCard-shadow: var(--shadow);
+  --themeCard-hover-shadow: var(--hover-shadow);
 }
 
 .Cyber_Tech_01-dark {
@@ -291,6 +301,7 @@
   --sidebar-color: var(--primary-color);
   --sidebar-hover-color: var(--tertiary-linear-gradient);
   --sidebar-shadow: var(--shadow);
+  --sidebar-icon-color: var(--text-color-light);
 
   /* Header */
   --headerMenu-btn-hover-bg: var(--secondary-color);
@@ -374,6 +385,7 @@
   --sidebar-hover-color: rgba(255, 255, 255, 0.2);
   --sidebar-color: var(--secondary-color);
   --sidebar-shadow: none;
+  --sidebar-icon-color: var(--text-color-light);
 
   /* Header */
   --headerMenu-btn-hover-bg: var(--quaternary-color);
@@ -454,6 +466,7 @@
   --sidebar-color: var(--secondary-color);
   --sidebar-hover-color: rgba(0, 0, 0, 0.3);
   --sidebar-shadow: none;
+  --sidebar-icon-color: var(--text-color-light);
 
   /* Header */
   --headerMenu-btn-hover-bg: var(--tertiary-color);

@@ -52,7 +52,7 @@ export const Sidebar: React.FC = () => {
     Icon: React.ElementType
   ): JSX.Element => (
     <li onClick={() => changePage(subPage)}>
-      <Icon size={30} />
+      <Icon size={30} color="var(--sidebar-icon-color)" />
     </li>
   );
 
@@ -74,7 +74,7 @@ export const Sidebar: React.FC = () => {
               />
             </li>
             <div className={styles.dividerLine} />
-            { isChatIconVisible && renderNavItem("/", IoMdChatbubbles) }
+            {isChatIconVisible && renderNavItem("/", IoMdChatbubbles)}
             {renderNavItem("/history", LuHistory)}
             {renderNavItem("/about", MdGroup)}
             {renderNavItem("/settings", IoMdSettings)}
