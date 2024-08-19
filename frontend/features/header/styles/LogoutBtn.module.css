@@ -70,14 +70,14 @@
 /*     Responsive Styles       */
 /* =========================== */
 
-@media (max-width: 320px) {
+@container (max-width: 320px) {
   .logoutBtn {
     width: 32px;
     height: 32px;
   }
 }
 
-@media (max-width: 280px) {
+@container (max-width: 280px) {
   .logoutBtn:hover .logoutImg {
     padding-left: 0px;
   }

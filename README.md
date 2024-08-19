@@ -50,9 +50,14 @@ Overview of File Structure to Help You Get Started
 </summary>
 
     .
+    ├── public /
+    ├── index.html
+    |
     ├── backend /
-    |    ├── main.ts           # medium between frontend & server
-    |    └── user data /       # for storing user data
+    |    ├── model /
+    |    ├── prompts /
+    |    ├── user data /
+    |    └── main.ts
     |
     ├── electron /
     |    ├── main.ts
@@ -61,14 +66,35 @@ Overview of File Structure to Help You Get Started
     └── frontend /
          ├── App.tsx
          ├── App.css           # All element's colors theme-wise
-         ├── assets /          # Img, Icons, Fonts
          |
-         ├── Components /
-
-         =====================================================
-                         ***Updating Soon*
-         =====================================================
-
+         ├── components /      # common components
+         |    ├── styles /
+         |    ├── MarkdownStyle.tsx   
+         |    ├── Menubar.tsx
+         |    ├── Sidebar.tsx
+         |    └── ThemeToggle.tsx
+         |
+         ├── context /
+         |    ├── StopTextGeneration.ts
+         |    ├── SubPage.tsx    
+         |    ├── ThemeMode.tsx 
+         |    └── ThemeStyle.tsx
+         |  
+         ├── features /
+         |    ├── aboutUs /
+         |    ├── authentication /     
+         |    ├── header /     
+         |    ├── inputPanel /     
+         |    ├── msgBubble /     
+         |    ├── profile /     
+         |    ├── settings /     
+         |    ├── authentication /     
+         |    └── welcomeText /     
+         |
+         └── pages /
+              ├── styles /
+              ├── Home.tsx     
+              └── Login.tsx  
 </details>
 
 
@@ -151,12 +177,3 @@ PINAC Workspace is licensed under the **GPL-3.0 license**. See the <a href="http
 ## 🌐 Support
 
 If you have any support questions or to report issues, please file an issue through the GitHub issue tracker associated with the repository.
-
-
-![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
-
-<div align="center">
-  <h1>Tip from us 😇</h1>
-  <p>It always takes time to understand and learn. So, don't worry at all. We know <b>you have got this</b>! 💪</p>
-  <h3>Show some &nbsp;❤️&nbsp; by &nbsp;🌟&nbsp; this repository!</h3>
-</div>

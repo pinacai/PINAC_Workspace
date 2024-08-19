@@ -114,20 +114,20 @@
 /*     Responsive Styles       */
 /* =========================== */
 
-@media (max-width: 992px) {
+@container (max-width: 992px) {
   .header {
     height: 60px;
     padding: 10px;
   }
 }
 
-@media (max-width: 576px) {
+@container (max-width: 576px) {
   .homeTitle {
     font-size: 35px;
   }
 }
 
-@media (max-width: 320px) {
+@container (max-width: 320px) {
   .title,
   .homeTitle {
     font-size: 30px;
@@ -142,7 +142,7 @@
   }
 }
 
-@media (max-width: 280px) {
+@container (max-width: 280px) {
   .headerMenu .dropdownMenu.active {
     width: 100px;
   }
