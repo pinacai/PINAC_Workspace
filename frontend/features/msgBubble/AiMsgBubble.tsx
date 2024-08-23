@@ -37,6 +37,7 @@ const ShowAiMessage: React.FC<ShowAiMessageProps> = ({
       );
     }
   });
+
   return <>{message}</>;
 };
 

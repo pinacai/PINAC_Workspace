@@ -5,6 +5,7 @@ import { WelcomeText } from "../features/welcomeText/index";
 import ShowAiMessage from "../features/msgBubble/AiMsgBubble";
 import UserMsgBubble from "../features/msgBubble/UserMsgBubble";
 import { InputPanel } from "../features/inputPanel/index";
+import { ChatContext } from "../context/Chat";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 import { SubPageContext } from "../context/SubPage";
 import styles from "./styles/Home.module.css";
@@ -17,7 +18,7 @@ import Profile from "../features/profile/index";
 export const HomePage: React.FC = () => {
   const subPageContext = useContext(SubPageContext);
   const [welcomeText, setWelcomeText] = useState<boolean>(true);
-  const [chatHistory, setChatHistory] = useState<JSX.Element[]>([]);
+  const chatContext = useContext(ChatContext);
   const [userInput, setUserInput] = useState<string>(""); // Declare state for input value
   const [isUserInputActive, setUserInputActive] = useState<boolean>(false); // Declare state for input value
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
@@ -27,7 +28,7 @@ export const HomePage: React.FC = () => {
 
   //
   const startNewChat = () => {
-    setChatHistory([]);
+    chatContext?.setChatMsg([]);
     window.ipcRenderer.send("request-to-backend", {
       request_type: "clear-chat",
     });
@@ -43,10 +44,17 @@ export const HomePage: React.FC = () => {
       setButtonsDisabled(true);
       setWelcomeText(false);
 
-      setChatHistory((prevChatHistory) => [
+      const userMessageKey = chatContext?.chat.length ?? 0;
+      const aiMessageKey = (chatContext?.chat.length ?? 0) + 1;
+
+      chatContext?.setChatMsg((prevChatHistory) => [
         ...prevChatHistory,
-        <UserMsgBubble response={text} key={`user-${chatHistory.length}`} />,
+        {
+          key: userMessageKey,
+          element: <UserMsgBubble response={text} key={userMessageKey} />,
+        },
       ]);
+
       const preferredPrompt = localStorage.getItem("applied-prompt");
       const preferredModelType = localStorage.getItem("preferred-model-type");
       const preferredCloudModel = localStorage.getItem("preferred-cloud-model");
@@ -63,13 +71,20 @@ export const HomePage: React.FC = () => {
         prompt: preferredPrompt,
         user_query: text,
       });
-      setChatHistory((prevChatHistory) => [
+
+      chatContext?.setChatMsg((prevChatHistory) => [
         ...prevChatHistory,
-        <ShowAiMessage
-          key={`ai-${chatHistory.length + 1}`}
-          setButtonsDisabled={setButtonsDisabled}
-        />,
+        {
+          key: aiMessageKey,
+          element: (
+            <ShowAiMessage
+              key={aiMessageKey}
+              setButtonsDisabled={setButtonsDisabled}
+            />
+          ),
+        },
       ]);
+
       setUserInput("");
       if (textareaRef.current) {
         textareaRef.current.style.height = "50px"; // Reset textarea height
@@ -80,13 +95,13 @@ export const HomePage: React.FC = () => {
   //
   // for auto scrolling
   useEffect(() => {
-    if (chatHistory.length) {
+    if (chatContext?.chat.length) {
       scrollRef.current?.scrollIntoView({
         behavior: "smooth",
         block: "end",
       });
     }
-  }, [chatHistory.length]);
+  }, [chatContext?.chat.length]);
 
   // --------------------------------------------------- //
   return (
@@ -107,7 +122,7 @@ export const HomePage: React.FC = () => {
           <StopTextGeneration.Provider value={{ stop, setStop }}>
             <div className={styles.msgBox}>
               {welcomeText && <WelcomeText />}
-              {chatHistory}
+              {chatContext?.chat.map((item) => item.element)}
               <div ref={scrollRef} />
             </div>
           </StopTextGeneration.Provider>
