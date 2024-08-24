@@ -26,6 +26,34 @@
   border-radius: 50%;
 }
 
+.profileContainer {
+  position: relative;
+}
+
+.userImage {
+  display: block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.editButton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+  background: white;
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.editButton:hover {
+  background: #f0f0f0;
+}
+
 .dividerLine {
   margin: 15px 15px;
   border-bottom: 2px solid grey;
