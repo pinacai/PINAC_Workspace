@@ -8,7 +8,6 @@ import styles from "./styles/Sidebar.module.css";
 import { MdGroup } from "react-icons/md";
 import { IoMdChatbubbles, IoMdSettings } from "react-icons/io";
 import { LuHistory } from "react-icons/lu";
-import { FaPencilAlt } from "react-icons/fa";
 import defaultUserIcon from "/icon/user_icon.png";
 
 const BREAKPOINT = 460;
@@ -67,20 +66,12 @@ export const Sidebar: React.FC = () => {
       <div className={styles.upperPart}>
         <nav>
           <ul>
-            <li>
-              <div className={styles.profileContainer}>
-                <img
-                  className={styles.userImage}
-                  src={userImageUrl || defaultUserIcon}
-                  alt="User"
-                />
-                <button
-                  className={styles.editButton}
-                  onClick={() => changePage("/profile")}
-                >
-                  <FaPencilAlt size={20} color="var(--sidebar-icon-color)" />
-                </button>
-              </div>
+            <li onClick={() => changePage("/profile")}>
+              <img
+                className={styles.userImage}
+                src={userImageUrl || defaultUserIcon}
+                alt="User"
+              />
             </li>
             <div className={styles.dividerLine} />
             {isChatIconVisible && renderNavItem("/", IoMdChatbubbles)}

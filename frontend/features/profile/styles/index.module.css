@@ -8,6 +8,55 @@
   font-family: "Exo2", "Montserrat", sans-serif;
 }
 
+.profileCardContainer {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileImg {
+  height: 150px;
+  width: 150px;
+  margin: 20px 20px 20px 100px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.profileImg img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+  border-radius: 50%;
+}
+
+.editButton {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
+
+.profileCardContainer:hover .profileImg {
+  opacity: 0.5;
+}
+
+.profileCardContainer:hover .editButton {
+  display: block;
+}
+
 .profileCard {
   width: 100%;
   padding: 50px 20px;
@@ -25,23 +74,6 @@
 .profileCard::-webkit-scrollbar-thumb {
   background: #999;
   border-radius: 50px;
-}
-
-.profileImg {
-  height: 150px;
-  width: 150px;
-  margin: 20px 20px 20px 100px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.profileImg img {
-  height: 100%;
-  width: 100%;
-  object-fit: fill;
-  border-radius: 50%;
 }
 
 .userDetails {
