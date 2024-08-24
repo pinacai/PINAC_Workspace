@@ -76,7 +76,7 @@ export const Sidebar: React.FC = () => {
                 />
                 <button
                   className={styles.editButton}
-                  onClick={handleEditButtonClick}
+                  onClick={() => changePage("/profile")}
                 >
                   <FaPencilAlt size={20} color="var(--sidebar-icon-color)" />
                 </button>
