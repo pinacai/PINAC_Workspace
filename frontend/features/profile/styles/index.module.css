@@ -8,6 +8,25 @@
   font-family: "Exo2", "Montserrat", sans-serif;
 }
 
+.profileCard {
+  width: 100%;
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+
+.profileCard::-webkit-scrollbar {
+  width: 10px;
+}
+
+.profileCard::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 50px;
+}
+
 .profileImgContainer {
   position: relative;
   height: 150px;
@@ -55,25 +74,6 @@
 
 .profileImgContainer:hover .editButton {
   display: block;
-}
-
-.profileCard {
-  width: 100%;
-  padding: 50px 20px;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-  align-items: flex-start;
-  overflow-y: auto;
-}
-
-.profileCard::-webkit-scrollbar {
-  width: 10px;
-}
-
-.profileCard::-webkit-scrollbar-thumb {
-  background: #999;
-  border-radius: 50px;
 }
 
 .userDetails {
