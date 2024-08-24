@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../features/header/index";
 import { WelcomeText } from "../features/welcomeText/index";
-import ShowAiMessage from "../features/msgBubble/AiMsgBubble";
+import { AiMsgBubble, AiLoader } from "../features/msgBubble/AiMsgBubble";
 import UserMsgBubble from "../features/msgBubble/UserMsgBubble";
 import { InputPanel } from "../features/inputPanel/index";
 import { ChatContext } from "../context/Chat";
@@ -17,8 +17,8 @@ import Profile from "../features/profile/index";
 
 export const HomePage: React.FC = () => {
   const subPageContext = useContext(SubPageContext);
-  const [welcomeText, setWelcomeText] = useState<boolean>(true);
   const chatContext = useContext(ChatContext);
+  const [welcomeText, setWelcomeText] = useState<boolean>(true);
   const [userInput, setUserInput] = useState<string>(""); // Declare state for input value
   const [isUserInputActive, setUserInputActive] = useState<boolean>(false); // Declare state for input value
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
@@ -51,7 +51,18 @@ export const HomePage: React.FC = () => {
         ...prevChatHistory,
         {
           key: userMessageKey,
-          element: <UserMsgBubble response={text} key={userMessageKey} />,
+          element: [
+            <UserMsgBubble response={text} key={userMessageKey} />,
+            text,
+          ],
+        },
+      ]);
+
+      chatContext?.setChatMsg((prevChatHistory) => [
+        ...prevChatHistory,
+        {
+          key: aiMessageKey,
+          element: [<AiLoader />, ""],
         },
       ]);
 
@@ -72,18 +83,38 @@ export const HomePage: React.FC = () => {
         user_query: text,
       });
 
-      chatContext?.setChatMsg((prevChatHistory) => [
-        ...prevChatHistory,
-        {
-          key: aiMessageKey,
-          element: (
-            <ShowAiMessage
-              key={aiMessageKey}
-              setButtonsDisabled={setButtonsDisabled}
-            />
-          ),
-        },
-      ]);
+      // fetching AI response from backend
+      window.ipcRenderer.once("server-response", (_, response) => {
+        if (response["error_occurred"]) {
+          chatContext?.setChatMsg((prevChatHistory) => [
+            ...prevChatHistory.slice(0, -1),
+            {
+              key: aiMessageKey,
+              element: [
+                <AiMsgBubble
+                  response={`**${response["error"]}**\nTry again :(`}
+                  setButtonsDisabled={setButtonsDisabled}
+                />,
+                "Error Occurred",
+              ],
+            },
+          ]);
+        } else {
+          chatContext?.setChatMsg((prevChatHistory) => [
+            ...prevChatHistory.slice(0, -1),
+            {
+              key: aiMessageKey,
+              element: [
+                <AiMsgBubble
+                  response={response["response"]["content"]}
+                  setButtonsDisabled={setButtonsDisabled}
+                />,
+                response["response"]["content"],
+              ],
+            },
+          ]);
+        }
+      });
 
       setUserInput("");
       if (textareaRef.current) {
@@ -122,7 +153,7 @@ export const HomePage: React.FC = () => {
           <StopTextGeneration.Provider value={{ stop, setStop }}>
             <div className={styles.msgBox}>
               {welcomeText && <WelcomeText />}
-              {chatContext?.chat.map((item) => item.element)}
+              {chatContext?.chat.map((item) => item.element[0])}
               <div ref={scrollRef} />
             </div>
           </StopTextGeneration.Provider>

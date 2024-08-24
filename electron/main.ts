@@ -32,7 +32,7 @@ const sizeFile = path.join(userDataPath, "window-size.json");
 const getDefaultSize = (): { width: number; height: number } => {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
-  return { width, height }; // max-windown
+  return { width, height }; // max-window
 };
 
 // Retrieves the saved window size

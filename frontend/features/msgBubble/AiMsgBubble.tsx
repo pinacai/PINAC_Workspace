@@ -6,42 +6,6 @@ import styles from "./styles/MsgBubble.module.css";
 import pinacLogo from "/icon/pinac-logo.png";
 
 // ============================================================================ //
-//                     For Managing to show AI Response                         //
-// ============================================================================ //
-
-//
-interface ShowAiMessageProps {
-  setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const ShowAiMessage: React.FC<ShowAiMessageProps> = ({
-  setButtonsDisabled,
-}) => {
-  const [message, setMessage] = useState(<AiLoader />);
-
-  // fetching AI response from backend
-  window.ipcRenderer.once("server-response", (_, response) => {
-    if (response["error_occurred"]) {
-      setMessage(
-        <AiMsgBubble
-          response={`**${response["error"]}**\nTry again :(`}
-          setButtonsDisabled={setButtonsDisabled}
-        />
-      );
-    } else {
-      setMessage(
-        <AiMsgBubble
-          response={response["response"]["content"]}
-          setButtonsDisabled={setButtonsDisabled}
-        />
-      );
-    }
-  });
-
-  return <>{message}</>;
-};
-
-// ============================================================================ //
 //                            AI Message Bubble                                 //
 // ============================================================================ //
 
@@ -50,7 +14,7 @@ interface AiMsgBubbleProps {
   setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
+export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
   response,
   setButtonsDisabled,
 }) => {
@@ -127,7 +91,7 @@ const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
 
 //
 // Component similar to AiMessage and replaced as soon as we have the data.
-const AiLoader: React.FC = () => {
+export const AiLoader: React.FC = () => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   );
@@ -163,5 +127,3 @@ const AiLoader: React.FC = () => {
     </>
   );
 };
-
-export default ShowAiMessage;

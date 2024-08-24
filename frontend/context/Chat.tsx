@@ -2,7 +2,7 @@ import React, { createContext, useState, ReactNode } from 'react';
 
 interface ChatMessage {
   key: number;
-  element: JSX.Element;
+  element: [JSX.Element, string];
 }
  
 interface ChatContextType {
