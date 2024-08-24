@@ -20,38 +20,43 @@
   width: 100%;
 }
 
-.userImage {
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-}
-
 .profileContainer {
   position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .userImage {
-  display: block;
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
 }
 
 .editButton {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: translate(50%, 50%);
-  background: white;
-  border: none;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  padding: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
   cursor: pointer;
+  display: none;
 }
 
-.editButton:hover {
-  background: #f0f0f0;
+.profileContainer:hover .userImage {
+  opacity: 0.5;
+}
+
+.profileContainer:hover .editButton {
+  display: block;
 }
 
 .dividerLine {
