@@ -85,7 +85,7 @@ const Profile: React.FC = () => {
         <div className={styles.profileCard}>
           <div>
             {/* ======= profile Image ======= */}
-            <div className={styles.profileCardContainer}>
+            <div className={styles.profileImgContainer}>
               <div
                 className={styles.profileImg}
                 style={{ cursor: "pointer" }}

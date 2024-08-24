@@ -8,7 +8,7 @@
   font-family: "Exo2", "Montserrat", sans-serif;
 }
 
-.profileCardContainer {
+.profileImgContainer {
   position: relative;
   height: 150px;
   width: 150px;
@@ -49,11 +49,11 @@
   display: none;
 }
 
-.profileCardContainer:hover .profileImg {
+.profileImgContainer:hover .profileImg {
   opacity: 0.5;
 }
 
-.profileCardContainer:hover .editButton {
+.profileImgContainer:hover .editButton {
   display: block;
 }
 
