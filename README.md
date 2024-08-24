@@ -1,5 +1,3 @@
-
-
 <div align="center">
 
 <h1 style="border-bottom: none">
@@ -16,7 +14,7 @@
 ![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
 [![View Repositories](https://img.shields.io/badge/View-Our_Repositories-blue?logo=GitHub)](https://github.com/pinacai?tab=repositories)
 
-A user-first, cross-platform, open-source desktop AI assistant for all
+A privacy-first, cross-platform, open-source desktop AI assistant for all
 
 One Next-Gen AI Chat for all your needs.
 <br>
@@ -28,13 +26,15 @@ One Next-Gen AI Chat for all your needs.
 
 <br />
 
-## What is PINAC Workspace ?
+PINAC Workspace is a modern-looking _privacy-first_ AI chat for desktops, seamlessly blending Electron and React for a modern user experience. Unlock the full potential of AI with unparalleled simplicity and user-friendliness, while enjoying ultimate freedom and privacy.
 
-PINAC Workspace simplifies AI use for everyone, allowing users to get high-quality results without complex prompts. Our easy-to-use beautiful desktop app allows you to express your needs in simple language and receive optimal outcomes. This empowers users to tap into powerful AI capabilities, saving time and boosting creativity across various fields.
+## Why PINAC Workspace ?
+
+PINAC Workspace simplifies AI use for everyone, allowing users to get high-quality results without complex prompts. Our easy-to-use beautiful desktop app allows you to express your needs in simple language and it applies the expert-level prompt on top of it after identifying the user's specific requirement so that users receive optimal outcomes. This empowers users to tap into powerful AI capabilities, saving time and boosting creativity across various fields.
 
 ## 🎨 App Interface
 
-Introducing our distraction-free, user-friendly app interface with three stunning themes. Designed to help you stay focused and productive.
+Introducing our distraction-free, user-friendly app interface with three stunning themes. Designed to help you stay focused and productive. it comes with three themes,
 <br />
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_%26_Dusk.jpg" alt="Dawn & Dusk Screenshot">
@@ -44,10 +44,7 @@ Introducing our distraction-free, user-friendly app interface with three stunnin
 
 ## 📂 File Structure
 
-<details>
-<summary>
-Overview of File Structure to Help You Get Started
-</summary>
+Overview of File Structure to Help You Get Started.
 
     .
     ├── public /
@@ -95,10 +92,14 @@ Overview of File Structure to Help You Get Started
               ├── styles /
               ├── Home.tsx     
               └── Login.tsx  
-</details>
 
 
 ## 🔥 Available Prompts
+
+<details>
+<summary>
+Currently, we have a collection of 27+ expert-level prompts
+</summary>
 
 ||Prompt|
 ---|---|
@@ -130,17 +131,14 @@ Overview of File Structure to Help You Get Started
 26 | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Professional%20Recommendation%20Email.md">Professional Recommendation Email</a> |
 27 | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Professional%20Resignation%20Email.md">Professional Resignation Email</a> |
 
+</details>
 
 
-## 🚀 Project Setup
+## 🚀 Getting Started
 
 ### _Recommended IDE Setup_
 
 - [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-
-### _Notice_
-
-We have added a cloud development server to facilitate faster development. Now, developers unfamiliar with using LLMs can easily run and test this app with AI responses from the server without setting up any local server.
 
 ### _Setup the App_
 
@@ -163,6 +161,7 @@ We have added a cloud development server to facilitate faster development. Now, 
 
 ## 🎉 Contributing
 
+We highly welcome contributions! Please follow the steps if you're interested.
 1. Star the repository
 2. Fork the repository on GitHub.
 3. Clone the project to your machine.
@@ -174,6 +173,10 @@ We have added a cloud development server to facilitate faster development. Now, 
 
 PINAC Workspace is licensed under the **GPL-3.0 license**. See the <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/LICENSE">LICENSE</a> file for more details.
 
-## 🌐 Support
+# Contributors
 
-If you have any support questions or to report issues, please file an issue through the GitHub issue tracker associated with the repository.
+We have received huge support from the open-source community, thanks to all of our contributors.
+
+<a href="https://github.com/pinacai/PINAC_Workspace/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=pinacai/PINAC_Workspace" />
+</a>
