@@ -5,6 +5,7 @@ import styles from "./styles/index.module.css";
 
 // icons
 import profileImage from "/icon/user_icon.png";
+import { FaPencilAlt } from "react-icons/fa";
 
 const Profile: React.FC = () => {
   const location = useLocation();
@@ -84,18 +85,24 @@ const Profile: React.FC = () => {
         <div className={styles.profileCard}>
           <div>
             {/* ======= profile Image ======= */}
-            <div
-              className={styles.profileImg}
-              onClick={handleImageClick}
-              style={{ cursor: "pointer" }}
-            >
-              {imageUrl ? (
-                <img src={imageUrl} alt="Profile" />
-              ) : (
-                <img src={profileImage} alt="Profile" />
-              )}{" "}
-            </div>
-
+            <div className={styles.profileImgContainer}>
+              <div
+                className={styles.profileImg}
+                style={{ cursor: "pointer" }}
+              >
+                {imageUrl ? (
+                  <img src={imageUrl} alt="Profile" />
+                ) : (
+                  <img src={profileImage} alt="Profile" />
+                )}{" "}
+              </div>
+              <button
+                  className={styles.editButton}
+                  onClick={handleImageClick}
+                >
+                  <FaPencilAlt size={20} color="var(--sidebar-icon-color)" />
+                </button>
+              </div>
             {/* ======= Profile Input Form ======= */}
             <input
               type="file"

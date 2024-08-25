@@ -27,6 +27,15 @@
   border-radius: 50px;
 }
 
+.profileImgContainer {
+  position: relative;
+  height: 150px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .profileImg {
   height: 150px;
   width: 150px;
@@ -35,6 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: opacity 0.3s ease;
 }
 
 .profileImg img {
@@ -42,6 +52,28 @@
   width: 100%;
   object-fit: fill;
   border-radius: 50%;
+}
+
+.editButton {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
+
+.profileImgContainer:hover .profileImg {
+  opacity: 0.5;
+}
+
+.profileImgContainer:hover .editButton {
+  display: block;
 }
 
 .userDetails {
