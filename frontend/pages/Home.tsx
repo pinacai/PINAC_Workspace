@@ -44,16 +44,19 @@ export const HomePage: React.FC = () => {
       setButtonsDisabled(true);
       setWelcomeText(false);
 
-      const userMessageKey = chatContext?.chat.length ?? 0;
-      const aiMessageKey = (chatContext?.chat.length ?? 0) + 1;
+      const userMessageKey = `user-${chatContext?.chat.length ?? 0}`;
+      const aiMessageKey = `ai-${(chatContext?.chat.length ?? 0) + 1}`;
+      const aiLoaderMessageKey = `aiLoader-${(chatContext?.chat.length ?? 0) + 1}`;
 
       chatContext?.setChatMsg((prevChatHistory) => [
         ...prevChatHistory,
         {
           key: userMessageKey,
           element: [
-            <UserMsgBubble response={text} key={userMessageKey} />,
+            userMessageKey,
+            "user",
             text,
+            <UserMsgBubble response={text} key={userMessageKey} />,
           ],
         },
       ]);
@@ -61,8 +64,13 @@ export const HomePage: React.FC = () => {
       chatContext?.setChatMsg((prevChatHistory) => [
         ...prevChatHistory,
         {
-          key: aiMessageKey,
-          element: [<AiLoader />, ""],
+          key: aiLoaderMessageKey,
+          element: [
+            aiLoaderMessageKey,
+            "aiLoader",
+            "",
+            <AiLoader key={aiLoaderMessageKey} />,
+          ],
         },
       ]);
 
@@ -91,11 +99,14 @@ export const HomePage: React.FC = () => {
             {
               key: aiMessageKey,
               element: [
+                aiMessageKey,
+                "ai",
+                "Error Occurred",
                 <AiMsgBubble
                   response={`**${response["error"]}**\nTry again :(`}
                   setButtonsDisabled={setButtonsDisabled}
+                  key={aiMessageKey}
                 />,
-                "Error Occurred",
               ],
             },
           ]);
@@ -105,11 +116,14 @@ export const HomePage: React.FC = () => {
             {
               key: aiMessageKey,
               element: [
+                aiMessageKey,
+                "ai",
+                response["response"]["content"],
                 <AiMsgBubble
                   response={response["response"]["content"]}
                   setButtonsDisabled={setButtonsDisabled}
+                  key={aiMessageKey}
                 />,
-                response["response"]["content"],
               ],
             },
           ]);
@@ -153,7 +167,7 @@ export const HomePage: React.FC = () => {
           <StopTextGeneration.Provider value={{ stop, setStop }}>
             <div className={styles.msgBox}>
               {welcomeText && <WelcomeText />}
-              {chatContext?.chat.map((item) => item.element[0])}
+              {chatContext?.chat.map((item) => item.element[3])}
               <div ref={scrollRef} />
             </div>
           </StopTextGeneration.Provider>
