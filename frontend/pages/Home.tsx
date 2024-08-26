@@ -3,7 +3,7 @@ import { Sidebar } from "../components/Sidebar";
 import { Header } from "../features/header/index";
 import { WelcomeText } from "../features/welcomeText/index";
 import { AiMsgBubble, AiLoader } from "../features/msgBubble/AiMsgBubble";
-import UserMsgBubble from "../features/msgBubble/UserMsgBubble";
+import { UserMsgBubble } from "../features/msgBubble/UserMsgBubble";
 import { InputPanel } from "../features/inputPanel/index";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 import { SubPageContext } from "../context/SubPage";
@@ -12,6 +12,7 @@ import { generateUUID } from "../database/UUID";
 import styles from "./styles/Home.module.css";
 
 // sub-pages
+import { ChatHistory } from "../features/chatHistory";
 import AboutUs from "../features/aboutUs/index";
 import Settings from "../features/settings/index";
 import Profile from "../features/profile/index";
@@ -163,6 +164,8 @@ export const HomePage: React.FC = () => {
         <div className={styles.subPageContainer}>
           {subPageContext?.subPage === "/profile" ? (
             <Profile />
+          ) : subPageContext?.subPage === "/history" ? (
+            <ChatHistory />
           ) : subPageContext?.subPage === "/about" ? (
             <AboutUs />
           ) : subPageContext?.subPage === "/settings" ? (

@@ -1,0 +1,24 @@
+.historyContainer {
+  height: 100%;
+  width: 100%;
+  font-family: "Exo2", "Montserrat", sans-serif;
+  background: transparent;
+  display: flex;
+  container-type: inline-size;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.historyContainer::-webkit-scrollbar {
+  width: 10px;
+}
+
+.historyContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.historyContainer::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 50px;
+}

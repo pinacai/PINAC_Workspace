@@ -9,6 +9,7 @@ import { SubPageProvider } from "./context/SubPage";
 import "./App.css";
 
 // sub-pages
+import { ChatHistory } from "./features/chatHistory";
 import AboutUs from "./features/aboutUs/index";
 import Settings from "./features/settings/index";
 import Profile from "./features/profile/index";
@@ -62,7 +63,7 @@ const App = () => {
         path="/"
         element={
           <SubPageProvider>
-              <HomePage />
+            <HomePage />
           </SubPageProvider>
         }
       />
@@ -73,6 +74,17 @@ const App = () => {
             <Sidebar />
             <div className="container">
               <Profile />
+            </div>
+          </>
+        }
+      />
+      <Route
+        path="/history"
+        element={
+          <>
+            <Sidebar />
+            <div className="container">
+              <ChatHistory />
             </div>
           </>
         }
