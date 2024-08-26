@@ -6,7 +6,6 @@ import { Sidebar } from "./components/Sidebar";
 import { ThemeModeContext } from "./context/ThemeMode";
 import { ThemeStyleContext } from "./context/ThemeStyle";
 import { SubPageProvider } from "./context/SubPage";
-import { ChatProvider } from "./context/Chat";
 import "./App.css";
 
 // sub-pages
@@ -63,9 +62,7 @@ const App = () => {
         path="/"
         element={
           <SubPageProvider>
-            <ChatProvider>
               <HomePage />
-            </ChatProvider>
           </SubPageProvider>
         }
       />

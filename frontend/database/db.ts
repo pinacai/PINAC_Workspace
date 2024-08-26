@@ -1,7 +1,7 @@
 import Dexie from "dexie";
 
 interface ChatMessage {
-  id: string;
+  id: number;
   role: string;
   text: string;
 }
@@ -40,7 +40,7 @@ export const startNewSession = async (id: string, title: string) => {
 
 export const addMsgToSession = async (
   sessionId: string,
-  msgId: string,
+  msgId: number,
   role: string,
   text: string
 ): Promise<void> => {

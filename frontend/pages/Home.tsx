@@ -1,13 +1,14 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../features/header/index";
 import { WelcomeText } from "../features/welcomeText/index";
 import { AiMsgBubble, AiLoader } from "../features/msgBubble/AiMsgBubble";
 import UserMsgBubble from "../features/msgBubble/UserMsgBubble";
 import { InputPanel } from "../features/inputPanel/index";
-import { ChatContext } from "../context/Chat";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 import { SubPageContext } from "../context/SubPage";
+import { startNewSession, addMsgToSession } from "../database/db";
+import { generateUUID } from "../database/UUID";
 import styles from "./styles/Home.module.css";
 
 // sub-pages
@@ -15,122 +16,119 @@ import AboutUs from "../features/aboutUs/index";
 import Settings from "../features/settings/index";
 import Profile from "../features/profile/index";
 
+interface ChatMessage {
+  key: number;
+  element: [number, string, string, JSX.Element]; // [ id, role, text, jsx ]
+}
+
 export const HomePage: React.FC = () => {
   const subPageContext = useContext(SubPageContext);
-  const chatContext = useContext(ChatContext);
-  const [welcomeText, setWelcomeText] = useState<boolean>(true);
-  const [userInput, setUserInput] = useState<string>(""); // Declare state for input value
-  const [isUserInputActive, setUserInputActive] = useState<boolean>(false); // Declare state for input value
-  const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false); // For disabling send button
-  const [stop, setStop] = useState<boolean>(false);
+  const currentSessionIdRef = useRef<string | null>(null);
+  const [isWelcomeTextVisible, setIsWelcomeTextVisible] =
+    useState<boolean>(true);
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [userInputText, setUserInputText] = useState<string>("");
+  const [isUserInputActive, setIsUserInputActive] = useState<boolean>(false);
+  const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
+  const [isStop, setIsStop] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null); // Scroll to the bottom whenever messages change
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  //
-  const startNewChat = () => {
-    chatContext?.setChatMsg([]);
+  // Function to start a new chat
+  const InitializeNewChat = () => {
+    setChatMessages([]);
+    currentSessionIdRef.current = null;
     window.ipcRenderer.send("request-to-backend", {
       request_type: "clear-chat",
     });
-    setWelcomeText(true);
+    setIsWelcomeTextVisible(true);
     setButtonsDisabled(false);
-    setUserInput("");
+    setUserInputText("");
   };
 
-  //
-  // Actions after clicking send button or pressing Enter
-  const submit = (text: string) => {
-    if (/\S/.test(userInput)) {
+  // Function to handle sending user input
+  const SubmitUserInput = (inputText: string) => {
+    if (/\S/.test(userInputText)) {
       setButtonsDisabled(true);
-      setWelcomeText(false);
+      setIsWelcomeTextVisible(false);
 
-      const userMessageKey = `user-${chatContext?.chat.length ?? 0}`;
-      const aiMessageKey = `ai-${(chatContext?.chat.length ?? 0) + 1}`;
-      const aiLoaderMessageKey = `aiLoader-${(chatContext?.chat.length ?? 0) + 1}`;
+      const userMessageKey = chatMessages.length ?? 0;
+      const aiMessageKey = (chatMessages.length ?? 0) + 1;
 
-      chatContext?.setChatMsg((prevChatHistory) => [
+      setChatMessages((prevChatHistory) => [
         ...prevChatHistory,
         {
           key: userMessageKey,
           element: [
             userMessageKey,
             "user",
-            text,
-            <UserMsgBubble response={text} key={userMessageKey} />,
+            inputText,
+            <UserMsgBubble response={inputText} key={userMessageKey} />,
           ],
         },
       ]);
+      LogMessageToDatabase(userMessageKey, "user", inputText);
 
-      chatContext?.setChatMsg((prevChatHistory) => [
+      setChatMessages((prevChatHistory) => [
         ...prevChatHistory,
         {
-          key: aiLoaderMessageKey,
+          key: aiMessageKey,
           element: [
-            aiLoaderMessageKey,
+            aiMessageKey,
             "aiLoader",
             "",
-            <AiLoader key={aiLoaderMessageKey} />,
+            <AiLoader key={aiMessageKey} />,
           ],
         },
       ]);
 
-      const preferredPrompt = localStorage.getItem("applied-prompt");
-      const preferredModelType = localStorage.getItem("preferred-model-type");
-      const preferredCloudModel = localStorage.getItem("preferred-cloud-model");
-      const preferredPrivateModel = localStorage.getItem(
+      const PreferredPrompt = localStorage.getItem("applied-prompt");
+      const PreferredModelType = localStorage.getItem("preferred-model-type");
+      const PreferredCloudModel = localStorage.getItem("preferred-cloud-model");
+      const PreferredPrivateModel = localStorage.getItem(
         "preferred-private-model"
       );
+
       window.ipcRenderer.send("request-to-server", {
         request_type: "user-input",
-        preferred_model_type: preferredModelType,
+        preferred_model_type: PreferredModelType,
         preferred_model:
-          preferredModelType === "Cloud LLM"
-            ? preferredCloudModel
-            : preferredPrivateModel,
-        prompt: preferredPrompt,
-        user_query: text,
+          PreferredModelType === "Cloud LLM"
+            ? PreferredCloudModel
+            : PreferredPrivateModel,
+        prompt: PreferredPrompt,
+        user_query: inputText,
       });
 
-      // fetching AI response from backend
+      // Handle AI response from backend
       window.ipcRenderer.once("server-response", (_, response) => {
-        if (response["error_occurred"]) {
-          chatContext?.setChatMsg((prevChatHistory) => [
-            ...prevChatHistory.slice(0, -1),
-            {
-              key: aiMessageKey,
-              element: [
-                aiMessageKey,
-                "ai",
-                "Error Occurred",
-                <AiMsgBubble
-                  response={`**${response["error"]}**\nTry again :(`}
-                  setButtonsDisabled={setButtonsDisabled}
-                  key={aiMessageKey}
-                />,
-              ],
-            },
-          ]);
-        } else {
-          chatContext?.setChatMsg((prevChatHistory) => [
-            ...prevChatHistory.slice(0, -1),
-            {
-              key: aiMessageKey,
-              element: [
-                aiMessageKey,
-                "ai",
-                response["response"]["content"],
-                <AiMsgBubble
-                  response={response["response"]["content"]}
-                  setButtonsDisabled={setButtonsDisabled}
-                  key={aiMessageKey}
-                />,
-              ],
-            },
-          ]);
+        const MessageContent = response["error_occurred"]
+          ? `**${response["error"]}**\nTry again :(`
+          : response["response"]["content"];
+
+        setChatMessages((prevChatHistory) => [
+          ...prevChatHistory.slice(0, -1),
+          {
+            key: aiMessageKey,
+            element: [
+              aiMessageKey,
+              "ai",
+              MessageContent,
+              <AiMsgBubble
+                response={MessageContent}
+                setButtonsDisabled={setButtonsDisabled}
+                key={aiMessageKey}
+              />,
+            ],
+          },
+        ]);
+
+        if (!response["error_occurred"]) {
+          LogMessageToDatabase(aiMessageKey, "ai", MessageContent);
         }
       });
 
-      setUserInput("");
+      setUserInputText("");
       if (textareaRef.current) {
         textareaRef.current.style.height = "50px"; // Reset textarea height
       }
@@ -138,15 +136,24 @@ export const HomePage: React.FC = () => {
   };
 
   //
-  // for auto scrolling
+  // Auto-scroll effect for chat messages
   useEffect(() => {
-    if (chatContext?.chat.length) {
-      scrollRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
+    scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [chatMessages.length]);
+
+  //
+  // Log message into the database
+  const LogMessageToDatabase = (id: number, role: string, msgText: string) => {
+    if (currentSessionIdRef.current == null) {
+      currentSessionIdRef.current = generateUUID();
+      if (currentSessionIdRef.current != null) {
+        startNewSession(currentSessionIdRef.current, "New Session");
+        addMsgToSession(currentSessionIdRef.current, id, role, msgText);
+      }
+    } else {
+      addMsgToSession(currentSessionIdRef.current, id, role, msgText);
     }
-  }, [chatContext?.chat.length]);
+  };
 
   // --------------------------------------------------- //
   return (
@@ -163,25 +170,27 @@ export const HomePage: React.FC = () => {
           ) : null}
         </div>
         <div className={styles.chatContainer}>
-          <Header title="PINAC" subPage={false} clearChat={startNewChat} />
-          <StopTextGeneration.Provider value={{ stop, setStop }}>
+          <Header title="PINAC" subPage={false} clearChat={InitializeNewChat} />
+          <StopTextGeneration.Provider
+            value={{ stop: isStop, setStop: setIsStop }}
+          >
             <div className={styles.msgBox}>
-              {welcomeText && <WelcomeText />}
-              {chatContext?.chat.map((item) => item.element[3])}
+              {isWelcomeTextVisible && <WelcomeText />}
+              {chatMessages.map((item) => item.element[3])}
               <div ref={scrollRef} />
             </div>
           </StopTextGeneration.Provider>
 
           <InputPanel
-            userInput={userInput}
-            setUserInput={setUserInput}
+            userInput={userInputText}
+            setUserInput={setUserInputText}
             isUserInputActive={isUserInputActive}
-            setUserInputActive={setUserInputActive}
+            setUserInputActive={setIsUserInputActive}
             buttonsDisabled={buttonsDisabled}
             setButtonsDisabled={setButtonsDisabled}
             textareaRef={textareaRef}
-            submit={submit}
-            setStop={setStop}
+            submit={SubmitUserInput}
+            setStop={setIsStop}
           />
         </div>
       </div>
