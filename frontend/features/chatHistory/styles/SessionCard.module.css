@@ -1,0 +1,48 @@
+.sessionCard {
+    height: 70px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    background: gray;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/*          Date Block          */
+/* ============================ */
+
+.dateBlock {
+    height: 25px;
+    width: 80px;
+    margin: 7px 0 0 7px;
+    border: none;
+    border-radius: 5px;
+    /* border: 0.1px solid white; */
+    background: rgb(173, 173, 173);
+
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.date {
+    font: normal  12px "Exo2", "Montserrat", sans-serif;
+}
+
+/*          Title Block          */
+/* ============================ */
+
+.titleBlock {
+    height: 100%;
+    width: 100%;
+    padding-left: 20px;
+    /* background: white; */
+
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    font: normal  18px "Exo2", "Montserrat", sans-serif;
+}
