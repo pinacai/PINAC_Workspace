@@ -148,7 +148,7 @@ export const HomePage: React.FC = () => {
     if (currentSessionIdRef.current == null) {
       currentSessionIdRef.current = generateUUID();
       if (currentSessionIdRef.current != null) {
-        startNewSession(currentSessionIdRef.current, "New Session");
+        startNewSession(currentSessionIdRef.current, msgText.slice(0, 50));
         addMsgToSession(currentSessionIdRef.current, id, role, msgText);
       }
     } else {
