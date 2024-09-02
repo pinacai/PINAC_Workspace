@@ -30,6 +30,12 @@
 /*    Header Dropdown Menu for Sidebar functions     */
 /* ------------------------------------------------- */
 
+
+.rightSide {
+  display : flex;
+  gap : 15px
+}
+
 .leftSide button {
   border: none;
   margin-left: 10px;
