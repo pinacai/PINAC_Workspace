@@ -1,6 +1,7 @@
 .sessionCard {
     height: 70px;
     width: 100%;
+    margin-bottom: 7px;
     border: none;
     border-radius: 10px;
     background: gray;

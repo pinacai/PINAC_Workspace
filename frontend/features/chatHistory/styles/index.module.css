@@ -78,10 +78,10 @@ input:hover {
   fill: #7c7c83;
 }
 
-/*        Session Card        */
-/* ========================== */
+/*        Session Card Container        */
+/* ==================================== */
 
-.sessionCard {
+.cardContainer {
   height: 100%;
   width: 100%;
   padding: 20px 0;
@@ -89,4 +89,9 @@ input:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.noSessions {
+  font: normal 22px "Exo2", "Montserrat", sans-serif;
+  color: var(--placeholder-color);
 }
