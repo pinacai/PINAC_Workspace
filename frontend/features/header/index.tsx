@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "../../components/ThemeToggle";
 import { LogoutBtn } from "./components/LogoutBtn";
 import { NewChatBtn } from "./components/NewChatBtn";
+import { LiveSearchButton } from "./components/LiveSearchButton";
 import { SubPageContext } from "../../context/SubPage";
 import styles from "./styles/index.module.css";
 
@@ -27,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
   const [isDropdownActive, setIsDropdownActive] = useState<boolean>(false);
-
+  const [isActive,setActive] = useState<boolean>(false);
   //
   useEffect(() => {
     const handleResize = () => {
@@ -153,6 +154,9 @@ export const Header: React.FC<HeaderProps> = ({
           )}
         </div>
         <div className={styles.rightSide}>
+          {location.pathname == "/" && clearChat &&
+            <LiveSearchButton isActive={isActive} setActive={setActive} />
+          }
           {/* Render the new chat button only for Home Page */}
           {location.pathname == "/" && clearChat && (
             <NewChatBtn clearChat={clearChat} />
