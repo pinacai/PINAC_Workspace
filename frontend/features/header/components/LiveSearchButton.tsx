@@ -11,7 +11,7 @@ interface NewChatBtnProps {
 export const LiveSearchButton: React.FC<NewChatBtnProps> = ({isActive,setActive}) => {
   return (
     <>
-      <button className={isActive ? styles.LiveSearchActive : styles.LiveSearch} onClick={() => {console.log(isActive);setActive(!isActive)}} 
+      <button className={isActive ? styles.LiveSearchActive : styles.LiveSearch} onClick={() => {setActive(!isActive)}} 
         >
         <TbWorldWww
           size={30}
