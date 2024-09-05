@@ -7,6 +7,7 @@ import { UserMsgBubble } from "../features/msgBubble/UserMsgBubble";
 import { InputPanel } from "../features/inputPanel/index";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 import { SubPageContext } from "../context/SubPage";
+import { ChatMsgContext } from "../context/chatMsg";
 import { startNewSession, addMsgToSession } from "../database/db";
 import { generateUUID } from "../database/UUID";
 import styles from "./styles/Home.module.css";
@@ -17,17 +18,12 @@ import AboutUs from "../features/aboutUs/index";
 import Settings from "../features/settings/index";
 import Profile from "../features/profile/index";
 
-interface ChatMessage {
-  key: number;
-  element: [number, string, string, JSX.Element]; // [ id, role, text, jsx ]
-}
-
 export const HomePage: React.FC = () => {
   const subPageContext = useContext(SubPageContext);
   const currentSessionIdRef = useRef<string | null>(null);
   const [isWelcomeTextVisible, setIsWelcomeTextVisible] =
     useState<boolean>(true);
-  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const chatContext = useContext(ChatMsgContext);
   const [userInputText, setUserInputText] = useState<string>("");
   const [isUserInputActive, setIsUserInputActive] = useState<boolean>(false);
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
@@ -37,7 +33,7 @@ export const HomePage: React.FC = () => {
 
   // Function to start a new chat
   const InitializeNewChat = () => {
-    setChatMessages([]);
+    chatContext?.setChatMsg([]);
     currentSessionIdRef.current = null;
     window.ipcRenderer.send("request-to-backend", {
       request_type: "clear-chat",
@@ -53,10 +49,10 @@ export const HomePage: React.FC = () => {
       setButtonsDisabled(true);
       setIsWelcomeTextVisible(false);
 
-      const userMessageKey = chatMessages.length ?? 0;
-      const aiMessageKey = (chatMessages.length ?? 0) + 1;
+      const userMessageKey = chatContext?.chatMsg.length ?? 0;
+      const aiMessageKey = (chatContext?.chatMsg.length ?? 0) + 1;
 
-      setChatMessages((prevChatHistory) => [
+      chatContext?.setChatMsg((prevChatHistory) => [
         ...prevChatHistory,
         {
           key: userMessageKey,
@@ -70,7 +66,7 @@ export const HomePage: React.FC = () => {
       ]);
       LogMessageToDatabase(userMessageKey, "user", inputText);
 
-      setChatMessages((prevChatHistory) => [
+      chatContext?.setChatMsg((prevChatHistory) => [
         ...prevChatHistory,
         {
           key: aiMessageKey,
@@ -107,7 +103,7 @@ export const HomePage: React.FC = () => {
           ? `**${response["error"]}**\nTry again :(`
           : response["response"]["content"];
 
-        setChatMessages((prevChatHistory) => [
+          chatContext?.setChatMsg((prevChatHistory) => [
           ...prevChatHistory.slice(0, -1),
           {
             key: aiMessageKey,
@@ -140,7 +136,7 @@ export const HomePage: React.FC = () => {
   // Auto-scroll effect for chat messages
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [chatMessages.length]);
+  }, [chatContext?.chatMsg.length]);
 
   //
   // Log message into the database
@@ -179,7 +175,7 @@ export const HomePage: React.FC = () => {
           >
             <div className={styles.msgBox}>
               {isWelcomeTextVisible && <WelcomeText />}
-              {chatMessages.map((item) => item.element[3])}
+              {chatContext?.chatMsg.map((item) => item.element[3])}
               <div ref={scrollRef} />
             </div>
           </StopTextGeneration.Provider>

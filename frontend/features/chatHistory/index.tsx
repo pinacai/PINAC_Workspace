@@ -18,6 +18,7 @@ export const ChatHistory: React.FC = () => {
     setSessions(
       sessions.map((session) => (
         <SessionCard
+          sessionId={session.id}
           date={`${String(session.timestamp.getDate()).padStart(
             2,
             "0"

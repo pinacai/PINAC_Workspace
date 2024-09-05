@@ -11,7 +11,7 @@ import pinacLogo from "/icon/pinac-logo.png";
 
 interface AiMsgBubbleProps {
   response: string;
-  setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setButtonsDisabled?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
@@ -68,7 +68,7 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
           <div className={`${styles.msg_text} ${styles.ai_msg}`}>
             <MarkdownStyle
               text={response}
-              setButtonsDisabled={setButtonsDisabled}
+              setButtonsDisabled={setButtonsDisabled? setButtonsDisabled : null}
             />
           </div>
           <div className={styles.ai_msg_copy_btn}>

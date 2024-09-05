@@ -9,7 +9,7 @@ import styles from "./styles/MarkdownStyle.module.css";
 
 interface MarkdownStyleProps {
   text: string;
-  setButtonsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setButtonsDisabled?: React.Dispatch<React.SetStateAction<boolean>> | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,9 +62,11 @@ export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
   //
   // Handle typing effect for the entire Markdown content
   useEffect(() => {
-    if (currentIndex >= text.length - 5) setButtonsDisabled(false);
+    if (currentIndex >= text.length - 5) {
+      setButtonsDisabled ? setButtonsDisabled(false) : null;
+    }
     if (stop) {
-      setButtonsDisabled(false);
+      setButtonsDisabled ? setButtonsDisabled(false) : null;
       setStop(false);
     } else if (currentIndex < text.length) {
       const timeout = setTimeout(() => {
@@ -82,7 +84,11 @@ export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
         components={{
           code({ className, children, ...props }) {
             if (className?.includes("language-")) {
-              return <SyntaxHighlight code={children?.toString()}>{children}</SyntaxHighlight>;
+              return (
+                <SyntaxHighlight code={children?.toString()}>
+                  {children}
+                </SyntaxHighlight>
+              );
             }
             return (
               <code {...props} className={styles.inlineCode}>
