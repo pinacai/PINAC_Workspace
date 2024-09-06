@@ -7,7 +7,7 @@ import { UserMsgBubble } from "../features/msgBubble/UserMsgBubble";
 import { InputPanel } from "../features/inputPanel/index";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 import { SubPageContext } from "../context/SubPage";
-import { ChatMsgContext } from "../context/chatMsg";
+import { ChatMsgContext } from "../context/ChatMsg";
 import { startNewSession, addMsgToSession } from "../database/db";
 import { generateUUID } from "../database/UUID";
 import styles from "./styles/Home.module.css";
