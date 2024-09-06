@@ -112,6 +112,7 @@ export const HomePage: React.FC = () => {
               "ai",
               MessageContent,
               <AiMsgBubble
+                live={true}
                 response={MessageContent}
                 setButtonsDisabled={setButtonsDisabled}
                 key={aiMessageKey}

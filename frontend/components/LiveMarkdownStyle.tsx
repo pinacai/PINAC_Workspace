@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useStopTextGeneration } from "../context/StopTextGeneration";
 import styles from "./styles/MarkdownStyle.module.css";
 
-interface MarkdownStyleProps {
+interface LiveMarkdownStyleProps {
   text: string;
+  setButtonsDisabled?: React.Dispatch<React.SetStateAction<boolean>> | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,9 +50,33 @@ const SyntaxHighlight = ({ children, code, ...props }: any) => {
 
 // =============================================================== //
 
-export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
+export const LiveMarkdownStyle: React.FC<LiveMarkdownStyleProps> = ({
   text,
+  setButtonsDisabled,
 }) => {
+  const { stop, setStop } = useStopTextGeneration();
+  const [currentText, setCurrentText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const delay = 10;
+
+  //
+  // Handle typing effect for the entire Markdown content
+  useEffect(() => {
+    if (currentIndex >= text.length - 5) {
+      setButtonsDisabled ? setButtonsDisabled(false) : null;
+    }
+    if (stop) {
+      setButtonsDisabled ? setButtonsDisabled(false) : null;
+      setStop(false);
+    } else if (currentIndex < text.length) {
+      const timeout = setTimeout(() => {
+        setCurrentText((prevText) => prevText + text[currentIndex]);
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+      }, delay);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, delay]);
+
   return (
     <div className={styles.markdownText}>
       <Markdown
@@ -72,7 +98,7 @@ export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
           },
         }}
       >
-        {text}
+        {currentText}
       </Markdown>
     </div>
   );

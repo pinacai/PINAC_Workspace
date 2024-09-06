@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { MarkdownStyle } from "../../components/MarkdownStyle";
 import styles from "./styles/MsgBubble.module.css";
 
 // Icons
@@ -36,7 +37,7 @@ export const UserMsgBubble: React.FC<UserMsgBubbleProps> = ({ response }) => {
         <div className={styles.msg_content}>
           <div className={styles.msg_name}>You</div>
           <div className={`${styles.msg_text} ${styles.human_msg}`}>
-            {response}
+            <MarkdownStyle text={response} />
           </div>
         </div>
       </div>

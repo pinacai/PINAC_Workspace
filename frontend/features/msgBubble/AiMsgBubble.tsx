@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { LiveMarkdownStyle } from "../../components/LiveMarkdownStyle";
 import { MarkdownStyle } from "../../components/MarkdownStyle";
 import styles from "./styles/MsgBubble.module.css";
 
@@ -10,11 +11,13 @@ import pinacLogo from "/icon/pinac-logo.png";
 // ============================================================================ //
 
 interface AiMsgBubbleProps {
+  live: boolean;
   response: string;
   setButtonsDisabled?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
+  live,
   response,
   setButtonsDisabled,
 }) => {
@@ -66,10 +69,16 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
             <div className={styles.msg_name}>PINAC</div>
           </div>
           <div className={`${styles.msg_text} ${styles.ai_msg}`}>
-            <MarkdownStyle
-              text={response}
-              setButtonsDisabled={setButtonsDisabled? setButtonsDisabled : null}
-            />
+            {live ? (
+              <LiveMarkdownStyle
+                text={response}
+                setButtonsDisabled={
+                  setButtonsDisabled ? setButtonsDisabled : null
+                }
+              />
+            ) : (
+              <MarkdownStyle text={response} />
+            )}
           </div>
           <div className={styles.ai_msg_copy_btn}>
             <button

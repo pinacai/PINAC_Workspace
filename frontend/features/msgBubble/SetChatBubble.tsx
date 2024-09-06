@@ -13,7 +13,7 @@ export const SetChatBubble: React.FC<SetChatBubbleProps> = ({ role, msg }) => {
       {role === "user" ? (
         <UserMsgBubble response={msg} />
       ) : (
-        <AiMsgBubble response={msg} />
+        <AiMsgBubble live={false} response={msg} />
       )}
     </>
   );
