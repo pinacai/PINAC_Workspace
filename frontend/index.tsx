@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import { HashRouter as Router } from "react-router-dom";
 import { ThemeModeProvider } from "./context/ThemeMode.tsx";
 import { ThemeStyleProvider } from "./context/ThemeStyle.tsx";
-import { ChatMsgProvider } from "./context/chatMsg";
 import App from "./App.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -11,9 +10,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Router>
       <ThemeModeProvider>
         <ThemeStyleProvider>
-          <ChatMsgProvider>
-            <App />
-          </ChatMsgProvider>
+          <App />
         </ThemeStyleProvider>
       </ThemeModeProvider>
     </Router>

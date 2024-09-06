@@ -6,6 +6,8 @@ import { Sidebar } from "./components/Sidebar";
 import { ThemeModeContext } from "./context/ThemeMode";
 import { ThemeStyleContext } from "./context/ThemeStyle";
 import { SubPageProvider } from "./context/SubPage";
+import { WelcomeTextProvider } from "./context/WelcomeText";
+import { ChatMsgProvider } from "./context/ChatMsg";
 import "./App.css";
 
 // sub-pages
@@ -58,69 +60,73 @@ const App = () => {
 
   // ---------------------------------------------------- //
   return (
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <SubPageProvider>
-              <HomePage />
-            </SubPageProvider>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <>
-              <Sidebar />
-              <div className="container">
-                <Profile />
-              </div>
-            </>
-          }
-        />
-        <Route
-          path="/history"
-          element={
-            <>
-              <Sidebar />
-              <div className="container">
-                <ChatHistory />
-              </div>
-            </>
-          }
-        />
-        <Route
-          path="/history"
-          element={
-            <>
-              <Sidebar />
-              <div className="container" />
-            </>
-          }
-        />
-        <Route
-          path="/about"
-          element={
-            <>
-              <Sidebar />
-              <div className="container">
-                <AboutUs />
-              </div>
-            </>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <>
-              <Sidebar />
-              <div className="container">
-                <Settings />
-              </div>
-            </>
-          }
-        />
-      </Routes>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <SubPageProvider>
+            <WelcomeTextProvider>
+              <ChatMsgProvider>
+                <HomePage />
+              </ChatMsgProvider>
+            </WelcomeTextProvider>
+          </SubPageProvider>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <>
+            <Sidebar />
+            <div className="container">
+              <Profile />
+            </div>
+          </>
+        }
+      />
+      <Route
+        path="/history"
+        element={
+          <>
+            <Sidebar />
+            <div className="container">
+              <ChatHistory />
+            </div>
+          </>
+        }
+      />
+      <Route
+        path="/history"
+        element={
+          <>
+            <Sidebar />
+            <div className="container" />
+          </>
+        }
+      />
+      <Route
+        path="/about"
+        element={
+          <>
+            <Sidebar />
+            <div className="container">
+              <AboutUs />
+            </div>
+          </>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <>
+            <Sidebar />
+            <div className="container">
+              <Settings />
+            </div>
+          </>
+        }
+      />
+    </Routes>
   );
 };
 

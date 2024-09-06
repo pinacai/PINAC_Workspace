@@ -8,6 +8,7 @@ import { InputPanel } from "../features/inputPanel/index";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 import { SubPageContext } from "../context/SubPage";
 import { ChatMsgContext } from "../context/ChatMsg";
+import { WelcomeTextContext } from "../context/WelcomeText";
 import { startNewSession, addMsgToSession } from "../database/db";
 import { generateUUID } from "../database/UUID";
 import styles from "./styles/Home.module.css";
@@ -21,8 +22,7 @@ import Profile from "../features/profile/index";
 export const HomePage: React.FC = () => {
   const subPageContext = useContext(SubPageContext);
   const currentSessionIdRef = useRef<string | null>(null);
-  const [isWelcomeTextVisible, setIsWelcomeTextVisible] =
-    useState<boolean>(true);
+  const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
   const [userInputText, setUserInputText] = useState<string>("");
   const [isUserInputActive, setIsUserInputActive] = useState<boolean>(false);
@@ -38,7 +38,7 @@ export const HomePage: React.FC = () => {
     window.ipcRenderer.send("request-to-backend", {
       request_type: "clear-chat",
     });
-    setIsWelcomeTextVisible(true);
+    welcomeTextContext?.setIsWelcomeTextVisible(true);
     setButtonsDisabled(false);
     setUserInputText("");
   };
@@ -47,7 +47,7 @@ export const HomePage: React.FC = () => {
   const SubmitUserInput = (inputText: string) => {
     if (/\S/.test(userInputText)) {
       setButtonsDisabled(true);
-      setIsWelcomeTextVisible(false);
+      welcomeTextContext?.setIsWelcomeTextVisible(false);
 
       const userMessageKey = chatContext?.chatMsg.length ?? 0;
       const aiMessageKey = (chatContext?.chatMsg.length ?? 0) + 1;
@@ -174,7 +174,7 @@ export const HomePage: React.FC = () => {
             value={{ stop: isStop, setStop: setIsStop }}
           >
             <div className={styles.msgBox}>
-              {isWelcomeTextVisible && <WelcomeText />}
+              {welcomeTextContext?.isWelcomeTextVisible && <WelcomeText />}
               {chatContext?.chatMsg.map((item) => item.element[3])}
               <div ref={scrollRef} />
             </div>

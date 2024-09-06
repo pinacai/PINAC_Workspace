@@ -5,6 +5,7 @@
     border: none;
     border-radius: 10px;
     background: gray;
+    cursor: pointer;
 
     display: flex;
     flex-direction: column;

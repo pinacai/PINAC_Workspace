@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { ChatMsgContext } from "../../../context/chatMsg";
+import { WelcomeTextContext } from "../../../context/WelcomeText";
+import { ChatMsgContext } from "../../../context/ChatMsg";
 import { getSession } from "../../../database/db";
 import { SetChatBubble } from "../../msgBubble/SetChatBubble";
 import styles from "../styles/SessionCard.module.css";
@@ -15,10 +16,12 @@ export const SessionCard: React.FC<SessionCardProps> = ({
   date,
   title,
 }) => {
+  const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
 
   const fetchChat = () => {
     getSession(sessionId).then((session) => {
+      welcomeTextContext?.setIsWelcomeTextVisible(false);
       chatContext?.setChatMsg(
         session
           ? session.messages.map((msg) => {
