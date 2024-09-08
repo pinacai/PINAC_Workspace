@@ -5,7 +5,7 @@
     Personal Intelligent Network Assistant Companion
 </h1>
 
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header.png" alt="header image">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header 2.png" alt="header image">
 
 <br>
 <br>
@@ -38,7 +38,7 @@ Introducing our distraction-free, user-friendly app interface with three stunnin
 <br />
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_%26_Dusk.jpg" alt="Dawn & Dusk Screenshot">
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Cyber_Tech_01.jpg" alt="Cyber Tech 01 Screenshot">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Cyber Tech 01.jpg" alt="Cyber Tech 01 Screenshot">
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Aesthetic_Unbound.jpg" alt="Aesthetic Unbound Screenshot">
 
 
