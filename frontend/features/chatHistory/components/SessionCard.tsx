@@ -22,6 +22,7 @@ export const SessionCard: React.FC<SessionCardProps> = ({
   const fetchChat = () => {
     getSession(sessionId).then((session) => {
       welcomeTextContext?.setIsWelcomeTextVisible(false);
+      chatContext?.setCurrentSessionId(sessionId);
       chatContext?.setChatMsg(
         session
           ? session.messages.map((msg) => {

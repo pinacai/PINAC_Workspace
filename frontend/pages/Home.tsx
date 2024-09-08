@@ -10,7 +10,6 @@ import { SubPageContext } from "../context/SubPage";
 import { ChatMsgContext } from "../context/ChatMsg";
 import { WelcomeTextContext } from "../context/WelcomeText";
 import { startNewSession, addMsgToSession } from "../database/db";
-import { generateUUID } from "../database/UUID";
 import styles from "./styles/Home.module.css";
 
 // sub-pages
@@ -21,7 +20,6 @@ import Profile from "../features/profile/index";
 
 export const HomePage: React.FC = () => {
   const subPageContext = useContext(SubPageContext);
-  const currentSessionIdRef = useRef<string | null>(null);
   const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
   const [userInputText, setUserInputText] = useState<string>("");
@@ -34,10 +32,7 @@ export const HomePage: React.FC = () => {
   // Function to start a new chat
   const InitializeNewChat = () => {
     chatContext?.setChatMsg([]);
-    currentSessionIdRef.current = null;
-    window.ipcRenderer.send("request-to-backend", {
-      request_type: "clear-chat",
-    });
+    chatContext?.setCurrentSessionId(null);
     welcomeTextContext?.setIsWelcomeTextVisible(true);
     setButtonsDisabled(false);
     setUserInputText("");
@@ -103,7 +98,7 @@ export const HomePage: React.FC = () => {
           ? `**${response["error"]}**\nTry again :(`
           : response["response"]["content"];
 
-          chatContext?.setChatMsg((prevChatHistory) => [
+        chatContext?.setChatMsg((prevChatHistory) => [
           ...prevChatHistory.slice(0, -1),
           {
             key: aiMessageKey,
@@ -142,14 +137,18 @@ export const HomePage: React.FC = () => {
   //
   // Log message into the database
   const LogMessageToDatabase = (id: number, role: string, msgText: string) => {
-    if (currentSessionIdRef.current == null) {
-      currentSessionIdRef.current = generateUUID();
-      if (currentSessionIdRef.current != null) {
-        startNewSession(currentSessionIdRef.current, msgText.slice(0, 50));
-        addMsgToSession(currentSessionIdRef.current, id, role, msgText);
+    let currentSessionId = chatContext?.getCurrentSessionId() ?? null;
+    if (currentSessionId == null) {
+      chatContext?.setCurrentSessionId("newSession");
+      currentSessionId = chatContext?.getCurrentSessionId() ?? null;
+      console.log(currentSessionId);
+
+      if (currentSessionId != null) {
+        startNewSession(currentSessionId, msgText.slice(0, 50));
+        addMsgToSession(currentSessionId, id, role, msgText);
       }
     } else {
-      addMsgToSession(currentSessionIdRef.current, id, role, msgText);
+      addMsgToSession(currentSessionId, id, role, msgText);
     }
   };
 

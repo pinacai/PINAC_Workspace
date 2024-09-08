@@ -28,11 +28,6 @@ ipcMain.on("request-to-backend", (event, request) => {
   }
   //
   //
-  else if (request["request_type"] == "clear-chat") {
-    console.log("Chat Cleared");
-  }
-  //
-  //
   else if (request["request_type"] == "save-user-info") {
     try {
       const userInfo = {
