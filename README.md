@@ -1,8 +1,7 @@
 <div align="center">
 
 <h1 style="border-bottom: none">
-    <b><a href="https://github.com/pinacai">PINAC</a></b><br>
-    Personal Intelligent Network Assistant Companion
+    <b><a href="https://github.com/pinacai">PINAC Workspace</a></b>
 </h1>
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header 2.png" alt="header image">
