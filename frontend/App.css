@@ -94,6 +94,13 @@
   --profileBtn-bg: var(--secondary-color);
   --profileBtn-hover-shadow: var(--secondary-color);
 
+  /* HistoryPage */
+  --sessionCard-bg: var(--quinary-color);
+  --sessionCard-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  --dateBlock-bg: var(--quaternary-color);
+  --dateBlock-shadow: none;
+  --dateBlockText-color: var(--text-color-opposite);
+
   /* AboutPage */
   --aboutCard-bg: var(--primary-color);
   --aboutCard-shadow: var(--shadow);
@@ -178,6 +185,13 @@
   --profileBtn-bg: var(--tertiary-linear-gradient);
   --profileBtn-hover-shadow: var(--tertiary-color);
 
+  /* HistoryPage */
+  --sessionCard-bg: var(--secondary-color);
+  --sessionCard-shadow: none;
+  --dateBlock-bg: #868686;
+  --dateBlock-shadow: none;
+  --dateBlockText-color: #000;
+
   /* AboutPage */
   --aboutCard-bg: var(--secondary-color);
   --aboutCard-shadow: var(--shadow);
@@ -198,7 +212,7 @@
   --primary-color: #f7f6f0;
   --secondary-color: #d3f36b;
   --tertiary-color: #ffffff;
-  --quaternary-color: #232B2B;
+  --quaternary-color: #232b2b;
   --subPage-bg: var(--primary-color);
 
   --text-color-light: #000000;
@@ -260,6 +274,13 @@
   --profile-input-valid-color: #a5c63f;
   --profileBtn-bg: var(--secondary-color);
   --profileBtn-hover-shadow: var(--secondary-color);
+
+  /* HistoryPage */
+  --sessionCard-bg: var(--tertiary-color);
+  --sessionCard-shadow: var(--shadow);
+  --dateBlock-bg: #dadada;
+  --dateBlock-shadow: none;
+  --dateBlockText-color: #000;
 
   /* AboutPage */
   --aboutCard-bg: var(--tertiary-color);
@@ -342,6 +363,13 @@
   --profile-input-valid-color: var(--tertiary-color);
   --profileBtn-bg: var(--tertiary-linear-gradient);
   --profileBtn-hover-shadow: var(--tertiary-color);
+
+  /* HistoryPage */
+  --sessionCard-bg: var(--secondary-color);
+  --sessionCard-shadow: none;
+  --dateBlock-bg: var(--secondary-color);
+  --dateBlock-shadow: none;
+  --dateBlockText-color: var(--placeholder-color);
 
   /* AboutPage */
   --aboutCard-bg: var(--secondary-color);
@@ -427,6 +455,13 @@
   --profileBtn-bg: var(--tertiary-color);
   --profileBtn-hover-shadow: var(--tertiary-color);
 
+  /* HistoryPage */
+  --sessionCard-bg: var(--quaternary-color);
+  --sessionCard-shadow: none;
+  --dateBlock-bg: var(--tertiary-color);
+  --dateBlock-shadow: none;
+  --dateBlockText-color: var(--text-color-opposite);
+
   /* AboutPage */
   --aboutCard-bg: var(--quaternary-color);
   --aboutCard-shadow: var(--shadow-wide);
@@ -507,6 +542,13 @@
   --profile-input-valid-color: var(--quaternary-color);
   --profileBtn-bg: var(--quaternary-color);
   --profileBtn-hover-shadow: var(--quaternary-color);
+
+  /* HistoryPage */
+  --sessionCard-bg: var(--tertiary-color);
+  --sessionCard-shadow: none;
+  --dateBlock-bg: var(--quaternary-color);
+  --dateBlock-shadow: none;
+  --dateBlockText-color: var(--text-color-opposite);
 
   /* AboutPage */
   --aboutCard-bg: var(--tertiary-color);

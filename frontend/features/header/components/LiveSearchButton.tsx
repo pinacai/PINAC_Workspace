@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../styles/LiveSearchBtn.module.css";
 
 // Icons
-import { TbWorldWww } from "react-icons/tb";
+import { CiGlobe } from "react-icons/ci";
 
 interface NewChatBtnProps {
     isActive : boolean,
@@ -13,7 +13,7 @@ export const LiveSearchButton: React.FC<NewChatBtnProps> = ({isActive,setActive}
     <>
       <button className={isActive ? styles.LiveSearchActive : styles.LiveSearch} onClick={() => {setActive(!isActive)}} 
         >
-        <TbWorldWww
+        <CiGlobe
           size={30}
           color="var(--text-color-light)"
           style={{ zIndex: 2 }}

@@ -226,7 +226,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
               localStorageVariableName={
                 dropdowns[currentDropdownIndex].localStorageVariableName
               }
-              searchBar={false}
+              searchBar={true}
             />
             <button
               className={styles.nextButton}

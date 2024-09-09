@@ -1,50 +1,51 @@
 .sessionCard {
-    height: 70px;
-    width: 100%;
-    margin-bottom: 7px;
-    border: none;
-    border-radius: 10px;
-    background: gray;
-    cursor: pointer;
+  height: 80px;
+  width: 100%;
+  margin-bottom: 7px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text-color-opposite);
+  background: var(--sessionCard-bg);
+  box-shadow: var(--sessionCard-shadow);
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 /*          Date Block          */
 /* ============================ */
 
 .dateBlock {
-    height: 25px;
-    width: 80px;
-    margin: 7px 0 0 7px;
-    border: none;
-    border-radius: 5px;
-    /* border: 0.1px solid white; */
-    background: rgb(173, 173, 173);
+  height: 25px;
+  width: 80px;
+  margin: 7px 0 0 7px;
+  border: none;
+  border-radius: 5px;
+  color: var(--dateBlockText-color);
+  background: var(--dateBlock-bg);
+  box-shadow: var(--dateBlock-shadow);
 
-    display: flex;
-    justify-content: center;
-    align-items: center
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .date {
-    font: normal  12px "Exo2", "Montserrat", sans-serif;
+  font: normal 12px "Exo2", "Montserrat", sans-serif;
 }
 
 /*          Title Block          */
 /* ============================ */
 
 .titleBlock {
-    height: 100%;
-    width: 100%;
-    padding-left: 20px;
-    /* background: white; */
-
-    display: flex;
-    align-items: center;
+  height: 100%;
+  width: 100%;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .title {
-    font: normal  16px "Exo2", "Montserrat", sans-serif;
+  font: normal 16px "Exo2", "Montserrat", sans-serif;
 }

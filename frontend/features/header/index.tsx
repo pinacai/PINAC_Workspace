@@ -124,6 +124,9 @@ export const Header: React.FC<HeaderProps> = ({
                   {location.pathname !== "/" && (
                     <li onClick={() => navigate("/")}>Chat</li>
                   )}
+                  {location.pathname !== "/history" && (
+                    <li onClick={() => navigate("/history")}>Chat History</li>
+                  )}
                   {location.pathname !== "/about" && (
                     <li onClick={() => navigate("/about")}>About Us</li>
                   )}
@@ -137,7 +140,7 @@ export const Header: React.FC<HeaderProps> = ({
                 className={`${styles.dropdownLastMenu} ${styles.dropdownMenu} ${
                   isDropdownActive ? `${styles.active}` : ""
                 }`}
-                style={{ marginTop: "130px" }}
+                style={{ marginTop: "167px" }}
               >
                 <ul>
                   <li
