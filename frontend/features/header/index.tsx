@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "../../components/ThemeToggle";
-import { LogoutBtn } from "./components/LogoutBtn";
+import { RedButton } from "./components/RedButton";
 import { NewChatBtn } from "./components/NewChatBtn";
 import { LiveSearchButton } from "./components/LiveSearchButton";
 import { SubPageContext } from "../../context/SubPage";
@@ -10,6 +10,8 @@ import styles from "./styles/index.module.css";
 // Icons
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
+import { TbLogout } from "react-icons/tb";
+import { MdDelete } from "react-icons/md";
 
 interface HeaderProps {
   title: string;
@@ -28,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
   const [isDropdownActive, setIsDropdownActive] = useState<boolean>(false);
-  const [isActive,setActive] = useState<boolean>(false);
+  const [isActive, setActive] = useState<boolean>(false);
   //
   useEffect(() => {
     const handleResize = () => {
@@ -157,17 +159,28 @@ export const Header: React.FC<HeaderProps> = ({
           )}
         </div>
         <div className={styles.rightSide}>
-          {location.pathname == "/" && clearChat &&
-            <LiveSearchButton isActive={isActive} setActive={setActive} />
-          }
-          {/* Render the new chat button only for Home Page */}
-          {location.pathname == "/" && clearChat && (
-            <NewChatBtn clearChat={clearChat} />
-          )}
+          {location.pathname == "/" && clearChat ? (
+            <>
+              <LiveSearchButton isActive={isActive} setActive={setActive} />
+              <NewChatBtn clearChat={clearChat} />
+            </>
+          ) : null}
+          {/* Render the clear history button only for history Page */}
+          {location.pathname == "/history" ||
+          (subPage && subPageContext?.subPage == "/history") ? (
+            <RedButton
+              text="Delete"
+              icon={<MdDelete />}
+            />
+          ) : null}
           {/* Render the logout button only for Profile Page */}
           {location.pathname == "/profile" ||
           (subPage && subPageContext?.subPage == "/profile") ? (
-            <LogoutBtn changePage={navigate} />
+            <RedButton
+              text="Logout"
+              icon={<TbLogout />}
+              changePage={navigate}
+            />
           ) : null}
         </div>
       </div>

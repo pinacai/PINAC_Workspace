@@ -24,11 +24,9 @@
 }
 
 .logoutImg svg {
-  width: 17px;
-}
-
-.logoutImg svg path {
-  fill: white;
+  height: 20px;
+  width: 20px;
+  color: white;
 }
 
 /* text */

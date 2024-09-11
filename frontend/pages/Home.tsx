@@ -4,13 +4,12 @@ import { Header } from "../features/header/index";
 import { WelcomeText } from "../features/welcomeText/index";
 import { AiMsgBubble, AiLoader } from "../features/msgBubble/AiMsgBubble";
 import { UserMsgBubble } from "../features/msgBubble/UserMsgBubble";
-// import { SetChatBubble } from "../features/msgBubble/SetChatBubble";
 import { InputPanel } from "../features/inputPanel/index";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 import { SubPageContext } from "../context/SubPage";
 import { ChatMsgContext } from "../context/ChatMsg";
 import { WelcomeTextContext } from "../context/WelcomeText";
-import { startNewSession, addMsgToSession, getSession } from "../database/db";
+import { startNewSession, addMsgToSession } from "../database/db";
 import styles from "./styles/Home.module.css";
 
 // sub-pages
@@ -152,37 +151,6 @@ export const HomePage: React.FC = () => {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [chatContext?.chatMsg.length]);
-
-  // //
-  // // Autoloading the chat after page shifting
-  // useEffect(() => {
-  //   const giveOngoingSession = async () => {
-  //     const sessionId = chatContext?.getCurrentSessionId() ?? null;
-
-  //     if (sessionId != null) {
-  //       getSession(sessionId).then((session) => {
-  //         welcomeTextContext?.setIsWelcomeTextVisible(false);
-  //         chatContext?.setChatMsg(
-  //           session
-  //             ? session.messages.map((msg) => {
-  //                 return {
-  //                   key: msg.id,
-  //                   element: [
-  //                     msg.id,
-  //                     msg.role,
-  //                     msg.text,
-  //                     <SetChatBubble role={msg.role} msg={msg.text} />,
-  //                   ],
-  //                 };
-  //               })
-  //             : []
-  //         );
-  //       });
-  //     }
-  //   };
-
-  //   giveOngoingSession();
-  // }, [chatContext]);
 
   // --------------------------------------------------- //
   return (

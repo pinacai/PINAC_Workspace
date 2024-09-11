@@ -1,10 +1,9 @@
 .historyContainer {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   font-family: "Exo2", "Montserrat", sans-serif;
   background: transparent;
   display: flex;
-  container-type: inline-size;
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
