@@ -1,12 +1,18 @@
 .historyContainer {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   font-family: "Exo2", "Montserrat", sans-serif;
   background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .historyContainer {
+    height: 100vh;
+    padding-bottom: 20px;
+  }
 }
 
 .historyContainer::-webkit-scrollbar {
@@ -23,7 +29,7 @@
 }
 
 .historyCard {
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
   padding: 10px 20px;
 
@@ -38,6 +44,7 @@
 .searchBar {
   height: 40px;
   width: 100%;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   position: relative;
@@ -74,12 +81,26 @@
 /* ==================================== */
 
 .cardContainer {
+  height: 100%;
   width: 100%;
-  padding: 20px 0;
-
+  padding: 3px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto;
+}
+
+.cardContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+.cardContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cardContainer::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 50px;
 }
 
 .noSessions {

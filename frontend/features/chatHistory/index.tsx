@@ -49,13 +49,13 @@ export const ChatHistory: React.FC = () => {
               className={styles.input}
             />
           </div>
-          <div className={styles.cardContainer}>
-            {sessions.length === 0 ? (
-              <span className={styles.noSessions}>No history yet</span>
-            ) : (
-              sessions.map((session) => session)
-            )}
-          </div>
+        </div>
+        <div className={styles.cardContainer}>
+          {sessions.length === 0 ? (
+            <span className={styles.noSessions}>No history yet</span>
+          ) : (
+            sessions.map((session) => session)
+          )}
         </div>
       </div>
     </>
