@@ -27,6 +27,7 @@ export const ChatHistory: React.FC = () => {
             "0"
           )}.${String(session.timestamp.getFullYear())}`}
           title={session.title}
+          key={session.id}
         />
       ))
     );

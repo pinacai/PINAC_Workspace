@@ -22,7 +22,6 @@ export const LLMSelector: React.FC = () => {
         inputRef.current.value = preferredModel;
       }
     }
-    console.log(llmContext?.privateModel);
   }, [llmContext]);
 
   //

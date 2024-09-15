@@ -132,7 +132,6 @@ export const HomePage: React.FC = () => {
     if (currentSessionId == null) {
       chatContext?.setCurrentSessionId("newSession");
       currentSessionId = chatContext?.getCurrentSessionId() ?? null;
-      console.log(currentSessionId);
 
       if (currentSessionId != null) {
         startNewSession(currentSessionId, msgText.slice(0, 50));
