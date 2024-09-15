@@ -12,13 +12,13 @@ interface ThemeModeProviderProps {
 const ThemeModeProvider: React.FC<ThemeModeProviderProps> = ({ children }) => {
   // Initialize themeMode state from localStorage or default
   const [themeMode, setThemeMode] = useState(() => {
-    const mode = localStorage.getItem("themeMode");
+    const mode = localStorage.getItem("theme-mode");
     return mode ? mode : "light";
   });
 
   // Update localStorage on themeMode change
   useEffect(() => {
-    localStorage.setItem("themeMode", themeMode);
+    localStorage.setItem("theme-mode", themeMode);
   }, [themeMode]);
 
   return (

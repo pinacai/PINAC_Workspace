@@ -1,35 +1,31 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import { DropdownMenu } from "./DropdownMenu";
+import { LLMSettingsContext } from "../../../context/LLMSettings";
 import styles from "../styles/LLMSelector.module.css";
 
-interface LLMSelectorProps {
-  selectedLlmType: string;
-  setSelectedLlmType: (value: string) => void;
-}
-
-export const LLMSelector: React.FC<LLMSelectorProps> = ({
-  selectedLlmType,
-  setSelectedLlmType,
-}) => {
+export const LLMSelector: React.FC = () => {
+  const llmContext = useContext(LLMSettingsContext);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const changePreferredModel = () => {
+  const changePrivateModel = () => {
     const modelName = inputRef.current?.value;
     if (modelName) {
-      localStorage.setItem("preferred-private-model", modelName);
+      llmContext?.setPrivateModel(modelName);
     }
   };
 
-  //
+  // Show the preferred ollama model if exist
   useEffect(() => {
-    if (selectedLlmType !== "Cloud LLM") {
-      const preferredModel = localStorage.getItem("preferred-private-model");
+    if (llmContext?.modelType == "Private LLM") {
+      const preferredModel = llmContext?.privateModel;
       if (preferredModel && inputRef.current) {
         inputRef.current.value = preferredModel;
       }
     }
-  }, [selectedLlmType]);
+    console.log(llmContext?.privateModel);
+  }, [llmContext]);
 
+  //
   // -------------------------------- //
   return (
     <div className={styles.llmSelectionContainer}>
@@ -38,16 +34,15 @@ export const LLMSelector: React.FC<LLMSelectorProps> = ({
       <DropdownMenu
         defaultOption="Cloud LLM"
         optionList={["Cloud LLM", "Private LLM"]}
-        localStorageVariableName="preferred-model-type"
-        updateValue={setSelectedLlmType}
+        taskType="model_type"
       />
       {/*    for selecting the LLM    */}
       {/* --------------------------- */}
-      {selectedLlmType === "Cloud LLM" ? (
+      {llmContext?.modelType == "Cloud LLM" ? (
         <DropdownMenu
           defaultOption="Llama 3"
           optionList={["Llama 3"]}
-          localStorageVariableName="preferred-cloud-model"
+          taskType="cloud_model"
         />
       ) : (
         <div className={styles.inputContainer}>
@@ -59,7 +54,7 @@ export const LLMSelector: React.FC<LLMSelectorProps> = ({
           />
           <button
             className={styles.saveBtn}
-            onClick={() => changePreferredModel()}
+            onClick={() => changePrivateModel()}
           >
             Save
           </button>

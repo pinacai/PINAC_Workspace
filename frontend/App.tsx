@@ -8,6 +8,7 @@ import { ThemeStyleContext } from "./context/ThemeStyle";
 import { SubPageProvider } from "./context/SubPage";
 import { WelcomeTextProvider } from "./context/WelcomeText";
 import { ChatMsgProvider } from "./context/ChatMsg";
+import { LLMSettingsProvider } from "./context/LLMSettings";
 import "./App.css";
 
 // sub-pages
@@ -66,9 +67,11 @@ const App = () => {
         element={
           <SubPageProvider>
             <WelcomeTextProvider>
-              <ChatMsgProvider>
-                <HomePage />
-              </ChatMsgProvider>
+              <LLMSettingsProvider>
+                <ChatMsgProvider>
+                  <HomePage />
+                </ChatMsgProvider>
+              </LLMSettingsProvider>
             </WelcomeTextProvider>
           </SubPageProvider>
         }

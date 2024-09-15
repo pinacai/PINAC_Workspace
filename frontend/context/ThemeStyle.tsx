@@ -14,13 +14,13 @@ const ThemeStyleProvider: React.FC<ThemeStyleProviderProps> = ({
 }) => {
   // Initialize themeStyle state from localStorage or default
   const [themeStyle, setThemeStyle] = useState(() => {
-    const style = localStorage.getItem("themeStyle");
+    const style = localStorage.getItem("theme-style");
     return style ? style : "Dawn_n_Dusk";
   });
 
   // Update localStorage on themeStyle change
   useEffect(() => {
-    localStorage.setItem("themeStyle", themeStyle);
+    localStorage.setItem("theme-style", themeStyle);
   }, [themeStyle]);
 
   return (

@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
+import { LLMSettingsContext } from "../../../context/LLMSettings";
 import styles from "../styles/DropdownMenu.module.css";
 
 // Icon
@@ -8,34 +9,32 @@ import { IoIosArrowUp } from "react-icons/io";
 interface DropdownMenuProps {
   defaultOption: string;
   optionList: Array<string>;
-  localStorageVariableName: string;
-  updateValue?: (value: string) => void;
+  taskType: string;
 }
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   defaultOption,
   optionList,
-  localStorageVariableName,
-  updateValue,
+  taskType,
 }) => {
+  const llmContext = useContext(LLMSettingsContext);
   const [selectedOption, setSelectedOption] = useState(defaultOption);
   const [isActive, setIsActive] = useState(false);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
 
   //
-  const handleOptionClick = (option: string) => {
+  const onClick = (option: string) => {
+    llmContext?.setValue(taskType, option);
     setSelectedOption(option);
     setIsActive(false);
-    localStorage.setItem(localStorageVariableName, option);
-    updateValue && updateValue(option);
   };
 
   //
   // At starting selecting model based on local storage
   useEffect(() => {
-    const preferredOption = localStorage.getItem(localStorageVariableName);
-    preferredOption !== null && setSelectedOption(preferredOption);
-  }, [localStorageVariableName]);
+    const preferredOption = llmContext?.getValue(taskType);
+    preferredOption != null && setSelectedOption(preferredOption);
+  }, [llmContext, taskType]);
 
   //
   // Creating an event handler to close the dropdown menu by click elsewhere outside the menu
@@ -49,9 +48,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         setIsActive(false);
       }
     };
-
     window.addEventListener("mousedown", handleOutsideClicks);
-
     return () => window.removeEventListener("mousedown", handleOutsideClicks);
   }, [isActive]);
 
@@ -75,10 +72,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
       >
         <ul>
           {optionList.map((option, index) => (
-            <li
-              key={index}
-              onClick={() => handleOptionClick(option)}
-            >
+            <li key={index} onClick={() => onClick(option)}>
               {option}
             </li>
           ))}

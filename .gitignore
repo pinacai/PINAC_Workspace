@@ -37,8 +37,3 @@ config/
 .env
 backend/user data/
 user_info.json
-
-# testing
-test.ts
-test.js
-test.tsx

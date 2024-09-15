@@ -20,15 +20,15 @@ const callDevelopmentServer = async (input: string) => {
 
 ipcMain.on("request-to-backend", (event, request) => {
   //
-  if (request["request_type"] == "check-user-login") {
-    fs.access("backend/user data/user_info.json", fs.constants.F_OK, (err) => {
-      const loggedIn = !err;
-      event.reply("server-response", { logged_in: loggedIn });
-    });
-  }
+  // if (request["request_type"] == "check-user-login") {
+  //   fs.access("backend/user data/user_info.json", fs.constants.F_OK, (err) => {
+  //     const loggedIn = !err;
+  //     event.reply("server-response", { logged_in: loggedIn });
+  //   });
+  // }
   //
   //
-  else if (request["request_type"] == "save-user-info") {
+  if (request["request_type"] == "save-user-info") {
     try {
       const userInfo = {
         first_name: request["first_name"],

@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Header } from "../header";
 import { Menubar } from "../../components/Menubar";
 import { ThemeSwitcher } from "./components/ThemeSwitcher";
 import { LLMSelector } from "./components/LLMSelector";
 import { DropdownMenu } from "./components/DropdownMenu";
+import { LLMSettingsContext } from "../../context/LLMSettings";
 import styles from "./styles/index.module.css";
 
 const Settings: React.FC = () => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const llmContext = useContext(LLMSettingsContext);
   const [isPage1, setIsPage1] = useState<boolean>(true); // show by default
   const [isPage2, setIsPage2] = useState<boolean>(false);
-  const [selectedLlmType, setSelectedLlmType] = useState<string>("Cloud LLM"); // default value
 
   const menuItems = [
     { label: "General", onClick: () => activePage1() },
@@ -29,14 +30,6 @@ const Settings: React.FC = () => {
     setIsPage2(true);
     setIsPage1(false);
   };
-
-  //
-  useEffect(() => {
-    const preferredLlmType = localStorage.getItem("preferred-model-type");
-    if (preferredLlmType) {
-      setSelectedLlmType(preferredLlmType);
-    }
-  }, []);
 
   // ------------------------------ //
   return (
@@ -70,7 +63,7 @@ const Settings: React.FC = () => {
             {/* =============================== */}
             <div className={styles.section}>
               {/*     Warning card     */}
-              {selectedLlmType === "Private LLM" && (
+              {llmContext?.modelType === "Private LLM" && (
                 <div className={styles.warningCard}>
                   <div className={styles.warningContent}>
                     <div className={styles.warningIcon}>⚠</div>
@@ -84,10 +77,7 @@ const Settings: React.FC = () => {
               <div className={styles.sectionTitle}>
                 <span>Select LLM</span>
               </div>
-              <LLMSelector
-                selectedLlmType={selectedLlmType}
-                setSelectedLlmType={setSelectedLlmType}
-              />
+              <LLMSelector />
             </div>
             {/*   Section 2 (Output Language)    */}
             {/* ================================= */}
@@ -95,11 +85,7 @@ const Settings: React.FC = () => {
               <div className={styles.sectionTitle}>
                 <span>Output Language</span>
               </div>
-              <DropdownMenu
-                defaultOption="English"
-                optionList={["English"]}
-                localStorageVariableName="output-language"
-              />
+              <DropdownMenu defaultOption="English" optionList={["English"]} taskType="output_language" />
             </div>
           </>
         )}
