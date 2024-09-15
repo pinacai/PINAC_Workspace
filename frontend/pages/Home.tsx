@@ -9,6 +9,7 @@ import { StopTextGeneration } from "../context/StopTextGeneration";
 import { SubPageContext } from "../context/SubPage";
 import { ChatMsgContext } from "../context/ChatMsg";
 import { WelcomeTextContext } from "../context/WelcomeText";
+import { LLMSettingsContext } from "../context/LLMSettings";
 import { startNewSession, addMsgToSession } from "../database/db";
 import styles from "./styles/Home.module.css";
 
@@ -22,6 +23,7 @@ export const HomePage: React.FC = () => {
   const subPageContext = useContext(SubPageContext);
   const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
+  const llmContext = useContext(LLMSettingsContext);
   const [userInputText, setUserInputText] = useState<string>("");
   const [isUserInputActive, setIsUserInputActive] = useState<boolean>(false);
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
@@ -75,19 +77,14 @@ export const HomePage: React.FC = () => {
       ]);
 
       const PreferredPrompt = localStorage.getItem("applied-prompt");
-      const PreferredModelType = localStorage.getItem("preferred-model-type");
-      const PreferredCloudModel = localStorage.getItem("preferred-cloud-model");
-      const PreferredPrivateModel = localStorage.getItem(
-        "preferred-private-model"
-      );
 
       window.ipcRenderer.send("request-to-server", {
         request_type: "user-input",
-        preferred_model_type: PreferredModelType,
+        preferred_model_type: llmContext?.modelType,
         preferred_model:
-          PreferredModelType === "Cloud LLM"
-            ? PreferredCloudModel
-            : PreferredPrivateModel,
+          llmContext?.modelType === "Cloud LLM"
+            ? llmContext?.cloudModel
+            : llmContext?.privateModel,
         prompt: PreferredPrompt,
         user_query: inputText,
       });
