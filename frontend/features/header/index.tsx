@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "../../components/ThemeToggle";
 import { RedButton } from "./components/RedButton";
 import { NewChatBtn } from "./components/NewChatBtn";
-import { LiveSearchButton } from "./components/LiveSearchButton";
+import { DeepThinkBtn } from "./components/DeepThinkBtn";
 import { SubPageContext } from "../../context/SubPage";
 import styles from "./styles/index.module.css";
 
@@ -161,7 +161,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className={styles.rightSide}>
           {location.pathname == "/" && clearChat ? (
             <>
-              <LiveSearchButton isActive={isActive} setActive={setActive} />
+              <DeepThinkBtn isActive={isActive} setActive={setActive} />
               <NewChatBtn clearChat={clearChat} />
             </>
           ) : null}

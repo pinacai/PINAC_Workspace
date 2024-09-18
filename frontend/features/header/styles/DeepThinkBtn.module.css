@@ -1,7 +1,7 @@
-.LiveSearch {
+.deepThink {
   width: auto;
   height: auto;
-  background: linear-gradient(109.6deg, rgb(0, 204, 130) 11.2%, rgb(58, 181, 46) 91.7%);
+  background: linear-gradient(109.6deg, #300384, blueviolet);
   color: var(--text-color-light);
   border: none;
   box-shadow: var(--newChatBtn-shadow);
@@ -15,7 +15,7 @@
   align-items: center;
 }
 
-.LiveSearch span {
+.deepThink span {
   padding-left: 5px;
   padding-right: 5px;
   position: relative;
@@ -26,8 +26,8 @@
   align-items: center;
 }
 
-.LiveSearch::before,
-.LiveSearch::after {
+.deepThink::before,
+.deepThink::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -36,7 +36,7 @@
   z-index: 0;
 }
 
-.LiveSearch::before {
+.deepThink::before {
   content: "";
   background: var(--newChatBtn-color);
   width: 120%;
@@ -45,11 +45,11 @@
   transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
 }
 
-.LiveSearch:hover::before {
+.deepThink:hover::before {
   transform: translate3d(100%, 0, 0);
 }
 
-.LiveSearch:active {
+.deepThink:active {
   transform: scale(0.95);
 }
 
@@ -57,10 +57,10 @@
 /*     Different class for active case       */
 /* ========================================= */
 
-.LiveSearchActive {
+.deepThinkActive {
   width: auto;
   height: auto;
-  background: linear-gradient(109.6deg, rgb(0, 204, 130) 11.2%, rgb(58, 181, 46) 91.7%);
+  background: linear-gradient(109.6deg, #300384, blueviolet);
   color: var(--text-color-light);
   border: none;
   box-shadow: var(--newChatBtn-shadow);
@@ -74,7 +74,7 @@
   align-items: center;
 }
 
-.LiveSearchActive span {
+.deepThinkActive span {
   padding-left: 5px;
   padding-right: 5px;
   position: relative;
@@ -85,8 +85,8 @@
   align-items: center;
 }
 
-.LiveSearchActive::before,
-.LiveSearchActive::after {
+.deepThinkActive::before,
+.deepThinkActive::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -95,20 +95,20 @@
   z-index: 0;
 }
 
-.LiveSearchActive::before {
+.deepThinkActive::before {
   content: "";
-  background: linear-gradient(109.6deg, rgb(0, 204, 130) 11.2%, rgb(58, 181, 46) 91.7%);
+  background: linear-gradient(109.6deg, #300384, blueviolet);
   width: 120%;
   left: -10%;
   transform: skew(30deg);
   transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
 }
 
-.LiveSearchActive:hover::before {
+.deepThinkActive:hover::before {
   transform: translate3d(100%, 0, 0);
 }
 
-.LiveSearchActive:active {
+.deepThinkActive:active {
   transform: scale(0.95);
 }
 
@@ -117,31 +117,31 @@
 /* =========================== */
 
 @container (max-width: 992px) {
-  .LiveSearch {
+  .deepThink {
     padding: 5px 10px 5px 5px;
   }
 
-  .LiveSearch span {
+  .deepThink span {
     font-size: 17px;
   }
 }
 
 @container (max-width: 768px) {
-  .LiveSearch {
+  .deepThink {
     padding: 5px 8px 5px 5px;
   }
 
-  .LiveSearch span {
+  .deepThink span {
     font-size: 18px;
   }
 }
 
 @container (max-width: 576px) {
-  .LiveSearch {
+  .deepThink {
     padding: 3px;
   }
 
-  .LiveSearch span {
+  .deepThink span {
     display: none;
   }
 }
@@ -151,31 +151,31 @@
 /* =========================== */
 
 @container (max-width: 992px) {
-  .LiveSearchActive {
+  .deepThinkActive {
     padding: 5px 10px 5px 5px;
   }
 
-  .LiveSearchActive span {
+  .deepThinkActive span {
     font-size: 17px;
   }
 }
 
 @container (max-width: 768px) {
-  .LiveSearchActive {
+  .deepThinkActive {
     padding: 5px 8px 5px 5px;
   }
 
-  .LiveSearchActive span {
+  .deepThinkActive span {
     font-size: 18px;
   }
 }
 
 @container (max-width: 576px) {
-  .LiveSearchActive {
+  .deepThinkActive {
     padding: 3px;
   }
 
-  .LiveSearchActive span {
+  .deepThinkActive span {
     display: none;
   }
 }
