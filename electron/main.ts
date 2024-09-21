@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen, ipcMain } from "electron";
+import { app, BrowserWindow, screen, ipcMain, shell } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import * as fs from "fs";
@@ -125,4 +125,9 @@ ipcMain.on("maximizeWindow", () => {
 
 ipcMain.on("unmaximizeWindow", () => {
   win?.unmaximize();
+});
+
+// IPC listener to open external links
+ipcMain.on("open-external-link", (_, url) => {
+  shell.openExternal(url);
 });

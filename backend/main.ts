@@ -79,11 +79,6 @@ ipcMain.on("request-to-backend", (event, request) => {
   }
   //
   //
-  else if (request["request_type"] == "open-url-in-browser") {
-    shell.openExternal(request["url"]);
-  }
-  //
-  //
   else if (request["request_type"] == "upload-file") {
     const base64Data = request["file_data"];
     const fileName = request["file_name"];

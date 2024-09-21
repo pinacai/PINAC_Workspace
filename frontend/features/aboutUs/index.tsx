@@ -34,10 +34,7 @@ const AboutUs: React.FC = () => {
               <button
                 id={styles.aboutBtn}
                 onClick={() =>
-                  window.ipcRenderer.send("request-to-backend", {
-                    requestType: "open-url-in-browser",
-                    url: "https://github.com/pinacai/PINAC_Workspace",
-                  })
+                  api.openLink("https://github.com/pinacai/PINAC_Workspace")
                 }
               >
                 <strong>Visit Our GitHub Repo</strong>
