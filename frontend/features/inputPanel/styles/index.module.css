@@ -135,45 +135,6 @@ button.disabled {
   color: var(--text-color-iconic);
 }
 
-/* =========== File Attachment Option-Menu =========== */
-
-.optionsMenu {
-  display: flex;
-  gap: 10px;
-  position: absolute;
-  bottom: calc(100% + 7px);
-  right: 3%;
-  backdrop-filter: blur(10px);
-  background: var(--inputBox-bg);
-  box-shadow: var(--inputBox-shadow);
-  border: 1.5px;
-  border-style: solid;
-  border-color: var(--inputBox-border-color);
-  flex-grow: 1;
-  border-radius: 5px;
-}
-
-.optionsMenuBtn {
-  border: none;
-  background: transparent;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.optionsMenuBtn:nth-child(1) {
-  padding-right: 0;
-}
-
-.optionsMenuBtn:nth-child(2) {
-  padding-left: 0;
-}
-
-.optionsMenuIcon {
-  width: 29px;
-  height: 29px;
-  color: var(--text-color-opposite);
-}
-
 /* =========== Advance Options (Dropdown) =========== */
 
 .inputOptionMenu {

@@ -4,11 +4,10 @@ import { LLMSettingsContext } from "../../context/LLMSettings";
 import styles from "./styles/index.module.css";
 
 // Icons
-import { VscSend, VscFilePdf } from "react-icons/vsc";
+import { VscSend } from "react-icons/vsc";
 import { FaRegStopCircle } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa6";
 import { CgAttachment } from "react-icons/cg";
-import { FiImage } from "react-icons/fi";
 import { AiOutlineClose } from "react-icons/ai";
 
 interface InputPanelProps {
@@ -267,30 +266,6 @@ export const InputPanel: React.FC<InputPanelProps> = ({
           </div>
         )}
 
-        {/* ====== Attachment Options Menu ======= */}
-        {showAttachmentOptions && (
-          <div className={styles.optionsMenu} ref={optionMenuRef}>
-            <label className={styles.optionsMenuBtn}>
-              <FiImage title="Add Image" className={styles.optionsMenuIcon} />
-              <input
-                type="file"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={(e) => handleFileUpload(e, "image")}
-              />
-            </label>
-            <label className={styles.optionsMenuBtn}>
-              <VscFilePdf title="Add PDF" className={styles.optionsMenuIcon} />
-              <input
-                type="file"
-                accept=".pdf"
-                style={{ display: "none" }}
-                // onChange={(e) => handleFileUpload(e, "pdf")}
-              />
-            </label>
-          </div>
-        )}
-
         {/* ====== Main Input Area ======= */}
         <textarea
           id={styles.userInput}
@@ -308,14 +283,15 @@ export const InputPanel: React.FC<InputPanelProps> = ({
           {!buttonsDisabled ? (
             <>
               {/* ====== Attachment Button ======= */}
-              <button
-                id={styles.attachmentBtn}
-                className={buttonsDisabled ? `${styles.disabled}` : ""}
-                onClick={() => setShowAttachmentOptions(!showAttachmentOptions)}
-                disabled={buttonsDisabled}
-              >
-                <CgAttachment id={styles.attachmentIcon} />
-              </button>
+              <label id={styles.attachmentBtn}>
+                <CgAttachment title="Add Content" id={styles.attachmentIcon} />
+                <input
+                  type="file"
+                  accept=".pdf"
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileUpload(e, "pdf")}
+                />
+              </label>
 
               {/* ====== Submit Button ======= */}
               <button

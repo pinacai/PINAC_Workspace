@@ -85,7 +85,11 @@ const Settings: React.FC = () => {
               <div className={styles.sectionTitle}>
                 <span>Output Language</span>
               </div>
-              <DropdownMenu defaultOption="English" optionList={["English"]} taskType="output_language" />
+              <DropdownMenu
+                defaultOption="English"
+                optionList={["English"]}
+                taskType="output_language"
+              />
             </div>
           </>
         )}

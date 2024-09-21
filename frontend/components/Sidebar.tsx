@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import { SubPageContext } from "../context/SubPage";
@@ -18,7 +18,7 @@ export const Sidebar: React.FC = () => {
   const subPageContext = useContext(SubPageContext);
   const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(false);
   const [isChatIconVisible, setIsChatIconVisible] = useState<boolean>(false);
-  const [userImageUrl] = useState<string | null>(null);
+  const [userImageUrl, setUserImageUrl] = useState<string | null>(null);
 
   //
   useEffect(() => {
@@ -31,7 +31,17 @@ export const Sidebar: React.FC = () => {
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  });
+
+  //
+  useEffect(() => {
+    window.ipcRenderer.send("request-to-backend", {
+      request_type: "give-user-info",
+    });
+    window.ipcRenderer.once("backend-response", (_, response) => {
+      setUserImageUrl(response.image);
+    });
+  });
 
   //
   const changeSubPage = (subPage: string): void => {
