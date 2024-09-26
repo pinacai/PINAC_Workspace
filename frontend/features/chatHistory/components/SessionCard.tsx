@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { WelcomeTextContext } from "../../../context/WelcomeText";
 import { ChatMsgContext } from "../../../context/ChatMsg";
-import { getSession } from "../../../database/db";
+import { getSession, deleteSession} from "../../../database/db";
 import { SetChatBubble } from "../../msgBubble/SetChatBubble";
 import styles from "../styles/SessionCard.module.css";
 
@@ -41,14 +41,30 @@ export const SessionCard: React.FC<SessionCardProps> = ({
     });
   };
 
+  const handleDeletion = () => {
+    deleteSession(sessionId)
+    .then(() => {
+      console.log("Session deleted successfully");
+    })
+    .catch((error) => {
+      console.error("Error deleting session:", error);
+    });
+};
+
+
   return (
     <div className={styles.sessionCard} onClick={() => fetchChat()}>
-      <div className={styles.dateBlock}>
-        <span className={styles.date}>{date}</span>
-      </div>
-      <div className={styles.titleBlock}>
-        <span className={styles.title}>{title}</span>
-      </div>
+	  <div>
+        <div className={styles.dateBlock}>
+          <span className={styles.date}>{date}</span>
+        </div>
+        <div className={styles.titleBlock}>
+          <span className={styles.title}>{title}</span>
+        </div>
+	  </div>
+	  <div className={styles.deleteButtonContainer}>
+	    <button className={styles.deleteButton} onClick={handleDeletion}>Delete</button>
+	  </div>
     </div>
   );
 };
