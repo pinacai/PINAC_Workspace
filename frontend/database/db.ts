@@ -71,3 +71,13 @@ export const updateSessionTitle = async (
 ): Promise<void> => {
   await db.chatSessions.update(sessionId, { title: newTitle });
 };
+
+export const deleteSession = async (sessionId: string): Promise<void> => {
+  try {
+    await db.chatSessions.delete(sessionId);
+    console.log(`Session with ID ${sessionId} deleted successfully.`);
+  } catch (error) {
+    console.error("Error deleting session:", error);
+    throw error;
+  }
+};
