@@ -3,6 +3,7 @@ import { WelcomeTextContext } from "../../../context/WelcomeText";
 import { ChatMsgContext } from "../../../context/ChatMsg";
 import { getSession, deleteSession} from "../../../database/db";
 import { SetChatBubble } from "../../msgBubble/SetChatBubble";
+import { MdDelete } from "react-icons/md";
 import styles from "../styles/SessionCard.module.css";
 
 interface SessionCardProps {
@@ -53,8 +54,8 @@ export const SessionCard: React.FC<SessionCardProps> = ({
 
 
   return (
-    <div className={styles.sessionCard} onClick={() => fetchChat()}>
-	  <div>
+    <div className={styles.sessionCardContainer}>
+	  <div className={styles.sessionCard} onClick={fetchChat}>
         <div className={styles.dateBlock}>
           <span className={styles.date}>{date}</span>
         </div>
@@ -63,7 +64,7 @@ export const SessionCard: React.FC<SessionCardProps> = ({
         </div>
 	  </div>
 	  <div className={styles.deleteButtonContainer}>
-	    <button className={styles.deleteButton} onClick={handleDeletion}>Delete</button>
+	    <button className={styles.deleteButton} onClick={handleDeletion} ><MdDelete/></button>
 	  </div>
     </div>
   );
