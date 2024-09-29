@@ -33,7 +33,7 @@ PINAC Workspace simplifies AI use for everyone, allowing users to get high-quali
 
 ## 🎨 App Interface
 
-Introducing our distraction-free, user-friendly app interface with three stunning themes. Designed to help you stay focused and productive. it comes with three themes,
+Introducing our distraction-free, user-friendly app interface with three stunning themes. It is designed to help you stay focused and productive. it comes with three themes,
 <br />
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_%26_Dusk.jpg" alt="Dawn & Dusk Screenshot">
@@ -169,8 +169,12 @@ PINAC Workspace is licensed under the **GPL-3.0 license**. See the <a href="http
 
 # Contributors
 
-We have received huge support from the open-source community, thanks to all of our contributors.
+Thanks to our contributors, we have received huge support from the open-source community.
 
 <a href="https://github.com/pinacai/PINAC_Workspace/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=pinacai/PINAC_Workspace" />
 </a>
+
+# other
+
+_We are also building the official website for our Organization and PINAC_Workspace. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/PINAC_Web">**PINAC-Web**</a>_
