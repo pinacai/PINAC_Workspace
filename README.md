@@ -135,11 +135,6 @@ Currently, we have a collection of 27+ expert-level prompts
 
 ## 🚀 Getting Started
 
-### _Recommended IDE Setup_
-
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-
-### _Setup the App_
 
 1. Clone the Repository
 
