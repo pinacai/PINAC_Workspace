@@ -5,7 +5,7 @@ import styles from "./styles/index.module.css";
 
 // Icons
 import { VscSend } from "react-icons/vsc";
-import { FaRegStopCircle } from "react-icons/fa";
+import { FaRegStopCircle, FaRegFileAlt } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa6";
 import { CgAttachment } from "react-icons/cg";
 import { AiOutlineClose } from "react-icons/ai";
@@ -34,13 +34,9 @@ export const InputPanel: React.FC<InputPanelProps> = ({
 }) => {
   const optionMenuRef = useRef<HTMLDivElement>(null);
   const llmContext = useContext(LLMSettingsContext);
-  const [showAttachmentOptions, setShowAttachmentOptions] =
-    useState<boolean>(false);
-  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [attachmentOptions, setAttachmentOptions] = useState<boolean>(false);
+  const [attachment, setAttachment] = useState<File | null>(null);
   const [currentDropdownIndex, setCurrentDropdownIndex] = useState(0); // To track the active dropdown
-  const [isOutImgPreview, setIsOutImgPreview] = useState(
-    window.innerWidth > 320
-  );
   const [isShowAllAdvanceOptions, setIsShowAllAdvanceOptions] = useState(
     window.innerWidth > 576
   );
@@ -107,47 +103,47 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   };
 
   //
-  const handleFileUpload = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    fileType: string
-  ) => {
-    if (fileType === "image") {
-      const file = event.target.files?.[0];
-      if (file) {
-        setUploadedImage(file);
-      }
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setAttachment(file);
     }
   };
 
   //
   const handleCancelUpload = () => {
-    setUploadedImage(null);
+    setAttachment(null);
   };
+
+  //
+  function getFileName(filePath: string): string {
+    const parts = filePath.split("/");
+    return parts.pop() || "";
+  }
 
   //
   // Creating an event handler to close the option menu by click elsewhere outside the menu
   useEffect(() => {
     const handleOutsideClicks = (e: MouseEvent) => {
       if (
-        showAttachmentOptions &&
+        attachmentOptions &&
         optionMenuRef.current &&
         !optionMenuRef.current.contains(e.target as Node)
       ) {
-        setShowAttachmentOptions(false);
+        setAttachmentOptions(false);
       }
     };
 
     window.addEventListener("mousedown", handleOutsideClicks);
 
     return () => window.removeEventListener("mousedown", handleOutsideClicks);
-  }, [showAttachmentOptions]);
+  }, [attachmentOptions]);
 
   //
   //
   // for UI responsiveness
   useEffect(() => {
     const updateOutImgPreview = () => {
-      setIsOutImgPreview(window.innerWidth > 320);
       setIsShowAllAdvanceOptions(window.innerWidth > 576);
     };
     window.addEventListener("resize", updateOutImgPreview);
@@ -180,24 +176,12 @@ export const InputPanel: React.FC<InputPanelProps> = ({
     };
   }, [textareaRef]);
 
+  //
   // -------------------------------------------------------- //
   return (
     <div className={styles.inputBox}>
-      {/* ============ Image Preview ============ */}
-      {!isOutImgPreview && uploadedImage && (
-        <div className={styles.outerImagePreview}>
-          <div>
-            <img src={URL.createObjectURL(uploadedImage)} alt="Uploaded" />
-            <button
-              className={styles.cancelButton}
-              onClick={handleCancelUpload}
-            >
-              <AiOutlineClose />
-            </button>
-          </div>
-        </div>
-      )}
       {/* ======== Advance Options (Dropdown) ============ */}
+
       {llmContext?.modelType == "Private LLM" && (
         <div className={styles.inputOptionMenu}>
           {/* Render both dropdowns on wider screens */}
@@ -253,64 +237,71 @@ export const InputPanel: React.FC<InputPanelProps> = ({
         onFocus={() => setUserInputActive(true)}
         onBlur={() => setUserInputActive(false)}
       >
-        {/* ====== Image Preview ======= */}
-        {isOutImgPreview && uploadedImage && (
-          <div className={styles.imagePreview}>
-            <img src={URL.createObjectURL(uploadedImage)} alt="Uploaded" />
-            <button
-              className={styles.cancelButton}
-              onClick={handleCancelUpload}
-            >
-              <AiOutlineClose />
-            </button>
+        {/* ============ Attachment Preview ============ */}
+        {attachment && (
+          <div className={styles.attachmentPreview}>
+            <div>
+              <FaRegFileAlt color="var(--text-color-light)" />
+              <span>{getFileName(attachment.name)}</span>
+              <button
+                id={styles.closeButton}
+                onClick={() => handleCancelUpload()}
+              >
+                <AiOutlineClose />
+              </button>
+            </div>
           </div>
         )}
+        <div className={styles.inputGroupInner}>
+          {/* ====== Main Input Area ======= */}
+          <textarea
+            id={styles.userInput}
+            className={buttonsDisabled ? `${styles.disabled}` : ""}
+            value={userInput}
+            onChange={(event) => setUserInput(event.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Tell me your task..."
+            disabled={buttonsDisabled}
+            ref={textareaRef}
+            required
+          />
+          {/* ============ Buttons besides the text area ============= */}
+          <div className={styles.inputGroupAppend}>
+            {!buttonsDisabled ? (
+              <>
+                {/* ====== Attachment Button ======= */}
+                <label id={styles.attachmentBtn}>
+                  <CgAttachment
+                    title="Add Content"
+                    id={styles.attachmentIcon}
+                  />
+                  <input
+                    type="file"
+                    accept=".pdf"
+                    style={{ display: "none" }}
+                    onChange={(e) => handleFileUpload(e)}
+                  />
+                </label>
 
-        {/* ====== Main Input Area ======= */}
-        <textarea
-          id={styles.userInput}
-          className={buttonsDisabled ? `${styles.disabled}` : ""}
-          value={userInput}
-          onChange={(event) => setUserInput(event.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Tell me your task..."
-          disabled={buttonsDisabled}
-          ref={textareaRef}
-          required
-        />
-        {/* ============ Buttons besides the text area ============= */}
-        <div className={styles.inputGroupAppend}>
-          {!buttonsDisabled ? (
-            <>
-              {/* ====== Attachment Button ======= */}
-              <label id={styles.attachmentBtn}>
-                <CgAttachment title="Add Content" id={styles.attachmentIcon} />
-                <input
-                  type="file"
-                  accept=".pdf"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleFileUpload(e, "pdf")}
-                />
-              </label>
-
-              {/* ====== Submit Button ======= */}
-              <button
-                id={styles.submitBtn}
-                className={buttonsDisabled ? `${styles.disabled}` : ""}
-                onClick={() =>
-                  userInput !== undefined ? submit(userInput) : {}
-                }
-                disabled={buttonsDisabled}
-              >
-                <VscSend id={styles.submitIcon} />
+                {/* ====== Submit Button ======= */}
+                <button
+                  id={styles.submitBtn}
+                  className={buttonsDisabled ? `${styles.disabled}` : ""}
+                  onClick={() =>
+                    userInput !== undefined ? submit(userInput) : {}
+                  }
+                  disabled={buttonsDisabled}
+                >
+                  <VscSend id={styles.submitIcon} />
+                </button>
+              </>
+            ) : (
+              /* ====== Stop Text Generation Button ======= */
+              <button onClick={() => setStop(true)} className={styles.stopIcon}>
+                <FaRegStopCircle size={25} color="var(--text-color-iconic)" />
               </button>
-            </>
-          ) : (
-            /* ====== Stop Text Generation Button ======= */
-            <button onClick={() => setStop(true)} className={styles.stopIcon}>
-              <FaRegStopCircle size={25} color="var(--text-color-iconic)" />
-            </button>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>
