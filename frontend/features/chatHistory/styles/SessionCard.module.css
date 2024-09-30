@@ -25,14 +25,13 @@
   transition: margin 0.4s ease-in-out;
 }
 
-.sessionCardContainer:hover .sessionCard{
+.sessionCardContainer:hover .sessionCard {
   margin-right: 15px;
 }
 
-.sessionCardContainer:hover .deleteButton{
+.sessionCardContainer:hover .deleteButton {
   opacity: 1;
   visibility: visible;
-
 }
 
 /*          Date Block          */
@@ -82,25 +81,21 @@
   transition: transform 0.2s ease-in-out;
 }
 
-
-.deleteButtonContainer:hover .deleteButton {
-}
-
 .deleteButton {
+  height: 40px;
+  width: 40px;
   border: none;
-  font-size: 1.5rem;
+  border-radius: 100%;
   background-color: var(--dateBlock-bg);
   color: var(--deleteButton-text-color, #fff);
-  border-radius: 100%;
-  padding: 0.75rem;
+  transition: opacity 0.1s ease-in-out;
   cursor: pointer;
-  transition: opacity  0.1s ease-in-out;
   opacity: 0;
   visibility: hidden;
 }
 
 .deleteButton:hover {
-  background-color: var(--deleteButton-hover-bg, #c0392b);
+  background-color: var(--deleteButton-hover-bg, #ff4151);
   transform: scale(1.05);
 }
 

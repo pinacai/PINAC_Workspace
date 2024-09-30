@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { WelcomeTextContext } from "../../../context/WelcomeText";
 import { ChatMsgContext } from "../../../context/ChatMsg";
-import { getSession, deleteSession} from "../../../database/db";
+import { getSession, deleteSession } from "../../../database/db";
 import { SetChatBubble } from "../../msgBubble/SetChatBubble";
 import { MdDelete } from "react-icons/md";
 import styles from "../styles/SessionCard.module.css";
@@ -43,29 +43,26 @@ export const SessionCard: React.FC<SessionCardProps> = ({
   };
 
   const handleDeletion = () => {
-    deleteSession(sessionId)
-    .then(() => {
-      console.log("Session deleted successfully");
-    })
-    .catch((error) => {
+    deleteSession(sessionId).catch((error) => {
       console.error("Error deleting session:", error);
     });
-};
-
+  };
 
   return (
     <div className={styles.sessionCardContainer}>
-	  <div className={styles.sessionCard} onClick={fetchChat}>
+      <div className={styles.sessionCard} onClick={fetchChat}>
         <div className={styles.dateBlock}>
           <span className={styles.date}>{date}</span>
         </div>
         <div className={styles.titleBlock}>
           <span className={styles.title}>{title}</span>
         </div>
-	  </div>
-	  <div className={styles.deleteButtonContainer}>
-	    <button className={styles.deleteButton} onClick={handleDeletion} ><MdDelete/></button>
-	  </div>
+      </div>
+      <div className={styles.deleteButtonContainer}>
+        <button className={styles.deleteButton} onClick={handleDeletion}>
+          <MdDelete size={20} />
+        </button>
+      </div>
     </div>
   );
 };

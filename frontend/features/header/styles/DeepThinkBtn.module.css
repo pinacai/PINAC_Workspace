@@ -61,7 +61,6 @@
   width: auto;
   height: auto;
   background: linear-gradient(109.6deg, #300384, blueviolet);
-  color: var(--text-color-light);
   border: none;
   box-shadow: var(--newChatBtn-shadow);
   padding: 5px 15px 5px 5px;
@@ -78,6 +77,7 @@
   padding-left: 5px;
   padding-right: 5px;
   position: relative;
+  color: white;
   font: normal 20px "Exo2", "Montserrat", sans-serif;
   z-index: 10;
   transition: color 0.4s;
