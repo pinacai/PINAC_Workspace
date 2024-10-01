@@ -168,19 +168,12 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Render the clear history button only for history Page */}
           {location.pathname == "/history" ||
           (subPage && subPageContext?.subPage == "/history") ? (
-            <RedButton
-              text="Delete"
-              icon={<MdDelete />}
-            />
+            <RedButton task="clear_history" text="Delete" icon={<MdDelete />} />
           ) : null}
           {/* Render the logout button only for Profile Page */}
           {location.pathname == "/profile" ||
           (subPage && subPageContext?.subPage == "/profile") ? (
-            <RedButton
-              text="Logout"
-              icon={<TbLogout />}
-              changePage={navigate}
-            />
+            <RedButton task="logout" text="Logout" icon={<TbLogout />} />
           ) : null}
         </div>
       </div>

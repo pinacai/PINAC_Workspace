@@ -75,9 +75,18 @@ export const updateSessionTitle = async (
 export const deleteSession = async (sessionId: string): Promise<void> => {
   try {
     await db.chatSessions.delete(sessionId);
-    console.log(`Session with ID ${sessionId} deleted successfully.`);
   } catch (error) {
     console.error("Error deleting session:", error);
+    throw error;
+  }
+};
+
+// to delete all sessions
+export const deleteAllSessions = async (): Promise<void> => {
+  try {
+    await db.chatSessions.clear();
+  } catch (error) {
+    console.error("Error deleting all sessions:", error);
     throw error;
   }
 };
