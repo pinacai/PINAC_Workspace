@@ -12,7 +12,7 @@ import { LLMSettingsProvider } from "./context/LLMSettings";
 import "./App.css";
 
 // sub-pages
-import { ChatHistory } from "./features/chatHistory";
+import ChatHistory from "./features/chatHistory/index";
 import AboutUs from "./features/aboutUs/index";
 import Settings from "./features/settings/index";
 import Profile from "./features/profile/index";

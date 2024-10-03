@@ -8,7 +8,7 @@ import styles from "./styles/index.module.css";
 // icons
 import { CiSearch } from "react-icons/ci";
 
-export const ChatHistory: React.FC = () => {
+const ChatHistory: React.FC = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   const [sessions, setSessions] = React.useState<JSX.Element[]>([]);
@@ -62,3 +62,5 @@ export const ChatHistory: React.FC = () => {
     </>
   );
 };
+
+export default ChatHistory;
