@@ -5,6 +5,7 @@ import { RedButton } from "./components/RedButton";
 import { NewChatBtn } from "./components/NewChatBtn";
 import { DeepThinkBtn } from "./components/DeepThinkBtn";
 import { SubPageContext } from "../../context/SubPage";
+import { LLMSettingsContext } from "../../context/LLMSettings";
 import styles from "./styles/index.module.css";
 
 // Icons
@@ -27,6 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
   const location = useLocation();
   const navigate = useNavigate();
   const subPageContext = useContext(SubPageContext);
+  const modelType = useContext(LLMSettingsContext)?.modelType;
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
   const [isDropdownActive, setIsDropdownActive] = useState<boolean>(false);
@@ -115,9 +117,8 @@ export const Header: React.FC<HeaderProps> = ({
                 </button>
               </div>
               <div
-                className={`${styles.dropdownMenu} ${
-                  isDropdownActive ? `${styles.active}` : ""
-                }`}
+                className={`${styles.dropdownMenu} ${isDropdownActive ? `${styles.active}` : ""
+                  }`}
               >
                 <ul>
                   {location.pathname !== "/profile" && (
@@ -139,9 +140,8 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
               {/* Special section at last for theme change */}
               <div
-                className={`${styles.dropdownLastMenu} ${styles.dropdownMenu} ${
-                  isDropdownActive ? `${styles.active}` : ""
-                }`}
+                className={`${styles.dropdownLastMenu} ${styles.dropdownMenu} ${isDropdownActive ? `${styles.active}` : ""
+                  }`}
                 style={{ marginTop: "167px" }}
               >
                 <ul>
@@ -159,20 +159,21 @@ export const Header: React.FC<HeaderProps> = ({
           )}
         </div>
         <div className={styles.rightSide}>
+          {/* Render the Clear Chat & Deep Think button */}
           {location.pathname == "/" && clearChat ? (
             <>
-              <DeepThinkBtn isActive={isActive} setActive={setActive} />
+              {modelType == "Cloud LLM" && <DeepThinkBtn isActive={isActive} setActive={setActive} />}
               <NewChatBtn clearChat={clearChat} />
             </>
           ) : null}
           {/* Render the clear history button only for history Page */}
           {location.pathname == "/history" ||
-          (subPage && subPageContext?.subPage == "/history") ? (
+            (subPage && subPageContext?.subPage == "/history") ? (
             <RedButton task="clear_history" text="Delete" icon={<MdDelete />} />
           ) : null}
           {/* Render the logout button only for Profile Page */}
           {location.pathname == "/profile" ||
-          (subPage && subPageContext?.subPage == "/profile") ? (
+            (subPage && subPageContext?.subPage == "/profile") ? (
             <RedButton task="logout" text="Logout" icon={<TbLogout />} />
           ) : null}
         </div>

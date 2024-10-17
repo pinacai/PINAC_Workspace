@@ -39,8 +39,8 @@ export const LLMSelector: React.FC = () => {
       {/* --------------------------- */}
       {llmContext?.modelType == "Cloud LLM" ? (
         <DropdownMenu
-          defaultOption="Llama 3"
-          optionList={["Llama 3"]}
+          defaultOption="Llama 3.1"
+          optionList={["Llama 3.1"]}
           taskType="cloud_model"
         />
       ) : (
