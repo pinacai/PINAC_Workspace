@@ -64,11 +64,11 @@ const Profile: React.FC = () => {
       request_type: "give-user-info",
     });
     window.ipcRenderer.once("backend-response", (_, response) => {
-      setFirstName(response.first_name);
-      setLastName(response.last_name);
-      setEmailId(response.email_id);
-      setBio(response.bio);
-      setImageUrl(response.image);
+      setFirstName(response.first_name || "");
+      setLastName(response.last_name || "");
+      setEmailId(response.email_id || "");
+      setBio(response.bio || "");
+      setImageUrl(response.image || null);
     });
   }, []);
 
@@ -77,7 +77,7 @@ const Profile: React.FC = () => {
   return (
     <>
       <div className={styles.profileContainer}>
-      {currentPath !== "/" ? (
+        {currentPath !== "/" ? (
           <Header title="Profile" subPage={false} />
         ) : (
           <Header title="Profile" subPage={true} />
@@ -97,12 +97,12 @@ const Profile: React.FC = () => {
                 )}{" "}
               </div>
               <button
-                  className={styles.editButton}
-                  onClick={handleImageClick}
-                >
-                  <FaPencilAlt size={20} color="var(--sidebar-icon-color)" />
-                </button>
-              </div>
+                className={styles.editButton}
+                onClick={handleImageClick}
+              >
+                <FaPencilAlt size={20} color="var(--sidebar-icon-color)" />
+              </button>
+            </div>
             {/* ======= Profile Input Form ======= */}
             <input
               type="file"
