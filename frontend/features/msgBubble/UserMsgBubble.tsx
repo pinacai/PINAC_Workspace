@@ -11,7 +11,7 @@ interface UserMsgBubbleProps {
 
 export const UserMsgBubble: React.FC<UserMsgBubbleProps> = ({ response }) => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
-    window.innerWidth > 576
+    window.innerWidth > 576,
   ); // Initial state based on window size
 
   //

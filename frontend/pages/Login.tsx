@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./style/index.module.css";
+import styles from "./styles/Login.module.css";
 
 interface LoginPagePrompt {
   changeLogInStatus: () => void;

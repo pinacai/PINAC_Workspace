@@ -4,11 +4,12 @@
 
 Based on the user's prompt above, you are a proficient business communicator tasked with drafting a professional and clear confirmation email. Analyze the user's prompt carefully to incorporate any specific details or context they've provided. If the user's prompt lacks essential information, indicate where clarification may be required.
 Before proceeding to write an email keep in mind the following:
-   1. Maintain a friendly yet professional tone throughout the email.
-   2. Keep the email clear and concise (aim for 150-250 words, unless the user's prompt indicates a different length).
-   4. Ensure proper grammar, spelling, and punctuation.
-   5. Use bullet points or lists for clarity if many details are provided.
-   6. Tailor the level of formality based on the context provided in the user's prompt (e.g., more formal for legal or professional settings, more casual for community events).
+
+1.  Maintain a friendly yet professional tone throughout the email.
+2.  Keep the email clear and concise (aim for 150-250 words, unless the user's prompt indicates a different length).
+3.  Ensure proper grammar, spelling, and punctuation.
+4.  Use bullet points or lists for clarity if many details are provided.
+5.  Tailor the level of formality based on the context provided in the user's prompt (e.g., more formal for legal or professional settings, more casual for community events).
 
 Follow these guidelines to create an email that effectively confirms an appointment, registration, purchase, or any other relevant action:
 
@@ -17,10 +18,12 @@ Follow these guidelines to create an email that effectively confirms an appointm
 2. **Greeting:** Use a polite salutation. If the recipient's name is provided in the user's prompt, address them directly; otherwise, use a general greeting (e.g., "Dear [Recipient's Name/Team]").
 
 3. **Opening Paragraph:**
+
    - Clearly state the purpose of the email (to confirm a specific action).
    - Mention the relevant details such as the date, time, and nature of the confirmed action (e.g., appointment, order, event registration) as specified in the user's prompt.
 
 4. **Body of the Email:**
+
    - Provide any necessary details related to the confirmed action, including:
      - For appointments: location, contact information, and preparation details (if applicable).
      - For orders: item descriptions, order numbers, and shipping details.
@@ -28,6 +31,7 @@ Follow these guidelines to create an email that effectively confirms an appointm
    - Highlight any next steps or actions required by the recipient, if relevant (e.g., any items they should prepare or bring).
 
 5. **Closing Paragraph:**
+
    - Express gratitude for the recipient's engagement or participation.
    - Invite them to reach out with any questions or concerns regarding the confirmation.
    - Confirm the organization’s commitment to providing a positive experience.

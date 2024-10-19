@@ -38,7 +38,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   const [attachment, setAttachment] = useState<File | null>(null);
   const [currentDropdownIndex, setCurrentDropdownIndex] = useState(0); // To track the active dropdown
   const [isShowAllAdvanceOptions, setIsShowAllAdvanceOptions] = useState(
-    window.innerWidth > 576
+    window.innerWidth > 576,
   );
 
   //
@@ -218,7 +218,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
                 className={styles.nextButton}
                 onClick={() =>
                   setCurrentDropdownIndex(
-                    (currentDropdownIndex + 1) % dropdowns.length
+                    (currentDropdownIndex + 1) % dropdowns.length,
                   )
                 }
               >

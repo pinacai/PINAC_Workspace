@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </ThemeStyleProvider>
       </ThemeModeProvider>
     </Router>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // Use contextBridge

@@ -24,7 +24,9 @@ export const Menubar: React.FC<MenubarProps> = ({ menuItems }) => {
   };
 
   return (
-    <nav className={`${styles.menubar} ${currentPath === "/" && styles.giveMargin}`}>
+    <nav
+      className={`${styles.menubar} ${currentPath === "/" && styles.giveMargin}`}
+    >
       <ul className={styles.menuItems}>
         {menuItems.map((item, index) => (
           <li

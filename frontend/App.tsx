@@ -37,11 +37,11 @@ const App = () => {
       "Cyber_Tech_01-light",
       "Cyber_Tech_01-dark",
       "Aesthetics_Unbound-light",
-      "Aesthetics_Unbound-dark"
+      "Aesthetics_Unbound-dark",
     );
     // Add desired theme pair with mode as user previous preference
     body.classList.add(
-      `${themeStyleContext?.themeStyle}-${themeModeContext?.themeMode}`
+      `${themeStyleContext?.themeStyle}-${themeModeContext?.themeMode}`,
     );
   });
 

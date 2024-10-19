@@ -47,9 +47,10 @@ export const ThemeSwitcher: React.FC = () => {
   useEffect(() => {
     setDawn_n_Dusk(themeStyleContext?.themeStyle === "Dawn_n_Dusk");
     setCyber_Tech_01(themeStyleContext?.themeStyle === "Cyber_Tech_01");
-    setAesthetics_Unbound(themeStyleContext?.themeStyle === "Aesthetics_Unbound");
+    setAesthetics_Unbound(
+      themeStyleContext?.themeStyle === "Aesthetics_Unbound",
+    );
   }, [themeStyleContext?.themeStyle]);
-
 
   // ----------------------------------------------------------- //
   return (

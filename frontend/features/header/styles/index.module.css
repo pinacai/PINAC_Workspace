@@ -31,8 +31,8 @@
 /* ------------------------------------------------- */
 
 .rightSide {
-  display : flex;
-  gap : 15px
+  display: flex;
+  gap: 15px;
 }
 
 .leftSide button {
@@ -45,7 +45,7 @@
 
 .leftSide button.home {
   margin-top: 3px;
-  color: var(--text-color-iconic)
+  color: var(--text-color-iconic);
 }
 
 .leftSide button:hover {
@@ -66,7 +66,10 @@
   margin-left: 10px;
   border: none;
   border-radius: 7px;
-  font: normal medium "Exo2", "Montserrat", sans-serif;
+  font:
+    normal medium "Exo2",
+    "Montserrat",
+    sans-serif;
   backdrop-filter: blur(5px);
   background: var(--headerMenu-bg);
   box-shadow: var(--headerMenu-shadow);
@@ -102,12 +105,17 @@
 /*       for other page titles         */
 /* ----------------------------------- */
 .title {
-  font: normal 25px "Exo2", "Montserrat", sans-serif;
+  font:
+    normal 25px "Exo2",
+    "Montserrat",
+    sans-serif;
 }
 
 /* for PINAC Logo */
 .homeTitle {
-  font: bold 40px "nasa", sans-serif;
+  font:
+    bold 40px "nasa",
+    sans-serif;
 }
 
 .bottomLine {

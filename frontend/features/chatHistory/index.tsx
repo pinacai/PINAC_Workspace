@@ -21,15 +21,15 @@ const ChatHistory: React.FC = () => {
           sessionId={session.id}
           date={`${String(session.timestamp.getDate()).padStart(
             2,
-            "0"
+            "0",
           )}.${String(session.timestamp.getMonth() + 1).padStart(
             2,
-            "0"
+            "0",
           )}.${String(session.timestamp.getFullYear())}`}
           title={session.title}
           key={session.id}
         />
-      ))
+      )),
     );
   });
 

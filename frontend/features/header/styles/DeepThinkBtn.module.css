@@ -19,7 +19,10 @@
   padding-left: 5px;
   padding-right: 5px;
   position: relative;
-  font: normal 20px "Exo2", "Montserrat", sans-serif;
+  font:
+    normal 20px "Exo2",
+    "Montserrat",
+    sans-serif;
   z-index: 10;
   transition: color 0.4s;
   display: inline-flex;
@@ -78,7 +81,10 @@
   padding-right: 5px;
   position: relative;
   color: white;
-  font: normal 20px "Exo2", "Montserrat", sans-serif;
+  font:
+    normal 20px "Exo2",
+    "Montserrat",
+    sans-serif;
   z-index: 10;
   transition: color 0.4s;
   display: inline-flex;

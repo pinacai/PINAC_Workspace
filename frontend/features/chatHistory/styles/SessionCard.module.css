@@ -53,7 +53,10 @@
 }
 
 .date {
-  font: normal 12px "Exo2", "Montserrat", sans-serif;
+  font:
+    normal 12px "Exo2",
+    "Montserrat",
+    sans-serif;
 }
 
 /*          Title Block          */
@@ -68,7 +71,10 @@
 }
 
 .title {
-  font: normal 16px "Exo2", "Montserrat", sans-serif;
+  font:
+    normal 16px "Exo2",
+    "Montserrat",
+    sans-serif;
 }
 
 /*          Delete Button          */

@@ -59,7 +59,7 @@ export const Sidebar: React.FC = () => {
   //
   const renderNavItem = (
     subPage: string,
-    Icon: React.ElementType
+    Icon: React.ElementType,
   ): JSX.Element => (
     <li onClick={() => changePage(subPage)}>
       <Icon size={30} color="var(--sidebar-icon-color)" />

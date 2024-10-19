@@ -52,7 +52,9 @@
   resize: none;
   border: none;
   color: var(--text-color-opposite);
-  font: normal medium "Montserrat", sans-serif;
+  font:
+    normal medium "Montserrat",
+    sans-serif;
   background: transparent;
   flex-grow: 1;
 }
@@ -60,7 +62,10 @@
 #userInput::placeholder {
   color: var(--placeholder-color);
   align-items: center;
-  font: normal large "Exo2", "Montserrat", sans-serif;
+  font:
+    normal large "Exo2",
+    "Montserrat",
+    sans-serif;
   letter-spacing: 2px;
 }
 
@@ -272,7 +277,10 @@ button.disabled {
   }
 
   #userInput::placeholder {
-    font: normal medium "Exo2", "Montserrat", sans-serif;
+    font:
+      normal medium "Exo2",
+      "Montserrat",
+      sans-serif;
     letter-spacing: 2px;
   }
 

@@ -31,7 +31,7 @@ const Profile: React.FC = () => {
       reader.onloadend = () => {
         const base64String = (reader.result as string).replace(
           /^data:.+;base64,/,
-          ""
+          "",
         );
         window.ipcRenderer.send("request-to-backend", {
           request_type: "upload-file",
@@ -72,7 +72,6 @@ const Profile: React.FC = () => {
     });
   }, []);
 
-
   // ------------------------------------------------------ //
   return (
     <>
@@ -86,20 +85,14 @@ const Profile: React.FC = () => {
           <div>
             {/* ======= profile Image ======= */}
             <div className={styles.profileImgContainer}>
-              <div
-                className={styles.profileImg}
-                style={{ cursor: "pointer" }}
-              >
+              <div className={styles.profileImg} style={{ cursor: "pointer" }}>
                 {imageUrl ? (
                   <img src={imageUrl} alt="Profile" />
                 ) : (
                   <img src={profileImage} alt="Profile" />
                 )}{" "}
               </div>
-              <button
-                className={styles.editButton}
-                onClick={handleImageClick}
-              >
+              <button className={styles.editButton} onClick={handleImageClick}>
                 <FaPencilAlt size={20} color="var(--sidebar-icon-color)" />
               </button>
             </div>

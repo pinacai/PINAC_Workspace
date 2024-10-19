@@ -1,49 +1,51 @@
 .welcomeText {
-    background: var(--welcomeText-gradient);
-    background-clip: text;
-    color: transparent;
-    box-shadow: none;
-    font: bold 55px "ubuntu", "Montserrat", sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .welcomeTextRow {
-    display: flex;
-    align-items: flex-start;
-  }
-  
-  /* ------------------ */
-  /* Responsive Styles */
-  
-  @container (max-width: 992px) {
-    .welcomeText {
-      font-size: 55px;
-    }
-  }
-  
-  @container (max-width: 768px) {
-    .welcomeText {
-      font-size: 45px;
-    }
-  }
+  background: var(--welcomeText-gradient);
+  background-clip: text;
+  color: transparent;
+  box-shadow: none;
+  font:
+    bold 55px "ubuntu",
+    "Montserrat",
+    sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  @container (max-width: 576px) {
-    .welcomeText {
-      font-size: 40px;
-    }
-  }
+.welcomeTextRow {
+  display: flex;
+  align-items: flex-start;
+}
 
-  @container (max-width: 420px) {
-    .welcomeText {
-      font-size: 35px;
-    }
+/* ------------------ */
+/* Responsive Styles */
+
+@container (max-width: 992px) {
+  .welcomeText {
+    font-size: 55px;
   }
-  
-  @container (max-width: 320px) {
-    .welcomeText {
-      font-size: 10vw;
-    }
+}
+
+@container (max-width: 768px) {
+  .welcomeText {
+    font-size: 45px;
   }
-  
+}
+
+@container (max-width: 576px) {
+  .welcomeText {
+    font-size: 40px;
+  }
+}
+
+@container (max-width: 420px) {
+  .welcomeText {
+    font-size: 35px;
+  }
+}
+
+@container (max-width: 320px) {
+  .welcomeText {
+    font-size: 10vw;
+  }
+}

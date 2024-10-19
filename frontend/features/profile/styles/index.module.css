@@ -114,7 +114,10 @@
   background: var(--inputBox-bg);
   border: 1px solid var(--profile-input-border-color);
   box-shadow: var(--profile-input-shadow);
-  font: normal medium "Exo2", "Montserrat", sans-serif;
+  font:
+    normal medium "Exo2",
+    "Montserrat",
+    sans-serif;
 }
 
 .userDetails .form #bio {

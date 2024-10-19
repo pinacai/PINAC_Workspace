@@ -22,7 +22,7 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
   setButtonsDisabled,
 }) => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
-    window.innerWidth > 576
+    window.innerWidth > 576,
   );
 
   // Button
@@ -102,7 +102,7 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
 // Component similar to AiMessage and replaced as soon as we have the data.
 export const AiLoader: React.FC = () => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
-    window.innerWidth > 576
+    window.innerWidth > 576,
   );
 
   // Handle window resize and update avatar visibility

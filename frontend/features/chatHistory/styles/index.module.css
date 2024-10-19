@@ -62,7 +62,10 @@
   background: var(--inputBox-bg);
   border: 1px solid var(--profile-input-border-color);
   box-shadow: var(--inputBox-shadow);
-  font: normal medium "Exo2", "Montserrat", sans-serif;
+  font:
+    normal medium "Exo2",
+    "Montserrat",
+    sans-serif;
 }
 
 .input::placeholder {
@@ -104,6 +107,9 @@
 }
 
 .noSessions {
-  font: normal 22px "Exo2", "Montserrat", sans-serif;
+  font:
+    normal 22px "Exo2",
+    "Montserrat",
+    sans-serif;
   color: var(--placeholder-color);
 }

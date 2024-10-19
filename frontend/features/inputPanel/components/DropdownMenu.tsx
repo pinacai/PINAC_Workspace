@@ -61,7 +61,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
 
   // Filter options based on search query
   const filteredOptions = optionList.filter((option) =>
-    option.toLowerCase().includes(searchQuery.toLowerCase())
+    option.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   // -------------------------------------------- //

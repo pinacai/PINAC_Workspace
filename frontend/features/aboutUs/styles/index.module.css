@@ -51,12 +51,18 @@
 
 .aboutCard .header span {
   color: var(--text-color-opposite);
-  font: bold xx-large "Exo2", "Montserrat", sans-serif;
+  font:
+    bold xx-large "Exo2",
+    "Montserrat",
+    sans-serif;
 }
 
 .aboutCard span {
   color: var(--text-color-opposite);
-  font: normal medium "Exo2", "Montserrat", sans-serif;
+  font:
+    normal medium "Exo2",
+    "Montserrat",
+    sans-serif;
 }
 
 .content {
@@ -72,7 +78,10 @@
   color: var(--text-color-light);
   background: var(--aboutBtn-bg);
   border: none;
-  font: bold auto "Exo2", "Montserrat", sans-serif;
+  font:
+    bold auto "Exo2",
+    "Montserrat",
+    sans-serif;
   text-align: center;
   cursor: pointer;
   transition: 0.4s;
@@ -174,6 +183,9 @@
   #aboutBtn {
     padding: 10px 10px;
     border-radius: 5px;
-    font: normal small "Exo2", "Montserrat", sans-serif;
+    font:
+      normal small "Exo2",
+      "Montserrat",
+      sans-serif;
   }
 }

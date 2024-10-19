@@ -4,7 +4,7 @@
   justify-content: flex-start;
   border-radius: 7px;
   color: var(--text-color-opposite);
-  background: var( --menubar-bg);
+  background: var(--menubar-bg);
   box-shadow: var(--menubar-shadow);
 }
 

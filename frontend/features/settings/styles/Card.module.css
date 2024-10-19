@@ -81,7 +81,9 @@
   width: 1.05em;
   height: 1.05em;
   border-radius: 0.25em;
-  transition: all 0.2s ease, border-width 0.1s;
+  transition:
+    all 0.2s ease,
+    border-width 0.1s;
 }
 
 .checkWrapper input:checked ~ .checkmark:after {

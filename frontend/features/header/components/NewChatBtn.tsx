@@ -5,10 +5,10 @@ import styles from "../styles/NewChatBtn.module.css";
 import { IoAddCircleOutline } from "react-icons/io5";
 
 interface NewChatBtnProps {
-    clearChat: () => void;
+  clearChat: () => void;
 }
 
-export const NewChatBtn: React.FC<NewChatBtnProps> = ({clearChat}) => {
+export const NewChatBtn: React.FC<NewChatBtnProps> = ({ clearChat }) => {
   return (
     <>
       <button className={styles.newChatButton} onClick={clearChat}>

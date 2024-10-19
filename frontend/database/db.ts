@@ -42,7 +42,7 @@ export const addMsgToSession = async (
   sessionId: string,
   msgId: number,
   role: string,
-  text: string
+  text: string,
 ): Promise<void> => {
   const session = await db.chatSessions.get(sessionId);
   if (session) {
@@ -56,7 +56,7 @@ export const addMsgToSession = async (
 };
 
 export const getSession = async (
-  sessionId: string
+  sessionId: string,
 ): Promise<ChatSession | undefined> => {
   return await db.chatSessions.get(sessionId);
 };
@@ -67,7 +67,7 @@ export const getAllSessions = async (): Promise<ChatSession[]> => {
 
 export const updateSessionTitle = async (
   sessionId: string,
-  newTitle: string
+  newTitle: string,
 ): Promise<void> => {
   await db.chatSessions.update(sessionId, { title: newTitle });
 };

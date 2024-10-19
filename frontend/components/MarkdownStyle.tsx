@@ -48,9 +48,7 @@ const SyntaxHighlight = ({ children, code, ...props }: any) => {
 
 // =============================================================== //
 
-export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({
-  text,
-}) => {
+export const MarkdownStyle: React.FC<MarkdownStyleProps> = ({ text }) => {
   return (
     <div className={styles.markdownText}>
       <Markdown

@@ -1,8 +1,8 @@
 import React, { createContext, useState } from "react";
 
 export const WelcomeTextContext = createContext<{
-    isWelcomeTextVisible: boolean;
-    setIsWelcomeTextVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  isWelcomeTextVisible: boolean;
+  setIsWelcomeTextVisible: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
 interface WelcomeTextProviderProps {
@@ -12,10 +12,12 @@ interface WelcomeTextProviderProps {
 export const WelcomeTextProvider: React.FC<WelcomeTextProviderProps> = ({
   children,
 }) => {
-    const [isWelcomeTextVisible, setIsWelcomeTextVisible] =
+  const [isWelcomeTextVisible, setIsWelcomeTextVisible] =
     useState<boolean>(true);
   return (
-    <WelcomeTextContext.Provider value={{ isWelcomeTextVisible, setIsWelcomeTextVisible }}>
+    <WelcomeTextContext.Provider
+      value={{ isWelcomeTextVisible, setIsWelcomeTextVisible }}
+    >
       {children}
     </WelcomeTextContext.Provider>
   );

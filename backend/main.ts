@@ -8,7 +8,7 @@ import { applyPrompt } from "./prompts/prompt";
 // for using development server
 const callDevelopmentServer = async (input: string) => {
   const response = await fetch(
-    `https://nexus-for-development.pinac.workers.dev/?input=${input}`
+    `https://nexus-for-development.pinac.workers.dev/?input=${input}`,
   );
   return await response.json();
 };
@@ -125,7 +125,7 @@ ipcMain.on("request-to-server", async (event, request) => {
   else if (request["preferred_model_type"] == "Private LLM") {
     const response: object = await askLocalLLM(
       request["preferred_model"],
-      final_prompt
+      final_prompt,
     );
     event.reply("server-response", response);
   }
