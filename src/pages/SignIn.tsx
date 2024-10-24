@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles/SignIn.module.css";
 
 // image
-import appLogo from "../../public/img/App Logo.svg";
+import appLogo from "/icon/App Logo.svg";
 
 export const SignInPage: React.FC = () => {
   return (

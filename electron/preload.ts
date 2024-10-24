@@ -34,7 +34,3 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
   // You can expose other APTs you need here.
   // ...
 });
-
-contextBridge.exposeInMainWorld("api", {
-  openLink: (url: string) => ipcRenderer.send("open-external-link", url),
-});

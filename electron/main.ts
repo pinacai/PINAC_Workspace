@@ -2,7 +2,8 @@ import { app, BrowserWindow, screen, ipcMain, shell } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import * as fs from "fs";
-import "../backend/main";
+import askLocalLLM from "./model/ollama";
+import applyPrompt from "./prompt";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -109,9 +110,100 @@ app.whenReady().then(() => {
   createMainWindow();
 });
 
-// ------------------------------------------------------- //
-//      frontend request to backend (window related)       //
-// ------------------------------------------------------- //
+// ============================================= //
+//                 Cloud Server                  //
+// ============================================= //
+
+// development server
+const callDevelopmentServer = async (input: string) => {
+  const response = await fetch(
+    `https://nexus-for-development.pinac.workers.dev/?input=${input}`
+  );
+  return await response.json();
+};
+
+// ======================================================================== //
+//        frontend request to backend (for backend funtionalities)          //
+// ======================================================================== //
+
+ipcMain.on("request-to-backend", (event, request) => {
+  if (request["request_type"] == "save-user-info") {
+    try {
+      const userInfo = {
+        first_name: request["first_name"],
+        last_name: request["last_name"],
+        email_id: request["email_id"],
+        bio: request["bio"],
+        image: request["image"],
+      };
+      const userInfoJson = JSON.stringify(userInfo);
+      fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
+      event.reply("backend-response", {
+        error_occurred: false,
+        response: true,
+        error: null,
+      });
+    } catch (error: unknown) {
+      event.reply("backend-response", {
+        error_occurred: true,
+        response: false,
+        error: error,
+      });
+    }
+  }
+  //
+  //
+  else if (request["request_type"] == "give-user-info") {
+    fs.readFile(
+      path.join(userDataPath, "user-info.json"),
+      "utf8",
+      (_, data) => {
+        try {
+          const userData = JSON.parse(data);
+          event.reply("backend-response", userData);
+        } catch {
+          const userData = {
+            first_name: null,
+            last_name: null,
+            email_id: null,
+            bio: null,
+            OPENAI_API_KEY: null,
+            GOOGLE_API_KEY: null,
+          };
+          event.reply("backend-response", userData);
+        }
+      }
+    );
+  }
+  //
+  //
+  else if (request["request_type"] == "logout") {
+    fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
+  }
+  //
+  //
+  else if (request["request_type"] == "upload-file") {
+    const base64Data = request["file_data"];
+    const fileName = request["file_name"];
+    const filePath = `${userDataPath}/profileImg/${fileName}`;
+
+    fs.writeFile(filePath, base64Data, "base64", (err) => {
+      if (err) {
+        event.reply("backend-response", {
+          error_occurred: true,
+          response: false,
+          error: err,
+        });
+      } else {
+        event.reply("backend-response", {
+          error_occurred: false,
+          response: true,
+          error: null,
+        });
+      }
+    });
+  }
+});
 
 // Reload the app
 ipcMain.on("reload-app", () => {
@@ -130,4 +222,33 @@ ipcMain.on("unmaximizeWindow", () => {
 // IPC listener to open external links
 ipcMain.on("open-external-link", (_, url) => {
   shell.openExternal(url);
+});
+
+// ======================================================= //
+//              Frontend request for Server                //
+// ======================================================= //
+
+ipcMain.on("request-to-server", async (event, request) => {
+  const prompt = request["prompt"];
+  const final_prompt = applyPrompt(prompt, request["user_query"]);
+  //
+  //
+  if (request["preferred_model_type"] == "Cloud LLM") {
+    const input = final_prompt.replace(" ", "+");
+    const ai_response: any = await callDevelopmentServer(input);
+    const response = {
+      error_occurred: false,
+      response: { type: "others", content: ai_response[0].response.response },
+      error: null,
+    };
+    event.reply("server-response", response);
+  }
+  //
+  else if (request["preferred_model_type"] == "Private LLM") {
+    const response: object = await askLocalLLM(
+      request["preferred_model"],
+      final_prompt
+    );
+    event.reply("server-response", response);
+  }
 });

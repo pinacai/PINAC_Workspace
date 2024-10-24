@@ -34,7 +34,7 @@ const AboutUs: React.FC = () => {
               <button
                 id={styles.aboutBtn}
                 onClick={() =>
-                  api.openLink("https://github.com/pinacai/PINAC_Workspace")
+                  window.ipcRenderer.send("open-external-link", "https://github.com/pinacai/PINAC_Workspace")
                 }
               >
                 <strong>Visit Our GitHub Repo</strong>

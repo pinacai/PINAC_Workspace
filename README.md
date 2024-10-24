@@ -48,17 +48,13 @@ Overview of File Structure to Help You Get Started.
     ├── public /
     ├── index.html
     |
-    ├── backend /
-    |    ├── model /
-    |    ├── prompts /
-    |    ├── user data /
-    |    └── main.ts
-    |
     ├── electron /
     |    ├── main.ts
-    |    └── preload.ts
+    |    ├── preload.ts
+    |    ├── prompts.ts
+    |    └── model /
     |
-    └── frontend /
+    └── src /
          ├── App.tsx
          ├── App.css           # All element's colors theme-wise
          |
@@ -93,42 +89,7 @@ Overview of File Structure to Help You Get Started.
 
 ## 🔥 Available Prompts
 
-<details>
-<summary>
-Currently, we have a collection of 27+ expert-level prompts
-</summary>
-
-|     | Prompt                                                                                                                                                                                           |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1   | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Summarize/Summarize.md">Summarize</a>                                                                              |
-| 2   | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Summarize/Summarize%20In%20Micro.md">Summarize in Micro</a>                                                        |
-| 3   | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Summarize/Summarize%20Lengthy%20Documents.md">Summarize Lengthy Documents</a>                                      |
-| 4   | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Improve%20Writing/Improve%20Writing.md">Improve Writing</a>                                                        |
-| 5   | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Improve%20Writing/Improve%20Academic%20Writing.md">Improve Academic Writing</a>                                    |
-| 6   | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Code/Write%20Code.md">Write Code</a>                                                                               |
-| 7   | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Code/Explain%20Complete%20Code.md">Explain Complete Code</a>                                                       |
-| 8   | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Code/Explain%20Code%20as%20Require%20by%20User.md">Explain Code as Require by User</a>                             |
-| 9   | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Writing/Write%20Essay.md">Write Essay</a>                                                                          |
-| 10  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Writing/Write%20Micro%20Essay.md">Write Micro Essay</a>                                                            |
-| 11  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/General%20Purpose%20Formal%20Email.md">General Purpose Formal Email</a>                                      |
-| 12  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/General%20Purpose%20Personal%20Email.md">General Purpose Informal Email</a>                                  |
-| 13  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Acceptance%20Email.md">Acceptance Email</a>                                                                  |
-| 14  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Acknowledgment%20Email.md">Acknowledgement Email</a>                                                         |
-| 15  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Business%20Email%20(B2B%2C%20B2Employee%2C%20B2Investor).md">Business Email(B2B, B2Employee, B2Investor)</a> |
-| 16  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Confirmation%20Email.md">Confirmation Email</a>                                                              |
-| 17  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Effective%20Complaint%20Email.md">Effective Complaint Email</a>                                              |
-| 18  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Effective%20Inquiry%20Email.md">Inquiry Email</a>                                                            |
-| 19  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Formal%20Congratulation%20Email.md">Formal Congratulation Email</a>                                          |
-| 20  | <a href="backend/prompts/Email/Formal Proposal Submission Email.md">Formal Proposal Submission Email</a>                                                                                         |
-| 21  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Formal%20Thank%20You%20Email.md">Formal Thank You Email</a>                                                  |
-| 22  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Formal%20Welcome%20Email.md">Formal Welcome Email</a>                                                        |
-| 23  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Formal%20and%20Polite%20Apology%20Email.md">Polite Apology Email</a>                                         |
-| 24  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/General%20Purpose%20Academic%20Email.md">General Purpose Academic Email</a>                                  |
-| 25  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Official%20Announcement%20Email.md">Official Announcement Email</a>                                          |
-| 26  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Professional%20Recommendation%20Email.md">Professional Recommendation Email</a>                              |
-| 27  | <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/backend/prompts/Email/Professional%20Resignation%20Email.md">Professional Resignation Email</a>                                    |
-
-</details>
+Currently, we have a collection of 27+ expert-level prompts.
 
 ## 🚀 Getting Started
 
@@ -156,9 +117,10 @@ We highly welcome contributions! Please follow the steps if you're interested.
 1. Star the repository
 2. Fork the repository on GitHub.
 3. Clone the project to your machine.
-4. Commit changes to your branch.
-5. Push your work back up to your fork.
-6. Submit a Pull request so that we can review your changes
+4. create you own branch.
+5. Commit changes to your branch.
+6. Push your work back up to your fork.
+7. Submit a Pull request so that we can review your changes
 
 ## 📄 License
 

@@ -28,12 +28,8 @@ release
 # Python files
 venv
 .venv
+.env
 env
 __pycache__
 configs/
 config/
-
-# user data
-.env
-backend/user data/
-user_info.json

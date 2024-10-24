@@ -1,6 +1,6 @@
 import ollama from "ollama";
 
-export const askLocalLLM = async (llm: string, user_query: string) => {
+const askLocalLLM = async (llm: string, user_query: string) => {
   try {
     const response = await ollama.chat({
       model: llm,
@@ -24,3 +24,5 @@ export const askLocalLLM = async (llm: string, user_query: string) => {
     };
   }
 };
+
+export default askLocalLLM;
