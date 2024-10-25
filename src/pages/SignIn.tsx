@@ -5,19 +5,35 @@ import styles from "./styles/SignIn.module.css";
 import appLogo from "/icon/App Logo.svg";
 
 export const SignInPage: React.FC = () => {
+  const handleButtonClick = () => {
+    window.ipcRenderer.send(
+      "open-external-link",
+      "https://pinac-web.pages.dev/signup/?app-auth=true"
+    );
+  };
+
+  const handleLinkClick = () => {
+    window.ipcRenderer.send(
+      "open-external-link",
+      "https://pinac-web.pages.dev/signin/?app-auth=true"
+    );
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
         <img src={appLogo} alt="App Logo" className={styles.appLogo} />
         <div className={styles.bottomContainer}>
-          <button className={styles.signupButton}>Sign Up</button>
+          <button className={styles.signupButton} onClick={handleButtonClick}>
+            Sign Up
+          </button>
 
           <div className={styles.signinText}>
             Already a user?
-            <a href="#" className={styles.signinLink}>
+            <span className={styles.signinLink} onClick={handleLinkClick}>
               {" "}
               Sign In
-            </a>
+            </span>
           </div>
 
           <p className={styles.footerText}>

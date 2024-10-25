@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen, ipcMain, shell } from "electron";
+import { app, BrowserWindow, screen, ipcMain, shell, dialog } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import * as fs from "fs";
@@ -23,7 +23,7 @@ export const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 export const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 
-let win: BrowserWindow | null;
+let mainWindow: BrowserWindow | null;
 
 const userDataPath = app.getPath("userData");
 const sizeFile = path.join(userDataPath, "window-size.json");
@@ -58,7 +58,7 @@ const createMainWindow = () => {
   const { width, height } = savedSize || defaultSize;
 
   // Create the browser window.
-  win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: width,
     height: height,
     autoHideMenuBar: true,
@@ -71,20 +71,24 @@ const createMainWindow = () => {
   });
 
   // Test active push message to Renderer-process.
-  win.webContents.on("did-finish-load", () => {
-    win?.webContents.send("main-process-message", new Date().toLocaleString());
+  mainWindow.webContents.on("did-finish-load", () => {
+    mainWindow?.webContents.send(
+      "main-process-message",
+      new Date().toLocaleString()
+    );
   });
 
   if (VITE_DEV_SERVER_URL) {
-    win.loadURL(VITE_DEV_SERVER_URL);
+    mainWindow.loadURL(VITE_DEV_SERVER_URL);
   } else {
     // win.loadFile('dist/index.html')
-    win.loadFile(path.join(RENDERER_DIST, "index.html"));
+    mainWindow.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
 
   // Save the window size when it is resized.
-  win.on("resize", () => {
-    win && saveSize(win.getBounds().width, win.getBounds().height);
+  mainWindow.on("resize", () => {
+    mainWindow &&
+      saveSize(mainWindow.getBounds().width, mainWindow.getBounds().height);
   });
 };
 
@@ -94,7 +98,7 @@ const createMainWindow = () => {
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
-    win = null;
+    mainWindow = null;
   }
 });
 
@@ -207,16 +211,16 @@ ipcMain.on("request-to-backend", (event, request) => {
 
 // Reload the app
 ipcMain.on("reload-app", () => {
-  win?.reload();
+  mainWindow?.reload();
 });
 
 // Listen for toggling Window Size
 ipcMain.on("maximizeWindow", () => {
-  win?.maximize();
+  mainWindow?.maximize();
 });
 
 ipcMain.on("unmaximizeWindow", () => {
-  win?.unmaximize();
+  mainWindow?.unmaximize();
 });
 
 // IPC listener to open external links
@@ -252,3 +256,62 @@ ipcMain.on("request-to-server", async (event, request) => {
     event.reply("server-response", response);
   }
 });
+
+// =========================================================================== //
+//                                                                             //
+//                      Authentication using Deep Link                         //
+//                                                                             //
+// =========================================================================== //
+
+// Registering app's custom protocol
+if (process.defaultApp) {
+  if (process.argv.length >= 2) {
+    app.setAsDefaultProtocolClient("pinac-workspace", process.execPath, [
+      path.resolve(process.argv[1]),
+    ]);
+  }
+} else {
+  app.setAsDefaultProtocolClient("pinac-workspace");
+}
+
+// Handle protocol when app is already running
+// for Windows and Linux
+const gotTheLock = app.requestSingleInstanceLock();
+
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on("second-instance", (_, commandLine) => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
+    }
+    const url = commandLine.pop();
+    if (url) {
+      // const token = parseTokenFromUrl(url);
+      parseTokenFromUrl(url);
+      console.log("Authentication Successful");
+    } else {
+      dialog.showErrorBox(
+        "Error",
+        "Something went wrong, unable to authenticate. Please try again."
+      );
+    }
+  });
+}
+
+// Handle protocol if app is already running
+// for MacOS
+app.on("open-url", (event, url) => {
+  event.preventDefault();
+  // const token = parseTokenFromUrl(url);
+  parseTokenFromUrl(url);
+  console.log("Authentication Successful");
+});
+
+// Parse token from URL
+const parseTokenFromUrl = (url: string) => {
+  const urlObj = new URL(url);
+  return urlObj.searchParams.get("token");
+};
