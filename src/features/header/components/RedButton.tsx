@@ -22,7 +22,7 @@ export const RedButton: React.FC<RedButtonProps> = ({ task, text, icon }) => {
     }
     //
     else if (task === "logout") {
-      window.ipcRenderer.send("request-to-backend", { request_type: "logout" });
+      window.ipcRenderer.send("logout");
       navigate("/");
       window.ipcRenderer.send("reload-app");
     }

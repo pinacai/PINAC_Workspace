@@ -10,8 +10,7 @@ import { FaPencilAlt } from "react-icons/fa";
 const Profile: React.FC = () => {
   const location = useLocation();
   const currentPath = location.pathname;
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
+  const [displayName, setDisplayName] = useState<string>("");
   const [emailId, setEmailId] = useState<string>("");
   const [bio, setBio] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -31,10 +30,9 @@ const Profile: React.FC = () => {
       reader.onloadend = () => {
         const base64String = (reader.result as string).replace(
           /^data:.+;base64,/,
-          "",
+          ""
         );
-        window.ipcRenderer.send("request-to-backend", {
-          request_type: "upload-file",
+        window.ipcRenderer.send("upload-file", {
           file_data: base64String,
           file_name: file.name,
         });
@@ -47,28 +45,23 @@ const Profile: React.FC = () => {
   //
   // onClick functions
   const saveUserInfo = () => {
-    window.ipcRenderer.send("request-to-backend", {
-      request_type: "save-user-info",
-      first_name: firstName,
-      last_name: lastName,
-      email_id: emailId,
+    window.ipcRenderer.send("save-user-info", {
+      displayName: displayName,
+      email: emailId,
       bio: bio,
-      image: imageUrl,
+      photoURL: imageUrl,
     });
   };
 
   //
   // Load user data on switching to this page
   useEffect(() => {
-    window.ipcRenderer.send("request-to-backend", {
-      request_type: "give-user-info",
-    });
+    window.ipcRenderer.send("give-user-info");
     window.ipcRenderer.once("backend-response", (_, response) => {
-      setFirstName(response.first_name || "");
-      setLastName(response.last_name || "");
-      setEmailId(response.email_id || "");
+      setDisplayName(response.displayName || "");
+      setEmailId(response.email || "");
       setBio(response.bio || "");
-      setImageUrl(response.image || null);
+      setImageUrl(response.photoURL || null);
     });
   }, []);
 
@@ -107,35 +100,19 @@ const Profile: React.FC = () => {
           </div>
           <div className={styles.userDetails}>
             <form className={styles.form}>
-              <div className={styles.flex}>
-                <label>
-                  <input
-                    required
-                    placeholder=""
-                    type="text"
-                    className={styles.input}
-                    value={firstName}
-                    onChange={(event) => {
-                      setFirstName(event.target.value);
-                    }}
-                  />
-                  <span>First Name</span>
-                </label>
-
-                <label>
-                  <input
-                    required
-                    placeholder=""
-                    type="text"
-                    className={styles.input}
-                    value={lastName}
-                    onChange={(event) => {
-                      setLastName(event.target.value);
-                    }}
-                  />
-                  <span>Last Name</span>
-                </label>
-              </div>
+              <label>
+                <input
+                  required
+                  placeholder=""
+                  type="text"
+                  className={styles.input}
+                  value={displayName}
+                  onChange={(event) => {
+                    setDisplayName(event.target.value);
+                  }}
+                />
+                <span>Full Name</span>
+              </label>
 
               <label>
                 <input

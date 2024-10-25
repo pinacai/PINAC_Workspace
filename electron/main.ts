@@ -130,83 +130,56 @@ const callDevelopmentServer = async (input: string) => {
 //        frontend request to backend (for backend funtionalities)          //
 // ======================================================================== //
 
-ipcMain.on("request-to-backend", (event, request) => {
-  if (request["request_type"] == "save-user-info") {
+ipcMain.on("save-user-info", (event, userInfo) => {
+  const userInfoJson = JSON.stringify(userInfo);
+  fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
+  event.reply("backend-response", {
+    error_occurred: false,
+    response: true,
+    error: null,
+  });
+});
+
+ipcMain.on("give-user-info", (event) => {
+  fs.readFile(path.join(userDataPath, "user-info.json"), "utf8", (_, data) => {
     try {
-      const userInfo = {
-        first_name: request["first_name"],
-        last_name: request["last_name"],
-        email_id: request["email_id"],
-        bio: request["bio"],
-        image: request["image"],
+      const userData = JSON.parse(data);
+      event.reply("backend-response", userData);
+    } catch {
+      const userData = {
+        displayName: null,
+        email: null,
+        bio: null,
       };
-      const userInfoJson = JSON.stringify(userInfo);
-      fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
+      event.reply("backend-response", userData);
+    }
+  });
+});
+
+ipcMain.on("logout", () => {
+  fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
+});
+
+ipcMain.on("upload-file", (event, request) => {
+  const base64Data = request["file_data"];
+  const fileName = request["file_name"];
+  const filePath = `${userDataPath}/profileImg/${fileName}`;
+
+  fs.writeFile(filePath, base64Data, "base64", (err) => {
+    if (err) {
+      event.reply("backend-response", {
+        error_occurred: true,
+        response: false,
+        error: err,
+      });
+    } else {
       event.reply("backend-response", {
         error_occurred: false,
         response: true,
         error: null,
       });
-    } catch (error: unknown) {
-      event.reply("backend-response", {
-        error_occurred: true,
-        response: false,
-        error: error,
-      });
     }
-  }
-  //
-  //
-  else if (request["request_type"] == "give-user-info") {
-    fs.readFile(
-      path.join(userDataPath, "user-info.json"),
-      "utf8",
-      (_, data) => {
-        try {
-          const userData = JSON.parse(data);
-          event.reply("backend-response", userData);
-        } catch {
-          const userData = {
-            first_name: null,
-            last_name: null,
-            email_id: null,
-            bio: null,
-            OPENAI_API_KEY: null,
-            GOOGLE_API_KEY: null,
-          };
-          event.reply("backend-response", userData);
-        }
-      }
-    );
-  }
-  //
-  //
-  else if (request["request_type"] == "logout") {
-    fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
-  }
-  //
-  //
-  else if (request["request_type"] == "upload-file") {
-    const base64Data = request["file_data"];
-    const fileName = request["file_name"];
-    const filePath = `${userDataPath}/profileImg/${fileName}`;
-
-    fs.writeFile(filePath, base64Data, "base64", (err) => {
-      if (err) {
-        event.reply("backend-response", {
-          error_occurred: true,
-          response: false,
-          error: err,
-        });
-      } else {
-        event.reply("backend-response", {
-          error_occurred: false,
-          response: true,
-          error: null,
-        });
-      }
-    });
-  }
+  });
 });
 
 // Reload the app
@@ -289,8 +262,20 @@ if (!gotTheLock) {
     }
     const url = commandLine.pop();
     if (url) {
-      // const token = parseTokenFromUrl(url);
-      parseTokenFromUrl(url);
+      const authData = parseTokenFromUrl(url);
+      if (authData) {
+        const userInfo = {
+          displayName: authData["displayName"],
+          email: authData["email"],
+          bio: "",
+          photoURL: authData["photoUrl"],
+        };
+        const userInfoJson = JSON.stringify(userInfo);
+        fs.writeFileSync(
+          path.join(userDataPath, "user-info.json"),
+          userInfoJson
+        );
+      }
       console.log("Authentication Successful");
     } else {
       dialog.showErrorBox(
@@ -306,12 +291,31 @@ if (!gotTheLock) {
 app.on("open-url", (event, url) => {
   event.preventDefault();
   // const token = parseTokenFromUrl(url);
-  parseTokenFromUrl(url);
+  const authData = parseTokenFromUrl(url);
+  if (authData) {
+    const userInfo = {
+      displayName: authData["displayName"],
+      email: authData["email"],
+      bio: "",
+      photoURL: authData["photoUrl"],
+    };
+    const userInfoJson = JSON.stringify(userInfo);
+    fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
+  }
   console.log("Authentication Successful");
 });
 
 // Parse token from URL
 const parseTokenFromUrl = (url: string) => {
   const urlObj = new URL(url);
-  return urlObj.searchParams.get("token");
+  const encodedData = urlObj.searchParams.get("data");
+  if (encodedData) {
+    return JSON.parse(decodeURIComponent(encodedData));
+  } else {
+    dialog.showErrorBox(
+      "Error",
+      "Something went wrong, unable to authenticate. Please try again."
+    );
+    return null;
+  }
 };

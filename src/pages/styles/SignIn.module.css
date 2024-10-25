@@ -64,6 +64,7 @@
   color: #0090c1;
   text-decoration: none;
   transition: color 0.3s;
+  cursor: pointer;
 }
 
 .signinLink:hover {
