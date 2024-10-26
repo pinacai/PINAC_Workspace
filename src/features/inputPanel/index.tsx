@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { DropdownMenu } from "./components/DropdownMenu";
-import { LLMSettingsContext } from "../../context/LLMSettings";
+import { ModelSettingsContext } from "../../context/ModelSettings";
 import styles from "./styles/index.module.css";
 
 // Icons
@@ -33,12 +33,12 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   setStop,
 }) => {
   const optionMenuRef = useRef<HTMLDivElement>(null);
-  const textModelType = useContext(LLMSettingsContext)?.textModelType;
+  const modelContext = useContext(ModelSettingsContext);
   const [attachmentOptions, setAttachmentOptions] = useState<boolean>(false);
   const [attachment, setAttachment] = useState<File | null>(null);
   const [currentDropdownIndex, setCurrentDropdownIndex] = useState(0); // To track the active dropdown
   const [isShowAllAdvanceOptions, setIsShowAllAdvanceOptions] = useState(
-    window.innerWidth > 576,
+    window.innerWidth > 576
   );
 
   //
@@ -182,52 +182,57 @@ export const InputPanel: React.FC<InputPanelProps> = ({
     <div className={styles.inputBox}>
       {/* ======== Advance Options (Dropdown) ============ */}
 
-      {textModelType == "Private LLM" && (
-        <div className={styles.inputOptionMenu}>
-          {/* Render both dropdowns on wider screens */}
-          {isShowAllAdvanceOptions ? (
-            <>
-              <DropdownMenu
-                labelText={dropdowns[0].label}
-                defaultOption={dropdowns[0].defaultOption}
-                optionList={dropdowns[0].optionList}
-                localStorageVariableName={dropdowns[0].localStorageVariableName}
-                searchBar={true}
-              />
-              <DropdownMenu
-                labelText={dropdowns[1].label}
-                defaultOption={dropdowns[1].defaultOption}
-                optionList={dropdowns[1].optionList}
-                localStorageVariableName={dropdowns[1].localStorageVariableName}
-                searchBar={false}
-              />
-            </>
-          ) : (
-            // Render the current dropdown when on smaller screens
-            <>
-              <DropdownMenu
-                labelText={dropdowns[currentDropdownIndex].label}
-                defaultOption={dropdowns[currentDropdownIndex].defaultOption}
-                optionList={dropdowns[currentDropdownIndex].optionList}
-                localStorageVariableName={
-                  dropdowns[currentDropdownIndex].localStorageVariableName
-                }
-                searchBar={true}
-              />
-              <button
-                className={styles.nextButton}
-                onClick={() =>
-                  setCurrentDropdownIndex(
-                    (currentDropdownIndex + 1) % dropdowns.length,
-                  )
-                }
-              >
-                <FaAngleRight size={25} color="var(--text-color-iconic)" />
-              </button>
-            </>
-          )}
-        </div>
-      )}
+      {modelContext?.modelType == "Text Generation" &&
+        modelContext?.textModelType == "Private LLM" && (
+          <div className={styles.inputOptionMenu}>
+            {/* Render both dropdowns on wider screens */}
+            {isShowAllAdvanceOptions ? (
+              <>
+                <DropdownMenu
+                  labelText={dropdowns[0].label}
+                  defaultOption={dropdowns[0].defaultOption}
+                  optionList={dropdowns[0].optionList}
+                  localStorageVariableName={
+                    dropdowns[0].localStorageVariableName
+                  }
+                  searchBar={true}
+                />
+                <DropdownMenu
+                  labelText={dropdowns[1].label}
+                  defaultOption={dropdowns[1].defaultOption}
+                  optionList={dropdowns[1].optionList}
+                  localStorageVariableName={
+                    dropdowns[1].localStorageVariableName
+                  }
+                  searchBar={false}
+                />
+              </>
+            ) : (
+              // Render the current dropdown when on smaller screens
+              <>
+                <DropdownMenu
+                  labelText={dropdowns[currentDropdownIndex].label}
+                  defaultOption={dropdowns[currentDropdownIndex].defaultOption}
+                  optionList={dropdowns[currentDropdownIndex].optionList}
+                  localStorageVariableName={
+                    dropdowns[currentDropdownIndex].localStorageVariableName
+                  }
+                  searchBar={true}
+                />
+                <button
+                  className={styles.nextButton}
+                  onClick={() =>
+                    setCurrentDropdownIndex(
+                      (currentDropdownIndex + 1) % dropdowns.length
+                    )
+                  }
+                >
+                  <FaAngleRight size={25} color="var(--text-color-iconic)" />
+                </button>
+              </>
+            )}
+          </div>
+        )}
 
       {/* ============================ */}
       <div

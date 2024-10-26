@@ -1,5 +1,7 @@
 <div align="center">
 
+**Note**: _Image generation models still not implemented, just the UI elements added._
+
 <h1 style="border-bottom: none">
     <b><a href="https://github.com/pinacai">PINAC Workspace</a></b>
 </h1>
@@ -86,10 +88,6 @@ Overview of File Structure to Help You Get Started.
               ├── styles /
               ├── Home.tsx
               └── Login.tsx
-
-## 🔥 Available Prompts
-
-Currently, we have a collection of 27+ expert-level prompts.
 
 ## 🚀 Getting Started
 

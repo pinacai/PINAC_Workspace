@@ -9,7 +9,7 @@ import { StopTextGeneration } from "../context/StopTextGeneration";
 import { SubPageContext } from "../context/SubPage";
 import { ChatMsgContext } from "../context/ChatMsg";
 import { WelcomeTextContext } from "../context/WelcomeText";
-import { LLMSettingsContext } from "../context/LLMSettings";
+import { ModelSettingsContext } from "../context/ModelSettings";
 import { startNewSession, addMsgToSession } from "../database/db";
 import styles from "./styles/Home.module.css";
 
@@ -23,7 +23,7 @@ export const HomePage: React.FC = () => {
   const subPageContext = useContext(SubPageContext);
   const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
-  const llmContext = useContext(LLMSettingsContext);
+  const llmContext = useContext(ModelSettingsContext);
   const [userInputText, setUserInputText] = useState<string>("");
   const [isUserInputActive, setIsUserInputActive] = useState<boolean>(false);
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);

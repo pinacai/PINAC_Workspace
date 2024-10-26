@@ -5,7 +5,7 @@ import { RedButton } from "./components/RedButton";
 import { NewChatBtn } from "./components/NewChatBtn";
 import { DeepThinkBtn } from "./components/DeepThinkBtn";
 import { SubPageContext } from "../../context/SubPage";
-import { LLMSettingsContext } from "../../context/LLMSettings";
+import { ModelSettingsContext } from "../../context/ModelSettings";
 import styles from "./styles/index.module.css";
 
 // Icons
@@ -28,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
   const location = useLocation();
   const navigate = useNavigate();
   const subPageContext = useContext(SubPageContext);
-  const textModelType = useContext(LLMSettingsContext)?.textModelType;
+  const modelContext = useContext(ModelSettingsContext);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
   const [isDropdownActive, setIsDropdownActive] = useState<boolean>(false);
@@ -164,7 +164,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Render the Clear Chat & Deep Think button */}
           {location.pathname == "/" && clearChat ? (
             <>
-              {textModelType == "Cloud LLM" && (
+              {modelContext?.modelType == "Text Generation" && modelContext?.textModelType == "Cloud LLM" && (
                 <DeepThinkBtn isActive={isActive} setActive={setActive} />
               )}
               <NewChatBtn clearChat={clearChat} />

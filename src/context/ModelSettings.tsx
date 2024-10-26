@@ -1,8 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
 
-export const LLMSettingsContext = createContext<{
+export const ModelSettingsContext = createContext<{
   modelType: string;
   setModelType: React.Dispatch<React.SetStateAction<string>>;
+  imgModelName: string;
+  setImgModelName: React.Dispatch<React.SetStateAction<string>>;
   textModelType: string;
   setTextModelType: React.Dispatch<React.SetStateAction<string>>;
   cloudModelName: string;
@@ -15,16 +17,20 @@ export const LLMSettingsContext = createContext<{
   getValue: (valueName: string) => string | null;
 } | null>(null);
 
-interface LLMSettingsProviderProps {
+interface ModelSettingsProviderProps {
   children: React.ReactNode;
 }
 
-export const LLMSettingsProvider: React.FC<LLMSettingsProviderProps> = ({
+export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
   children,
 }) => {
   const [modelType, setModelType] = useState(() => {
     const choice = localStorage.getItem("model-type");
     return choice ? choice : "text Generation";
+  });
+  const [imgModelName, setImgModelName] = useState(() => {
+    const choice = localStorage.getItem("img-model-name");
+    return choice ? choice : "Flux.1 Dev";
   });
   const [textModelType, setTextModelType] = useState(() => {
     const choice = localStorage.getItem("text-model-type");
@@ -48,6 +54,8 @@ export const LLMSettingsProvider: React.FC<LLMSettingsProviderProps> = ({
   const setValue = (valueName: string, value: string) => {
     if (valueName === "model-type") {
       setModelType(value);
+    } else if (valueName === "img-model-name") {
+      setImgModelName(value);
     } else if (valueName === "text-model-type") {
       setTextModelType(value);
     } else if (valueName === "cloud-model-name") {
@@ -62,6 +70,8 @@ export const LLMSettingsProvider: React.FC<LLMSettingsProviderProps> = ({
   const getValue = (valueName: string) => {
     if (valueName === "model-type") {
       return modelType;
+    } else if (valueName === "img-model-name") {
+      return imgModelName;
     } else if (valueName === "text-model-type") {
       return textModelType;
     } else if (valueName === "cloud-model-name") {
@@ -76,6 +86,7 @@ export const LLMSettingsProvider: React.FC<LLMSettingsProviderProps> = ({
   // Update localStorage on change
   useEffect(() => {
     localStorage.setItem("model-type", modelType);
+    localStorage.setItem("img-model-name", imgModelName);
     localStorage.setItem("text-model-type", textModelType);
     localStorage.setItem("cloud-model-name", cloudModelName);
     privateModelName &&
@@ -83,6 +94,7 @@ export const LLMSettingsProvider: React.FC<LLMSettingsProviderProps> = ({
     localStorage.setItem("output-language", outputlanguage);
   }, [
     modelType,
+    imgModelName,
     textModelType,
     cloudModelName,
     privateModelName,
@@ -90,10 +102,12 @@ export const LLMSettingsProvider: React.FC<LLMSettingsProviderProps> = ({
   ]);
 
   return (
-    <LLMSettingsContext.Provider
+    <ModelSettingsContext.Provider
       value={{
         modelType,
         setModelType,
+        imgModelName,
+        setImgModelName,
         textModelType,
         setTextModelType,
         cloudModelName,
@@ -107,6 +121,6 @@ export const LLMSettingsProvider: React.FC<LLMSettingsProviderProps> = ({
       }}
     >
       {children}
-    </LLMSettingsContext.Provider>
+    </ModelSettingsContext.Provider>
   );
 };

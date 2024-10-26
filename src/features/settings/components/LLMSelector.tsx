@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useContext } from "react";
 import { DropdownMenu } from "./DropdownMenu";
-import { LLMSettingsContext } from "../../../context/LLMSettings";
+import { ModelSettingsContext } from "../../../context/ModelSettings";
 import styles from "../styles/LLMSelector.module.css";
 
 export const LLMSelector: React.FC = () => {
-  const llmContext = useContext(LLMSettingsContext);
+  const llmContext = useContext(ModelSettingsContext);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const changePrivateModel = () => {

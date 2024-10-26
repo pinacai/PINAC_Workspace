@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useContext } from "react";
-import { LLMSettingsContext } from "../../../context/LLMSettings";
+import { ModelSettingsContext } from "../../../context/ModelSettings";
 import styles from "../styles/DropdownMenu.module.css";
 
 // Icon
@@ -22,14 +22,14 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   optionList,
   valueName,
 }) => {
-  const llmContext = useContext(LLMSettingsContext);
+  const modelContext = useContext(ModelSettingsContext);
   const [selectedOption, setSelectedOption] = useState(defaultOption);
   const [isActive, setIsActive] = useState(false);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
 
   //
   const onClick = (option: string) => {
-    llmContext?.setValue(valueName, option);
+    modelContext?.setValue(valueName, option);
     setSelectedOption(option);
     setIsActive(false);
   };
@@ -37,9 +37,9 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   //
   // At starting selecting model based on local storage
   useEffect(() => {
-    const preferredOption = llmContext?.getValue(valueName);
+    const preferredOption = modelContext?.getValue(valueName);
     preferredOption != null && setSelectedOption(preferredOption);
-  }, [llmContext, valueName]);
+  }, [modelContext, valueName]);
 
   //
   // Creating an event handler to close the dropdown menu by click elsewhere outside the menu

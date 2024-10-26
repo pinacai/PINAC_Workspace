@@ -4,20 +4,21 @@ import { Header } from "../header";
 import { Menubar } from "../../components/Menubar";
 import { ThemeSwitcher } from "./components/ThemeSwitcher";
 import { LLMSelector } from "./components/LLMSelector";
+import { ImgModelSelector } from "./components/ImgModelSelector";
 import { DropdownMenu } from "./components/DropdownMenu";
-import { LLMSettingsContext } from "../../context/LLMSettings";
+import { ModelSettingsContext } from "../../context/ModelSettings";
 import styles from "./styles/index.module.css";
 
 const Settings: React.FC = () => {
   const location = useLocation();
   const currentPath = location.pathname;
-  const textModelType = useContext(LLMSettingsContext)?.textModelType;
+  const modelContext = useContext(ModelSettingsContext);
   const [isPage1, setIsPage1] = useState<boolean>(true); // show by default
   const [isPage2, setIsPage2] = useState<boolean>(false);
 
   const menuItems = [
     { label: "General", onClick: () => activePage1() },
-    { label: "LLM Settings", onClick: () => activePage2() },
+    { label: "Model Settings", onClick: () => activePage2() },
   ];
 
   //
@@ -69,42 +70,55 @@ const Settings: React.FC = () => {
           </>
         )}
         {/* --------------------------------------------------------- */}
-        {isPage2 && (
-          <>
-            {/*     Section 1 (Select LLM)      */}
-            {/* =============================== */}
-            <div className={styles.section}>
-              {/*     Warning card     */}
-              {textModelType === "Private LLM" && (
-                <div className={styles.warningCard}>
-                  <div className={styles.warningContent}>
-                    <div className={styles.warningIcon}>⚠</div>
-                    <div className={styles.warningText}>
-                      Write the exact name of model as in Ollama. For getting
-                      pulled model list run <b>ollama list</b> in terminal.
+
+        {isPage2 &&
+          (modelContext?.modelType === "Text Generation" ? (
+            <>
+              {/*     Section 1 (Select LLM)      */}
+              {/* =============================== */}
+              <div className={styles.section}>
+                {/*     Warning card     */}
+                {modelContext?.textModelType === "Private LLM" && (
+                  <div className={styles.warningCard}>
+                    <div className={styles.warningContent}>
+                      <div className={styles.warningIcon}>⚠</div>
+                      <div className={styles.warningText}>
+                        Write the exact name of model as in Ollama. For getting
+                        pulled model list run <b>ollama list</b> in terminal.
+                      </div>
                     </div>
                   </div>
+                )}
+                <div className={styles.sectionTitle}>
+                  <span>Select LLM</span>
                 </div>
-              )}
-              <div className={styles.sectionTitle}>
-                <span>Select LLM</span>
+                <LLMSelector />
               </div>
-              <LLMSelector />
-            </div>
-            {/*   Section 2 (Output Language)    */}
-            {/* ================================= */}
-            <div className={styles.section}>
-              <div className={styles.sectionTitle}>
-                <span>Output Language</span>
+              {/*   Section 2 (Output Language)    */}
+              {/* ================================= */}
+              <div className={styles.section}>
+                <div className={styles.sectionTitle}>
+                  <span>Output Language</span>
+                </div>
+                <DropdownMenu
+                  defaultOption="English"
+                  optionList={["English"]}
+                  valueName="output-language"
+                />
               </div>
-              <DropdownMenu
-                defaultOption="English"
-                optionList={["English"]}
-                valueName="output-language"
-              />
-            </div>
-          </>
-        )}
+            </>
+          ) : (
+            <>
+              {/*       Select Image Model        */}
+              {/* =============================== */}
+              <div className={styles.section}>
+                <div className={styles.sectionTitle}>
+                  <span>Select Model</span>
+                </div>
+                <ImgModelSelector />
+              </div>
+            </>
+          ))}
       </div>
     </>
   );
