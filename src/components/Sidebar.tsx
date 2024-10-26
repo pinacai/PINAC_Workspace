@@ -35,11 +35,9 @@ export const Sidebar: React.FC = () => {
 
   //
   useEffect(() => {
-    window.ipcRenderer.send("request-to-backend", {
-      request_type: "give-user-info",
-    });
+    window.ipcRenderer.send("give-user-info");
     window.ipcRenderer.once("backend-response", (_, response) => {
-      setUserImageUrl(response.image);
+      setUserImageUrl(response.photoURL);
     });
   });
 

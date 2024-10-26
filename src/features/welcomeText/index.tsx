@@ -35,11 +35,9 @@ export const WelcomeText = () => {
   //
   useEffect(() => {
     const fetchUserInfo = () => {
-      window.ipcRenderer.send("request-to-backend", {
-        request_type: "give-user-info",
-      });
+      window.ipcRenderer.send("give-user-info");
       window.ipcRenderer.once("backend-response", (_, response) => {
-        setFirstName(response.first_name);
+        setFirstName(response.displayName);
       });
     };
 
