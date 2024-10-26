@@ -11,7 +11,7 @@ import styles from "./styles/index.module.css";
 const Settings: React.FC = () => {
   const location = useLocation();
   const currentPath = location.pathname;
-  const llmContext = useContext(LLMSettingsContext);
+  const textModelType = useContext(LLMSettingsContext)?.textModelType;
   const [isPage1, setIsPage1] = useState<boolean>(true); // show by default
   const [isPage2, setIsPage2] = useState<boolean>(false);
 
@@ -46,7 +46,19 @@ const Settings: React.FC = () => {
         {/* --------------------------------------------------------- */}
         {isPage1 && (
           <>
-            {/*     Section 1 ( Theme )     */}
+            {/*     Section 1 ( Model Type )     */}
+            {/* =========================== */}
+            <div className={styles.section}>
+              <div className={styles.sectionTitle}>
+                <span>Model Type</span>
+              </div>
+              <DropdownMenu
+                defaultOption="Text Generation"
+                optionList={["Text Generation", "Image Generation"]}
+                valueName="model-type"
+              />
+            </div>
+            {/*     Section 2 ( Theme )     */}
             {/* =========================== */}
             <div className={styles.section}>
               <div className={styles.sectionTitle}>
@@ -63,7 +75,7 @@ const Settings: React.FC = () => {
             {/* =============================== */}
             <div className={styles.section}>
               {/*     Warning card     */}
-              {llmContext?.modelType === "Private LLM" && (
+              {textModelType === "Private LLM" && (
                 <div className={styles.warningCard}>
                   <div className={styles.warningContent}>
                     <div className={styles.warningIcon}>⚠</div>
@@ -88,7 +100,7 @@ const Settings: React.FC = () => {
               <DropdownMenu
                 defaultOption="English"
                 optionList={["English"]}
-                taskType="output_language"
+                valueName="output-language"
               />
             </div>
           </>

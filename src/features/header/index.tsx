@@ -28,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
   const location = useLocation();
   const navigate = useNavigate();
   const subPageContext = useContext(SubPageContext);
-  const modelType = useContext(LLMSettingsContext)?.modelType;
+  const textModelType = useContext(LLMSettingsContext)?.textModelType;
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
   const [isDropdownActive, setIsDropdownActive] = useState<boolean>(false);
@@ -164,7 +164,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Render the Clear Chat & Deep Think button */}
           {location.pathname == "/" && clearChat ? (
             <>
-              {modelType == "Cloud LLM" && (
+              {textModelType == "Cloud LLM" && (
                 <DeepThinkBtn isActive={isActive} setActive={setActive} />
               )}
               <NewChatBtn clearChat={clearChat} />

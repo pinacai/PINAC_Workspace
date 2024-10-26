@@ -9,13 +9,18 @@ import { IoIosArrowUp } from "react-icons/io";
 interface DropdownMenuProps {
   defaultOption: string;
   optionList: Array<string>;
-  taskType: string;
+  valueName:
+    | "model-type"
+    | "text-model-type"
+    | "cloud-model-name"
+    | "private-model-name"
+    | "output-language";
 }
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   defaultOption,
   optionList,
-  taskType,
+  valueName,
 }) => {
   const llmContext = useContext(LLMSettingsContext);
   const [selectedOption, setSelectedOption] = useState(defaultOption);
@@ -24,7 +29,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
 
   //
   const onClick = (option: string) => {
-    llmContext?.setValue(taskType, option);
+    llmContext?.setValue(valueName, option);
     setSelectedOption(option);
     setIsActive(false);
   };
@@ -32,9 +37,9 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   //
   // At starting selecting model based on local storage
   useEffect(() => {
-    const preferredOption = llmContext?.getValue(taskType);
+    const preferredOption = llmContext?.getValue(valueName);
     preferredOption != null && setSelectedOption(preferredOption);
-  }, [llmContext, taskType]);
+  }, [llmContext, valueName]);
 
   //
   // Creating an event handler to close the dropdown menu by click elsewhere outside the menu

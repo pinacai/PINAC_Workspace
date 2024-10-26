@@ -80,11 +80,11 @@ export const HomePage: React.FC = () => {
 
       window.ipcRenderer.send("request-to-server", {
         request_type: "user-input",
-        preferred_model_type: llmContext?.modelType,
+        preferred_model_type: llmContext?.textModelType,
         preferred_model:
-          llmContext?.modelType === "Cloud LLM"
-            ? llmContext?.cloudModel
-            : llmContext?.privateModel,
+          llmContext?.textModelType === "Cloud LLM"
+            ? llmContext?.cloudModelName
+            : llmContext?.privateModelName,
         prompt: PreferredPrompt,
         user_query: inputText,
       });

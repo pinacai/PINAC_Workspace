@@ -10,14 +10,14 @@ export const LLMSelector: React.FC = () => {
   const changePrivateModel = () => {
     const modelName = inputRef.current?.value;
     if (modelName) {
-      llmContext?.setPrivateModel(modelName);
+      llmContext?.setPrivateModelName(modelName);
     }
   };
 
   // Show the preferred ollama model if exist
   useEffect(() => {
-    if (llmContext?.modelType == "Private LLM") {
-      const preferredModel = llmContext?.privateModel;
+    if (llmContext?.textModelType == "Private LLM") {
+      const preferredModel = llmContext?.privateModelName;
       if (preferredModel && inputRef.current) {
         inputRef.current.value = preferredModel;
       }
@@ -28,20 +28,20 @@ export const LLMSelector: React.FC = () => {
   // -------------------------------- //
   return (
     <div className={styles.llmSelectionContainer}>
-      {/* Dropdown menu for selecting the LLM type */}
-      {/* ---------------------------------------- */}
+      {/*     Dropdown menu for selecting the LLM type   */}
+      {/* ---------------------------------------------- */}
       <DropdownMenu
         defaultOption="Cloud LLM"
         optionList={["Cloud LLM", "Private LLM"]}
-        taskType="model_type"
+        valueName="text-model-type"
       />
-      {/*    for selecting the LLM    */}
-      {/* --------------------------- */}
-      {llmContext?.modelType == "Cloud LLM" ? (
+      {/*    for selecting the LLM Name    */}
+      {/* -------------------------------- */}
+      {llmContext?.textModelType == "Cloud LLM" ? (
         <DropdownMenu
           defaultOption="Llama 3.1"
           optionList={["Llama 3.1"]}
-          taskType="cloud_model"
+          valueName="cloud-model-name"
         />
       ) : (
         <div className={styles.inputContainer}>

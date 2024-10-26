@@ -33,7 +33,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   setStop,
 }) => {
   const optionMenuRef = useRef<HTMLDivElement>(null);
-  const llmContext = useContext(LLMSettingsContext);
+  const textModelType = useContext(LLMSettingsContext)?.textModelType;
   const [attachmentOptions, setAttachmentOptions] = useState<boolean>(false);
   const [attachment, setAttachment] = useState<File | null>(null);
   const [currentDropdownIndex, setCurrentDropdownIndex] = useState(0); // To track the active dropdown
@@ -182,7 +182,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
     <div className={styles.inputBox}>
       {/* ======== Advance Options (Dropdown) ============ */}
 
-      {llmContext?.modelType == "Private LLM" && (
+      {textModelType == "Private LLM" && (
         <div className={styles.inputOptionMenu}>
           {/* Render both dropdowns on wider screens */}
           {isShowAllAdvanceOptions ? (
