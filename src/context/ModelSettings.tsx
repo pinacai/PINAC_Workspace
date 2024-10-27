@@ -38,7 +38,7 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
   });
   const [cloudModelName, setCloudModelName] = useState(() => {
     const choice = localStorage.getItem("cloud-model-name");
-    return choice ? choice : "Llama 3";
+    return choice ? choice : "Base Model";
   });
 
   const [privateModelName, setPrivateModelName] = useState(() => {

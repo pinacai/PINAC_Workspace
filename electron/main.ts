@@ -123,7 +123,8 @@ const callDevelopmentServer = async (input: string) => {
   const response = await fetch(
     `https://nexus-for-development.pinac.workers.dev/?input=${input}`
   );
-  return await response.json();
+  const serverResponse = await response.json();
+  return serverResponse[0];
 };
 
 // ======================================================================== //
@@ -205,17 +206,25 @@ ipcMain.on("open-external-link", (_, url) => {
 //              Frontend request for Server                //
 // ======================================================= //
 
+interface ServerResponse {
+  inputs: {
+    messages: string[];
+  };
+  response: {
+    response: string;
+  };
+}
+
 ipcMain.on("request-to-server", async (event, request) => {
   const prompt = request["prompt"];
   const final_prompt = applyPrompt(prompt, request["user_query"]);
   //
-  //
   if (request["preferred_model_type"] == "Cloud LLM") {
     const input = final_prompt.replace(" ", "+");
-    const ai_response: any = await callDevelopmentServer(input);
+    const ai_response: ServerResponse = await callDevelopmentServer(input);
     const response = {
       error_occurred: false,
-      response: { type: "others", content: ai_response[0].response.response },
+      response: { type: "others", content: ai_response.response.response },
       error: null,
     };
     event.reply("server-response", response);
