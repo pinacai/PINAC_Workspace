@@ -2,6 +2,7 @@ import { app, BrowserWindow, screen, ipcMain, shell, dialog } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import * as fs from "fs";
+import AuthManager from "./utilis/authManager";
 import askLocalLLM from "./model/ollama";
 import applyPrompt from "./prompt";
 
@@ -131,14 +132,16 @@ const callDevelopmentServer = async (input: string) => {
 //        frontend request to backend (for backend funtionalities)          //
 // ======================================================================== //
 
-ipcMain.on("save-user-info", (event, userInfo) => {
-  const userInfoJson = JSON.stringify(userInfo);
-  fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
-  event.reply("backend-response", {
-    error_occurred: false,
-    response: true,
-    error: null,
+// Initial Auth Checking
+ipcMain.on("check", (event) => {
+  AuthManager.hasToken().then((response: boolean) => {
+    event.reply("auth-response", { status: response });
   });
+});
+
+ipcMain.on("logout", () => {
+  fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
+  AuthManager.removeToken();
 });
 
 ipcMain.on("give-user-info", (event) => {
@@ -157,8 +160,14 @@ ipcMain.on("give-user-info", (event) => {
   });
 });
 
-ipcMain.on("logout", () => {
-  fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
+ipcMain.on("save-user-info", (event, userInfo) => {
+  const userInfoJson = JSON.stringify(userInfo);
+  fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
+  event.reply("backend-response", {
+    error_occurred: false,
+    response: true,
+    error: null,
+  });
 });
 
 ipcMain.on("upload-file", (event, request) => {
@@ -271,21 +280,7 @@ if (!gotTheLock) {
     }
     const url = commandLine.pop();
     if (url) {
-      const authData = parseTokenFromUrl(url);
-      if (authData) {
-        const userInfo = {
-          displayName: authData["displayName"],
-          email: authData["email"],
-          bio: "",
-          photoURL: authData["photoUrl"],
-        };
-        const userInfoJson = JSON.stringify(userInfo);
-        fs.writeFileSync(
-          path.join(userDataPath, "user-info.json"),
-          userInfoJson
-        );
-      }
-      console.log("Authentication Successful");
+      parseAuthDataFromUrl(url);
     } else {
       dialog.showErrorBox(
         "Error",
@@ -299,9 +294,20 @@ if (!gotTheLock) {
 // for MacOS
 app.on("open-url", (event, url) => {
   event.preventDefault();
-  // const token = parseTokenFromUrl(url);
-  const authData = parseTokenFromUrl(url);
-  if (authData) {
+  parseAuthDataFromUrl(url);
+});
+
+//
+//   Parse Auth data from URL   //
+// ============================ //
+
+const parseAuthDataFromUrl = (url: string) => {
+  const urlObj = new URL(url);
+  const encodedData = urlObj.searchParams.get("data");
+  if (encodedData) {
+    const authData = JSON.parse(decodeURIComponent(encodedData));
+    //  Storing user-info  //
+    // ------------------- //
     const userInfo = {
       displayName: authData["displayName"],
       email: authData["email"],
@@ -310,21 +316,18 @@ app.on("open-url", (event, url) => {
     };
     const userInfoJson = JSON.stringify(userInfo);
     fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
-  }
-  console.log("Authentication Successful");
-});
-
-// Parse token from URL
-const parseTokenFromUrl = (url: string) => {
-  const urlObj = new URL(url);
-  const encodedData = urlObj.searchParams.get("data");
-  if (encodedData) {
-    return JSON.parse(decodeURIComponent(encodedData));
+    //    Storing TOKEN  //
+    // ----------------- //
+    try {
+      AuthManager.saveToken(authData["token"]);
+      mainWindow?.reload(); // Reload the app
+    } catch (error) {
+      console.error("Token handling error:", error);
+    }
   } else {
     dialog.showErrorBox(
       "Error",
       "Something went wrong, unable to authenticate. Please try again."
     );
-    return null;
   }
 };

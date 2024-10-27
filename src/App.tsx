@@ -1,8 +1,12 @@
 import { useContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
+import { SignInPage } from "./pages/SignIn";
 import { HomePage } from "./pages/Home";
 import { Sidebar } from "./components/Sidebar";
+
+// context
+import { AuthContext } from "./context/Authentication";
 import { ThemeModeContext } from "./context/ThemeMode";
 import { ThemeStyleContext } from "./context/ThemeStyle";
 import { SubPageProvider } from "./context/SubPage";
@@ -23,6 +27,7 @@ const App = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   const navigate = useNavigate();
+  const isAuthenticated = useContext(AuthContext)?.isAuthenticated;
   const themeModeContext = useContext(ThemeModeContext);
   const themeStyleContext = useContext(ThemeStyleContext);
 
@@ -69,7 +74,7 @@ const App = () => {
             <WelcomeTextProvider>
               <ModelSettingsProvider>
                 <ChatMsgProvider>
-                  <HomePage />
+                  {isAuthenticated ? <HomePage /> : <SignInPage />}
                 </ChatMsgProvider>
               </ModelSettingsProvider>
             </WelcomeTextProvider>
