@@ -103,16 +103,21 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
               <MarkdownStyle text={response} />
             )}
           </div>
-          <div className={styles.ai_msg_copy_btn}>
-            <button className={styles.like_dislike_btn} onClick={handleDislike}>
-              {isDisliked ? <AiFillDislike /> : <AiOutlineDislike />}
-            </button>
-            <button className={styles.like_dislike_btn} onClick={handleLike}>
-              {isLiked ? <AiFillLike /> : <AiOutlineLike />}
-            </button>
-            <button className={styles.copy_btn} onClick={copyToClipboard}>
-              {isCopied ? "Copied!" : "Copy"}
-            </button>
+          <div className={styles.ai_msg_actions_pos}>
+            <div className={styles.ai_msg_actions}>
+              <button
+                className={styles.like_dislike_btn}
+                onClick={handleDislike}
+              >
+                {isDisliked ? <AiFillDislike /> : <AiOutlineDislike />}
+              </button>
+              <button className={styles.like_dislike_btn} onClick={handleLike}>
+                {isLiked ? <AiFillLike /> : <AiOutlineLike />}
+              </button>
+              <button className={styles.copy_btn} onClick={copyToClipboard}>
+                {isCopied ? "Copied!" : "Copy"}
+              </button>
+            </div>
           </div>
         </div>
       </div>
