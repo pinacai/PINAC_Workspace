@@ -70,20 +70,33 @@
   position: relative;
   bottom: 10px;
   margin-right: 15px;
+  padding-inline: 10px;
+  border-radius: 7px;
+  background: var(--aiMsg-bg);
+  border: 1px solid var(--aiMsg-bg);
 }
 
 .copy_btn {
   padding: 2px 10px;
+  background: transparent;
   border: none;
-  border-radius: 7px;
+  cursor: pointer;
+  outline: none;
+  backdrop-filter: blur(10px);
+  color: var(--text-color-opposite);
+  font: normal medium "Exo2", "Montserrat", sans-serif;
+  box-shadow: var(--copyBtn-shadow);
+}
+
+.like_dislike_btn {
   cursor: pointer;
   background: var(--aiMsg-bg);
   backdrop-filter: blur(10px);
   color: var(--text-color-opposite);
-  font: normal small "Exo2", "Montserrat", sans-serif;
-  box-shadow: var(--copyBtn-shadow);
+  font: normal medium "Exo2", "Montserrat", sans-serif;
+  border: none;
+  padding-inline: 5px;
 }
-
 /*     CSS for loader component    */
 /* =============================== */
 

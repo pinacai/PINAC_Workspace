@@ -5,6 +5,12 @@ import styles from "./styles/MsgBubble.module.css";
 
 // Icons
 import pinacLogo from "/icon/pinac-logo.png";
+import {
+  AiFillDislike,
+  AiFillLike,
+  AiOutlineDislike,
+  AiOutlineLike,
+} from "react-icons/ai";
 
 // ============================================================================ //
 //                            AI Message Bubble                                 //
@@ -22,11 +28,32 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
   setButtonsDisabled,
 }) => {
   const [isCopied, setIsCopied] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
   const [isAvatarVisible, setIsAvatarVisible] = useState(
     window.innerWidth > 576
   );
 
   // Button
+  const handleLike = () => {
+    if (isLiked) {
+      setIsLiked(false);
+      setIsDisliked(false);
+    } else {
+      setIsLiked(true);
+      setIsDisliked(false);
+    }
+  };
+  const handleDislike = () => {
+    if (isDisliked) {
+      setIsDisliked(false);
+      setIsLiked(false);
+    } else {
+      setIsDisliked(true);
+      setIsLiked(false);
+    }
+  };
+
   const copyToClipboard = () => {
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard
@@ -77,6 +104,12 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
             )}
           </div>
           <div className={styles.ai_msg_copy_btn}>
+            <button className={styles.like_dislike_btn} onClick={handleDislike}>
+              {isDisliked ? <AiFillDislike /> : <AiOutlineDislike />}
+            </button>
+            <button className={styles.like_dislike_btn} onClick={handleLike}>
+              {isLiked ? <AiFillLike /> : <AiOutlineLike />}
+            </button>
             <button className={styles.copy_btn} onClick={copyToClipboard}>
               {isCopied ? "Copied!" : "Copy"}
             </button>
