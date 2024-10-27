@@ -21,8 +21,9 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
   response,
   setButtonsDisabled,
 }) => {
+  const [isCopied, setIsCopied] = useState(false);
   const [isAvatarVisible, setIsAvatarVisible] = useState(
-    window.innerWidth > 576,
+    window.innerWidth > 576
   );
 
   // Button
@@ -31,13 +32,8 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
       navigator.clipboard
         .writeText(response)
         .then(() => {
-          const copyBtn = document.querySelector(`.${styles.copy_btn}`);
-          if (copyBtn) {
-            copyBtn.classList.add(styles.animate);
-            setTimeout(() => {
-              copyBtn.classList.remove(styles.animate);
-            }, 1000);
-          }
+          setIsCopied(true);
+          setTimeout(() => setIsCopied(false), 2000);
         })
         .catch((error) => {
           console.error("Failed to copy:", error);
@@ -81,11 +77,8 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
             )}
           </div>
           <div className={styles.ai_msg_copy_btn}>
-            <button
-              className={styles.copy_btn}
-              onClick={() => copyToClipboard()}
-            >
-              copy
+            <button className={styles.copy_btn} onClick={copyToClipboard}>
+              {isCopied ? "Copied!" : "Copy"}
             </button>
           </div>
         </div>
@@ -102,7 +95,7 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
 // Component similar to AiMessage and replaced as soon as we have the data.
 export const AiLoader: React.FC = () => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
-    window.innerWidth > 576,
+    window.innerWidth > 576
   );
 
   // Handle window resize and update avatar visibility

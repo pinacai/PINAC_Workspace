@@ -56,10 +56,7 @@
 .ai_msg {
   background: var(--aiMsg-bg);
   color: var(--text-color-opposite);
-  font:
-    normal large "Exo2",
-    "Montserrat",
-    sans-serif;
+  font: normal large "Exo2", "Montserrat", sans-serif;
   line-height: 1.4;
   letter-spacing: 0.3px;
   word-spacing: 2px;
@@ -83,30 +80,8 @@
   background: var(--aiMsg-bg);
   backdrop-filter: blur(10px);
   color: var(--text-color-opposite);
-  font:
-    normal small "Exo2",
-    "Montserrat",
-    sans-serif;
+  font: normal small "Exo2", "Montserrat", sans-serif;
   box-shadow: var(--copyBtn-shadow);
-}
-
-.copy_btn.animate {
-  animation: fadeInOut 1s ease-in-out;
-}
-
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
 }
 
 /*     CSS for loader component    */
@@ -118,27 +93,22 @@
   margin: 7px 20px;
   background: var(--aiLoader-primary);
   border-radius: 50%;
-  box-shadow:
-    20px 0 var(--aiLoader-secondary),
-    -20px 0 var(--aiLoader-primary);
+  box-shadow: 20px 0 var(--aiLoader-secondary), -20px 0 var(--aiLoader-primary);
   animation: d5 1s infinite linear alternate;
 }
 @keyframes d5 {
   0% {
-    box-shadow:
-      20px 0 var(--aiLoader-primary),
+    box-shadow: 20px 0 var(--aiLoader-primary),
       -20px 0 var(--aiLoader-secondary);
     background: var(--aiLoader-primary);
   }
   33% {
-    box-shadow:
-      20px 0 var(--aiLoader-primary),
+    box-shadow: 20px 0 var(--aiLoader-primary),
       -20px 0 var(--aiLoader-secondary);
     background: var(--aiLoader-secondary);
   }
   66% {
-    box-shadow:
-      20px 0 var(--aiLoader-secondary),
+    box-shadow: 20px 0 var(--aiLoader-secondary),
       -20px 0 var(--aiLoader-primary);
     background: var(--aiLoader-secondary);
   }
@@ -165,10 +135,7 @@
   }
 
   .ai_msg {
-    font:
-      normal 16.6px "Exo2",
-      "Montserrat",
-      sans-serif;
+    font: normal 16.6px "Exo2", "Montserrat", sans-serif;
     line-height: 1.4;
   }
 }
@@ -182,10 +149,7 @@
 
 @container (max-width: 320px) {
   .ai_msg {
-    font:
-      normal medium "Exo2",
-      "Montserrat",
-      sans-serif;
+    font: normal medium "Exo2", "Montserrat", sans-serif;
     line-height: 1.3;
   }
 
