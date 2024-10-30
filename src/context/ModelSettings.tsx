@@ -9,6 +9,8 @@ export const ModelSettingsContext = createContext<{
   setTextModelType: React.Dispatch<React.SetStateAction<string>>;
   cloudModelName: string;
   setCloudModelName: React.Dispatch<React.SetStateAction<string>>;
+  deepthink: boolean;
+  setDeepthink: React.Dispatch<React.SetStateAction<boolean>>;
   privateModelName: string | null;
   setPrivateModelName: React.Dispatch<React.SetStateAction<string | null>>;
   outputlanguage: string;
@@ -28,18 +30,23 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
     const choice = localStorage.getItem("model-type");
     return choice ? choice : "text Generation";
   });
+
   const [imgModelName, setImgModelName] = useState(() => {
     const choice = localStorage.getItem("img-model-name");
     return choice ? choice : "Flux.1 Dev";
   });
+
   const [textModelType, setTextModelType] = useState(() => {
     const choice = localStorage.getItem("text-model-type");
     return choice ? choice : "Cloud LLM";
   });
+
   const [cloudModelName, setCloudModelName] = useState(() => {
     const choice = localStorage.getItem("cloud-model-name");
     return choice ? choice : "Base Model";
   });
+
+  const [deepthink, setDeepthink] = useState(false);
 
   const [privateModelName, setPrivateModelName] = useState(() => {
     const choice = localStorage.getItem("private-model-name");
@@ -112,6 +119,8 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
         setTextModelType,
         cloudModelName,
         setCloudModelName,
+        deepthink,
+        setDeepthink,
         privateModelName,
         setPrivateModelName,
         outputlanguage,
