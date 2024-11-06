@@ -2,29 +2,25 @@
   display: flex;
   container-type: inline-size;
   flex-direction: column;
+  height: 100%;
   width: 100%;
-  height: calc(100vh - 60px);
   padding-top: 5px;
   font-family: "Exo2", "Montserrat", sans-serif;
 }
 
 .profileCard {
+  height: 100%;
   width: 100%;
   padding: 50px 20px;
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
   align-items: flex-start;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .profileCard::-webkit-scrollbar {
-  width: 10px;
-}
-
-.profileCard::-webkit-scrollbar-thumb {
-  background: #999;
-  border-radius: 50px;
+  width: 0;
 }
 
 .profileImgContainer {
@@ -205,10 +201,6 @@
     align-items: center;
   }
 
-  .profileCard::-webkit-scrollbar {
-    width: 7px;
-  }
-
   .profileImg {
     height: 100px;
     width: 100px;
@@ -219,16 +211,5 @@
     width: 100%;
     margin-top: 20px;
     margin-left: 0;
-  }
-}
-
-@container (max-width: 320px) {
-  .profileCard::-webkit-scrollbar {
-    width: 3px;
-  }
-
-  .profileCard::-webkit-scrollbar-thumb {
-    background: #999;
-    border-radius: 2px;
   }
 }

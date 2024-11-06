@@ -13,7 +13,7 @@
 
 ![Star Badge](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
 ![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
-[![View Repositories](https://img.shields.io/badge/View-Our_Repositories-blue?logo=GitHub)](https://github.com/pinacai?tab=repositories)
+[![View My Profile](https://img.shields.io/badge/View-My_Profile-green?logo=GitHub)](https://github.com/rajeshtechforge)
 
 A privacy-first, cross-platform, open-source desktop AI assistant for all
 
@@ -59,6 +59,8 @@ Overview of File Structure to Help You Get Started.
     └── src /
          ├── App.tsx
          ├── App.css           # All element's colors theme-wise
+         ├── database /
+         |    └── db.ts
          |
          ├── components /      # common components
          |    ├── styles /
@@ -134,4 +136,4 @@ Thanks to our contributors, we have received huge support from the open-source c
 
 # other
 
-_We are also building the official website for our Organization and PINAC_Workspace. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/PINAC_Web">**PINAC-Web**</a>_
+_We are also building the website for PINAC_Workspace. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/PINAC_Web">**PINAC-Web**</a>_

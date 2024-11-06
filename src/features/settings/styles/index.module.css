@@ -11,7 +11,7 @@
 }
 
 .settingContainer::-webkit-scrollbar {
-  width: 10px;
+  width: 0;
 }
 
 .settingContainer::-webkit-scrollbar-track {
@@ -19,8 +19,7 @@
 }
 
 .settingContainer::-webkit-scrollbar-thumb {
-  background: #999;
-  border-radius: 50px;
+  background: transparent;
 }
 
 .menubarContainer {
@@ -90,10 +89,6 @@
 }
 
 @container (max-width: 576px) {
-  .settingContainer::-webkit-scrollbar {
-    width: 7px;
-  }
-
   .section {
     margin-left: 10px;
   }
@@ -101,16 +96,5 @@
   .menubarContainer {
     padding-bottom: 20px;
     justify-content: center;
-  }
-}
-
-@container (max-width: 320px) {
-  .settingContainer::-webkit-scrollbar {
-    width: 3px;
-  }
-
-  .settingContainer::-webkit-scrollbar-thumb {
-    background: #999;
-    border-radius: 2px;
   }
 }
