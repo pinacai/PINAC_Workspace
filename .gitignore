@@ -25,11 +25,11 @@ release
 *.sln
 *.sw?
 
-# Python files
-venv
-.venv
+# secret
 .env
-env
-__pycache__
-configs/
-config/
+
+#testing
+test.js
+test.ts
+test.jsx
+test.tsx
