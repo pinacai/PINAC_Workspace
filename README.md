@@ -126,7 +126,7 @@ We highly welcome contributions! Please follow the steps if you're interested.
 
 PINAC Workspace is licensed under the **GPL-3.0 license**. See the <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/LICENSE">LICENSE</a> file for more details.
 
-# 🌏 Contributors
+## 🌏 Contributors
 
 Thanks to our contributors, we have received huge support from the open-source community.
 
@@ -134,6 +134,6 @@ Thanks to our contributors, we have received huge support from the open-source c
   <img src="https://contrib.rocks/image?repo=pinacai/PINAC_Workspace" />
 </a>
 
-# 📢 Announcement
+## 📢 Announcement
 
 _We are also building the website for PINAC Workspace. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/pinac_web">**PINAC Web**</a>_
