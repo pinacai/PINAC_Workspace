@@ -4,7 +4,7 @@ import { Header } from "../header/index";
 import styles from "./styles/index.module.css";
 
 // icons
-import profileImage from "/icon/user_icon.png";
+import profileImage from "/icon/User Icon.png";
 import { FaPencilAlt } from "react-icons/fa";
 
 const Profile: React.FC = () => {

@@ -62,6 +62,7 @@ const createMainWindow = () => {
     width: width,
     height: height,
     autoHideMenuBar: true,
+    icon: "public/icon/Round App Logo.png",
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
       sandbox: true,

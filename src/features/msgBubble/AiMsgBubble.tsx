@@ -4,7 +4,7 @@ import { MarkdownStyle } from "../../components/MarkdownStyle";
 import styles from "./styles/MsgBubble.module.css";
 
 // Icons
-import pinacLogo from "/icon/pinac-logo.png";
+import pinacLogo from "/icon/Round App Logo.png";
 import {
   AiFillDislike,
   AiFillLike,

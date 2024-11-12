@@ -3,7 +3,7 @@
 **Note**: _Image generation models still not implemented, just the UI elements added._
 
 <h1 style="border-bottom: none">
-    <b><a href="https://github.com/pinacai">PINAC Workspace</a></b>
+    <b><a href="https://pinacworkspace.pages.dev">PINAC Workspace</a></b>
 </h1>
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header 2.png" alt="header image">
@@ -44,7 +44,7 @@ Introducing our distraction-free, user-friendly app interface with three stunnin
 
 ## 📂 File Structure
 
-Overview of File Structure to Help You Get Started.
+Overview of File Structure in Brief to Help You Get Started.
 
     .
     ├── public /
@@ -126,7 +126,7 @@ We highly welcome contributions! Please follow the steps if you're interested.
 
 PINAC Workspace is licensed under the **GPL-3.0 license**. See the <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/LICENSE">LICENSE</a> file for more details.
 
-# Contributors
+# 🌏 Contributors
 
 Thanks to our contributors, we have received huge support from the open-source community.
 
@@ -134,6 +134,6 @@ Thanks to our contributors, we have received huge support from the open-source c
   <img src="https://contrib.rocks/image?repo=pinacai/PINAC_Workspace" />
 </a>
 
-# other
+# 📢 Announcement
 
-_We are also building the website for PINAC_Workspace. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/PINAC_Web">**PINAC-Web**</a>_
+_We are also building the website for PINAC Workspace. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/pinac_web">**PINAC Web**</a>_
