@@ -8,14 +8,14 @@ export const SignInPage: React.FC = () => {
   const handleButtonClick = () => {
     window.ipcRenderer.send(
       "open-external-link",
-      "https://pinac-web.pages.dev/signup/?app-auth=true"
+      "https://pinacworkspace.pages.dev/auth/sign-up/?app-auth=true"
     );
   };
 
   const handleLinkClick = () => {
     window.ipcRenderer.send(
       "open-external-link",
-      "https://pinac-web.pages.dev/signin/?app-auth=true"
+      "https://pinacworkspace.pages.dev/auth/sign-in/?app-auth=true"
     );
   };
 
