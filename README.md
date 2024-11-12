@@ -1,6 +1,7 @@
-<div align="center">
+> [!NOTE]
+> Image generation models are still not implemented; only the UI elements have been added.
 
-**Note**: _Image generation models still not implemented, just the UI elements added._
+<div align="center">
 
 <h1 style="border-bottom: none">
     <b><a href="https://pinacworkspace.pages.dev">PINAC Workspace</a></b>
@@ -92,6 +93,9 @@ Overview of File Structure in Brief to Help You Get Started.
               └── Login.tsx
 
 ## 🚀 Getting Started
+
+> [!TIP]
+> Fetch the `production-version-for-windows` branch if you are a Windows user, to get most of it.
 
 1. Clone the Repository
 
