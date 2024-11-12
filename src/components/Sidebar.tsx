@@ -8,7 +8,7 @@ import styles from "./styles/Sidebar.module.css";
 import { MdGroup } from "react-icons/md";
 import { IoMdChatbubbles, IoMdSettings } from "react-icons/io";
 import { LuHistory } from "react-icons/lu";
-import defaultUserIcon from "/icon/user_icon.png";
+import defaultUserIcon from "/icon/User Icon.png";
 
 const BREAKPOINT = 460;
 const BREAKPOINT2 = 768;

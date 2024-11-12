@@ -32,7 +32,6 @@ export const Header: React.FC<HeaderProps> = ({
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
   const [isDropdownActive, setIsDropdownActive] = useState<boolean>(false);
-  const [isActive, setActive] = useState<boolean>(false);
   //
   useEffect(() => {
     const handleResize = () => {
@@ -165,7 +164,7 @@ export const Header: React.FC<HeaderProps> = ({
           {location.pathname == "/" && clearChat ? (
             <>
               {modelContext?.modelType == "Text Generation" && modelContext?.textModelType == "Cloud LLM" && (
-                <DeepThinkBtn isActive={isActive} setActive={setActive} />
+                <DeepThinkBtn />
               )}
               <NewChatBtn clearChat={clearChat} />
             </>

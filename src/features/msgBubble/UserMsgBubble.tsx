@@ -3,7 +3,7 @@ import { MarkdownStyle } from "../../components/MarkdownStyle";
 import styles from "./styles/MsgBubble.module.css";
 
 // Icons
-import userIcon from "/icon/user_icon.png";
+import userIcon from "/icon/User Icon.png";
 
 interface UserMsgBubbleProps {
   response: string;

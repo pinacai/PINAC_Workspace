@@ -3,7 +3,7 @@
 **Note**: _Image generation models still not implemented, just the UI elements added._
 
 <h1 style="border-bottom: none">
-    <b><a href="https://github.com/pinacai">PINAC Workspace</a></b>
+    <b><a href="https://pinacworkspace.pages.dev">PINAC Workspace</a></b>
 </h1>
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header 2.png" alt="header image">
@@ -13,7 +13,7 @@
 
 ![Star Badge](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
 ![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
-[![View Repositories](https://img.shields.io/badge/View-Our_Repositories-blue?logo=GitHub)](https://github.com/pinacai?tab=repositories)
+[![View My Profile](https://img.shields.io/badge/View-My_Profile-green?logo=GitHub)](https://github.com/rajeshtechforge)
 
 A privacy-first, cross-platform, open-source desktop AI assistant for all
 
@@ -44,7 +44,7 @@ Introducing our distraction-free, user-friendly app interface with three stunnin
 
 ## 📂 File Structure
 
-Overview of File Structure to Help You Get Started.
+Overview of File Structure in Brief to Help You Get Started.
 
     .
     ├── public /
@@ -59,6 +59,8 @@ Overview of File Structure to Help You Get Started.
     └── src /
          ├── App.tsx
          ├── App.css           # All element's colors theme-wise
+         ├── database /
+         |    └── db.ts
          |
          ├── components /      # common components
          |    ├── styles /
@@ -124,7 +126,7 @@ We highly welcome contributions! Please follow the steps if you're interested.
 
 PINAC Workspace is licensed under the **GPL-3.0 license**. See the <a href="https://github.com/pinacai/PINAC_Workspace/blob/main/LICENSE">LICENSE</a> file for more details.
 
-# Contributors
+## 🌏 Contributors
 
 Thanks to our contributors, we have received huge support from the open-source community.
 
@@ -132,6 +134,6 @@ Thanks to our contributors, we have received huge support from the open-source c
   <img src="https://contrib.rocks/image?repo=pinacai/PINAC_Workspace" />
 </a>
 
-# other
+## 📢 Announcement
 
-_We are also building the official website for our Organization and PINAC_Workspace. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/PINAC_Web">**PINAC-Web**</a>_
+_We are also building the website for PINAC Workspace. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/pinac_web">**PINAC Web**</a>_

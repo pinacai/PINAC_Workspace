@@ -4,7 +4,13 @@ import { MarkdownStyle } from "../../components/MarkdownStyle";
 import styles from "./styles/MsgBubble.module.css";
 
 // Icons
-import pinacLogo from "/icon/pinac-logo.png";
+import pinacLogo from "/icon/Round App Logo.png";
+import {
+  AiFillDislike,
+  AiFillLike,
+  AiOutlineDislike,
+  AiOutlineLike,
+} from "react-icons/ai";
 
 // ============================================================================ //
 //                            AI Message Bubble                                 //
@@ -21,23 +27,40 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
   response,
   setButtonsDisabled,
 }) => {
+  const [isCopied, setIsCopied] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
   const [isAvatarVisible, setIsAvatarVisible] = useState(
-    window.innerWidth > 576,
+    window.innerWidth > 576
   );
 
   // Button
+  const handleLike = () => {
+    if (isLiked) {
+      setIsLiked(false);
+      setIsDisliked(false);
+    } else {
+      setIsLiked(true);
+      setIsDisliked(false);
+    }
+  };
+  const handleDislike = () => {
+    if (isDisliked) {
+      setIsDisliked(false);
+      setIsLiked(false);
+    } else {
+      setIsDisliked(true);
+      setIsLiked(false);
+    }
+  };
+
   const copyToClipboard = () => {
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard
         .writeText(response)
         .then(() => {
-          const copyBtn = document.querySelector(`.${styles.copy_btn}`);
-          if (copyBtn) {
-            copyBtn.classList.add(styles.animate);
-            setTimeout(() => {
-              copyBtn.classList.remove(styles.animate);
-            }, 1000);
-          }
+          setIsCopied(true);
+          setTimeout(() => setIsCopied(false), 2000);
         })
         .catch((error) => {
           console.error("Failed to copy:", error);
@@ -80,13 +103,21 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
               <MarkdownStyle text={response} />
             )}
           </div>
-          <div className={styles.ai_msg_copy_btn}>
-            <button
-              className={styles.copy_btn}
-              onClick={() => copyToClipboard()}
-            >
-              copy
-            </button>
+          <div className={styles.ai_msg_actions_pos}>
+            <div className={styles.ai_msg_actions}>
+              <button
+                className={styles.like_dislike_btn}
+                onClick={handleDislike}
+              >
+                {isDisliked ? <AiFillDislike /> : <AiOutlineDislike />}
+              </button>
+              <button className={styles.like_dislike_btn} onClick={handleLike}>
+                {isLiked ? <AiFillLike /> : <AiOutlineLike />}
+              </button>
+              <button className={styles.copy_btn} onClick={copyToClipboard}>
+                {isCopied ? "Copied!" : "Copy"}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -102,7 +133,7 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
 // Component similar to AiMessage and replaced as soon as we have the data.
 export const AiLoader: React.FC = () => {
   const [isAvatarVisible, setIsAvatarVisible] = useState(
-    window.innerWidth > 576,
+    window.innerWidth > 576
   );
 
   // Handle window resize and update avatar visibility

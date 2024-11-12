@@ -56,57 +56,52 @@
 .ai_msg {
   background: var(--aiMsg-bg);
   color: var(--text-color-opposite);
-  font:
-    normal large "Exo2",
-    "Montserrat",
-    sans-serif;
+  font: normal large "Exo2", "Montserrat", sans-serif;
   line-height: 1.4;
   letter-spacing: 0.3px;
   word-spacing: 2px;
   box-shadow: var(--aiMsg-bg-shadow);
-  padding-bottom: 12px;
+  padding-bottom: 15px;
 }
 
-.ai_msg_copy_btn {
+.ai_msg_actions_pos {
   display: flex;
   flex-direction: row-reverse;
+  height: 10px;
   position: relative;
-  bottom: 10px;
+}
+
+.ai_msg_actions {
   margin-right: 15px;
+  display: inline-flex;
+  flex-direction: row-reverse;
+  border-radius: 7px;
+  border: 1px solid var(--aiMsg-bg);
+  background: var(--aiMsg-bg);
+  font: normal medium "Exo2", "Montserrat", sans-serif;
+  box-shadow: var(--copyBtn-shadow);
+
+  position: absolute;
+  bottom: 1px;
 }
 
 .copy_btn {
   padding: 2px 10px;
+  background: transparent;
   border: none;
-  border-radius: 7px;
   cursor: pointer;
-  background: var(--aiMsg-bg);
+  outline: none;
   backdrop-filter: blur(10px);
   color: var(--text-color-opposite);
-  font:
-    normal small "Exo2",
-    "Montserrat",
-    sans-serif;
-  box-shadow: var(--copyBtn-shadow);
+  border-radius: 7px;
 }
 
-.copy_btn.animate {
-  animation: fadeInOut 1s ease-in-out;
-}
-
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
+.like_dislike_btn {
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-color-opposite);
+  border: none;
+  padding-inline: 5px;
 }
 
 /*     CSS for loader component    */
@@ -118,27 +113,22 @@
   margin: 7px 20px;
   background: var(--aiLoader-primary);
   border-radius: 50%;
-  box-shadow:
-    20px 0 var(--aiLoader-secondary),
-    -20px 0 var(--aiLoader-primary);
+  box-shadow: 20px 0 var(--aiLoader-secondary), -20px 0 var(--aiLoader-primary);
   animation: d5 1s infinite linear alternate;
 }
 @keyframes d5 {
   0% {
-    box-shadow:
-      20px 0 var(--aiLoader-primary),
+    box-shadow: 20px 0 var(--aiLoader-primary),
       -20px 0 var(--aiLoader-secondary);
     background: var(--aiLoader-primary);
   }
   33% {
-    box-shadow:
-      20px 0 var(--aiLoader-primary),
+    box-shadow: 20px 0 var(--aiLoader-primary),
       -20px 0 var(--aiLoader-secondary);
     background: var(--aiLoader-secondary);
   }
   66% {
-    box-shadow:
-      20px 0 var(--aiLoader-secondary),
+    box-shadow: 20px 0 var(--aiLoader-secondary),
       -20px 0 var(--aiLoader-primary);
     background: var(--aiLoader-secondary);
   }
@@ -165,10 +155,7 @@
   }
 
   .ai_msg {
-    font:
-      normal 16.6px "Exo2",
-      "Montserrat",
-      sans-serif;
+    font: normal 16.6px "Exo2", "Montserrat", sans-serif;
     line-height: 1.4;
   }
 }
@@ -182,10 +169,7 @@
 
 @container (max-width: 320px) {
   .ai_msg {
-    font:
-      normal medium "Exo2",
-      "Montserrat",
-      sans-serif;
+    font: normal medium "Exo2", "Montserrat", sans-serif;
     line-height: 1.3;
   }
 
