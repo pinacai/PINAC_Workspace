@@ -140,4 +140,4 @@ Thanks to our contributors, we have received huge support from the open-source c
 
 ## 📢 Announcement
 
-_We are also building the website for PINAC Workspace. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/pinac_web">**PINAC Web**</a>_
+_We are also building the website for PINAC Workspace, where we are developing the backend api endpoints in it. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/pinac_web">**PINAC Web**</a>_
