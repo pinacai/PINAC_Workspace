@@ -7,6 +7,7 @@
 /* Sub-page Container */
 .subPageContainer {
   height: auto;
+  width: 320px;
   padding: 10px 0;
   margin: 15px 20px 20px 20px;
   border-radius: 20px;
@@ -14,15 +15,9 @@
   box-shadow: var(--shadow);
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 880px) {
   .subPageContainer {
-    width: 460px;
-  }
-}
-
-@media (max-width: 1280px) {
-  .subPageContainer {
-    width: 320px;
+    width: 280px;
   }
 }
 
@@ -34,8 +29,8 @@
 
 /* Chat Container */
 .chatContainer {
-  width: 60%;
   height: 100%;
+  width: auto;
   background-color: transparent;
   display: flex;
   container-type: inline-size;

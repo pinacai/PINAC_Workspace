@@ -28,7 +28,7 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
 }) => {
   const [modelType, setModelType] = useState(() => {
     const choice = localStorage.getItem("model-type");
-    return choice ? choice : "text Generation";
+    return choice ? choice : "Text Generation";
   });
 
   const [imgModelName, setImgModelName] = useState(() => {
