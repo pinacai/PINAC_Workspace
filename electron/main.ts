@@ -89,8 +89,9 @@ const createMainWindow = () => {
 
   // Save the window size when it is resized.
   mainWindow.on("resize", () => {
-    mainWindow &&
+    if (mainWindow) {
       saveSize(mainWindow.getBounds().width, mainWindow.getBounds().height);
+    }
   });
 };
 
@@ -130,19 +131,23 @@ const callDevelopmentServer = async (input: string) => {
 };
 
 // ======================================================================== //
-//        frontend request to backend (for backend funtionalities)          //
+//        frontend request to backend (for backend functionalities)          //
 // ======================================================================== //
 
 // Initial Auth Checking
 ipcMain.on("check", (event) => {
-  AuthManager.hasToken().then((response: boolean) => {
-    event.reply("auth-response", { status: response });
-  });
+  try {
+    AuthManager.hasToken("idToken");
+    AuthManager.hasToken("refreshToken");
+    event.reply("auth-response", { status: true });
+  } catch {
+    event.reply("auth-response", { status: false });
+  }
 });
 
 ipcMain.on("logout", () => {
   fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
-  AuthManager.removeToken();
+  AuthManager.removeAllTokens();
 });
 
 ipcMain.on("give-user-info", (event) => {
@@ -172,8 +177,8 @@ ipcMain.on("save-user-info", (event, userInfo) => {
 });
 
 ipcMain.on("upload-file", (event, request) => {
-  const base64Data = request["file_data"];
-  const fileName = request["file_name"];
+  const base64Data = request.file_data;
+  const fileName = request.file_name;
   const filePath = `${userDataPath}/profileImg/${fileName}`;
 
   fs.writeFile(filePath, base64Data, "base64", (err) => {
@@ -226,10 +231,10 @@ interface ServerResponse {
 }
 
 ipcMain.on("request-to-server", async (event, request) => {
-  const prompt = request["prompt"];
-  const final_prompt = applyPrompt(prompt, request["user_query"]);
+  const prompt = request.prompt;
+  const final_prompt = applyPrompt(prompt, request.user_query);
   //
-  if (request["preferred_model_type"] == "Cloud LLM") {
+  if (request.preferred_model_type == "Cloud LLM") {
     const input = final_prompt.replace(" ", "+");
     const ai_response: ServerResponse = await callDevelopmentServer(input);
     const response = {
@@ -240,9 +245,9 @@ ipcMain.on("request-to-server", async (event, request) => {
     event.reply("server-response", response);
   }
   //
-  else if (request["preferred_model_type"] == "Private LLM") {
+  else if (request.preferred_model_type == "Private LLM") {
     const response: object = await askLocalLLM(
-      request["preferred_model"],
+      request.preferred_model,
       final_prompt
     );
     event.reply("server-response", response);
@@ -310,17 +315,18 @@ const parseAuthDataFromUrl = (url: string) => {
     //  Storing user-info  //
     // ------------------- //
     const userInfo = {
-      displayName: authData["displayName"],
-      email: authData["email"],
+      displayName: authData.displayName,
+      email: authData.email,
       bio: "",
-      photoURL: authData["photoUrl"],
+      photoURL: authData.photoUrl,
     };
     const userInfoJson = JSON.stringify(userInfo);
     fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
     //    Storing TOKEN  //
     // ----------------- //
     try {
-      AuthManager.saveToken(authData["token"]);
+      AuthManager.saveToken(authData.idToken, "idToken");
+      AuthManager.saveToken(authData.refreshToken, "refreshToken");
       mainWindow?.reload(); // Reload the app
     } catch (error) {
       console.error("Token handling error:", error);
