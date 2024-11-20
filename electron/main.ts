@@ -2,6 +2,8 @@ import { app, BrowserWindow, screen, ipcMain, shell, dialog } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import * as fs from "fs";
+import SecureTokenManager from "./utilis/tokenManager";
+import SecureMasterKeyManager from "./utilis/masterKeyManager";
 import askLocalLLM from "./model/ollama";
 import applyPrompt from "./prompt";
 
@@ -115,6 +117,14 @@ app.whenReady().then(() => {
   createMainWindow();
 });
 
+// ================================================== //
+//      Initialize TokenManager with the key          //
+// ================================================== //
+
+const masterKey = SecureMasterKeyManager.getPersistentMasterKey();
+const derivedKey = SecureMasterKeyManager.deriveMasterKey(masterKey); // Derive an additional key for extra security
+const tokenManager = new SecureTokenManager(derivedKey);
+
 // ============================================= //
 //                 Cloud Server                  //
 // ============================================= //
@@ -128,18 +138,40 @@ const callDevelopmentServer = async (input: string) => {
   return serverResponse[0];
 };
 
+//   will be added soon  //
+//-----------------------//
+
+// const callProductionServer = async (input: string) => {
+//   const response = await fetch(
+//     "https://pinacworkspace.pages.dev/api/chat/regular",
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         messages: [],
+//         userInput: input,
+//       }),
+//     }
+//   );
+//   const responseData = await response.json();
+//   return responseData.assistant;
+// };
+
 // ======================================================================== //
-//        frontend request to backend (for backend funtionalities)          //
+//        frontend request to backend (for backend functionalities)          //
 // ======================================================================== //
 
-ipcMain.on("save-user-info", (event, userInfo) => {
-  const userInfoJson = JSON.stringify(userInfo);
-  fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
-  event.reply("backend-response", {
-    error_occurred: false,
-    response: true,
-    error: null,
-  });
+// Initial Auth Checking
+ipcMain.on("check", (event) => {
+  const status = tokenManager.hasToken("idToken");
+  event.reply("auth-response", { status: status });
+});
+
+ipcMain.on("logout", () => {
+  fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
+  tokenManager.clearAllTokens();
 });
 
 ipcMain.on("give-user-info", (event) => {
@@ -158,13 +190,19 @@ ipcMain.on("give-user-info", (event) => {
   });
 });
 
-ipcMain.on("logout", () => {
-  fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
+ipcMain.on("save-user-info", (event, userInfo) => {
+  const userInfoJson = JSON.stringify(userInfo);
+  fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
+  event.reply("backend-response", {
+    error_occurred: false,
+    response: true,
+    error: null,
+  });
 });
 
 ipcMain.on("upload-file", (event, request) => {
-  const base64Data = request["file_data"];
-  const fileName = request["file_name"];
+  const base64Data = request.file_data;
+  const fileName = request.file_name;
   const filePath = `${userDataPath}/profileImg/${fileName}`;
 
   fs.writeFile(filePath, base64Data, "base64", (err) => {
@@ -217,10 +255,10 @@ interface ServerResponse {
 }
 
 ipcMain.on("request-to-server", async (event, request) => {
-  const prompt = request["prompt"];
-  const final_prompt = applyPrompt(prompt, request["user_query"]);
+  const prompt = request.prompt;
+  const final_prompt = applyPrompt(prompt, request.user_query);
   //
-  if (request["preferred_model_type"] == "Cloud LLM") {
+  if (request.preferred_model_type == "Cloud LLM") {
     const input = final_prompt.replace(" ", "+");
     const ai_response: ServerResponse = await callDevelopmentServer(input);
     const response = {
@@ -231,9 +269,9 @@ ipcMain.on("request-to-server", async (event, request) => {
     event.reply("server-response", response);
   }
   //
-  else if (request["preferred_model_type"] == "Private LLM") {
+  else if (request.preferred_model_type == "Private LLM") {
     const response: object = await askLocalLLM(
-      request["preferred_model"],
+      request.preferred_model,
       final_prompt
     );
     event.reply("server-response", response);
@@ -272,21 +310,7 @@ if (!gotTheLock) {
     }
     const url = commandLine.pop();
     if (url) {
-      const authData = parseTokenFromUrl(url);
-      if (authData) {
-        const userInfo = {
-          displayName: authData["displayName"],
-          email: authData["email"],
-          bio: "",
-          photoURL: authData["photoUrl"],
-        };
-        const userInfoJson = JSON.stringify(userInfo);
-        fs.writeFileSync(
-          path.join(userDataPath, "user-info.json"),
-          userInfoJson
-        );
-      }
-      console.log("Authentication Successful");
+      parseAuthDataFromUrl(url);
     } else {
       dialog.showErrorBox(
         "Error",
@@ -300,32 +324,42 @@ if (!gotTheLock) {
 // for MacOS
 app.on("open-url", (event, url) => {
   event.preventDefault();
-  // const token = parseTokenFromUrl(url);
-  const authData = parseTokenFromUrl(url);
-  if (authData) {
-    const userInfo = {
-      displayName: authData["displayName"],
-      email: authData["email"],
-      bio: "",
-      photoURL: authData["photoUrl"],
-    };
-    const userInfoJson = JSON.stringify(userInfo);
-    fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
-  }
-  console.log("Authentication Successful");
+  parseAuthDataFromUrl(url);
 });
 
-// Parse token from URL
-const parseTokenFromUrl = (url: string) => {
+//
+//   Parse Auth data from URL   //
+// ============================ //
+
+const parseAuthDataFromUrl = (url: string) => {
   const urlObj = new URL(url);
   const encodedData = urlObj.searchParams.get("data");
   if (encodedData) {
-    return JSON.parse(decodeURIComponent(encodedData));
+    const authData = JSON.parse(decodeURIComponent(encodedData));
+    //  Storing user-info  //
+    // ------------------- //
+    const userInfo = {
+      displayName: authData.displayName,
+      email: authData.email,
+      bio: "",
+      photoURL: authData.photoUrl,
+    };
+    const userInfoJson = JSON.stringify(userInfo);
+    fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
+    //    Storing TOKEN  //
+    // ----------------- //
+    try {
+      tokenManager.storeToken("idToken", authData.idToken);
+      tokenManager.storeToken("refreshToken", authData.refreshToken);
+      tokenManager.storeToken("webApiKey", authData.webApiKey);
+      mainWindow?.reload(); // Reload the app
+    } catch (error) {
+      console.error("Token handling error:", error);
+    }
   } else {
     dialog.showErrorBox(
       "Error",
       "Something went wrong, unable to authenticate. Please try again."
     );
-    return null;
   }
 };
