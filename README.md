@@ -1,6 +1,3 @@
-> [!NOTE]
-> Image generation models are still not implemented; only the UI elements have been added.
-
 <div align="center">
 
 <h1 style="border-bottom: none">
@@ -95,7 +92,7 @@ Overview of File Structure in Brief to Help You Get Started.
 ## 🚀 Getting Started
 
 > [!TIP]
-> Fetch the `production-version-for-windows` branch if you are a Windows user, to get most of it.
+> If you are facing any problem with authentication, you can switch to branch `minimal-version` to use the app without authentication(it uses development server), provided for testing ui.
 
 1. Clone the Repository
 
@@ -140,4 +137,4 @@ Thanks to our contributors, we have received huge support from the open-source c
 
 ## 📢 Announcement
 
-_We are also building the website for PINAC Workspace, where we are developing the backend api endpoints in it. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/pinac_web">**PINAC Web**</a>_
+_We are also building the website for PINAC Workspace along with this app, where we are developing the backend api endpoints in it. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/pinac_web">**PINAC Web**</a>_
