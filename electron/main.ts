@@ -2,7 +2,8 @@ import { app, BrowserWindow, screen, ipcMain, shell, dialog } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import * as fs from "fs";
-import AuthManager from "./utilis/authManager";
+import SecureTokenManager from "./utilis/tokenManager";
+import SecureMasterKeyManager from "./utilis/masterKeyManager";
 import askLocalLLM from "./model/ollama";
 import applyPrompt from "./prompt";
 
@@ -89,9 +90,8 @@ const createMainWindow = () => {
 
   // Save the window size when it is resized.
   mainWindow.on("resize", () => {
-    if (mainWindow) {
+    mainWindow &&
       saveSize(mainWindow.getBounds().width, mainWindow.getBounds().height);
-    }
   });
 };
 
@@ -117,6 +117,14 @@ app.whenReady().then(() => {
   createMainWindow();
 });
 
+// ================================================== //
+//      Initialize TokenManager with the key          //
+// ================================================== //
+
+const masterKey = SecureMasterKeyManager.getPersistentMasterKey();
+const derivedKey = SecureMasterKeyManager.deriveMasterKey(masterKey); // Derive an additional key for extra security
+const tokenManager = new SecureTokenManager(derivedKey);
+
 // ============================================= //
 //                 Cloud Server                  //
 // ============================================= //
@@ -130,24 +138,40 @@ const callDevelopmentServer = async (input: string) => {
   return serverResponse[0];
 };
 
+//   will be added soon  //
+//-----------------------//
+
+// const callProductionServer = async (input: string) => {
+//   const response = await fetch(
+//     "https://pinacworkspace.pages.dev/api/chat/regular",
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         messages: [],
+//         userInput: input,
+//       }),
+//     }
+//   );
+//   const responseData = await response.json();
+//   return responseData.assistant;
+// };
+
 // ======================================================================== //
 //        frontend request to backend (for backend functionalities)          //
 // ======================================================================== //
 
 // Initial Auth Checking
 ipcMain.on("check", (event) => {
-  try {
-    AuthManager.hasToken("idToken");
-    AuthManager.hasToken("refreshToken");
-    event.reply("auth-response", { status: true });
-  } catch {
-    event.reply("auth-response", { status: false });
-  }
+  const status = tokenManager.hasToken("idToken");
+  event.reply("auth-response", { status: status });
 });
 
 ipcMain.on("logout", () => {
   fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
-  AuthManager.removeAllTokens();
+  tokenManager.clearAllTokens();
 });
 
 ipcMain.on("give-user-info", (event) => {
@@ -325,8 +349,9 @@ const parseAuthDataFromUrl = (url: string) => {
     //    Storing TOKEN  //
     // ----------------- //
     try {
-      AuthManager.saveToken(authData.idToken, "idToken");
-      AuthManager.saveToken(authData.refreshToken, "refreshToken");
+      tokenManager.storeToken("idToken", authData.idToken);
+      tokenManager.storeToken("refreshToken", authData.refreshToken);
+      tokenManager.storeToken("webApiKey", authData.webApiKey);
       mainWindow?.reload(); // Reload the app
     } catch (error) {
       console.error("Token handling error:", error);
