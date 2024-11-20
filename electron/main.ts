@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen, ipcMain, shell, dialog } from "electron";
+import { app, BrowserWindow, screen, ipcMain, shell } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import * as fs from "fs";
@@ -138,27 +138,6 @@ const callDevelopmentServer = async (input: string) => {
   return serverResponse[0];
 };
 
-//   will be added soon  //
-//-----------------------//
-
-// const callProductionServer = async (input: string) => {
-//   const response = await fetch(
-//     "https://pinacworkspace.pages.dev/api/chat/regular",
-//     {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         messages: [],
-//         userInput: input,
-//       }),
-//     }
-//   );
-//   const responseData = await response.json();
-//   return responseData.assistant;
-// };
-
 // ======================================================================== //
 //        frontend request to backend (for backend functionalities)          //
 // ======================================================================== //
@@ -277,89 +256,3 @@ ipcMain.on("request-to-server", async (event, request) => {
     event.reply("server-response", response);
   }
 });
-
-// =========================================================================== //
-//                                                                             //
-//                      Authentication using Deep Link                         //
-//                                                                             //
-// =========================================================================== //
-
-// Registering app's custom protocol
-if (process.defaultApp) {
-  if (process.argv.length >= 2) {
-    app.setAsDefaultProtocolClient("pinac-workspace", process.execPath, [
-      path.resolve(process.argv[1]),
-    ]);
-  }
-} else {
-  app.setAsDefaultProtocolClient("pinac-workspace");
-}
-
-// Handle protocol when app is already running
-// for Windows and Linux
-const gotTheLock = app.requestSingleInstanceLock();
-
-if (!gotTheLock) {
-  app.quit();
-} else {
-  app.on("second-instance", (_, commandLine) => {
-    // Someone tried to run a second instance, we should focus our window.
-    if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore();
-      mainWindow.focus();
-    }
-    const url = commandLine.pop();
-    if (url) {
-      parseAuthDataFromUrl(url);
-    } else {
-      dialog.showErrorBox(
-        "Error",
-        "Something went wrong, unable to authenticate. Please try again."
-      );
-    }
-  });
-}
-
-// Handle protocol if app is already running
-// for MacOS
-app.on("open-url", (event, url) => {
-  event.preventDefault();
-  parseAuthDataFromUrl(url);
-});
-
-//
-//   Parse Auth data from URL   //
-// ============================ //
-
-const parseAuthDataFromUrl = (url: string) => {
-  const urlObj = new URL(url);
-  const encodedData = urlObj.searchParams.get("data");
-  if (encodedData) {
-    const authData = JSON.parse(decodeURIComponent(encodedData));
-    //  Storing user-info  //
-    // ------------------- //
-    const userInfo = {
-      displayName: authData.displayName,
-      email: authData.email,
-      bio: "",
-      photoURL: authData.photoUrl,
-    };
-    const userInfoJson = JSON.stringify(userInfo);
-    fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
-    //    Storing TOKEN  //
-    // ----------------- //
-    try {
-      tokenManager.storeToken("idToken", authData.idToken);
-      tokenManager.storeToken("refreshToken", authData.refreshToken);
-      tokenManager.storeToken("webApiKey", authData.webApiKey);
-      mainWindow?.reload(); // Reload the app
-    } catch (error) {
-      console.error("Token handling error:", error);
-    }
-  } else {
-    dialog.showErrorBox(
-      "Error",
-      "Something went wrong, unable to authenticate. Please try again."
-    );
-  }
-};
