@@ -1,11 +1,12 @@
+import SecureTokenManager from "./tokenManager";
+
 /**
  * Refreshes the ID token using the saved refresh token and Web API key.
  * Saves the new ID token to the file system.
  */
-export const refreshIdToken = async (
-  webApiKey: string,
-  refreshToken: string
-) => {
+export const refreshIdToken = async (tokenManager: SecureTokenManager) => {
+  const webApiKey = tokenManager.retrieveToken("webApiKey") || "";
+  const refreshToken = tokenManager.retrieveToken("refreshToken") || "";
   const response = await fetch(
     `https://identitytoolkit.googleapis.com/v1/token?key=${webApiKey}`,
     {
@@ -23,5 +24,5 @@ export const refreshIdToken = async (
     console.error(response.statusText);
   }
   const data = await response.json();
-  return data.id_token; // This returns the new ID token
+  tokenManager.storeToken("idToken", data.id_token); // This saves the new ID token
 };

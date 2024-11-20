@@ -5,7 +5,6 @@ class SecureTokenManager {
   private store: Store;
   private readonly encryptionKey: Buffer;
   private readonly IV_LENGTH: number = 16;
-  private readonly SALT_LENGTH: number = 16;
   private readonly ENCRYPTION_KEY_LENGTH: number = 32;
 
   constructor(masterKey: string = "your-secret-master-key") {

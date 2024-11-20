@@ -4,6 +4,7 @@ import path from "node:path";
 import * as fs from "fs";
 import SecureTokenManager from "./utilis/tokenManager";
 import SecureMasterKeyManager from "./utilis/masterKeyManager";
+import { refreshIdToken } from "./utilis/authManager";
 import askLocalLLM from "./model/ollama";
 import applyPrompt from "./prompt";
 
@@ -90,8 +91,9 @@ const createMainWindow = () => {
 
   // Save the window size when it is resized.
   mainWindow.on("resize", () => {
-    mainWindow &&
+    if (mainWindow) {
       saveSize(mainWindow.getBounds().width, mainWindow.getBounds().height);
+    }
   });
 };
 
@@ -129,35 +131,24 @@ const tokenManager = new SecureTokenManager(derivedKey);
 //                 Cloud Server                  //
 // ============================================= //
 
-// development server
-const callDevelopmentServer = async (input: string) => {
+const callRegularAiServer = async (input: string) => {
+  const idToken = tokenManager.retrieveToken("idToken") || "";
   const response = await fetch(
-    `https://nexus-for-development.pinac.workers.dev/?input=${input}`
+    "https://pinacworkspace.pages.dev/api/chat/regular",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${idToken}`,
+      },
+      body: JSON.stringify({
+        messages: [],
+        userInput: input,
+      }),
+    }
   );
-  const serverResponse = await response.json();
-  return serverResponse[0];
+  return await response.json();
 };
-
-//   will be added soon  //
-//-----------------------//
-
-// const callProductionServer = async (input: string) => {
-//   const response = await fetch(
-//     "https://pinacworkspace.pages.dev/api/chat/regular",
-//     {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         messages: [],
-//         userInput: input,
-//       }),
-//     }
-//   );
-//   const responseData = await response.json();
-//   return responseData.assistant;
-// };
 
 // ======================================================================== //
 //        frontend request to backend (for backend functionalities)          //
@@ -245,34 +236,49 @@ ipcMain.on("open-external-link", (_, url) => {
 //              Frontend request for Server                //
 // ======================================================= //
 
-interface ServerResponse {
-  inputs: {
-    messages: string[];
-  };
-  response: {
-    response: string;
-  };
-}
-
 ipcMain.on("request-to-server", async (event, request) => {
-  const prompt = request.prompt;
-  const final_prompt = applyPrompt(prompt, request.user_query);
-  //
   if (request.preferred_model_type == "Cloud LLM") {
-    const input = final_prompt.replace(" ", "+");
-    const ai_response: ServerResponse = await callDevelopmentServer(input);
-    const response = {
-      error_occurred: false,
-      response: { type: "others", content: ai_response.response.response },
-      error: null,
-    };
-    event.reply("server-response", response);
+    const response = await callRegularAiServer(request.user_query);
+    if (response.assistant) {
+      event.reply("server-response", {
+        error_occurred: false,
+        response: { type: "others", content: response.assistant },
+        error: null,
+      });
+    } else {
+      //
+      if (response.code === "TOKEN_EXPIRED") {
+        await refreshIdToken(tokenManager);
+        const retryResponse = await callRegularAiServer(request.user_query);
+        if (retryResponse.assistant) {
+          event.reply("server-response", {
+            error_occurred: false,
+            response: { type: "others", content: retryResponse.assistant },
+            error: null,
+          });
+        } else {
+          event.reply("server-response", {
+            error_occurred: true,
+            response: null,
+            error: retryResponse.message,
+          });
+        }
+        // } else {
+        event.reply("server-response", {
+          error_occurred: true,
+          response: null,
+          error: response.message,
+        });
+      }
+    }
   }
   //
   else if (request.preferred_model_type == "Private LLM") {
+    const prompt = request.prompt;
+    const finalPrompt = applyPrompt(prompt, request.user_query);
     const response: object = await askLocalLLM(
       request.preferred_model,
-      final_prompt
+      finalPrompt
     );
     event.reply("server-response", response);
   }
