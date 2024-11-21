@@ -237,39 +237,54 @@ ipcMain.on("open-external-link", (_, url) => {
 // ======================================================= //
 
 ipcMain.on("request-to-server", async (event, request) => {
+  //
+  const sendResponse = (
+    error: boolean,
+    content?: string,
+    errorMessage?: string
+  ) => {
+    event.reply("server-response", {
+      error_occurred: error,
+      response: content ? { type: "others", content } : null,
+      error: errorMessage || null,
+    });
+  };
+  //
   if (request.preferred_model_type == "Cloud LLM") {
-    const response = await callRegularAiServer(request.user_query);
-    if (response.assistant) {
-      event.reply("server-response", {
-        error_occurred: false,
-        response: { type: "others", content: response.assistant },
-        error: null,
-      });
-    } else {
-      //
-      if (response.code === "TOKEN_EXPIRED") {
-        await refreshIdToken(tokenManager);
-        const retryResponse = await callRegularAiServer(request.user_query);
-        if (retryResponse.assistant) {
-          event.reply("server-response", {
-            error_occurred: false,
-            response: { type: "others", content: retryResponse.assistant },
-            error: null,
-          });
-        } else {
-          event.reply("server-response", {
-            error_occurred: true,
-            response: null,
-            error: retryResponse.message,
-          });
-        }
-        // } else {
-        event.reply("server-response", {
-          error_occurred: true,
-          response: null,
-          error: response.message,
-        });
+    try {
+      let response = await callRegularAiServer(request.user_query);
+
+      if (response.assistant) {
+        sendResponse(false, response.assistant);
+        return;
       }
+
+      if (response.code === "TOKEN_EXPIRED") {
+        try {
+          await refreshIdToken(tokenManager);
+          response = await callRegularAiServer(request.user_query);
+
+          if (response.assistant) {
+            sendResponse(false, response.assistant);
+            return;
+          }
+          sendResponse(true, undefined, response.message);
+        } catch (error) {
+          if (error.message === "TOKEN_EXPIRED") {
+            sendResponse(
+              true,
+              undefined,
+              "You are logged out. Please login again."
+            );
+            return;
+          }
+          sendResponse(true, undefined, `${error}`);
+          return;
+        }
+      }
+      sendResponse(true, undefined, response.message);
+    } catch (error) {
+      sendResponse(true, undefined, `${error}`);
     }
   }
   //
