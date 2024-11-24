@@ -11,10 +11,10 @@ export const ModelSettingsContext = createContext<{
   setCloudModelName: React.Dispatch<React.SetStateAction<string>>;
   deepthink: boolean;
   setDeepthink: React.Dispatch<React.SetStateAction<boolean>>;
-  privateModelName: string | null;
-  setPrivateModelName: React.Dispatch<React.SetStateAction<string | null>>;
-  outputlanguage: string;
-  setOutputlanguage: React.Dispatch<React.SetStateAction<string>>;
+  ollamaModelName: string | null;
+  setOllamaModelName: React.Dispatch<React.SetStateAction<string | null>>;
+  outputLanguage: string;
+  setOutputLanguage: React.Dispatch<React.SetStateAction<string>>;
   setValue: (valueName: string, value: string) => void;
   getValue: (valueName: string) => string | null;
 } | null>(null);
@@ -48,12 +48,12 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
 
   const [deepthink, setDeepthink] = useState(false);
 
-  const [privateModelName, setPrivateModelName] = useState(() => {
-    const choice = localStorage.getItem("private-model-name");
+  const [ollamaModelName, setOllamaModelName] = useState(() => {
+    const choice = localStorage.getItem("ollama-model-name");
     return choice ? choice : null;
   });
 
-  const [outputlanguage, setOutputlanguage] = useState(() => {
+  const [outputLanguage, setOutputLanguage] = useState(() => {
     const choice = localStorage.getItem("output-language");
     return choice ? choice : "English";
   });
@@ -67,10 +67,10 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
       setTextModelType(value);
     } else if (valueName === "cloud-model-name") {
       setCloudModelName(value);
-    } else if (valueName === "private-model-name") {
-      setPrivateModelName(value);
+    } else if (valueName === "ollama-model-name") {
+      setOllamaModelName(value);
     } else if (valueName === "output-language") {
-      setOutputlanguage(value);
+      setOutputLanguage(value);
     }
   };
 
@@ -83,10 +83,10 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
       return textModelType;
     } else if (valueName === "cloud-model-name") {
       return cloudModelName;
-    } else if (valueName === "private-model-name") {
-      return privateModelName;
+    } else if (valueName === "ollama-model-name") {
+      return ollamaModelName;
     } else if (valueName === "output-language") {
-      return outputlanguage;
+      return outputLanguage;
     } else return null;
   };
 
@@ -96,16 +96,16 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
     localStorage.setItem("img-model-name", imgModelName);
     localStorage.setItem("text-model-type", textModelType);
     localStorage.setItem("cloud-model-name", cloudModelName);
-    privateModelName &&
-      localStorage.setItem("private-model-name", privateModelName);
-    localStorage.setItem("output-language", outputlanguage);
+    ollamaModelName &&
+      localStorage.setItem("ollama-model-name", ollamaModelName);
+    localStorage.setItem("output-language", outputLanguage);
   }, [
     modelType,
     imgModelName,
     textModelType,
     cloudModelName,
-    privateModelName,
-    outputlanguage,
+    ollamaModelName,
+    outputLanguage,
   ]);
 
   return (
@@ -121,10 +121,10 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
         setCloudModelName,
         deepthink,
         setDeepthink,
-        privateModelName,
-        setPrivateModelName,
-        outputlanguage,
-        setOutputlanguage,
+        ollamaModelName,
+        setOllamaModelName,
+        outputLanguage,
+        setOutputLanguage,
         setValue,
         getValue,
       }}

@@ -10,14 +10,14 @@ export const LLMSelector: React.FC = () => {
   const changePrivateModel = () => {
     const modelName = inputRef.current?.value;
     if (modelName) {
-      llmContext?.setPrivateModelName(modelName);
+      llmContext?.setOllamaModelName(modelName);
     }
   };
 
   // Show the preferred ollama model if exist
   useEffect(() => {
     if (llmContext?.textModelType == "Private LLM") {
-      const preferredModel = llmContext?.privateModelName;
+      const preferredModel = llmContext?.ollamaModelName;
       if (preferredModel && inputRef.current) {
         inputRef.current.value = preferredModel;
       }

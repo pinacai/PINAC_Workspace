@@ -13,7 +13,7 @@ interface DropdownMenuProps {
     | "model-type"
     | "text-model-type"
     | "cloud-model-name"
-    | "private-model-name"
+    | "ollama-model-name"
     | "output-language";
 }
 

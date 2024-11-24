@@ -84,7 +84,7 @@ export const HomePage: React.FC = () => {
         preferred_model:
           llmContext?.textModelType === "Cloud LLM"
             ? llmContext?.cloudModelName
-            : llmContext?.privateModelName,
+            : llmContext?.ollamaModelName,
         prompt: PreferredPrompt,
         user_query: inputText,
       });

@@ -280,12 +280,22 @@ export const InputPanel: React.FC<InputPanelProps> = ({
                     title="Add Content"
                     id={styles.attachmentIcon}
                   />
-                  <input
-                    type="file"
-                    accept=".pdf"
-                    style={{ display: "none" }}
-                    onChange={(e) => handleFileUpload(e)}
-                  />
+                  {modelContext?.textModelType == "Private LLM" &&
+                  modelContext?.ollamaModelName?.includes("llama3.2-vision") ? (
+                    <input
+                      type="file"
+                      accept=".pdf, .jpg, .jpeg, .png"
+                      style={{ display: "none" }}
+                      onChange={(e) => handleFileUpload(e)}
+                    />
+                  ) : (
+                    <input
+                      type="file"
+                      accept=".pdf"
+                      style={{ display: "none" }}
+                      onChange={(e) => handleFileUpload(e)}
+                    />
+                  )}
                 </label>
 
                 {/* ====== Submit Button ======= */}
