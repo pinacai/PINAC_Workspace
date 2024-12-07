@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { DropdownMenu } from "./components/DropdownMenu";
+import { AttachmentContext } from "../../context/Attachment";
 import { ModelSettingsContext } from "../../context/ModelSettings";
 import styles from "./styles/index.module.css";
 
@@ -34,8 +35,8 @@ export const InputPanel: React.FC<InputPanelProps> = ({
 }) => {
   const optionMenuRef = useRef<HTMLDivElement>(null);
   const modelContext = useContext(ModelSettingsContext);
+  const attachmentContext = useContext(AttachmentContext);
   const [attachmentOptions, setAttachmentOptions] = useState<boolean>(false);
-  const [attachment, setAttachment] = useState<File | null>(null);
   const [currentDropdownIndex, setCurrentDropdownIndex] = useState(0); // To track the active dropdown
   const [isShowAllAdvanceOptions, setIsShowAllAdvanceOptions] = useState(
     window.innerWidth > 576
@@ -106,13 +107,13 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setAttachment(file);
+      attachmentContext?.setAttachment(file);
     }
   };
 
   //
   const handleCancelUpload = () => {
-    setAttachment(null);
+    attachmentContext?.setAttachment(null);
   };
 
   //
@@ -243,11 +244,11 @@ export const InputPanel: React.FC<InputPanelProps> = ({
         onBlur={() => setUserInputActive(false)}
       >
         {/* ============ Attachment Preview ============ */}
-        {attachment && (
+        {attachmentContext?.attachment && (
           <div className={styles.attachmentPreview}>
             <div>
               <FaRegFileAlt color="var(--text-color-light)" />
-              <span>{getFileName(attachment.name)}</span>
+              <span>{getFileName(attachmentContext?.attachment.name)}</span>
               <button
                 id={styles.closeButton}
                 onClick={() => handleCancelUpload()}

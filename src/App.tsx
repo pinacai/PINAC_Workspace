@@ -13,6 +13,7 @@ import { SubPageProvider } from "./context/SubPage";
 import { WelcomeTextProvider } from "./context/WelcomeText";
 import { ChatMsgProvider } from "./context/ChatMsg";
 import { ModelSettingsProvider } from "./context/ModelSettings";
+import { AttachmentProvider } from "./context/Attachment";
 import "./App.css";
 
 // sub-pages
@@ -73,9 +74,11 @@ const App = () => {
           <SubPageProvider>
             <WelcomeTextProvider>
               <ModelSettingsProvider>
-                <ChatMsgProvider>
-                  {isAuthenticated ? <HomePage /> : <SignInPage />}
-                </ChatMsgProvider>
+                <AttachmentProvider>
+                  <ChatMsgProvider>
+                    {isAuthenticated ? <HomePage /> : <SignInPage />}
+                  </ChatMsgProvider>
+                </AttachmentProvider>
               </ModelSettingsProvider>
             </WelcomeTextProvider>
           </SubPageProvider>

@@ -269,7 +269,8 @@ ipcMain.on("request-to-server", async (event, request) => {
             return;
           }
           sendResponse(true, undefined, response.message);
-        } catch (error) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
           if (error.message === "TOKEN_EXPIRED") {
             sendResponse(
               true,
@@ -293,7 +294,8 @@ ipcMain.on("request-to-server", async (event, request) => {
     const finalPrompt = applyPrompt(prompt, request.user_query);
     const response: object = await askLocalLLM(
       request.preferred_model,
-      finalPrompt
+      finalPrompt,
+      request.image_path
     );
     event.reply("server-response", response);
   }

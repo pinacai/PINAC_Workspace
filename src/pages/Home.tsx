@@ -6,12 +6,15 @@ import { AiMsgBubble, AiLoader } from "../features/msgBubble/AiMsgBubble";
 import { UserMsgBubble } from "../features/msgBubble/UserMsgBubble";
 import { InputPanel } from "../features/inputPanel/index";
 import { StopTextGeneration } from "../context/StopTextGeneration";
+import { startNewSession, addMsgToSession } from "../database/db";
+import styles from "./styles/Home.module.css";
+
+// context
 import { SubPageContext } from "../context/SubPage";
 import { ChatMsgContext } from "../context/ChatMsg";
 import { WelcomeTextContext } from "../context/WelcomeText";
 import { ModelSettingsContext } from "../context/ModelSettings";
-import { startNewSession, addMsgToSession } from "../database/db";
-import styles from "./styles/Home.module.css";
+import { AttachmentContext } from "../context/Attachment";
 
 // sub-pages
 import ChatHistory from "../features/chatHistory/index";
@@ -24,6 +27,7 @@ export const HomePage: React.FC = () => {
   const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
   const llmContext = useContext(ModelSettingsContext);
+  const attachmentContext = useContext(AttachmentContext);
   const [userInputText, setUserInputText] = useState<string>("");
   const [isUserInputActive, setIsUserInputActive] = useState<boolean>(false);
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
@@ -78,6 +82,7 @@ export const HomePage: React.FC = () => {
 
       const PreferredPrompt = localStorage.getItem("applied-prompt");
 
+      // ======= Send user input to backend server ======= //
       window.ipcRenderer.send("request-to-server", {
         request_type: "user-input",
         preferred_model_type: llmContext?.textModelType,
@@ -87,6 +92,7 @@ export const HomePage: React.FC = () => {
             : llmContext?.ollamaModelName,
         prompt: PreferredPrompt,
         user_query: inputText,
+        image_path: attachmentContext?.attachment?.path,
       });
 
       // Handle AI response from backend
@@ -118,6 +124,8 @@ export const HomePage: React.FC = () => {
         }
       });
 
+      // clearing everything
+      attachmentContext?.setAttachment(null);
       setUserInputText("");
       if (textareaRef.current) {
         textareaRef.current.style.height = "50px"; // Reset textarea height

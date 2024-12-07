@@ -1,13 +1,18 @@
 import ollama from "ollama";
 
-const askLocalLLM = async (llm: string, user_query: string) => {
+const askLocalLLM = async (
+  llm: string,
+  userQuery: string,
+  imagePath: string | null
+) => {
   try {
     const response = await ollama.chat({
       model: llm,
       messages: [
         {
           role: "user",
-          content: user_query,
+          content: userQuery,
+          images: imagePath ? [imagePath] : [],
         },
       ],
     });
