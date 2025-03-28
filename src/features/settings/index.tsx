@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Header } from "../header";
 import { Menubar } from "../../components/Menubar";
-import { ThemeSwitcher } from "./components/ThemeSwitcher";
 import { LLMSelector } from "./components/LLMSelector";
 import { ImgModelSelector } from "./components/ImgModelSelector";
 import { DropdownMenu } from "./components/DropdownMenu";
@@ -61,12 +60,12 @@ const Settings: React.FC = () => {
             </div>
             {/*     Section 2 ( Theme )     */}
             {/* =========================== */}
-            <div className={styles.section}>
+            {/* <div className={styles.section}>
               <div className={styles.sectionTitle}>
                 <span>Theme</span>
               </div>
               <ThemeSwitcher />
-            </div>
+            </div> */}
           </>
         )}
         {/* --------------------------------------------------------- */}

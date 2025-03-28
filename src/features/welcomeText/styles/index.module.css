@@ -1,20 +1,10 @@
 .welcomeText {
-  background: var(--welcomeText-gradient);
-  background-clip: text;
-  color: transparent;
-  box-shadow: none;
-  font:
-    bold 55px "ubuntu",
-    "Montserrat",
-    sans-serif;
+  height: 60px;
+  width: 100%;
+  font: normal 55px "Cormorant Garamond", "Montserrat", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.welcomeTextRow {
-  display: flex;
-  align-items: flex-start;
 }
 
 /* ------------------ */

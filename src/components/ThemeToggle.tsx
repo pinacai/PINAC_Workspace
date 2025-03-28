@@ -1,20 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
-import { ThemeModeContext } from "../context/ThemeMode";
+import React, { useState } from "react";
 import styles from "./styles/ThemeToggle.module.css";
 
 export const ThemeToggle: React.FC = () => {
-  const themeModeContext = useContext(ThemeModeContext);
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
 
   const changeTheme = () => {
     setIsDarkTheme(!isDarkTheme);
-    themeModeContext?.setThemeMode(isDarkTheme ? "light" : "dark");
+    document.documentElement.classList.toggle("dark");
   };
-
-  //
-  useEffect(() => {
-    setIsDarkTheme(themeModeContext?.themeMode === "dark");
-  }, [themeModeContext?.themeMode]);
 
   return (
     <div>

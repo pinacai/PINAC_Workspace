@@ -1,32 +1,24 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { ThemeToggle } from "./ThemeToggle";
-import { SubPageContext } from "../context/SubPage";
 import styles from "./styles/Sidebar.module.css";
 
 // Icons
-import { MdGroup } from "react-icons/md";
-import { IoMdChatbubbles, IoMdSettings } from "react-icons/io";
-import { LuHistory } from "react-icons/lu";
-import defaultUserIcon from "/icon/User Icon.png";
+import { MdOutlinePeopleAlt } from "react-icons/md";
+import { IoReorderThreeOutline, IoSettingsOutline } from "react-icons/io5";
+import { LuHistory, LuLayers } from "react-icons/lu";
+import { BiUserCircle } from "react-icons/bi";
 
-const BREAKPOINT = 460;
-const BREAKPOINT2 = 768;
+const BREAKPOINT = 768;
 
 export const Sidebar: React.FC = () => {
-  const navigate = useNavigate();
-  const subPageContext = useContext(SubPageContext);
   const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(false);
-  const [isChatIconVisible, setIsChatIconVisible] = useState<boolean>(false);
   const [userImageUrl, setUserImageUrl] = useState<string | null>(null);
 
   //
   useEffect(() => {
     const handleResize = () => {
       setIsSidebarVisible(window.innerWidth >= BREAKPOINT);
-      setIsChatIconVisible(window.innerWidth <= BREAKPOINT2);
     };
-
     window.addEventListener("resize", handleResize);
     handleResize();
 
@@ -41,29 +33,6 @@ export const Sidebar: React.FC = () => {
     });
   });
 
-  //
-  const changeSubPage = (subPage: string): void => {
-    subPageContext?.setSubPage(subPage);
-  };
-
-  //
-  const changePage = (subPage: string): void => {
-    changeSubPage(subPage);
-    if (window.innerWidth < BREAKPOINT2) {
-      navigate(subPage);
-    }
-  };
-
-  //
-  const renderNavItem = (
-    subPage: string,
-    Icon: React.ElementType,
-  ): JSX.Element => (
-    <li onClick={() => changePage(subPage)}>
-      <Icon size={30} color="var(--sidebar-icon-color)" />
-    </li>
-  );
-
   if (!isSidebarVisible && window.innerWidth < BREAKPOINT) {
     return null;
   }
@@ -74,18 +43,21 @@ export const Sidebar: React.FC = () => {
       <div className={styles.upperPart}>
         <nav>
           <ul>
-            <li onClick={() => changePage("/profile")}>
-              <img
-                className={styles.userImage}
-                src={userImageUrl || defaultUserIcon}
-                alt="User"
-              />
+            <li>
+              <IoReorderThreeOutline />
             </li>
-            <div className={styles.dividerLine} />
-            {isChatIconVisible && renderNavItem("/", IoMdChatbubbles)}
-            {renderNavItem("/history", LuHistory)}
-            {renderNavItem("/about", MdGroup)}
-            {renderNavItem("/settings", IoMdSettings)}
+            <li>
+              <LuHistory />
+            </li>
+            <li>
+              <LuLayers />
+            </li>
+            <li>
+              <IoSettingsOutline />
+            </li>
+            <li>
+              <MdOutlinePeopleAlt />
+            </li>
           </ul>
         </nav>
       </div>
@@ -94,6 +66,17 @@ export const Sidebar: React.FC = () => {
           <ul>
             <li>
               <ThemeToggle />
+            </li>
+            <li>
+              {userImageUrl ? (
+                <img
+                  className={styles.userImage}
+                  src={userImageUrl}
+                  alt="User"
+                />
+              ) : (
+                <BiUserCircle />
+              )}
             </li>
           </ul>
         </nav>

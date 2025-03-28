@@ -1,11 +1,8 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "../../components/ThemeToggle";
 import { RedButton } from "./components/RedButton";
 import { NewChatBtn } from "./components/NewChatBtn";
-import { DeepThinkBtn } from "./components/DeepThinkBtn";
-import { SubPageContext } from "../../context/SubPage";
-import { ModelSettingsContext } from "../../context/ModelSettings";
 import styles from "./styles/index.module.css";
 
 // Icons
@@ -16,19 +13,13 @@ import { MdDelete } from "react-icons/md";
 
 interface HeaderProps {
   title: string;
-  subPage: boolean;
+  page: "home" | "profile" | "history" | "about" | "settings" | "project";
   clearChat?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({
-  title,
-  subPage,
-  clearChat,
-}) => {
+export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const subPageContext = useContext(SubPageContext);
-  const modelContext = useContext(ModelSettingsContext);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
   const [isDropdownActive, setIsDropdownActive] = useState<boolean>(false);
@@ -71,34 +62,23 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <>
       <div
-        className={`${styles.pageHeader} ${!subPage && styles.homePageHeader}`}
+        className={`${styles.pageHeader} ${
+          page == "home" && styles.homePageHeader
+        }`}
       >
         <div className={styles.leftSide}>
-          {subPage ? (
-            <div>
-              <span className={styles.title}>{title}</span>
-              <div className={styles.bottomLine}></div>
-            </div>
-          ) : (
-            <div>
-              <span
-                className={
-                  location.pathname == "/"
-                    ? `${styles.homeTitle}`
-                    : `${styles.title}`
-                }
-              >
-                {title}
-              </span>
-              {location.pathname !== "/" ? (
-                <>
-                  <div className={styles.bottomLine}></div>
-                </>
-              ) : null}
-            </div>
-          )}
+          <div>
+            <span
+              className={
+                page == "home" ? `${styles.homeTitle}` : `${styles.title}`
+              }
+            >
+              {title}
+            </span>
+          </div>
+
           {/* Render the sidebar button */}
-          {isMenuVisible && !subPage && (
+          {isMenuVisible && (
             <div className={styles.headerMenu} ref={dropdownMenuRef}>
               <div>
                 <button
@@ -160,25 +140,18 @@ export const Header: React.FC<HeaderProps> = ({
           )}
         </div>
         <div className={styles.rightSide}>
-          {/* Render the Clear Chat & Deep Think button */}
-          {location.pathname == "/" && clearChat ? (
-            <>
-              {modelContext?.modelType == "Text Generation" && modelContext?.textModelType == "Cloud LLM" && (
-                <DeepThinkBtn />
-              )}
-              <NewChatBtn clearChat={clearChat} />
-            </>
-          ) : null}
-          {/* Render the clear history button only for history Page */}
-          {location.pathname == "/history" ||
-          (subPage && subPageContext?.subPage == "/history") ? (
+          {/* for the Clear Chat */}
+          {location.pathname == "/" && clearChat && (
+            <NewChatBtn clearChat={clearChat} />
+          )}
+          {/* for clear history button */}
+          {page == "history" && (
             <RedButton task="clear_history" text="Delete" icon={<MdDelete />} />
-          ) : null}
-          {/* Render the logout button only for Profile Page */}
-          {location.pathname == "/profile" ||
-          (subPage && subPageContext?.subPage == "/profile") ? (
+          )}
+          {/* for the logout button */}
+          {page == "profile" && (
             <RedButton task="logout" text="Logout" icon={<TbLogout />} />
-          ) : null}
+          )}
         </div>
       </div>
     </>

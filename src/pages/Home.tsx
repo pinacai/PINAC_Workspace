@@ -10,20 +10,12 @@ import { startNewSession, addMsgToSession } from "../database/db";
 import styles from "./styles/Home.module.css";
 
 // context
-import { SubPageContext } from "../context/SubPage";
 import { ChatMsgContext } from "../context/ChatMsg";
 import { WelcomeTextContext } from "../context/WelcomeText";
 import { ModelSettingsContext } from "../context/ModelSettings";
 import { AttachmentContext } from "../context/Attachment";
 
-// sub-pages
-import ChatHistory from "../features/chatHistory/index";
-import AboutUs from "../features/aboutUs/index";
-import Settings from "../features/settings/index";
-import Profile from "../features/profile/index";
-
 export const HomePage: React.FC = () => {
-  const subPageContext = useContext(SubPageContext);
   const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
   const llmContext = useContext(ModelSettingsContext);
@@ -161,19 +153,8 @@ export const HomePage: React.FC = () => {
     <>
       <Sidebar />
       <div className={styles.container}>
-        <div className={styles.subPageContainer}>
-          {subPageContext?.subPage === "/profile" ? (
-            <Profile />
-          ) : subPageContext?.subPage === "/history" ? (
-            <ChatHistory />
-          ) : subPageContext?.subPage === "/about" ? (
-            <AboutUs />
-          ) : subPageContext?.subPage === "/settings" ? (
-            <Settings />
-          ) : null}
-        </div>
         <div className={styles.chatContainer}>
-          <Header title="PINAC" subPage={false} clearChat={InitializeNewChat} />
+          <Header title="PINAC" page="home" clearChat={InitializeNewChat} />
           <StopTextGeneration.Provider
             value={{ stop: isStop, setStop: setIsStop }}
           >

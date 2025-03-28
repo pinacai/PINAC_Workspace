@@ -1,3 +1,7 @@
+> [!NOTE]  
+> This is the forthcoming **v2.1** iteration of the application, which is currently in the development phase. At this time, this version of the application is not operational.
+
+
 <div align="center">
 
 <h1 style="border-bottom: none">
@@ -19,7 +23,7 @@ One Next-Gen AI Chat for all your needs.
 <br>
 <br>
 
-![](https://skillicons.dev/icons?i=react,typescript,vite,electron)
+![](https://skillicons.dev/icons?i=react,tailwindcss,typescript,vite,electron)
 
 </div>
 
@@ -30,64 +34,6 @@ PINAC Workspace is a modern-looking _privacy-first_ AI chat for desktops, seamle
 ## Why PINAC Workspace ?
 
 PINAC Workspace simplifies AI use for everyone, allowing users to get high-quality results without complex prompts. Our easy-to-use beautiful desktop app allows you to express your needs in simple language and it applies the expert-level prompt on top of it after identifying the user's specific requirement so that users receive optimal outcomes. This empowers users to tap into powerful AI capabilities, saving time and boosting creativity across various fields.
-
-## 🎨 App Interface
-
-Introducing our distraction-free, user-friendly app interface with three stunning themes. It is designed to help you stay focused and productive. it comes with three themes,
-<br />
-
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Dawn_%26_Dusk.jpg" alt="Dawn & Dusk Screenshot">
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Cyber Tech 01.jpg" alt="Cyber Tech 01 Screenshot">
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/Aesthetic_Unbound.jpg" alt="Aesthetic Unbound Screenshot">
-
-## 📂 File Structure
-
-Overview of File Structure in Brief to Help You Get Started.
-
-    .
-    ├── public /
-    ├── index.html
-    |
-    ├── electron /
-    |    ├── main.ts
-    |    ├── preload.ts
-    |    ├── prompts.ts
-    |    └── model /
-    |
-    └── src /
-         ├── App.tsx
-         ├── App.css           # All element's colors theme-wise
-         ├── database /
-         |    └── db.ts
-         |
-         ├── components /      # common components
-         |    ├── styles /
-         |    ├── MarkdownStyle.tsx
-         |    ├── Menubar.tsx
-         |    ├── Sidebar.tsx
-         |    └── ThemeToggle.tsx
-         |
-         ├── context /
-         |    ├── StopTextGeneration.ts
-         |    ├── SubPage.tsx
-         |    ├── ThemeMode.tsx
-         |    └── ThemeStyle.tsx
-         |
-         ├── features /
-         |    ├── aboutUs /
-         |    ├── authentication /
-         |    ├── header /
-         |    ├── inputPanel /
-         |    ├── msgBubble /
-         |    ├── profile /
-         |    ├── settings /
-         |    ├── authentication /
-         |    └── welcomeText /
-         |
-         └── pages /
-              ├── styles /
-              ├── Home.tsx
-              └── Login.tsx
 
 ## 🚀 Getting Started
 

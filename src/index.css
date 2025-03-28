@@ -1,0 +1,285 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+@font-face {
+  font-family: "nasa";
+  src: url("/font/nasalization-rg.otf");
+}
+
+@font-face {
+  font-family: "ai-text";
+  src: url("/font/KodeMono.ttf");
+}
+
+@font-face {
+  font-family: "Exo2";
+  src: url("/font/Exo2.ttf");
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/font/CormorantGaramond-Regular.ttf");
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 320px;
+  --breakpoint-md: 576px;
+  --breakpoint-lg: 768px;
+  --breakpoint-xl: 992px;
+
+  --font-nasa: "nasa", "Montserrat", sans-serif;
+  --font-ai-text: "ai-text", "Montserrat", sans-serif;
+  --font-exo: "Exo2", "Montserrat", sans-serif;
+  --font-cormorant: "Cormorant Garamond", "Montserrat", sans-serif;
+
+  --color-primary: #f5f5f5;
+  --color-secondary: #1f2937;
+  --color-tartiary: #404045;
+
+  --color-primary-dark: #292a2d;
+  --color-secondary-dark: #1b1c1d;
+  --color-tertiary-dark: #404045;
+}
+
+.Dawn_n_Dusk-light {
+  /* General */
+  --primary-color: #f5f5f5;
+  --secondary-color: #1f2937;
+  --tertiary-color: #2196f3;
+  --quaternary-color: #d3d3d3;
+  --quinary-color: #ffffff;
+  --subPage-bg: var(--primary-color);
+
+  --text-color-light: #ffffff;
+  --text-color-opposite: #000000;
+  --text-color-iconic: #1f2937;
+  --placeholder-color: #666666;
+
+  --inputBox-bg: var(--primary-color);
+  --inputBox-border-color: transparent;
+  --inputBoxBtn-hover-color: rgba(108, 108, 108, 0.15);
+  --inputBox-shadow: var(--shadow);
+
+  --shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  --dark-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  --hover-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  --copyBtn-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+
+  /* Sidebar */
+  --sidebar-color: var(--secondary-color);
+  --sidebar-hover-color: rgba(255, 255, 255, 0.1);
+  --sidebar-shadow: none;
+  --sidebar-icon-color: var(--text-color-light);
+
+  /* Header */
+  --headerMenu-btn-hover-bg: var(--quaternary-color);
+  --headerMenu-bg: var(--primary-color);
+  --headerMenu-shadow: var(--shadow);
+  --headerTitle-color: var(--text-color-iconic);
+  --headerTitle-underline-color: var(--tertiary-color);
+  --newChatBtn-color: var(--secondary-color);
+  --newChatBtn-after-color: var(--tertiary-color);
+  --newChatBtn-shadow: var(--shadow);
+
+  /* MessageBubble */
+  --userMsg-bg: var(--secondary-color);
+  --userMsg-bg-shadow: none;
+  --aiMsg-bg: var(--primary-color);
+  --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  --aiLoader-primary: var(--primary-color);
+  --aiLoader-secondary: #656e7a;
+
+  /* DropdownMenu */
+  --dropdownBtn-bg: var(--quaternary-color);
+  --dropdownBtn-hover-bg: rgba(0, 0, 0, 0.3);
+  --dropdownBtn-shadow: none;
+  --dropdownMenu-bg: var(--quaternary-color);
+  --dropdownMenu-shadow: var(--dark-shadow);
+  --dropdownMenu-opt-hover-bg: var(--secondary-color);
+
+  /* Menubar */
+  --menubar-bg: var(--quaternary-color);
+  --menubar-active-item-bg: var(--secondary-color);
+  --menubar-shadow: none;
+
+  /* HomePage */
+  --welcomeText-gradient: linear-gradient(125deg, #ff7300, #f12b6d, #0026ff);
+
+  /* ProfilePage */
+  --profile-input-border-color: var(--quaternary-color);
+  --profile-input-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  --profile-input-valid-color: rgb(7, 134, 7);
+  --profileBtn-bg: var(--secondary-color);
+  --profileBtn-hover-shadow: var(--secondary-color);
+
+  /* HistoryPage */
+  --sessionCard-bg: var(--quinary-color);
+  --sessionCard-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  --dateBlock-bg: var(--quaternary-color);
+  --dateBlock-shadow: none;
+  --dateBlockText-color: var(--text-color-opposite);
+
+  /* AboutPage */
+  --aboutCard-bg: var(--primary-color);
+  --aboutCard-shadow: var(--shadow);
+  --aboutBtn-bg: var(--secondary-color);
+  --aboutBtn-shadow: var(--secondary-color);
+
+  /* SettingsPage */
+  --settingsBorder-color: var(--quaternary-color);
+  --themeCard-bg: var(--quaternary-color);
+  --themeCard-shadow: none;
+  --themeCard-hover-shadow: var(--hover-shadow);
+}
+
+.Dawn_n_Dusk-dark {
+  /* General */
+  --primary-color: #121212;
+  --secondary-color: #3c3c3c;
+  --tertiary-color: #5e43f3;
+  --tertiary-linear-gradient: linear-gradient(135deg, #5e43f3, #382bf0);
+  --quaternary-color: #252525;
+  --subPage-bg: var(--primary-color);
+
+  --text-color-light: #ffffff;
+  --text-color-opposite: #ffffff;
+  --text-color-iconic: #f5f7fa;
+  --placeholder-color: #bebebe;
+
+  --inputBox-bg: var(--secondary-color);
+  --inputBox-border-color: transparent;
+  --inputBoxBtn-hover-color: rgba(108, 108, 108, 0.4);
+  --inputBox-shadow: var(--shadow);
+
+  --shadow: 0 0 10px rgba(0, 0, 0, 5);
+  --dark-shadow: 0 0 10px rgba(0, 0, 0);
+  --hover-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+  --copyBtn-shadow: 0 0 2px rgba(0, 0, 0);
+
+  /* Sidebar */
+  --sidebar-color: var(--secondary-color);
+  --sidebar-hover-color: var(--tertiary-linear-gradient);
+  --sidebar-shadow: none;
+  --sidebar-icon-color: var(--text-color-light);
+
+  /* Header */
+  --headerMenu-bg: var(--secondary-color);
+  --headerMenu-btn-hover-bg: var(--secondary-color);
+  --headerMenu-shadow: var(--shadow);
+  --headerTitle-color: var(--text-color-iconic);
+  --headerTitle-underline-color: var(--tertiary-color);
+  --newChatBtn-color: var(--secondary-color);
+  --newChatBtn-after-color: var(--tertiary-linear-gradient);
+  --newChatBtn-shadow: none;
+
+  /* MessageBubble */
+  --userMsg-bg: var(--tertiary-linear-gradient);
+  --userMsg-bg-shadow: none;
+  --aiMsg-bg: var(--quaternary-color);
+  --aiMsg-bg-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  --aiLoader-primary: var(--quaternary-color);
+  --aiLoader-secondary: #757575;
+
+  /* DropdownMenu */
+  --dropdownBtn-bg: var(--secondary-color);
+  --dropdownBtn-hover-bg: rgba(255, 255, 255, 0.1);
+  --dropdownBtn-shadow: none;
+  --dropdownMenu-bg: var(--secondary-color);
+  --dropdownMenu-shadow: var(--dark-shadow);
+  --dropdownMenu-opt-hover-bg: var(--tertiary-linear-gradient);
+
+  /* Menubar */
+  --menubar-bg: var(--secondary-color);
+  --menubar-active-item-bg: var(--tertiary-linear-gradient);
+  --menubar-shadow: none;
+
+  /* HomePage */
+  --welcomeText-gradient: linear-gradient(125deg, #ff8d2f, #f12b6d, #0026ff);
+
+  /* ProfilePage */
+  --profile-input-border-color: none;
+  --profile-input-shadow: none;
+  --profile-input-valid-color: var(--tertiary-color);
+  --profileBtn-bg: var(--tertiary-linear-gradient);
+  --profileBtn-hover-shadow: var(--tertiary-color);
+
+  /* HistoryPage */
+  --sessionCard-bg: var(--secondary-color);
+  --sessionCard-shadow: none;
+  --dateBlock-bg: #868686;
+  --dateBlock-shadow: none;
+  --dateBlockText-color: #000;
+
+  /* AboutPage */
+  --aboutCard-bg: var(--secondary-color);
+  --aboutCard-shadow: var(--shadow);
+  --aboutBtn-bg: var(--tertiary-linear-gradient);
+  --aboutBtn-shadow: var(--tertiary-color);
+
+  /* SettingsPage */
+  --settingsBorder-color: var(--secondary-color);
+  --themeCard-bg: var(--secondary-color);
+  --themeCard-shadow: var(--shadow);
+  --themeCard-hover-shadow: var(--hover-shadow);
+}
+
+/* Reset and Base Styles */
+* {
+  overflow: hidden;
+}
+
+/* Common for all pages */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.msgBox {
+  width: 100%;
+  height: 100%;
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-top: 30px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+@container (max-width: 1200px) {
+  .msgBox {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+
+@container (max-width: 992px) {
+  .msgBox {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+
+@container (max-width: 768px) {
+  .msgBox {
+    padding-left: calc(5% + 10px);
+    padding-right: calc(5% + 10px);
+  }
+}
+
+@container (max-width: 576px) {
+  .msgBox {
+    padding-left: calc(2.5% + 10px);
+    padding-right: 2%;
+  }
+}
+
+.sidebar-li {
+  @apply w-full flex items-center justify-center rounded-lg py-[15px] cursor-pointer transition-all duration-500 ease-in-out;
+}
