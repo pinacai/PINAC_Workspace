@@ -1,16 +1,3 @@
-/* Lower part of ChatBox */
-.inputBox {
-  width: 100%;
-  background-color: transparent;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-/* =========== Overall Input Panel Style =========== */
 
 .inputGroup {
   width: 60%;
@@ -28,194 +15,6 @@
   align-items: center;
 }
 
-.inputGroupInner {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.inputGroup.active {
-  border-color: var(--inputBox-border-color);
-}
-
-/* =========== Textarea Style =========== */
-
-#userInput {
-  height: 50px;
-  max-height: 150px;
-  min-width: 300px;
-  padding: 15px 10px 10px 10px;
-  outline: none;
-  resize: none;
-  border: none;
-  color: var(--text-color-opposite);
-  font: normal medium "Montserrat", sans-serif;
-  background: transparent;
-  flex-grow: 1;
-}
-
-#userInput::placeholder {
-  color: var(--placeholder-color);
-  align-items: center;
-  font: normal large "Exo2", "Montserrat", sans-serif;
-  letter-spacing: 2px;
-}
-
-/* =========== For Buttons (send, stop, etc) =========== */
-
-.inputGroupAppend {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-/* Send Button Styles */
-#submitBtn {
-  height: 45px;
-  width: 45px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  border-radius: 50%;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin-right: 15px;
-}
-
-#submitBtn:hover {
-  background-color: var(--inputBoxBtn-hover-color);
-}
-
-#submitIcon {
-  width: 30px;
-  height: 30px;
-  color: var(--text-color-iconic);
-}
-
-/* Change the color when disabled and */
-/* Change the cursor to indicate the button is disabled */
-button.disabled {
-  background-color: rgb(88, 88, 88);
-  cursor: not-allowed;
-}
-
-.stopIcon {
-  height: 45px;
-  width: 45px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  border-radius: 50%;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin-right: 15px;
-  color: white;
-}
-
-#attachmentBtn {
-  color: var(--text-color-iconic);
-  background: transparent;
-  border: none;
-  border-radius: 7px;
-  cursor: pointer;
-}
-
-#attachmentBtn:hover {
-  background: var(--inputBoxBtn-hover-color);
-}
-
-#attachmentIcon {
-  width: 25px;
-  height: 25px;
-  margin-top: 10px;
-  color: var(--text-color-iconic);
-}
-
-/* =========== Advance Options (Dropdown) =========== */
-
-.inputOptionMenu {
-  display: flex;
-  align-items: center;
-  width: 60%;
-  gap: 10px;
-  padding: 10px 2px;
-}
-
-.nextButton {
-  height: 100%;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  background: var(--dropdownBtn-bg);
-  box-shadow: var(--dropdownBtn-shadow);
-}
-
-/* =========== Uploaded Attachment Preview =========== */
-
-.attachmentPreview {
-  width: 100%;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-}
-
-.attachmentPreview div {
-  height: 25px;
-  max-width: 80%;
-  padding: 5px 7px;
-  border-radius: 5px;
-  background: var(--userMsg-bg);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.attachmentPreview span {
-  margin-left: 5px;
-  color: var(--text-color-light);
-}
-
-#closeButton {
-  border: none;
-  padding: 0 5px;
-  background: transparent;
-  color: var(--text-color-light);
-  cursor: pointer;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#closeButton:hover {
-  color: red;
-}
-
-/* ============================ */
-/*      Responsive Styles       */
-/* ============================ */
-
-@container (max-width: 1200px) {
-  .inputGroup {
-    width: 80%;
-  }
-
-  .inputOptionMenu {
-    width: 80%;
-  }
-}
 
 @container (max-width: 992px) {
   .inputGroup {
@@ -224,10 +23,6 @@ button.disabled {
 
   .inputOptionMenu {
     width: 90%;
-  }
-
-  #userInput {
-    min-width: 200px;
   }
 }
 
@@ -240,22 +35,6 @@ button.disabled {
   .inputOptionMenu {
     width: 90%;
   }
-
-  #userInput {
-    min-width: 150px;
-  }
-
-  .inputGroupAppend {
-    align-items: center;
-  }
-
-  #submitBtn {
-    margin-right: 10px;
-  }
-
-  #attachmentIcon {
-    margin-top: 4px;
-  }
 }
 
 @container (max-width: 576px) {
@@ -265,38 +44,5 @@ button.disabled {
 
   .inputOptionMenu {
     width: 95%;
-  }
-
-  #userInput::placeholder {
-    font: normal medium "Exo2", "Montserrat", sans-serif;
-    letter-spacing: 2px;
-  }
-
-  .inputGroupAppend {
-    align-items: center;
-  }
-
-  .optionsMenuIcon {
-    width: 22px;
-    height: 22px;
-  }
-}
-
-@container (max-width: 320px) {
-  #submitBtn {
-    height: 35px;
-    width: 35px;
-    margin-right: 5px;
-  }
-
-  #submitIcon {
-    width: 27px;
-    height: 27px;
-    color: var(--text-color-opposite);
-  }
-
-  #attachmentIcon {
-    height: 22px;
-    width: 22px;
   }
 }

@@ -177,11 +177,11 @@ export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
           )}
           {/* for clear history button */}
           {page == "history" && (
-            <RedButton task="clear_history" text="Delete" icon={<MdDelete />} />
+            <RedButton task="clear_history" icon={<MdDelete className="size-full" />} />
           )}
           {/* for the logout button */}
           {page == "profile" && (
-            <RedButton task="logout" text="Logout" icon={<TbLogout />} />
+            <RedButton task="logout" icon={<TbLogout className="size-full" />} />
           )}
         </div>
       </div>

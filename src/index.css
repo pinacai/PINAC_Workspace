@@ -356,7 +356,7 @@
   transform: scale(0.95);
 }
 
-@container (max-width: 992px) {
+@media (max-width: 992px) {
   .newChatButton {
     padding: 5px 10px 5px 5px;
   }
@@ -366,7 +366,7 @@
   }
 }
 
-@container (max-width: 768px) {
+@media (max-width: 768px) {
   .newChatButton {
     padding: 5px 8px 5px 5px;
   }
@@ -376,7 +376,7 @@
   }
 }
 
-@container (max-width: 576px) {
+@media (max-width: 576px) {
   .newChatButton {
     padding: 3px;
   }

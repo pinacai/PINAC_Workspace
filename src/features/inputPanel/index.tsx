@@ -94,8 +94,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   return (
     <div className="w-full mt-[10px] mb-[20px] flex items-center justify-center">
       <div
-        className="w-4xl rounded-3xl p-3 relative
-      bg-gray-200 dark:bg-tertiary-dark border-1 border-gray-300 dark:border-neutral-600
+        className="rounded-3xl p-3 relative
+          w-[95%] xl:w-[60%] md:w-[90%]
+        bg-gray-200 dark:bg-tertiary-dark border-1 border-gray-300 dark:border-neutral-600
       "
       >
         {attachmentContext?.attachment && (

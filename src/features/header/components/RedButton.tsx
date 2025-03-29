@@ -1,15 +1,13 @@
 import React from "react";
 import { deleteAllSessions } from "../../../database/db";
 import { useNavigate } from "react-router-dom";
-import styles from "../styles/RedButton.module.css";
 
 interface RedButtonProps {
   task: "logout" | "clear_history";
-  text: string;
   icon: JSX.Element;
 }
 
-export const RedButton: React.FC<RedButtonProps> = ({ task, text, icon }) => {
+export const RedButton: React.FC<RedButtonProps> = ({ task, icon }) => {
   const navigate = useNavigate();
 
   //
@@ -30,9 +28,11 @@ export const RedButton: React.FC<RedButtonProps> = ({ task, text, icon }) => {
 
   return (
     <>
-      <button className={styles.logoutBtn} onClick={handleClick}>
-        <div className={styles.logoutImg}>{icon}</div>
-        <div className={styles.logoutText}>{text}</div>
+      <button
+        className="size-7 p-1.5 bg-red-500 hover:bg-red-700 rounded-full"
+        onClick={handleClick}
+      >
+        {icon}
       </button>
     </>
   );

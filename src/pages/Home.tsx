@@ -216,7 +216,7 @@ export const HomePage: React.FC = () => {
               className={
                 !welcomeTextContext?.isWelcomeTextVisible
                   ? "w-full h-full flex flex-col justify-start items-center"
-                  : ""
+                  : "w-full"
               }
             >
               <StopTextGeneration.Provider

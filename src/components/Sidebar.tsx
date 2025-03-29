@@ -12,14 +12,22 @@ import { LuHistory, LuLayers } from "react-icons/lu";
 import { BiUserCircle } from "react-icons/bi";
 
 const BREAKPOINT = 768;
+type PageType = "profile" | "history" | "about" | "settings" | "project";
 
 export const Sidebar: React.FC = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [userImageUrl, setUserImageUrl] = useState<string | null>(null);
-  const [page, setPage] = useState<
-    "profile" | "history" | "about" | "settings" | "project"
-  >("history");
+  const [page, setPage] = useState<PageType>("history");
+
+  const openSidebar = (givenPage: PageType) => {
+    setPage(givenPage);
+    if (givenPage == page) {
+      setIsExpanded(!isExpanded);
+    } else {
+      setIsExpanded(true);
+    }
+  };
 
   //
   useEffect(() => {
@@ -64,16 +72,19 @@ export const Sidebar: React.FC = () => {
               >
                 <IoReorderThreeOutline size={30} />
               </li>
-              <li className="sidebar-li" onClick={() => setPage("history")}>
+              <li className="sidebar-li" onClick={() => openSidebar("history")}>
                 <LuHistory size={25} />
               </li>
-              <li className="sidebar-li" onClick={() => setPage("project")}>
+              <li className="sidebar-li" onClick={() => openSidebar("project")}>
                 <LuLayers size={25} />
               </li>
-              <li className="sidebar-li" onClick={() => setPage("settings")}>
+              <li
+                className="sidebar-li"
+                onClick={() => openSidebar("settings")}
+              >
                 <IoSettingsOutline size={30} />
               </li>
-              <li className="sidebar-li" onClick={() => setPage("about")}>
+              <li className="sidebar-li" onClick={() => openSidebar("about")}>
                 <MdOutlinePeopleAlt size={25} />
               </li>
             </ul>
@@ -85,7 +96,7 @@ export const Sidebar: React.FC = () => {
               <li className="sidebar-li">
                 <ThemeToggle />
               </li>
-              <li className="sidebar-li" onClick={() => setPage("profile")}>
+              <li className="sidebar-li" onClick={() => openSidebar("profile")}>
                 {userImageUrl ? (
                   <img
                     className="size-30 rounded-b-full"
