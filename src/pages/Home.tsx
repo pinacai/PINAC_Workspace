@@ -7,13 +7,17 @@ import { UserMsgBubble } from "../features/msgBubble/UserMsgBubble";
 import { InputPanel } from "../features/inputPanel/index";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 import { startNewSession, addMsgToSession } from "../database/db";
-import styles from "./styles/Home.module.css";
 
 // context
 import { ChatMsgContext } from "../context/ChatMsg";
 import { WelcomeTextContext } from "../context/WelcomeText";
 import { ModelSettingsContext } from "../context/ModelSettings";
 import { AttachmentContext } from "../context/Attachment";
+
+// icons
+import { FiMinus } from "react-icons/fi";
+import { MdCheckBoxOutlineBlank } from "react-icons/md";
+import { RxCross2 } from "react-icons/rx";
 
 export const HomePage: React.FC = () => {
   const welcomeTextContext = useContext(WelcomeTextContext);
@@ -142,7 +146,19 @@ export const HomePage: React.FC = () => {
     }
   };
 
-  //
+  // for controling the window
+  const minimize = () => {
+    window.ipcRenderer.send("minimize");
+  };
+
+  const maximize = () => {
+    window.ipcRenderer.send("maximize");
+  };
+
+  const close = () => {
+    window.ipcRenderer.send("close");
+  };
+
   // Auto-scroll effect for chat messages
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -150,15 +166,46 @@ export const HomePage: React.FC = () => {
 
   // --------------------------------------------------- //
   return (
-    <>
+    <div className="w-full h-screen flex">
       <Sidebar />
-      <div className={styles.container}>
-        <div className={styles.chatContainer}>
+      <div className="w-full h-full flex flex-col justify-start items-center grow">
+        <div
+          className="w-full h-[30px] flex justify-end items-center
+         bg-secondary dark:bg-secondary-dark text-gray-200"
+        >
+          <div
+            className="draggable-element
+            w-full h-full flex justify-center items-center font-exo"
+          >
+            PINAC Workspace v2.1
+          </div>
+          <div className="w-39 h-full grid grid-cols-3">
+            <button
+              className="flex justify-center items-center hover:bg-gray-700 dark:hover:bg-zinc-800"
+              onClick={minimize}
+            >
+              <FiMinus size={17} />
+            </button>
+            <button
+              className="flex justify-center items-center hover:bg-gray-700 dark:hover:bg-zinc-800"
+              onClick={maximize}
+            >
+              <MdCheckBoxOutlineBlank size={15} />
+            </button>
+            <button
+              className="flex justify-center items-center hover:bg-red-700"
+              onClick={close}
+            >
+              <RxCross2 size={17} />
+            </button>
+          </div>
+        </div>
+        <div className="w-full h-full flex flex-col justify-start items-center grow">
           <Header title="PINAC" page="home" clearChat={InitializeNewChat} />
           <StopTextGeneration.Provider
             value={{ stop: isStop, setStop: setIsStop }}
           >
-            <div className={styles.msgBox}>
+            <div className="msgBox">
               {welcomeTextContext?.isWelcomeTextVisible && <WelcomeText />}
               {chatContext?.chatMsg.map((item) => item.element[3])}
               <div ref={scrollRef} />
@@ -178,6 +225,6 @@ export const HomePage: React.FC = () => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };

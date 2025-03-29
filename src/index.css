@@ -283,3 +283,7 @@
 .sidebar-li {
   @apply w-full flex items-center justify-center rounded-lg py-[15px] cursor-pointer transition-all duration-500 ease-in-out;
 }
+
+.draggable-element {
+  -webkit-app-region: drag;
+}
