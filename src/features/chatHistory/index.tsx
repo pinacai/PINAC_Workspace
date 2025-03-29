@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { Header } from "../header";
 import { SessionCard } from "./components/SessionCard";
 import { getAllSessions } from "../../database/db";
@@ -9,8 +8,6 @@ import styles from "./styles/index.module.css";
 import { CiSearch } from "react-icons/ci";
 
 const ChatHistory: React.FC = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
   const [sessions, setSessions] = React.useState<JSX.Element[]>([]);
 
   // get all sessions from DB
@@ -21,26 +18,22 @@ const ChatHistory: React.FC = () => {
           sessionId={session.id}
           date={`${String(session.timestamp.getDate()).padStart(
             2,
-            "0",
+            "0"
           )}.${String(session.timestamp.getMonth() + 1).padStart(
             2,
-            "0",
+            "0"
           )}.${String(session.timestamp.getFullYear())}`}
           title={session.title}
           key={session.id}
         />
-      )),
+      ))
     );
   });
 
   return (
     <>
       <div className={styles.historyContainer}>
-        {currentPath !== "/" ? (
-          <Header title="Chat History" subPage={false} />
-        ) : (
-          <Header title="Chat History" subPage={true} />
-        )}
+        <Header title="Chat History" page="history" />
         <div className={styles.historyCard}>
           <div className={styles.searchBar}>
             <CiSearch className={styles.icon} />

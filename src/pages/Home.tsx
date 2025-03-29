@@ -166,13 +166,11 @@ export const HomePage: React.FC = () => {
 
   // --------------------------------------------------- //
   return (
-    <div className="w-full h-screen flex">
+    <div className="w-full h-screen flex bg-secondary dark:bg-secondary-dark">
       <Sidebar />
       <div className="w-full h-full flex flex-col justify-start items-center grow">
-        <div
-          className="w-full h-[30px] flex justify-end items-center
-         bg-secondary dark:bg-secondary-dark text-gray-200"
-        >
+        {/* ------ Frame Header ------- */}
+        <div className="w-full h-[30px] flex justify-end items-center text-gray-200">
           <div
             className="draggable-element
             w-full h-full flex justify-center items-center font-exo"
@@ -200,7 +198,11 @@ export const HomePage: React.FC = () => {
             </button>
           </div>
         </div>
-        <div className="w-full h-full flex flex-col justify-start items-center grow">
+        {/* ------ Main Body ------- */}
+        <div
+          className="w-full h-full lg:mb-2 flex flex-col justify-start items-center
+          bg-primary dark:bg-primary-dark lg:rounded-xl"
+        >
           <Header title="PINAC" page="home" clearChat={InitializeNewChat} />
           <StopTextGeneration.Provider
             value={{ stop: isStop, setStop: setIsStop }}

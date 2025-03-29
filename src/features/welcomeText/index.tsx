@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import styles from "./styles/index.module.css";
 
 export const WelcomeText = () => {
   const [greeting, setGreeting] = useState<string>("");
@@ -26,8 +25,13 @@ export const WelcomeText = () => {
 
   // ----------------------------------- //
   return (
-      <div className={styles.welcomeText}>
-        {greeting}
-      </div>
+    <div
+      className="w-full h-20 flex items-center justify-center font-cormorant
+       text-gray-900 dark:text-gray-200 text-2xl lg:text-4xl md:text-3xl
+       font-semibold dark:font-medium md:font-medium
+      "
+    >
+      {greeting}
+    </div>
   );
 };

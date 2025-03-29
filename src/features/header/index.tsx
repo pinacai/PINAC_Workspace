@@ -3,13 +3,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "../../components/ThemeToggle";
 import { RedButton } from "./components/RedButton";
 import { NewChatBtn } from "./components/NewChatBtn";
-import styles from "./styles/index.module.css";
 
 // Icons
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 import { MdDelete } from "react-icons/md";
+
+const BREAKPOINT = 768;
 
 interface HeaderProps {
   title: string;
@@ -26,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
   //
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 460) {
+      if (window.innerWidth < BREAKPOINT) {
         setIsMenuVisible(true);
       } else {
         setIsMenuVisible(false);
@@ -62,15 +63,22 @@ export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
   return (
     <>
       <div
-        className={`${styles.pageHeader} ${
-          page == "home" && styles.homePageHeader
-        }`}
+        className={`w-full h-[60px] py-[10px] px-[20px] flex items-center justify-between
+        ${
+          location.pathname == "/" && page !== "home"
+            ? "text-gray-200"
+            : "text-gray-800"
+        } dark:text-gray-200
+        ${page == "home" && "lg:mt-[5px]"}
+        `}
       >
-        <div className={styles.leftSide}>
+        <div className="flex items-center justify-between">
           <div>
             <span
               className={
-                page == "home" ? `${styles.homeTitle}` : `${styles.title}`
+                page == "home"
+                  ? "font-normal font-nasa text-3xl lg:text-4xl"
+                  : "font-normal font-cormorant text-3xl lg:text-2xl"
               }
             >
               {title}
@@ -79,54 +87,77 @@ export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
 
           {/* Render the sidebar button */}
           {isMenuVisible && (
-            <div className={styles.headerMenu} ref={dropdownMenuRef}>
+            <div ref={dropdownMenuRef}>
               <div>
                 <button
-                  className={location.pathname == "/" ? `${styles.home}` : ""}
+                  className="ml-3 mt-2 text-gray-500 dark:text-gray-400 rounded-sm hover:bg-gray-300 dark:hover:bg-gray-700"
                   onClick={() => setIsDropdownActive(!isDropdownActive)}
                 >
                   {isDropdownActive ? (
-                    <IoIosArrowUp size={25} color="var(--text-color-iconic)" />
+                    <IoIosArrowUp size={22} />
                   ) : (
-                    <IoIosArrowDown
-                      size={25}
-                      color="var(--text-color-iconic)"
-                    />
+                    <IoIosArrowDown size={22} />
                   )}
                 </button>
               </div>
               <div
-                className={`${styles.dropdownMenu} ${
-                  isDropdownActive ? `${styles.active}` : ""
-                }`}
+                className={
+                  isDropdownActive
+                    ? "block absolute w-[110px] sm:w-[150px] mt-[5px] ml-[10px] font-exo bg-gray-200 dark:bg-tertiary-dark rounded-lg border-2 border-gray-300 dark:border-zinc-600 z-50"
+                    : "hidden"
+                }
               >
-                <ul>
+                <ul className="style-none">
                   {location.pathname !== "/profile" && (
-                    <li onClick={() => navigate("/profile")}>Profile</li>
+                    <li
+                      className="header-dropdown-li cursor-pointer hover:bg-gray-300 dark:hover:bg-zinc-600"
+                      onClick={() => navigate("/profile")}
+                    >
+                      Profile
+                    </li>
                   )}
                   {location.pathname !== "/" && (
-                    <li onClick={() => navigate("/")}>Chat</li>
+                    <li
+                      className="header-dropdown-li cursor-pointer hover:bg-gray-300 dark:hover:bg-zinc-600"
+                      onClick={() => navigate("/")}
+                    >
+                      Chat
+                    </li>
                   )}
                   {location.pathname !== "/history" && (
-                    <li onClick={() => navigate("/history")}>Chat History</li>
+                    <li
+                      className="header-dropdown-li cursor-pointer hover:bg-gray-300 dark:hover:bg-zinc-600"
+                      onClick={() => navigate("/history")}
+                    >
+                      Chat History
+                    </li>
                   )}
-                  {location.pathname !== "/about" && (
-                    <li onClick={() => navigate("/about")}>About Us</li>
+                  {location.pathname !== "/project" && (
+                    <li
+                      className="header-dropdown-li cursor-pointer hover:bg-gray-300 dark:hover:bg-zinc-600"
+                      onClick={() => navigate("/about")}
+                    >
+                      Project
+                    </li>
                   )}
                   {location.pathname !== "/settings" && (
-                    <li onClick={() => navigate("/settings")}>Settings</li>
+                    <li
+                      className="header-dropdown-li cursor-pointer hover:bg-gray-300 dark:hover:bg-zinc-600"
+                      onClick={() => navigate("/settings")}
+                    >
+                      Settings
+                    </li>
                   )}
-                </ul>
-              </div>
-              {/* Special section at last for theme change */}
-              <div
-                className={`${styles.dropdownLastMenu} ${styles.dropdownMenu} ${
-                  isDropdownActive ? `${styles.active}` : ""
-                }`}
-                style={{ marginTop: "167px" }}
-              >
-                <ul>
+                  {location.pathname !== "/about" && (
+                    <li
+                      className="header-dropdown-li cursor-pointer hover:bg-gray-300 dark:hover:bg-zinc-600"
+                      onClick={() => navigate("/about")}
+                    >
+                      About Us
+                    </li>
+                  )}
                   <li
+                    className="header-dropdown-li"
                     style={{
                       alignItems: "center",
                       padding: "5px 10px",
@@ -139,7 +170,7 @@ export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
             </div>
           )}
         </div>
-        <div className={styles.rightSide}>
+        <div className="flex gap-[15px]">
           {/* for the Clear Chat */}
           {location.pathname == "/" && clearChat && (
             <NewChatBtn clearChat={clearChat} />

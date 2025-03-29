@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
 import { Header } from "../header/index";
 import styles from "./styles/index.module.css";
 
@@ -8,8 +7,6 @@ import profileImage from "/icon/User Icon.png";
 import { FaPencilAlt } from "react-icons/fa";
 
 const Profile: React.FC = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
   const [displayName, setDisplayName] = useState<string>("");
   const [emailId, setEmailId] = useState<string>("");
   const [bio, setBio] = useState<string>("");
@@ -69,11 +66,7 @@ const Profile: React.FC = () => {
   return (
     <>
       <div className={styles.profileContainer}>
-        {currentPath !== "/" ? (
-          <Header title="Profile" subPage={false} />
-        ) : (
-          <Header title="Profile" subPage={true} />
-        )}
+        <Header title="Profile" page="profile" />
         <div className={styles.profileCard}>
           <div>
             {/* ======= profile Image ======= */}

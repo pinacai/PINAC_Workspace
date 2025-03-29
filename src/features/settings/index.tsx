@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { useLocation } from "react-router-dom";
 import { Header } from "../header";
 import { Menubar } from "../../components/Menubar";
 import { LLMSelector } from "./components/LLMSelector";
@@ -9,8 +8,6 @@ import { ModelSettingsContext } from "../../context/ModelSettings";
 import styles from "./styles/index.module.css";
 
 const Settings: React.FC = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
   const modelContext = useContext(ModelSettingsContext);
   const [isPage1, setIsPage1] = useState<boolean>(true); // show by default
   const [isPage2, setIsPage2] = useState<boolean>(false);
@@ -35,11 +32,7 @@ const Settings: React.FC = () => {
   return (
     <>
       <div className={styles.settingContainer}>
-        {currentPath !== "/" ? (
-          <Header title="Settings" subPage={false} />
-        ) : (
-          <Header title="Settings" subPage={true} />
-        )}
+        <Header title="Settings" page="settings" />
         <div className={styles.menubarContainer}>
           <Menubar menuItems={menuItems} />
         </div>
