@@ -43,6 +43,8 @@
   --color-secondary-dark: #1b1c1d;
   --color-tertiary-dark: #404045;
 
+  --height-body: calc(100vh - 30px);
+  --height-body-without-header: calc(100vh - 90px);
   --height-230: 230px;
 }
 
@@ -228,11 +230,6 @@
   --themeCard-hover-shadow: var(--hover-shadow);
 }
 
-/* Reset and Base Styles */
-* {
-  overflow: hidden;
-}
-
 .container {
   width: 100%;
   min-height: 100vh;
@@ -252,6 +249,14 @@
   flex-direction: column;
   overflow-y: auto;
   flex-grow: 1;
+}
+
+.msgBox::-webkit-scrollbar {
+  width: 10px;
+}
+
+.msgBox::-webkit-scrollbar-thumb {
+  background: #999;
 }
 
 @container (max-width: 1200px) {

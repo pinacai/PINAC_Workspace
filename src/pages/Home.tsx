@@ -199,28 +199,46 @@ export const HomePage: React.FC = () => {
         </div>
         {/* ------ Main Body ------- */}
         <div
-          className="w-full h-full flex flex-col justify-start items-center
+          className="w-full h-body flex flex-col justify-start items-center
           bg-primary dark:bg-primary-dark lg:rounded-xl"
         >
           <Header title="PINAC" page="home" clearChat={InitializeNewChat} />
-          <StopTextGeneration.Provider
-            value={{ stop: isStop, setStop: setIsStop }}
+          <div
+            className={`
+            ${
+              !welcomeTextContext?.isWelcomeTextVisible
+                ? "h-body-without-header"
+                : "h-full"
+            }
+            w-full flex flex-col justify-center items-center`}
           >
-            <div className="msgBox">
-              {welcomeTextContext?.isWelcomeTextVisible && <WelcomeText />}
-              {chatContext?.chatMsg.map((item) => item.element[3])}
-              <div ref={scrollRef} />
+            <div
+              className={
+                !welcomeTextContext?.isWelcomeTextVisible
+                  ? "w-full h-full flex flex-col justify-start items-center"
+                  : ""
+              }
+            >
+              <StopTextGeneration.Provider
+                value={{ stop: isStop, setStop: setIsStop }}
+              >
+                <div className="msgBox">
+                  {welcomeTextContext?.isWelcomeTextVisible && <WelcomeText />}
+                  {chatContext?.chatMsg.map((item) => item.element[3])}
+                  <div ref={scrollRef} />
+                </div>
+              </StopTextGeneration.Provider>
+              <ChatInput
+                userInput={userInputText}
+                setUserInput={setUserInputText}
+                buttonsDisabled={buttonsDisabled}
+                setButtonsDisabled={setButtonsDisabled}
+                textareaRef={textareaRef}
+                submit={SubmitUserInput}
+                setStop={setIsStop}
+              />
             </div>
-          </StopTextGeneration.Provider>
-          <ChatInput
-            userInput={userInputText}
-            setUserInput={setUserInputText}
-            buttonsDisabled={buttonsDisabled}
-            setButtonsDisabled={setButtonsDisabled}
-            textareaRef={textareaRef}
-            submit={SubmitUserInput}
-            setStop={setIsStop}
-          />
+          </div>
         </div>
       </div>
     </div>

@@ -26,7 +26,7 @@ export const WelcomeText = () => {
   // ----------------------------------- //
   return (
     <div
-      className="w-full h-20 flex items-center justify-center font-cormorant
+      className="w-full pb-8 flex items-center justify-center font-cormorant
        text-gray-900 dark:text-gray-200 text-2xl lg:text-4xl md:text-3xl
        font-semibold dark:font-medium md:font-medium
       "

@@ -92,9 +92,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   }, [textareaRef]);
 
   return (
-    <div className="w-full min-h-12 max-h-230 mt-[10px] mb-[20px] flex items-center justify-center">
+    <div className="w-full mt-[10px] mb-[20px] flex items-center justify-center">
       <div
-        className="w-4xl min-h-12 max-h-200 rounded-3xl p-3 relative
+        className="w-4xl rounded-3xl p-3 relative
       bg-gray-200 dark:bg-tertiary-dark border-1 border-gray-300 dark:border-neutral-600
       "
       >

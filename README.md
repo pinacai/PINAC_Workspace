@@ -1,14 +1,13 @@
 > [!NOTE]  
 > This is the forthcoming **v2.1** iteration of the application, which is currently in the development phase. At this time, this version of the application is not operational.
 
-
 <div align="center">
 
 <h1 style="border-bottom: none">
     <b><a href="https://pinacworkspace.pages.dev">PINAC Workspace</a></b>
 </h1>
 
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header 2.png" alt="header image">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header.png" alt="header image">
 
 <br>
 <br>
