@@ -1,21 +1,18 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { DropdownMenu } from "./components/DropdownMenu";
+import React, { useState, useEffect, useContext } from "react";
 import { AttachmentContext } from "../../context/Attachment";
-import { ModelSettingsContext } from "../../context/ModelSettings";
-import styles from "./styles/index.module.css";
 
-// Icons
-import { VscSend } from "react-icons/vsc";
-import { FaRegStopCircle, FaRegFileAlt } from "react-icons/fa";
-import { FaAngleRight } from "react-icons/fa6";
-import { CgAttachment } from "react-icons/cg";
+// icons
+import { PiSparkleLight } from "react-icons/pi";
+import { TbBulb } from "react-icons/tb";
+import { IoIosMore } from "react-icons/io";
+import { FiPlus } from "react-icons/fi";
+import { FaRegStopCircle } from "react-icons/fa";
+import { FaRegFileLines } from "react-icons/fa6";
 import { AiOutlineClose } from "react-icons/ai";
 
-interface InputPanelProps {
+interface ChatInputProps {
   userInput: string;
   setUserInput: (value: string) => void;
-  isUserInputActive: boolean;
-  setUserInputActive: (value: boolean) => void;
   buttonsDisabled: boolean;
   setButtonsDisabled: (value: boolean) => void;
   textareaRef: React.RefObject<HTMLTextAreaElement>;
@@ -23,72 +20,38 @@ interface InputPanelProps {
   setStop: (value: boolean) => void;
 }
 
-export const InputPanel: React.FC<InputPanelProps> = ({
+export const ChatInput: React.FC<ChatInputProps> = ({
   userInput,
   setUserInput,
-  isUserInputActive,
-  setUserInputActive,
   buttonsDisabled,
   textareaRef,
   submit,
   setStop,
 }) => {
-  const optionMenuRef = useRef<HTMLDivElement>(null);
-  const modelContext = useContext(ModelSettingsContext);
   const attachmentContext = useContext(AttachmentContext);
-  const [attachmentOptions, setAttachmentOptions] = useState<boolean>(false);
-  const [currentDropdownIndex, setCurrentDropdownIndex] = useState(0); // To track the active dropdown
-  const [isShowAllAdvanceOptions, setIsShowAllAdvanceOptions] = useState(
-    window.innerWidth > 576
-  );
+  const [, setAttachment] = useState<boolean>(false);
 
-  //
-  const availablePrompts = [
-    "None",
-    "Write Code",
-    "Explain Code",
-    "Improve Writing",
-    "Improve Academic Writing",
-    "Summarize it",
-    "Summarize in Micro",
-    "General Formal Email",
-    "General Informal Email",
-    "Business Email (B2B, B2Employee, B2Investor)",
-    "Proposal Submission Email",
-    "Complaint Email",
-    "Welcome Email",
-    "Announcement Email",
-    "Inquiry Email",
-    "Confirmation Email",
-    "Resignation Email",
-    "Acknowledgment Email",
-    "Thank You Email",
-    "Acceptance Email",
-    "Formal Apology Email",
-    "Formal Congratulation Email",
-    "Academic Email",
-    "Recommendation Email",
-    "Write Essay",
-    "Write Micro Essay",
-  ];
+  // Handles attachment
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      attachmentContext?.setAttachment(file);
+      setAttachment(true);
+    }
+  };
 
-  //
-  const dropdowns = [
-    {
-      label: "Prompt: ",
-      defaultOption: "None",
-      optionList: availablePrompts,
-      localStorageVariableName: "applied-prompt",
-    },
-    {
-      label: "Output: ",
-      defaultOption: "Markdown Format",
-      optionList: ["Markdown Format"],
-      localStorageVariableName: "ai-response-format",
-    },
-  ];
+  const handleCancelUpload = () => {
+    attachmentContext?.setAttachment(null);
+    setAttachment(false);
+  };
 
-  //
+  function getFileName(filePath: string) {
+    const parts = filePath.split("/");
+    const fileNameWithExtension = parts.pop() || "";
+    const [fileName, extension] = fileNameWithExtension.split(".");
+    return [fileName, extension];
+  }
+
   // Handles Enter key press for submitting messages
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter") {
@@ -103,55 +66,6 @@ export const InputPanel: React.FC<InputPanelProps> = ({
     }
   };
 
-  //
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      attachmentContext?.setAttachment(file);
-    }
-  };
-
-  //
-  const handleCancelUpload = () => {
-    attachmentContext?.setAttachment(null);
-  };
-
-  //
-  function getFileName(filePath: string): string {
-    const parts = filePath.split("/");
-    return parts.pop() || "";
-  }
-
-  //
-  // Creating an event handler to close the option menu by click elsewhere outside the menu
-  useEffect(() => {
-    const handleOutsideClicks = (e: MouseEvent) => {
-      if (
-        attachmentOptions &&
-        optionMenuRef.current &&
-        !optionMenuRef.current.contains(e.target as Node)
-      ) {
-        setAttachmentOptions(false);
-      }
-    };
-
-    window.addEventListener("mousedown", handleOutsideClicks);
-
-    return () => window.removeEventListener("mousedown", handleOutsideClicks);
-  }, [attachmentOptions]);
-
-  //
-  //
-  // for UI responsiveness
-  useEffect(() => {
-    const updateOutImgPreview = () => {
-      setIsShowAllAdvanceOptions(window.innerWidth > 576);
-    };
-    window.addEventListener("resize", updateOutImgPreview);
-    return () => window.removeEventListener("resize", updateOutImgPreview);
-  }, []);
-
-  //
   // for managing the height of the textarea automatically
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
@@ -177,147 +91,105 @@ export const InputPanel: React.FC<InputPanelProps> = ({
     };
   }, [textareaRef]);
 
-  //
-  // -------------------------------------------------------- //
   return (
-    <div className={styles.inputBox}>
-      {/* ======== Advance Options (Dropdown) ============ */}
-
-      {modelContext?.modelType == "Text Generation" &&
-        modelContext?.textModelType == "Private LLM" && (
-          <div className={styles.inputOptionMenu}>
-            {/* Render both dropdowns on wider screens */}
-            {isShowAllAdvanceOptions ? (
-              <>
-                <DropdownMenu
-                  labelText={dropdowns[0].label}
-                  defaultOption={dropdowns[0].defaultOption}
-                  optionList={dropdowns[0].optionList}
-                  localStorageVariableName={
-                    dropdowns[0].localStorageVariableName
-                  }
-                  searchBar={true}
-                />
-                <DropdownMenu
-                  labelText={dropdowns[1].label}
-                  defaultOption={dropdowns[1].defaultOption}
-                  optionList={dropdowns[1].optionList}
-                  localStorageVariableName={
-                    dropdowns[1].localStorageVariableName
-                  }
-                  searchBar={false}
-                />
-              </>
-            ) : (
-              // Render the current dropdown when on smaller screens
-              <>
-                <DropdownMenu
-                  labelText={dropdowns[currentDropdownIndex].label}
-                  defaultOption={dropdowns[currentDropdownIndex].defaultOption}
-                  optionList={dropdowns[currentDropdownIndex].optionList}
-                  localStorageVariableName={
-                    dropdowns[currentDropdownIndex].localStorageVariableName
-                  }
-                  searchBar={true}
-                />
-                <button
-                  className={styles.nextButton}
-                  onClick={() =>
-                    setCurrentDropdownIndex(
-                      (currentDropdownIndex + 1) % dropdowns.length
-                    )
-                  }
-                >
-                  <FaAngleRight size={25} color="var(--text-color-iconic)" />
-                </button>
-              </>
-            )}
-          </div>
-        )}
-
-      {/* ============================ */}
+    <div className="w-full min-h-12 max-h-230 mt-[10px] mb-[20px] flex items-center justify-center">
       <div
-        className={`${styles.inputGroup} ${
-          isUserInputActive ? `${styles.active}` : ""
-        }`}
-        onFocus={() => setUserInputActive(true)}
-        onBlur={() => setUserInputActive(false)}
+        className="w-4xl min-h-12 max-h-200 rounded-3xl p-3 relative
+      bg-gray-200 dark:bg-tertiary-dark border-1 border-gray-300 dark:border-neutral-600
+      "
       >
-        {/* ============ Attachment Preview ============ */}
         {attachmentContext?.attachment && (
-          <div className={styles.attachmentPreview}>
-            <div>
-              <FaRegFileAlt color="var(--text-color-light)" />
-              <span>{getFileName(attachmentContext?.attachment.name)}</span>
+          <div className="mb-4 relative">
+            <div className="flex items-center gap-2 bg-gray-700 dark:bg-primary-dark p-2 pr-3 rounded-2xl w-fit">
+              <div className="bg-sky-500 p-2 rounded-lg">
+                <FaRegFileLines size={20} className="text-white" />
+              </div>
+              <div>
+                <div className="text-white">
+                  {getFileName(attachmentContext?.attachment.name)[0]}
+                </div>
+                <div className="text-gray-400 text-sm">
+                  {getFileName(attachmentContext?.attachment.name)[1]}
+                </div>
+              </div>
               <button
-                id={styles.closeButton}
-                onClick={() => handleCancelUpload()}
+                className="pl-2 rounded-full text-gray-400 hover:text-red-500"
+                onClick={handleCancelUpload}
               >
-                <AiOutlineClose />
+                <AiOutlineClose size={16} />
               </button>
             </div>
           </div>
         )}
-        <div className={styles.inputGroupInner}>
-          {/* ====== Main Input Area ======= */}
-          <textarea
-            id={styles.userInput}
-            className={buttonsDisabled ? `${styles.disabled}` : ""}
-            value={userInput}
-            onChange={(event) => setUserInput(event.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Tell me your task..."
-            disabled={buttonsDisabled}
-            ref={textareaRef}
-            required
-          />
-          {/* ============ Buttons besides the text area ============= */}
-          <div className={styles.inputGroupAppend}>
-            {!buttonsDisabled ? (
-              <>
-                {/* ====== Attachment Button ======= */}
-                <label id={styles.attachmentBtn}>
-                  <CgAttachment
-                    title="Add Content"
-                    id={styles.attachmentIcon}
-                  />
-                  {modelContext?.textModelType == "Private LLM" &&
-                  modelContext?.ollamaModelName?.includes("llama3.2-vision") ? (
-                    <input
-                      type="file"
-                      accept=".pdf, .jpg, .jpeg, .png"
-                      style={{ display: "none" }}
-                      onChange={(e) => handleFileUpload(e)}
-                    />
-                  ) : (
-                    <input
-                      type="file"
-                      accept=".pdf"
-                      style={{ display: "none" }}
-                      onChange={(e) => handleFileUpload(e)}
-                    />
-                  )}
-                </label>
 
-                {/* ====== Submit Button ======= */}
-                <button
-                  id={styles.submitBtn}
-                  className={buttonsDisabled ? `${styles.disabled}` : ""}
-                  onClick={() =>
-                    userInput !== undefined ? submit(userInput) : {}
-                  }
-                  disabled={buttonsDisabled}
-                >
-                  <VscSend id={styles.submitIcon} />
-                </button>
-              </>
-            ) : (
-              /* ====== Stop Text Generation Button ======= */
-              <button onClick={() => setStop(true)} className={styles.stopIcon}>
-                <FaRegStopCircle size={25} color="var(--text-color-iconic)" />
-              </button>
-            )}
+        <textarea
+          className={`chatInput placeholder:text-gray-500 dark:placeholder:text-zinc-400 ${
+            buttonsDisabled && "cursor-none"
+          }`}
+          value={userInput}
+          onChange={(event) => setUserInput(event.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Tell me your task..."
+          disabled={buttonsDisabled}
+          ref={textareaRef}
+          required
+        />
+
+        <div className="flex items-center justify-between pl-2">
+          <div className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-gray-100">
+            <label className="w-9 h-9 rounded-full flex items-center justify-center border-1 border-gray-400 dark:border-zinc-500 cursor-pointer">
+              <FiPlus size={20} />
+              <input
+                type="file"
+                accept=".pdf, .jpg, .jpeg, .png"
+                className="hidden"
+                onChange={(e) => handleFileUpload(e)}
+              />
+            </label>
+
+            <button className="flex items-center gap-2 px-4 py-2 rounded-full border-1 border-gray-400 dark:border-zinc-500 cursor-pointer">
+              <PiSparkleLight size={20} />
+              <span>Deep Think</span>
+            </button>
+
+            <button className="flex items-center gap-2 px-4 py-2 rounded-full border-1 border-gray-400 dark:border-zinc-500 cursor-pointer">
+              <TbBulb size={20} />
+              <span>Prompt</span>
+            </button>
+
+            <button className="w-9 h-9 rounded-full flex items-center justify-center border-1 border-gray-400 dark:border-zinc-500 cursor-pointer">
+              <IoIosMore size={20} />
+            </button>
           </div>
+
+          {!buttonsDisabled ? (
+            <button
+              className="w-10 h-10 bg-gray-800 dark:bg-gray-100 rounded-full flex items-center justify-center
+            text-gray-100 dark:text-gray-800 hover:bg-gray-700 dark:hover:bg-gray-300"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 10l7-7m0 0l7 7m-7-7v18"
+                />
+              </svg>
+            </button>
+          ) : (
+            <button
+              className="size-10 bg-gray-800 dark:bg-gray-100 rounded-full flex items-center justify-center
+              text-gray-100 dark:text-gray-800 hover:bg-gray-700 dark:hover:bg-gray-300"
+              onClick={() => setStop(true)}
+            >
+              <FaRegStopCircle className="size-6" />
+            </button>
+          )}
         </div>
       </div>
     </div>

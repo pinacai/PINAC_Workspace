@@ -4,7 +4,7 @@ import { Header } from "../features/header/index";
 import { WelcomeText } from "../features/welcomeText/index";
 import { AiMsgBubble, AiLoader } from "../features/msgBubble/AiMsgBubble";
 import { UserMsgBubble } from "../features/msgBubble/UserMsgBubble";
-import { InputPanel } from "../features/inputPanel/index";
+import { ChatInput } from "../features/inputPanel";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 import { startNewSession, addMsgToSession } from "../database/db";
 
@@ -25,7 +25,6 @@ export const HomePage: React.FC = () => {
   const llmContext = useContext(ModelSettingsContext);
   const attachmentContext = useContext(AttachmentContext);
   const [userInputText, setUserInputText] = useState<string>("");
-  const [isUserInputActive, setIsUserInputActive] = useState<boolean>(false);
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
   const [isStop, setIsStop] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -200,7 +199,7 @@ export const HomePage: React.FC = () => {
         </div>
         {/* ------ Main Body ------- */}
         <div
-          className="w-full h-full lg:mb-2 flex flex-col justify-start items-center
+          className="w-full h-full flex flex-col justify-start items-center
           bg-primary dark:bg-primary-dark lg:rounded-xl"
         >
           <Header title="PINAC" page="home" clearChat={InitializeNewChat} />
@@ -213,12 +212,9 @@ export const HomePage: React.FC = () => {
               <div ref={scrollRef} />
             </div>
           </StopTextGeneration.Provider>
-
-          <InputPanel
+          <ChatInput
             userInput={userInputText}
             setUserInput={setUserInputText}
-            isUserInputActive={isUserInputActive}
-            setUserInputActive={setIsUserInputActive}
             buttonsDisabled={buttonsDisabled}
             setButtonsDisabled={setButtonsDisabled}
             textareaRef={textareaRef}

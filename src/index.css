@@ -42,6 +42,8 @@
   --color-primary-dark: #292a2d;
   --color-secondary-dark: #1b1c1d;
   --color-tertiary-dark: #404045;
+
+  --height-230: 230px;
 }
 
 .Dawn_n_Dusk-light {
@@ -241,7 +243,7 @@
 /*  pages/Home.tsx   */
 .msgBox {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   padding-left: 20%;
   padding-right: 20%;
   padding-top: 30px;
@@ -377,4 +379,25 @@
   .newChatButton span {
     display: none;
   }
+}
+
+/*   features/inputPanel/index.tsx   */
+.chatInput {
+  height: 50px;
+  max-height: 150px;
+  width: 100%;
+  padding: 15px 10px 10px 10px;
+  outline: none;
+  resize: none;
+  border: none;
+  font: normal medium "Montserrat", sans-serif;
+  background: transparent;
+  flex-grow: 1;
+  @apply text-gray-900 dark:text-gray-100;
+}
+
+.chatInput::placeholder {
+  align-items: center;
+  font: normal large "Exo2", "Montserrat", sans-serif;
+  letter-spacing: 2px;
 }

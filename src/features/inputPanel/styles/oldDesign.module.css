@@ -45,16 +45,14 @@
 
 #userInput {
   height: 50px;
-  max-height: 200px;
+  max-height: 150px;
   min-width: 300px;
   padding: 15px 10px 10px 10px;
   outline: none;
   resize: none;
   border: none;
   color: var(--text-color-opposite);
-  font:
-    normal medium "Montserrat",
-    sans-serif;
+  font: normal medium "Montserrat", sans-serif;
   background: transparent;
   flex-grow: 1;
 }
@@ -62,15 +60,8 @@
 #userInput::placeholder {
   color: var(--placeholder-color);
   align-items: center;
-  font:
-    normal large "Exo2",
-    "Montserrat",
-    sans-serif;
+  font: normal large "Exo2", "Montserrat", sans-serif;
   letter-spacing: 2px;
-}
-
-#userInput::-webkit-scrollbar {
-  width: 0px;
 }
 
 /* =========== For Buttons (send, stop, etc) =========== */
@@ -277,10 +268,7 @@ button.disabled {
   }
 
   #userInput::placeholder {
-    font:
-      normal medium "Exo2",
-      "Montserrat",
-      sans-serif;
+    font: normal medium "Exo2", "Montserrat", sans-serif;
     letter-spacing: 2px;
   }
 
