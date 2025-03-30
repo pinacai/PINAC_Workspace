@@ -43,20 +43,12 @@
   --color-secondary-dark: #1b1c1d;
   --color-tertiary-dark: #404045;
 
-  --height-body: calc(100vh - 30px);
   --height-body-without-header: calc(100vh - 90px);
   --height-230: 230px;
 }
 
 /*    Global styles    */
 /* =================== */
-
-.container {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 
 /*  pages/Home.tsx   */
 .msgBox {

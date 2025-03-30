@@ -1,9 +1,7 @@
 import { useContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
-import { SignInPage } from "./pages/SignIn";
-import { HomePage } from "./pages/Home";
-import { Sidebar } from "./components/Sidebar";
+import { FrameHeader } from "./components/FrameHeader";
 
 // context
 import { AuthContext } from "./context/Authentication";
@@ -14,10 +12,12 @@ import { AttachmentProvider } from "./context/Attachment";
 import "./index.css";
 
 // pages
-import ChatHistory from "./features/chatHistory/index";
-import AboutUs from "./features/aboutUs/index";
-import Settings from "./features/settings/index";
+import SignInPage from "./pages/SignIn";
+import HomePage from "./pages/Home";
 import Profile from "./features/profile/index";
+import ChatHistory from "./features/chatHistory/index";
+import Settings from "./features/settings/index";
+import AboutUs from "./features/aboutUs/index";
 
 const BREAKPOINT = 768;
 
@@ -51,66 +51,28 @@ const App = () => {
             <ModelSettingsProvider>
               <AttachmentProvider>
                 <ChatMsgProvider>
-                  {isAuthenticated ? <HomePage /> : <SignInPage />}
+                  {isAuthenticated ? (
+                    <FrameHeader children={<HomePage />} />
+                  ) : (
+                    <FrameHeader children={<SignInPage />} />
+                  )}
                 </ChatMsgProvider>
               </AttachmentProvider>
             </ModelSettingsProvider>
           </WelcomeTextProvider>
         }
       />
-      <Route
-        path="/profile"
-        element={
-          <>
-            <Sidebar />
-            <div className="container">
-              <Profile />
-            </div>
-          </>
-        }
-      />
+      <Route path="/profile" element={<FrameHeader children={<Profile />} />} />
       <Route
         path="/history"
-        element={
-          <>
-            <Sidebar />
-            <div className="container">
-              <ChatHistory />
-            </div>
-          </>
-        }
+        element={<FrameHeader children={<ChatHistory />} />}
       />
-      <Route
-        path="/history"
-        element={
-          <>
-            <Sidebar />
-            <div className="container" />
-          </>
-        }
-      />
-      <Route
-        path="/about"
-        element={
-          <>
-            <Sidebar />
-            <div className="container">
-              <AboutUs />
-            </div>
-          </>
-        }
-      />
+      <Route path="/project" element={<FrameHeader children={<></>} />} />
       <Route
         path="/settings"
-        element={
-          <>
-            <Sidebar />
-            <div className="container">
-              <Settings />
-            </div>
-          </>
-        }
+        element={<FrameHeader children={<Settings />} />}
       />
+      <Route path="/about" element={<FrameHeader children={<AboutUs />} />} />
     </Routes>
   );
 };

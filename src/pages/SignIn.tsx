@@ -4,7 +4,7 @@ import styles from "./styles/SignIn.module.css";
 // image
 import appLogo from "/icon/Full App Logo.svg";
 
-export const SignInPage: React.FC = () => {
+const SignInPage: React.FC = () => {
   const handleButtonClick = () => {
     window.ipcRenderer.send(
       "open-external-link",
@@ -47,3 +47,5 @@ export const SignInPage: React.FC = () => {
     </div>
   );
 };
+
+export default SignInPage;

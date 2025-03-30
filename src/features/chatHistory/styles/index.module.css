@@ -1,13 +1,3 @@
-.historyContainer {
-  height: 100%;
-  width: 100%;
-  font-family: "Exo2", "Montserrat", sans-serif;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .historyCard {
   /* height: 100%; */
   width: 100%;

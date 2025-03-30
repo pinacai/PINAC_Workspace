@@ -30,89 +30,90 @@ const Settings: React.FC = () => {
 
   // ------------------------------ //
   return (
-    <>
-      <div className={styles.settingContainer}>
-        <Header title="Settings" page="settings" />
-        <div className={styles.menubarContainer}>
-          <Menubar menuItems={menuItems} />
-        </div>
-        {/* --------------------------------------------------------- */}
-        {isPage1 && (
-          <>
-            {/*     Section 1 ( Model Type )     */}
-            {/* =========================== */}
-            <div className={styles.section}>
-              <div className={styles.sectionTitle}>
-                <span>Model Type</span>
-              </div>
-              <DropdownMenu
-                defaultOption="Text Generation"
-                optionList={["Text Generation", "Image Generation"]}
-                valueName="model-type"
-              />
+    <div
+      className="w-full h-full flex flex-col items-center justify-center overflow-y-auto
+    bg-primary dark:bg-primary-dark lg:bg-transparent dark:lg:bg-transparent"
+    >
+      <Header title="Settings" page="settings" />
+      <div className={styles.menubarContainer}>
+        <Menubar menuItems={menuItems} />
+      </div>
+      {/* --------------------------------------------------------- */}
+      {isPage1 && (
+        <>
+          {/*     Section 1 ( Model Type )     */}
+          {/* =========================== */}
+          <div className={styles.section}>
+            <div className={styles.sectionTitle}>
+              <span>Model Type</span>
             </div>
-            {/*     Section 2 ( Theme )     */}
-            {/* =========================== */}
-            {/* <div className={styles.section}>
+            <DropdownMenu
+              defaultOption="Text Generation"
+              optionList={["Text Generation", "Image Generation"]}
+              valueName="model-type"
+            />
+          </div>
+          {/*     Section 2 ( Theme )     */}
+          {/* =========================== */}
+          {/* <div className={styles.section}>
               <div className={styles.sectionTitle}>
                 <span>Theme</span>
               </div>
               <ThemeSwitcher />
             </div> */}
-          </>
-        )}
-        {/* --------------------------------------------------------- */}
+        </>
+      )}
+      {/* --------------------------------------------------------- */}
 
-        {isPage2 &&
-          (modelContext?.modelType === "Text Generation" ? (
-            <>
-              {/*     Section 1 (Select LLM)      */}
-              {/* =============================== */}
-              <div className={styles.section}>
-                {/*     Warning card     */}
-                {modelContext?.textModelType === "Private LLM" && (
-                  <div className={styles.warningCard}>
-                    <div className={styles.warningContent}>
-                      <div className={styles.warningIcon}>⚠</div>
-                      <div className={styles.warningText}>
-                        Write the exact name of model as in Ollama. For getting
-                        pulled model list run <b>ollama list</b> in terminal.
-                      </div>
+      {isPage2 &&
+        (modelContext?.modelType === "Text Generation" ? (
+          <>
+            {/*     Section 1 (Select LLM)      */}
+            {/* =============================== */}
+            <div className={styles.section}>
+              {/*     Warning card     */}
+              {modelContext?.textModelType === "Private LLM" && (
+                <div className={styles.warningCard}>
+                  <div className={styles.warningContent}>
+                    <div className={styles.warningIcon}>⚠</div>
+                    <div className={styles.warningText}>
+                      Write the exact name of model as in Ollama. For getting
+                      pulled model list run <b>ollama list</b> in terminal.
                     </div>
                   </div>
-                )}
-                <div className={styles.sectionTitle}>
-                  <span>Select LLM</span>
                 </div>
-                <LLMSelector />
+              )}
+              <div className={styles.sectionTitle}>
+                <span>Select LLM</span>
               </div>
-              {/*   Section 2 (Output Language)    */}
-              {/* ================================= */}
-              <div className={styles.section}>
-                <div className={styles.sectionTitle}>
-                  <span>Output Language</span>
-                </div>
-                <DropdownMenu
-                  defaultOption="English"
-                  optionList={["English"]}
-                  valueName="output-language"
-                />
+              <LLMSelector />
+            </div>
+            {/*   Section 2 (Output Language)    */}
+            {/* ================================= */}
+            <div className={styles.section}>
+              <div className={styles.sectionTitle}>
+                <span>Output Language</span>
               </div>
-            </>
-          ) : (
-            <>
-              {/*       Select Image Model        */}
-              {/* =============================== */}
-              <div className={styles.section}>
-                <div className={styles.sectionTitle}>
-                  <span>Select Model</span>
-                </div>
-                <ImgModelSelector />
+              <DropdownMenu
+                defaultOption="English"
+                optionList={["English"]}
+                valueName="output-language"
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            {/*       Select Image Model        */}
+            {/* =============================== */}
+            <div className={styles.section}>
+              <div className={styles.sectionTitle}>
+                <span>Select Model</span>
               </div>
-            </>
-          ))}
-      </div>
-    </>
+              <ImgModelSelector />
+            </div>
+          </>
+        ))}
+    </div>
   );
 };
 

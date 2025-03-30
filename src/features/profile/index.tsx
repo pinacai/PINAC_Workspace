@@ -64,89 +64,90 @@ const Profile: React.FC = () => {
 
   // ------------------------------------------------------ //
   return (
-    <>
-      <div className={styles.profileContainer}>
-        <Header title="Profile" page="profile" />
-        <div className={styles.profileCard}>
-          <div>
-            {/* ======= profile Image ======= */}
-            <div className={styles.profileImgContainer}>
-              <div className={styles.profileImg} style={{ cursor: "pointer" }}>
-                {imageUrl ? (
-                  <img src={imageUrl} alt="Profile" />
-                ) : (
-                  <img src={profileImage} alt="Profile" />
-                )}{" "}
-              </div>
-              <button className={styles.editButton} onClick={handleImageClick}>
-                <FaPencilAlt size={20} color="var(--sidebar-icon-color)" />
-              </button>
+    <div
+      className="w-full h-full flex flex-col items-center justify-center overflow-y-auto
+    bg-primary dark:bg-primary-dark lg:bg-transparent dark:lg:bg-transparent"
+    >
+      <Header title="Profile" page="profile" />
+      <div className={styles.profileCard}>
+        <div>
+          {/* ======= profile Image ======= */}
+          <div className={styles.profileImgContainer}>
+            <div className={styles.profileImg} style={{ cursor: "pointer" }}>
+              {imageUrl ? (
+                <img src={imageUrl} alt="Profile" />
+              ) : (
+                <img src={profileImage} alt="Profile" />
+              )}{" "}
             </div>
-            {/* ======= Profile Input Form ======= */}
-            <input
-              type="file"
-              ref={fileInputRef}
-              required
-              style={{ display: "none" }}
-              onChange={(e) => handleFileChange(e)}
-            />
+            <button className={styles.editButton} onClick={handleImageClick}>
+              <FaPencilAlt size={20} color="var(--sidebar-icon-color)" />
+            </button>
           </div>
-          <div className={styles.userDetails}>
-            <form className={styles.form}>
-              <label>
-                <input
-                  required
-                  placeholder=""
-                  type="text"
-                  className={styles.input}
-                  value={displayName}
-                  onChange={(event) => {
-                    setDisplayName(event.target.value);
-                  }}
-                />
-                <span>Full Name</span>
-              </label>
-
-              <label>
-                <input
-                  required
-                  placeholder=""
-                  type="email"
-                  className={styles.input}
-                  value={emailId}
-                  onChange={(event) => {
-                    setEmailId(event.target.value);
-                  }}
-                />
-                <span>Email</span>
-              </label>
-
-              <label>
-                <textarea
-                  placeholder="Tell Us about yourself"
-                  id={styles.bio}
-                  className={styles.input}
-                  value={bio}
-                  onChange={(event) => {
-                    setBio(event.target.value);
-                  }}
-                />
-              </label>
-
-              {/* ======= Sunmit Button ======= */}
-              <button
-                className={styles.submit}
-                onClick={() => {
-                  saveUserInfo();
+          {/* ======= Profile Input Form ======= */}
+          <input
+            type="file"
+            ref={fileInputRef}
+            required
+            style={{ display: "none" }}
+            onChange={(e) => handleFileChange(e)}
+          />
+        </div>
+        <div className={styles.userDetails}>
+          <form className={styles.form}>
+            <label>
+              <input
+                required
+                placeholder=""
+                type="text"
+                className={styles.input}
+                value={displayName}
+                onChange={(event) => {
+                  setDisplayName(event.target.value);
                 }}
-              >
-                Save Changes
-              </button>
-            </form>
-          </div>
+              />
+              <span>Full Name</span>
+            </label>
+
+            <label>
+              <input
+                required
+                placeholder=""
+                type="email"
+                className={styles.input}
+                value={emailId}
+                onChange={(event) => {
+                  setEmailId(event.target.value);
+                }}
+              />
+              <span>Email</span>
+            </label>
+
+            <label>
+              <textarea
+                placeholder="Tell Us about yourself"
+                id={styles.bio}
+                className={styles.input}
+                value={bio}
+                onChange={(event) => {
+                  setBio(event.target.value);
+                }}
+              />
+            </label>
+
+            {/* ======= Sunmit Button ======= */}
+            <button
+              className={styles.submit}
+              onClick={() => {
+                saveUserInfo();
+              }}
+            >
+              Save Changes
+            </button>
+          </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

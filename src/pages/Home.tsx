@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
 import { Sidebar } from "../components/Sidebar";
-import { GreetingText } from "../components/greetingText";
+import { GreetingText } from "../components/GreetingText";
 import { Header } from "../features/header/index";
 import { AiMsgBubble, AiLoader } from "../features/msgBubble/AiMsgBubble";
 import { UserMsgBubble } from "../features/msgBubble/UserMsgBubble";
@@ -14,12 +14,7 @@ import { WelcomeTextContext } from "../context/WelcomeText";
 import { ModelSettingsContext } from "../context/ModelSettings";
 import { AttachmentContext } from "../context/Attachment";
 
-// icons
-import { FiMinus } from "react-icons/fi";
-import { MdCheckBoxOutlineBlank } from "react-icons/md";
-import { RxCross2 } from "react-icons/rx";
-
-export const HomePage: React.FC = () => {
+const HomePage: React.FC = () => {
   const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
   const llmContext = useContext(ModelSettingsContext);
@@ -145,19 +140,6 @@ export const HomePage: React.FC = () => {
     }
   };
 
-  // for controling the window
-  const minimize = () => {
-    window.ipcRenderer.send("minimize");
-  };
-
-  const maximize = () => {
-    window.ipcRenderer.send("maximize");
-  };
-
-  const close = () => {
-    window.ipcRenderer.send("close");
-  };
-
   // Auto-scroll effect for chat messages
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -165,82 +147,52 @@ export const HomePage: React.FC = () => {
 
   // --------------------------------------------------- //
   return (
-    <div className="w-full h-screen flex bg-secondary dark:bg-secondary-dark">
+    <div className="w-full h-screen flex">
       <Sidebar />
-      <div className="h-full flex flex-col justify-start items-center grow">
-        {/* ------ Frame Header ------- */}
-        <div className="w-full h-[30px] flex justify-end items-center text-gray-200">
-          <div
-            className="draggable-element
-            w-full h-full flex justify-center items-center font-exo"
-          >
-            PINAC Workspace v2.1
-          </div>
-          <div className="w-39 h-full grid grid-cols-3">
-            <button
-              className="flex justify-center items-center hover:bg-gray-700 dark:hover:bg-zinc-800"
-              onClick={minimize}
-            >
-              <FiMinus size={17} />
-            </button>
-            <button
-              className="flex justify-center items-center hover:bg-gray-700 dark:hover:bg-zinc-800"
-              onClick={maximize}
-            >
-              <MdCheckBoxOutlineBlank size={15} />
-            </button>
-            <button
-              className="flex justify-center items-center hover:bg-red-700"
-              onClick={close}
-            >
-              <RxCross2 size={17} />
-            </button>
-          </div>
-        </div>
-        {/* ------ Main Body ------- */}
-        <div
-          className="w-full h-body flex flex-col justify-start items-center
+      <div
+        className="w-full h-full flex flex-col justify-start items-center
           bg-primary dark:bg-primary-dark lg:rounded-xl"
-        >
-          <Header title="PINAC" page="home" clearChat={InitializeNewChat} />
-          <div
-            className={`
+      >
+        <Header title="PINAC" page="home" clearChat={InitializeNewChat} />
+        <div
+          className={`
             ${
               !welcomeTextContext?.isWelcomeTextVisible
                 ? "h-body-without-header"
                 : "h-full"
             }
             w-full flex flex-col justify-center items-center`}
+        >
+          <div
+            className={
+              !welcomeTextContext?.isWelcomeTextVisible
+                ? "w-full h-full flex flex-col justify-start items-center"
+                : "w-full"
+            }
           >
-            <div
-              className={
-                !welcomeTextContext?.isWelcomeTextVisible
-                  ? "w-full h-full flex flex-col justify-start items-center"
-                  : "w-full"
-              }
+            <StopTextGeneration.Provider
+              value={{ stop: isStop, setStop: setIsStop }}
             >
-              <StopTextGeneration.Provider
-                value={{ stop: isStop, setStop: setIsStop }}
-              >
-                <div className="msgBox">
-                  {welcomeTextContext?.isWelcomeTextVisible && <GreetingText />}
-                  {chatContext?.chatMsg.map((item) => item.element[3])}
-                  <div ref={scrollRef} />
-                </div>
-              </StopTextGeneration.Provider>
-              <ChatInput
-                userInput={userInputText}
-                setUserInput={setUserInputText}
-                buttonsDisabled={buttonsDisabled}
-                setButtonsDisabled={setButtonsDisabled}
-                textareaRef={textareaRef}
-                submit={SubmitUserInput}
-                setStop={setIsStop}
-              />
-            </div>
+              <div className="msgBox">
+                {welcomeTextContext?.isWelcomeTextVisible && <GreetingText />}
+                {chatContext?.chatMsg.map((item) => item.element[3])}
+                <div ref={scrollRef} />
+              </div>
+            </StopTextGeneration.Provider>
+            <ChatInput
+              userInput={userInputText}
+              setUserInput={setUserInputText}
+              buttonsDisabled={buttonsDisabled}
+              setButtonsDisabled={setButtonsDisabled}
+              textareaRef={textareaRef}
+              submit={SubmitUserInput}
+              setStop={setIsStop}
+            />
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+export default HomePage;
