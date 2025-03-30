@@ -8,7 +8,7 @@ interface UserMsgBubbleProps {
 export const UserMsgBubble: React.FC<UserMsgBubbleProps> = ({ response }) => {
   return (
     <div className="flex justify-end">
-      <div className="max-w-xs lg:max-w-md px-4 py-2 rounded-2xl bg-gray-300 dark:bg-tertiary-dark text-lg text-gray-900 dark:text-white">
+      <div className="lg:max-w-[90%] px-4 py-2 rounded-2xl bg-gray-300 dark:bg-tertiary-dark text-lg text-gray-900 dark:text-white">
         <MarkdownStyle text={response} />
       </div>
     </div>

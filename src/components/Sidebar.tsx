@@ -113,7 +113,7 @@ export const Sidebar: React.FC = () => {
       </div>
       {/* Hidden Part of Sidebar */}
       <div
-        className={`w-full h-full
+        className={`w-78 h-full
         ${isExpanded ? "flex" : "hidden"}`}
       >
         {page === "profile" && <Profile />}

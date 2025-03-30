@@ -206,7 +206,7 @@ export const AiLoader: React.FC = () => {
 
   // ---------------------------------- //
   return (
-    <div className="flex justify-start">
+    <div className="flex justify-start mt-6">
       {isAvatarVisible && (
         <div className="size-[35px] mt-1 rounded-full dark:border-[1.5px] dark:border-gray-500 flex justify-center items-center">
           <img src={pinacLogo} />

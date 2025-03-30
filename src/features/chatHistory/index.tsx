@@ -31,28 +31,29 @@ const ChatHistory: React.FC = () => {
   });
 
   return (
-    <>
-      <div className={styles.historyContainer}>
-        <Header title="Chat History" page="history" />
-        <div className={styles.historyCard}>
-          <div className={styles.searchBar}>
-            <CiSearch className={styles.icon} />
-            <input
-              placeholder="Search"
-              type="search"
-              className={styles.input}
-            />
-          </div>
-        </div>
-        <div className={styles.cardContainer}>
-          {sessions.length === 0 ? (
-            <span className={styles.noSessions}>No history yet</span>
-          ) : (
-            sessions.map((session) => session)
-          )}
+    <div className={styles.historyContainer}>
+      <Header title="Chat History" page="history" />
+      <div className={styles.historyCard}>
+        <div
+          className="w-full h-[40px] flex items-center relative rounded-xl
+          bg-gray-700 dark:bg-primary-dark border-[1.5px] border-gray-700 dark:border-zinc-500"
+        >
+          <CiSearch size={25} className="absolute left-2 text-gray-400" />
+          <input
+            placeholder="Search"
+            type="search"
+            className="w-full h-full p-2 pl-10 text-md outline-0 text-gray-100"
+          />
         </div>
       </div>
-    </>
+      <div className={styles.cardContainer}>
+        {sessions.length === 0 ? (
+          <span className={styles.noSessions}>No history</span>
+        ) : (
+          sessions.map((session) => session)
+        )}
+      </div>
+    </div>
   );
 };
 

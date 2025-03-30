@@ -1,10 +1,10 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
 import { Sidebar } from "../components/Sidebar";
+import { GreetingText } from "../components/greetingText";
 import { Header } from "../features/header/index";
-import { WelcomeText } from "../features/welcomeText/index";
 import { AiMsgBubble, AiLoader } from "../features/msgBubble/AiMsgBubble";
 import { UserMsgBubble } from "../features/msgBubble/UserMsgBubble";
-import { ChatInput } from "../features/inputPanel";
+import { ChatInput } from "../features/chatInput";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 import { startNewSession, addMsgToSession } from "../database/db";
 
@@ -167,7 +167,7 @@ export const HomePage: React.FC = () => {
   return (
     <div className="w-full h-screen flex bg-secondary dark:bg-secondary-dark">
       <Sidebar />
-      <div className="w-full h-full flex flex-col justify-start items-center grow">
+      <div className="h-full flex flex-col justify-start items-center grow">
         {/* ------ Frame Header ------- */}
         <div className="w-full h-[30px] flex justify-end items-center text-gray-200">
           <div
@@ -223,7 +223,7 @@ export const HomePage: React.FC = () => {
                 value={{ stop: isStop, setStop: setIsStop }}
               >
                 <div className="msgBox">
-                  {welcomeTextContext?.isWelcomeTextVisible && <WelcomeText />}
+                  {welcomeTextContext?.isWelcomeTextVisible && <GreetingText />}
                   {chatContext?.chatMsg.map((item) => item.element[3])}
                   <div ref={scrollRef} />
                 </div>

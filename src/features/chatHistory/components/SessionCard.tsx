@@ -3,8 +3,8 @@ import { WelcomeTextContext } from "../../../context/WelcomeText";
 import { ChatMsgContext } from "../../../context/ChatMsg";
 import { getSession, deleteSession } from "../../../database/db";
 import { SetChatBubble } from "../../msgBubble/SetChatBubble";
-import { MdDelete } from "react-icons/md";
-import styles from "../styles/SessionCard.module.css";
+import { IoIosMore } from "react-icons/io";
+// import { MdDelete } from "react-icons/md";
 
 interface SessionCardProps {
   sessionId: string;
@@ -37,31 +37,33 @@ export const SessionCard: React.FC<SessionCardProps> = ({
                 ],
               };
             })
-          : [],
+          : []
       );
     });
   };
 
-  const handleDeletion = () => {
-    deleteSession(sessionId).catch((error) => {
-      console.error("Error deleting session:", error);
-    });
-  };
+  // const handleDeletion = () => {
+  //   deleteSession(sessionId).catch((error) => {
+  //     console.error("Error deleting session:", error);
+  //   });
+  // };
 
   return (
-    <div className={styles.sessionCardContainer}>
-      <div className={styles.sessionCard} onClick={fetchChat}>
-        <div className={styles.dateBlock}>
-          <span className={styles.date}>{date}</span>
-        </div>
-        <div className={styles.titleBlock}>
-          <span className={styles.title}>{title}</span>
-        </div>
-      </div>
-      <div className={styles.deleteButtonContainer}>
-        <button className={styles.deleteButton} onClick={handleDeletion}>
-          <MdDelete size={20} />
+    <div
+      className="w-full mb-2 p-3 pt-2 flex flex-col rounded-2xl cursor-pointer border
+      border-gray-700 dark:border-primary-dark hover:bg-gray-700 dark:hover:bg-primary-dark"
+      onClick={fetchChat}
+    >
+      <div className="w-full flex items-center justify-between text-xs">
+        {date}
+        <button className="cursor-pointer hover:bg-gray-800 dark:hover:bg-secondary-dark p-0.5 rounded-full">
+          <IoIosMore size={20} />
         </button>
+      </div>
+      <div className="w-full flex items-center justify-start text-md mt-1">
+        <p className="text-foreground max-w-full overflow-hidden whitespace-nowrap text-ellipsis">
+          {title}
+        </p>
       </div>
     </div>
   );

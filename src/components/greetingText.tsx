@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const WelcomeText = () => {
+export const GreetingText = () => {
   const [greeting, setGreeting] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
 
