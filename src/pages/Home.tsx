@@ -15,6 +15,7 @@ import { ModelSettingsContext } from "../context/ModelSettings";
 import { AttachmentContext } from "../context/Attachment";
 
 const HomePage: React.FC = () => {
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState<boolean>(false);
   const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
   const llmContext = useContext(ModelSettingsContext);
@@ -148,10 +149,18 @@ const HomePage: React.FC = () => {
   // --------------------------------------------------- //
   return (
     <div className="w-full h-screen flex">
-      <Sidebar />
+      <Sidebar
+        isExpanded={isSidebarExpanded}
+        setIsExpanded={setIsSidebarExpanded}
+      />
       <div
-        className="w-full h-full flex flex-col justify-start items-center
-          bg-primary dark:bg-primary-dark lg:rounded-xl"
+        className={`${
+          isSidebarExpanded
+            ? "w-full xl:w-[calc(100vw-384px)] lg:w-[calc(100vw-320px)]"
+            : "w-full lg:w-[calc(100vw-72px)]"
+        }
+        w-full h-full flex flex-col justify-start items-center
+        bg-primary dark:bg-primary-dark lg:rounded-xl transition-all duration-300`}
       >
         <Header title="PINAC" page="home" clearChat={InitializeNewChat} />
         <div

@@ -14,9 +14,16 @@ import { BiUserCircle } from "react-icons/bi";
 const BREAKPOINT = 768;
 type PageType = "profile" | "history" | "about" | "settings" | "project";
 
-export const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isExpanded: boolean;
+  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({
+  isExpanded,
+  setIsExpanded,
+}) => {
   const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(false);
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [userImageUrl, setUserImageUrl] = useState<string | null>(null);
   const [page, setPage] = useState<PageType>("history");
 
@@ -55,8 +62,8 @@ export const Sidebar: React.FC = () => {
   // --------------------------------------------------- //
   return (
     <div
-      className={`h-full pt-[30px]
-      ${isExpanded ? "w-96" : "w-18"}
+      className={`h-full pt-1
+      ${isExpanded ? "w-80 xl:w-96" : "w-18"}
       text-gray-200 dark:text-gray-300
       flex items-center justify-between overflow-hidden
       transition-all duration-300

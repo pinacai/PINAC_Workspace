@@ -31,11 +31,12 @@ const Settings: React.FC = () => {
   // ------------------------------ //
   return (
     <div
-      className="w-full h-full flex flex-col items-center justify-center overflow-y-auto
-    bg-primary dark:bg-primary-dark lg:bg-transparent dark:lg:bg-transparent"
+      className="w-full h-full flex flex-col items-center overflow-y-auto
+    bg-primary dark:bg-primary-dark lg:bg-transparent dark:lg:bg-transparent
+    font-exo"
     >
       <Header title="Settings" page="settings" />
-      <div className={styles.menubarContainer}>
+      <div className="w-full py-5 flex justify-center md:justify-start">
         <Menubar menuItems={menuItems} />
       </div>
       {/* --------------------------------------------------------- */}

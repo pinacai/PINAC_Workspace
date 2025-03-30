@@ -1,34 +1,4 @@
-.settingContainer {
-  height: 100%;
-  width: 100%;
-  font-family: "Exo2", "Montserrat", sans-serif;
-  background: transparent;
-  display: flex;
-  container-type: inline-size;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: auto;
-}
 
-.settingContainer::-webkit-scrollbar {
-  width: 0;
-}
-
-.settingContainer::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.settingContainer::-webkit-scrollbar-thumb {
-  background: transparent;
-}
-
-.menubarContainer {
-  width: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  display: flex;
-  justify-content: flex-start;
-}
 
 /* ====================================================*/
 /*                 Common for all                      */
@@ -91,10 +61,5 @@
 @container (max-width: 576px) {
   .section {
     margin-left: 10px;
-  }
-
-  .menubarContainer {
-    padding-bottom: 20px;
-    justify-content: center;
   }
 }

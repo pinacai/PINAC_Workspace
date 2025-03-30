@@ -29,7 +29,7 @@ export const FrameHeader: React.FC<FrameHeaderProps> = ({ children }) => {
           className="draggable-element
             w-full h-full flex justify-center items-center font-exo"
         >
-          PINAC Workspace v2.1
+          PINAC Workspace
         </div>
         <div className="w-39 h-full grid grid-cols-3">
           <button

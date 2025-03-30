@@ -78,7 +78,7 @@ export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
               className={
                 page == "home"
                   ? "font-normal font-nasa text-3xl lg:text-4xl"
-                  : "font-normal font-cormorant text-3xl lg:text-2xl"
+                  : "font-bold lg:font-normal font-cormorant text-3xl lg:text-2xl"
               }
             >
               {title}
