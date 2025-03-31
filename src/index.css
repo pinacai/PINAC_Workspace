@@ -50,6 +50,23 @@
 /*    Global styles    */
 /* =================== */
 
+.scroolbar {
+  overflow-y: auto;
+}
+
+.scroolbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroolbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroolbar::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  @apply bg-gray-500 dark:bg-zinc-500
+}
+
 /*  pages/Home.tsx   */
 .msgBox {
   width: 100%;

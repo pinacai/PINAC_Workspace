@@ -192,27 +192,30 @@ ipcMain.on("save-user-info", (event, userInfo) => {
   });
 });
 
-ipcMain.on("upload-file", (event, request) => {
-  const base64Data = request.file_data;
-  const fileName = request.file_name;
-  const filePath = `${userDataPath}/profileImg/${fileName}`;
+//  Keeping this code if their is any future use
+// ---------------------------------------------
 
-  fs.writeFile(filePath, base64Data, "base64", (err) => {
-    if (err) {
-      event.reply("backend-response", {
-        error_occurred: true,
-        response: false,
-        error: err,
-      });
-    } else {
-      event.reply("backend-response", {
-        error_occurred: false,
-        response: true,
-        error: null,
-      });
-    }
-  });
-});
+// ipcMain.on("upload-file", (event, request) => {
+//   const base64Data = request.file_data;
+//   const fileName = request.file_name;
+//   const filePath = `${userDataPath}/profileImg/${fileName}`;
+
+//   fs.writeFile(filePath, base64Data, "base64", (err) => {
+//     if (err) {
+//       event.reply("backend-response", {
+//         error_occurred: true,
+//         response: false,
+//         error: err,
+//       });
+//     } else {
+//       event.reply("backend-response", {
+//         error_occurred: false,
+//         response: true,
+//         error: null,
+//       });
+//     }
+//   });
+// });
 
 // Reload the app
 ipcMain.on("reload-app", () => {

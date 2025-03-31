@@ -9,12 +9,12 @@ const Settings: React.FC = () => {
 
   return (
     <div
-      className="w-full h-full flex flex-col items-center justify-center overflow-y-auto
+      className="w-full h-full flex flex-col items-center justify-center scroolbar
     bg-primary dark:bg-primary-dark lg:bg-transparent dark:lg:bg-transparent
     font-exo"
     >
       <Header title="Settings" page="settings" />
-      <div className="w-full h-full flex flex-col">
+      <div className="w-full h-full mb-5 flex flex-col scroolbar">
         {/*     Section 1 (Select LLM)      */}
         {/* =============================== */}
         <div className="w-full py-5 px-2 flex flex-col items-start lg:items-center">
