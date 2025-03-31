@@ -137,7 +137,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         />
 
         <div className="flex items-center justify-between pl-2">
-          <div className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-gray-100">
+          <div className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-gray-100">
             <label className="w-9 h-9 rounded-full flex items-center justify-center border-1 border-gray-400 dark:border-zinc-500 cursor-pointer">
               <FiPlus size={20} />
               <input

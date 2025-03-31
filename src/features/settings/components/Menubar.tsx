@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import styles from "./styles/Menubar.module.css";
 
 interface MenubarProps {
   menuItems: { label: string; onClick: () => void }[];
 }
 
 export const Menubar: React.FC<MenubarProps> = ({ menuItems }) => {
-  const location = useLocation();
-  const currentPath = location.pathname;
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   // active by default
@@ -24,15 +20,14 @@ export const Menubar: React.FC<MenubarProps> = ({ menuItems }) => {
   };
 
   return (
-    <nav
-      className={`${styles.menubar} ${currentPath === "/" && styles.giveMargin}`}
-    >
-      <ul className={styles.menuItems}>
+    <nav className="flex justify-start rounded-full text-gray-400 bg-gray-700 dark:bg-primary-dark">
+      <ul className="flex style-none">
         {menuItems.map((item, index) => (
           <li
             key={index}
-            className={`${styles.menuItem} ${
-              activeIndex === index ? `${styles.active}` : ""
+            className={`py-2 px-4 rounded-full cursor-pointer teansition-all duration-300 ${
+              activeIndex === index &&
+              "bg-gray-500 dark:bg-tertiary-dark text-gray-100 cursor-none"
             }`}
             onClick={() => handleItemClick(index, item.onClick)}
           >

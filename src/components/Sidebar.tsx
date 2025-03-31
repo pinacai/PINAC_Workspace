@@ -125,7 +125,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       >
         {page === "profile" && <Profile />}
         {page === "history" && <ChatHistory />}
-        {page === "project" && <h1>Profile</h1>}
+        {page === "project" && <></>}
         {page === "settings" && <Settings />}
         {page === "about" && <AboutUs />}
       </div>

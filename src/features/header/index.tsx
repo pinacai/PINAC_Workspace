@@ -69,20 +69,18 @@ export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
             ? "text-gray-200"
             : "text-gray-800"
         } dark:text-gray-200
-        ${page == "home" && "lg:mt-[5px]"}
+        ${page == "home" ? "lg:mt-[5px]" : "lg:mt-[1px]"}
         `}
       >
         <div className="flex items-center justify-between">
-          <div>
-            <span
+          <div
               className={
                 page == "home"
                   ? "font-normal font-nasa text-3xl lg:text-4xl"
-                  : "font-bold lg:font-normal font-cormorant text-3xl lg:text-2xl"
+                  : "font-bold lg:font-normal font-cormorant text-3xl"
               }
             >
               {title}
-            </span>
           </div>
 
           {/* Render the sidebar button */}

@@ -33,19 +33,19 @@ export const FrameHeader: React.FC<FrameHeaderProps> = ({ children }) => {
         </div>
         <div className="w-39 h-full grid grid-cols-3">
           <button
-            className="flex justify-center items-center hover:bg-gray-700 dark:hover:bg-zinc-800"
+            className="flex justify-center items-center outline-none hover:bg-gray-700 dark:hover:bg-zinc-800"
             onClick={minimize}
           >
             <FiMinus size={17} />
           </button>
           <button
-            className="flex justify-center items-center hover:bg-gray-700 dark:hover:bg-zinc-800"
+            className="flex justify-center items-center outline-none hover:bg-gray-700 dark:hover:bg-zinc-800"
             onClick={maximize}
           >
             <MdCheckBoxOutlineBlank size={15} />
           </button>
           <button
-            className="flex justify-center items-center hover:bg-red-700"
+            className="flex justify-center items-center outline-none hover:bg-red-700"
             onClick={close}
           >
             <RxCross2 size={17} />

@@ -8,7 +8,7 @@ import styles from "./styles/index.module.css";
 import { CiSearch } from "react-icons/ci";
 
 const ChatHistory: React.FC = () => {
-  const [sessions, setSessions] = React.useState<JSX.Element[]>([]);
+  const [sessions, setSessions] = React.useState<React.ReactElement[]>([]);
 
   // get all sessions from DB
   getAllSessions().then((sessions) => {
