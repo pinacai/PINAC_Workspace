@@ -1,5 +1,5 @@
 > [!NOTE]  
-> This is the forthcoming **v2.1** iteration of the application, which is currently in the development phase. At this time, this version of the application is not operational.
+> This is the forthcoming **v2.1** iteration of the application, which is currently in the development phase. At this time, this version of the application have many UI issues and some functionalities are missing.
 
 <div align="center">
 
@@ -33,6 +33,51 @@ PINAC Workspace is a modern-looking _privacy-first_ AI chat for desktops, seamle
 ## Why PINAC Workspace ?
 
 PINAC Workspace simplifies AI use for everyone, allowing users to get high-quality results without complex prompts. Our easy-to-use beautiful desktop app allows you to express your needs in simple language and it applies the expert-level prompt on top of it after identifying the user's specific requirement so that users receive optimal outcomes. This empowers users to tap into powerful AI capabilities, saving time and boosting creativity across various fields.
+
+## 📂 File Structure
+
+Overview of File Structure in Brief to Help You Get Started.
+
+      .
+      ├── index.html
+      ├── electron/
+      ├── public/
+      └── src/
+          ├── App.tsx
+          ├── index.css
+          ├── index.tsx
+          ├── components/
+          │   ├── FrameHeader.tsx
+          │   ├── GreetingText.tsx
+          │   ├── LiveMarkdownStyle.tsx
+          │   ├── MarkdownStyle.tsx
+          │   ├── Sidebar.tsx
+          │   ├── ThemeToggle.tsx
+          │   └── styles/
+          │   
+          ├── context/
+          │   ├── Attachment.tsx
+          │   ├── Authentication.tsx
+          │   ├── ChatMsg.tsx
+          │   ├── ModelSettings.tsx
+          │   ├── StopTextGeneration.ts
+          │   └── WelcomeText.tsx
+          │
+          ├── database/
+          |
+          ├── features/
+          │   ├── aboutUs/
+          │   ├── chatHistory/
+          │   ├── chatInput/
+          │   ├── header/
+          │   ├── msgBubble/
+          │   ├── profile/
+          │   └── settings/
+          │
+          └── pages/
+              ├── Home.tsx
+              ├── SignIn.tsx
+              └── styles/
 
 ## 🚀 Getting Started
 
