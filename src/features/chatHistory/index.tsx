@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { Header } from "../header";
 import { SessionCard } from "./components/SessionCard";
 import { getAllSessions } from "../../database/db";
@@ -9,9 +8,7 @@ import styles from "./styles/index.module.css";
 import { CiSearch } from "react-icons/ci";
 
 const ChatHistory: React.FC = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
-  const [sessions, setSessions] = React.useState<JSX.Element[]>([]);
+  const [sessions, setSessions] = React.useState<React.ReactElement[]>([]);
 
   // get all sessions from DB
   getAllSessions().then((sessions) => {
@@ -21,45 +18,45 @@ const ChatHistory: React.FC = () => {
           sessionId={session.id}
           date={`${String(session.timestamp.getDate()).padStart(
             2,
-            "0",
+            "0"
           )}.${String(session.timestamp.getMonth() + 1).padStart(
             2,
-            "0",
+            "0"
           )}.${String(session.timestamp.getFullYear())}`}
           title={session.title}
           key={session.id}
         />
-      )),
+      ))
     );
   });
 
   return (
-    <>
-      <div className={styles.historyContainer}>
-        {currentPath !== "/" ? (
-          <Header title="Chat History" subPage={false} />
-        ) : (
-          <Header title="Chat History" subPage={true} />
-        )}
-        <div className={styles.historyCard}>
-          <div className={styles.searchBar}>
-            <CiSearch className={styles.icon} />
-            <input
-              placeholder="Search"
-              type="search"
-              className={styles.input}
-            />
-          </div>
-        </div>
-        <div className={styles.cardContainer}>
-          {sessions.length === 0 ? (
-            <span className={styles.noSessions}>No history yet</span>
-          ) : (
-            sessions.map((session) => session)
-          )}
+    <div
+      className="w-full h-full flex flex-col items-center justify-center overflow-y-auto
+      bg-primary dark:bg-primary-dark lg:bg-transparent dark:lg:bg-transparent"
+    >
+      <Header title="Chat History" page="history" />
+      <div className={styles.historyCard}>
+        <div
+          className="w-full h-[40px] flex items-center relative rounded-xl
+          bg-gray-700 dark:bg-primary-dark border-[1.5px] border-gray-700 dark:border-zinc-500"
+        >
+          <CiSearch size={25} className="absolute left-2 text-gray-400" />
+          <input
+            placeholder="Search"
+            type="search"
+            className="w-full h-full p-2 pl-10 text-md outline-0 text-gray-100"
+          />
         </div>
       </div>
-    </>
+      <div className={styles.cardContainer}>
+        {sessions.length === 0 ? (
+          <span className={styles.noSessions}>No history</span>
+        ) : (
+          sessions.map((session) => session)
+        )}
+      </div>
+    </div>
   );
 };
 

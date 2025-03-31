@@ -64,6 +64,7 @@ const createMainWindow = () => {
   mainWindow = new BrowserWindow({
     width: width,
     height: height,
+    frame: false,
     autoHideMenuBar: true,
     icon: "public/icon/Round App Logo.png",
     webPreferences: {
@@ -218,18 +219,26 @@ ipcMain.on("reload-app", () => {
   mainWindow?.reload();
 });
 
-// Listen for toggling Window Size
-ipcMain.on("maximizeWindow", () => {
-  mainWindow?.maximize();
-});
-
-ipcMain.on("unmaximizeWindow", () => {
-  mainWindow?.unmaximize();
-});
-
 // IPC listener to open external links
 ipcMain.on("open-external-link", (_, url) => {
   shell.openExternal(url);
+});
+
+// to handle window controls
+ipcMain.on("minimize", () => {
+  mainWindow?.minimize();
+});
+
+ipcMain.on("maximize", () => {
+  if (mainWindow?.isMaximized()) {
+    mainWindow.restore();
+  } else {
+    mainWindow?.maximize();
+  }
+});
+
+ipcMain.on("close", () => {
+  mainWindow?.close();
 });
 
 // ======================================================= //

@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef, useContext } from "react";
 import { ModelSettingsContext } from "../../../context/ModelSettings";
-import styles from "../styles/DropdownMenu.module.css";
 
 // Icon
 import { IoIosArrowDown } from "react-icons/io";
@@ -59,25 +58,35 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
 
   // -------------------------------------------- //
   return (
-    <div className={styles.dropdown} ref={dropdownMenuRef}>
-      <div className={styles.selector}>
+    <div className="w-full" ref={dropdownMenuRef}>
+      <div
+        className="max-w-64 h-9 pl-2 flex items-center justify-between rounded-lg
+        bg-gray-700 dark:bg-tertiary-dark text-gray-200"
+      >
         <span>{selectedOption}</span>
-        <button onClick={() => setIsActive(!isActive)}>
-          {isActive ? (
-            <IoIosArrowUp size={24} color="var(--headerTitle-color)" />
-          ) : (
-            <IoIosArrowDown size={24} color="var(--headerTitle-color)" />
-          )}
+        <button
+          className="h-full pl-2.5 pr-3 flex items-center justify-center rounded-r-lg
+          hover:bg-gray-600 dark:hover:bg-zinc-600 cursor-pointer"
+          onClick={() => setIsActive(!isActive)}
+        >
+          {isActive ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
         </button>
       </div>
       <div
-        className={`${styles.dropdownMenu} ${
-          isActive ? `${styles.active}` : ""
-        }`}
+        className={
+          isActive
+            ? "absolute xl:w-52 lg:w-48 mt-2 rounded-xl bg-gray-700 dark:bg-tertiary-dark"
+            : "hidden"
+        }
       >
-        <ul>
+        <ul className="style-none">
           {optionList.map((option, index) => (
-            <li key={index} onClick={() => onClick(option)}>
+            <li
+              className="flex items-center justify-start p-2 rounded-xl
+              hover:bg-gray-600 dark:hover:bg-zinc-600 cursor-pointer"
+              key={index}
+              onClick={() => onClick(option)}
+            >
               {option}
             </li>
           ))}

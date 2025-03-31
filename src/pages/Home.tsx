@@ -1,35 +1,26 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
 import { Sidebar } from "../components/Sidebar";
+import { GreetingText } from "../components/GreetingText";
 import { Header } from "../features/header/index";
-import { WelcomeText } from "../features/welcomeText/index";
 import { AiMsgBubble, AiLoader } from "../features/msgBubble/AiMsgBubble";
 import { UserMsgBubble } from "../features/msgBubble/UserMsgBubble";
-import { InputPanel } from "../features/inputPanel/index";
+import { ChatInput } from "../features/chatInput";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 import { startNewSession, addMsgToSession } from "../database/db";
-import styles from "./styles/Home.module.css";
 
 // context
-import { SubPageContext } from "../context/SubPage";
 import { ChatMsgContext } from "../context/ChatMsg";
 import { WelcomeTextContext } from "../context/WelcomeText";
 import { ModelSettingsContext } from "../context/ModelSettings";
 import { AttachmentContext } from "../context/Attachment";
 
-// sub-pages
-import ChatHistory from "../features/chatHistory/index";
-import AboutUs from "../features/aboutUs/index";
-import Settings from "../features/settings/index";
-import Profile from "../features/profile/index";
-
-export const HomePage: React.FC = () => {
-  const subPageContext = useContext(SubPageContext);
+const HomePage: React.FC = () => {
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState<boolean>(false);
   const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
   const llmContext = useContext(ModelSettingsContext);
   const attachmentContext = useContext(AttachmentContext);
   const [userInputText, setUserInputText] = useState<string>("");
-  const [isUserInputActive, setIsUserInputActive] = useState<boolean>(false);
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
   const [isStop, setIsStop] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -150,7 +141,6 @@ export const HomePage: React.FC = () => {
     }
   };
 
-  //
   // Auto-scroll effect for chat messages
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -158,45 +148,60 @@ export const HomePage: React.FC = () => {
 
   // --------------------------------------------------- //
   return (
-    <>
-      <Sidebar />
-      <div className={styles.container}>
-        <div className={styles.subPageContainer}>
-          {subPageContext?.subPage === "/profile" ? (
-            <Profile />
-          ) : subPageContext?.subPage === "/history" ? (
-            <ChatHistory />
-          ) : subPageContext?.subPage === "/about" ? (
-            <AboutUs />
-          ) : subPageContext?.subPage === "/settings" ? (
-            <Settings />
-          ) : null}
-        </div>
-        <div className={styles.chatContainer}>
-          <Header title="PINAC" subPage={false} clearChat={InitializeNewChat} />
-          <StopTextGeneration.Provider
-            value={{ stop: isStop, setStop: setIsStop }}
+    <div className="w-full h-screen flex">
+      <Sidebar
+        isExpanded={isSidebarExpanded}
+        setIsExpanded={setIsSidebarExpanded}
+      />
+      <div
+        className={`${
+          isSidebarExpanded
+            ? "w-full xl:w-[calc(100vw-384px)] lg:w-[calc(100vw-320px)]"
+            : "w-full lg:w-[calc(100vw-72px)]"
+        }
+        w-full h-full flex flex-col justify-start items-center
+        bg-primary dark:bg-primary-dark lg:rounded-xl transition-all duration-300`}
+      >
+        <Header title="PINAC" page="home" clearChat={InitializeNewChat} />
+        <div
+          className={`
+            ${
+              !welcomeTextContext?.isWelcomeTextVisible
+                ? "h-body-without-header"
+                : "h-full"
+            }
+            w-full flex flex-col justify-center items-center`}
+        >
+          <div
+            className={
+              !welcomeTextContext?.isWelcomeTextVisible
+                ? "w-full h-full flex flex-col justify-start items-center"
+                : "w-full"
+            }
           >
-            <div className={styles.msgBox}>
-              {welcomeTextContext?.isWelcomeTextVisible && <WelcomeText />}
-              {chatContext?.chatMsg.map((item) => item.element[3])}
-              <div ref={scrollRef} />
-            </div>
-          </StopTextGeneration.Provider>
-
-          <InputPanel
-            userInput={userInputText}
-            setUserInput={setUserInputText}
-            isUserInputActive={isUserInputActive}
-            setUserInputActive={setIsUserInputActive}
-            buttonsDisabled={buttonsDisabled}
-            setButtonsDisabled={setButtonsDisabled}
-            textareaRef={textareaRef}
-            submit={SubmitUserInput}
-            setStop={setIsStop}
-          />
+            <StopTextGeneration.Provider
+              value={{ stop: isStop, setStop: setIsStop }}
+            >
+              <div className="msgBox">
+                {welcomeTextContext?.isWelcomeTextVisible && <GreetingText />}
+                {chatContext?.chatMsg.map((item) => item.element[3])}
+                <div ref={scrollRef} />
+              </div>
+            </StopTextGeneration.Provider>
+            <ChatInput
+              userInput={userInputText}
+              setUserInput={setUserInputText}
+              buttonsDisabled={buttonsDisabled}
+              setButtonsDisabled={setButtonsDisabled}
+              textareaRef={textareaRef}
+              submit={SubmitUserInput}
+              setStop={setIsStop}
+            />
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
+
+export default HomePage;
