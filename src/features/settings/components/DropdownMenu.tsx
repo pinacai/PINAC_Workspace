@@ -26,21 +26,18 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   const [isActive, setIsActive] = useState(false);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
 
-  //
   const onClick = (option: string) => {
     modelContext?.setValue(valueName, option);
     setSelectedOption(option);
     setIsActive(false);
   };
 
-  //
   // At starting selecting model based on local storage
   useEffect(() => {
     const preferredOption = modelContext?.getValue(valueName);
     preferredOption != null && setSelectedOption(preferredOption);
   }, [modelContext, valueName]);
 
-  //
   // Creating an event handler to close the dropdown menu by click elsewhere outside the menu
   useEffect(() => {
     const handleOutsideClicks = (e: MouseEvent) => {
@@ -58,15 +55,18 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
 
   // -------------------------------------------- //
   return (
-    <div className="w-full" ref={dropdownMenuRef}>
+    <div
+      className="w-full text-gray-800 dark:text-gray-200 lg:text-gray-200"
+      ref={dropdownMenuRef}
+    >
       <div
         className="max-w-64 h-9 pl-2 flex items-center justify-between rounded-lg
-        bg-gray-700 dark:bg-tertiary-dark text-gray-200"
+        bg-gray-300 lg:bg-gray-700 dark:bg-tertiary-dark"
       >
         <span>{selectedOption}</span>
         <button
           className="h-full pl-2.5 pr-3 flex items-center justify-center rounded-r-lg
-          hover:bg-gray-600 dark:hover:bg-zinc-600 cursor-pointer"
+          hover:bg-gray-400/50 lg:hover:bg-gray-600 dark:hover:bg-zinc-600 cursor-pointer"
           onClick={() => setIsActive(!isActive)}
         >
           {isActive ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
@@ -75,7 +75,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
       <div
         className={
           isActive
-            ? "absolute xl:w-52 lg:w-48 mt-2 rounded-xl bg-gray-700 dark:bg-tertiary-dark"
+            ? "absolute w-52 xl:w-52 lg:w-48 mt-2 rounded-xl bg-gray-300 lg:bg-gray-700 dark:bg-tertiary-dark"
             : "hidden"
         }
       >
@@ -83,7 +83,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
           {optionList.map((option, index) => (
             <li
               className="flex items-center justify-start p-2 rounded-xl
-              hover:bg-gray-600 dark:hover:bg-zinc-600 cursor-pointer"
+              hover:bg-gray-400/50 lg:hover:bg-gray-600 dark:hover:bg-zinc-600 cursor-pointer"
               key={index}
               onClick={() => onClick(option)}
             >

@@ -241,7 +241,19 @@ ipcMain.on("maximize", () => {
 });
 
 ipcMain.on("close", () => {
-  mainWindow?.close();
+  if (mainWindow) {
+    // Set a flag to skip any confirmation dialogs or save prompts
+    mainWindow.webContents.closeDevTools(); // Close any open DevTools which can slow down closure
+    // For immediate visual feedback, hide the window first
+    mainWindow.hide();
+    // Force garbage collection of any resources
+    if (global.gc) global.gc();
+    // Destroy the window and quit the app in one go
+    mainWindow.destroy();
+    if (process.platform !== "darwin") {
+      app.quit(); // More immediate than app.quit()
+    }
+  }
 });
 
 // ======================================================= //

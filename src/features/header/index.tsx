@@ -74,13 +74,13 @@ export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
       >
         <div className="flex items-center justify-between">
           <div
-              className={
-                page == "home"
-                  ? "font-normal font-nasa text-3xl lg:text-4xl"
-                  : "font-bold lg:font-normal font-cormorant text-3xl"
-              }
-            >
-              {title}
+            className={
+              page == "home"
+                ? "font-normal font-nasa text-3xl lg:text-4xl"
+                : "font-bold lg:font-normal font-cormorant text-3xl"
+            }
+          >
+            {title}
           </div>
 
           {/* Render the sidebar button */}
@@ -88,7 +88,7 @@ export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
             <div ref={dropdownMenuRef}>
               <div>
                 <button
-                  className="ml-3 mt-2 text-gray-500 dark:text-gray-400 rounded-sm hover:bg-gray-300 dark:hover:bg-gray-700"
+                  className="ml-3 mt-2 text-gray-500 dark:text-gray-400 rounded-sm hover:bg-gray-300 dark:hover:bg-zinc-700"
                   onClick={() => setIsDropdownActive(!isDropdownActive)}
                 >
                   {isDropdownActive ? (
@@ -130,14 +130,14 @@ export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
                       Chat History
                     </li>
                   )}
-                  {location.pathname !== "/project" && (
+                  {/* {location.pathname !== "/project" && (
                     <li
                       className="header-dropdown-li cursor-pointer hover:bg-gray-300 dark:hover:bg-zinc-600"
-                      onClick={() => navigate("/about")}
+                      onClick={() => navigate("/project")}
                     >
                       Project
                     </li>
-                  )}
+                  )} */}
                   {location.pathname !== "/settings" && (
                     <li
                       className="header-dropdown-li cursor-pointer hover:bg-gray-300 dark:hover:bg-zinc-600"
@@ -175,11 +175,17 @@ export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
           )}
           {/* for clear history button */}
           {page == "history" && (
-            <RedButton task="clear_history" icon={<MdDelete className="size-full" />} />
+            <RedButton
+              task="clear_history"
+              icon={<MdDelete className="size-full" />}
+            />
           )}
           {/* for the logout button */}
           {page == "profile" && (
-            <RedButton task="logout" icon={<TbLogout className="size-full" />} />
+            <RedButton
+              task="logout"
+              icon={<TbLogout className="size-full" />}
+            />
           )}
         </div>
       </div>

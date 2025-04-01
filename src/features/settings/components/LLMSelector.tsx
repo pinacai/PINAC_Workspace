@@ -46,17 +46,18 @@ export const LLMSelector: React.FC = () => {
       ) : (
         <div
           className="max-w-64 h-10 flex justify-between items-center rounded-lg
-          bg-gray-800 dark:bg-primary-dark border border-gray-600 dark:border-primary-dark
+          lg:bg-gray-800 dark:lg:bg-primary-dark lg:border lg:border-gray-600 dark:lg:border-primary-dark
+          bg-gray-200 dark:bg-transparent border-1 border-gray-300 dark:border-zinc-600
           "
         >
           <input
             ref={inputRef}
             placeholder="Ollama Model"
-            className="w-full h-full p-2 outline-none text-md"
+            className="w-full h-full p-2 outline-none text-md text-gray-900 lg:text-gray-200 dark:text-gray-200"
             type="text"
           />
           <button
-            className="h-full px-2.5 rounded-r-lg hover:bg-gray-700 dark:hover:bg-primary-dark cursor-pointer"
+            className="h-full px-2.5 rounded-r-lg hover:bg-gray-300 lg:hover:bg-gray-700 dark:hover:bg-tertiary-dark cursor-pointer"
             onClick={() => changePrivateModel()}
           >
             <BiSolidSave size={20} className="text-yellow-500" />
