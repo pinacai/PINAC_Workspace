@@ -37,7 +37,7 @@ const Profile: React.FC = () => {
     bg-primary dark:bg-primary-dark lg:bg-transparent dark:lg:bg-transparent"
     >
       <Header title="Profile" page="profile" />
-      <div className="w-full h-full my-4 flex flex-col justify-start items-center scroolbar">
+      <div className="w-full lg:w-full md:w-[60%] sm:w-[90%] h-full my-4 flex flex-col justify-start items-center scroolbar">
         {/* ======= profile Image ======= */}
         <div className="size-24 rounded-full flex justify-center items-center">
           {imageUrl ? (
@@ -61,7 +61,10 @@ const Profile: React.FC = () => {
                 required
                 placeholder=" "
                 type="text"
-                className="peer w-full p-2.5 pb-5 outline-none rounded-lg text-gray-200 bg-gray-800 dark:bg-primary-dark border border-gray-600 dark:border-zinc-700 shadow-md font-medium transition-all duration-300"
+                className="peer w-full p-2.5 pb-5 outline-none rounded-xl transition-all duration-300
+                text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-tertiary-dark border-1 border-gray-300 dark:border-zinc-600
+                lg:text-gray-200 dark:lg:text-gray-200 lg:bg-gray-800 dark:lg:bg-primary-dark lg:border lg:border-gray-600 dark:lg:border-zinc-700 lg:shadow-md
+                "
                 value={displayName}
                 onChange={(event) => {
                   setDisplayName(event.target.value);
@@ -69,7 +72,7 @@ const Profile: React.FC = () => {
               />
               <span
                 className="absolute left-2.5 top-4 text-gray-500 dark:text-zinc-500 text-sm cursor-text transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm 
-                peer-focus:top-7 peer-focus:text-xs peer-focus:font-semibold peer-valid:top-7 peer-valid:text-xs peer-valid:font-semibold peer-valid:text-green-600"
+                peer-focus:top-8 peer-focus:text-xs peer-focus:font-semibold peer-valid:top-8 peer-valid:text-xs peer-valid:font-semibold peer-valid:text-green-600"
               >
                 Full Name
               </span>
@@ -80,7 +83,10 @@ const Profile: React.FC = () => {
                 required
                 placeholder=" "
                 type="email"
-                className="peer w-full p-2.5 pb-5 outline-none rounded-lg text-gray-200 bg-gray-800 dark:bg-primary-dark border border-gray-600 dark:border-zinc-700 shadow-md font-medium transition-all duration-300"
+                className="peer w-full p-2.5 pb-5 outline-none rounded-xl  transition-all duration-300
+                text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-tertiary-dark border-1 border-gray-300 dark:border-zinc-600
+                lg:text-gray-200 dark:lg:text-gray-200 lg:bg-gray-800 dark:lg:bg-primary-dark lg:border lg:border-gray-600 dark:lg:border-zinc-700 lg:shadow-md
+                "
                 value={emailId}
                 onChange={(event) => {
                   setEmailId(event.target.value);
@@ -88,7 +94,7 @@ const Profile: React.FC = () => {
               />
               <span
                 className="absolute left-2.5 top-4 text-gray-500 dark:text-zinc-500 text-sm cursor-text transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm 
-                peer-focus:top-7 peer-focus:text-xs peer-focus:font-semibold peer-valid:top-7 peer-valid:text-xs peer-valid:font-semibold peer-valid:text-green-600"
+                peer-focus:top-8 peer-focus:text-xs peer-focus:font-semibold peer-valid:top-8 peer-valid:text-xs peer-valid:font-semibold peer-valid:text-green-600"
               >
                 Email
               </span>
@@ -97,8 +103,10 @@ const Profile: React.FC = () => {
             <label className="relative">
               <textarea
                 placeholder="Tell Us about yourself"
-                className="w-full h-48 p-2.5 pb-5 outline-none rounded-lg shadow-md resize-none transition-all duration-300
-                text-gray-200 bg-gray-800 dark:bg-primary-dark border border-gray-600 dark:border-zinc-700 placeholder:text-gray-500 dark:placeholder:text-zinc-500 placeholder:text-base"
+                className="w-full h-48 p-2.5 pb-5 outline-none rounded-xl shadow-md resize-none transition-all duration-300
+                text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-tertiary-dark border-1 border-gray-300 dark:border-zinc-600
+                lg:text-gray-200 dark:lg:text-gray-200 lg:bg-gray-800 dark:lg:bg-primary-dark lg:border lg:border-gray-600 dark:lg:border-zinc-700 lg:shadow-md
+                "
                 value={bio}
                 onChange={(event) => {
                   setBio(event.target.value);
@@ -108,7 +116,8 @@ const Profile: React.FC = () => {
 
             {/* ======= Submit Button ======= */}
             <button
-              className="w-full border-none outline-none bg-blue-600 dark:bg-blue-500 p-2.5 rounded-lg text-white text-base transition-all duration-300 hover:shadow-lg hover:shadow-blue-300 dark:hover:shadow-blue-800 active:scale-95 active:shadow-md active:shadow-blue-500"
+              className="w-full p-2.5 border-none rounded-xl outline-none lg:bg-blue-600 dark:lg:bg-blue-500 lg:text-white dark:lg:text-white lg:hover:bg-blue-700 dark:lg:hover:bg-blue-600
+              bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 hover:bg-gray-700 dark:hover:bg-gray-300"
               onClick={() => {
                 saveUserInfo();
               }}
