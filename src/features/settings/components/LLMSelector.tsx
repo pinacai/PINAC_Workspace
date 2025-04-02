@@ -22,7 +22,7 @@ export const LLMSelector: React.FC = () => {
         inputRef.current.value = preferredModel;
       }
     }
-  }, [llmContext]);
+  }, [llmContext?.textModelType]);
 
   //
   // -------------------------------- //

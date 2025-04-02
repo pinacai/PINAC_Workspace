@@ -7,7 +7,6 @@ import { FrameHeader } from "./components/FrameHeader";
 import { AuthContext } from "./context/Authentication";
 import { WelcomeTextProvider } from "./context/WelcomeText";
 import { ChatMsgProvider } from "./context/ChatMsg";
-import { ModelSettingsProvider } from "./context/ModelSettings";
 import { AttachmentProvider } from "./context/Attachment";
 import "./index.css";
 
@@ -48,7 +47,6 @@ const App = () => {
         path="/"
         element={
           <WelcomeTextProvider>
-            <ModelSettingsProvider>
               <AttachmentProvider>
                 <ChatMsgProvider>
                   {isAuthenticated ? (
@@ -58,7 +56,6 @@ const App = () => {
                   )}
                 </ChatMsgProvider>
               </AttachmentProvider>
-            </ModelSettingsProvider>
           </WelcomeTextProvider>
         }
       />
