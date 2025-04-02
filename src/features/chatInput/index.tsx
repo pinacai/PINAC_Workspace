@@ -137,7 +137,10 @@ export const ChatInput: React.FC<ChatInputProps> = ({
 
         <div className="flex items-center justify-between pl-2">
           <div className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-gray-100">
-            <label className="w-9 h-9 rounded-full flex items-center justify-center border-1 border-gray-400 dark:border-zinc-500 cursor-pointer">
+            <label
+              className="w-9 h-9 rounded-full flex items-center justify-center border-1 
+            border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 cursor-pointer"
+            >
               <FiPlus size={20} />
               <input
                 type="file"
@@ -147,17 +150,26 @@ export const ChatInput: React.FC<ChatInputProps> = ({
               />
             </label>
 
-            <button className="flex items-center gap-2 px-4 py-2 rounded-full border-1 border-gray-400 dark:border-zinc-500 cursor-pointer">
+            <button
+              className="flex items-center gap-2 px-4 py-2 rounded-full border-1 
+            border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 cursor-pointer"
+            >
               <PiSparkleLight size={20} />
               <span>Deep Think</span>
             </button>
 
-            <button className="flex items-center gap-2 px-4 py-2 rounded-full border-1 border-gray-400 dark:border-zinc-500 cursor-pointer">
+            <button
+              className="flex items-center gap-2 px-4 py-2 rounded-full border-1 
+            border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 cursor-pointer"
+            >
               <TbBulb size={20} />
               <span>Prompt</span>
             </button>
 
-            <button className="w-9 h-9 rounded-full flex items-center justify-center border-1 border-gray-400 dark:border-zinc-500 cursor-pointer">
+            <button
+              className="w-9 h-9 rounded-full flex items-center justify-center border-1 
+            border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 cursor-pointer"
+            >
               <IoIosMore size={20} />
             </button>
           </div>

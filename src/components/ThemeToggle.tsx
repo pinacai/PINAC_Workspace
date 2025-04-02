@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import styles from "./styles/ThemeToggle.module.css";
-
 export const ThemeToggle: React.FC = () => {
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
 
@@ -13,7 +11,7 @@ export const ThemeToggle: React.FC = () => {
     <div>
       <input
         type="checkbox"
-        className={styles.toggle}
+        className="toggle"
         checked={isDarkTheme}
         onChange={changeTheme}
       />

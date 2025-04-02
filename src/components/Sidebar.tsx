@@ -69,8 +69,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
       transition-all duration-300
       `}
     >
-      <div className="w-18 h-full flex flex-col items-center justify-between">
-        <div className="w-full">
+      <div
+        className={`w-18 h-full flex flex-col items-center justify-between
+        ${isExpanded && "border-r border-gray-700 dark:border-zinc-700"}`}
+      >
+        <div className="w-18">
           <nav className="style-none w-full">
             <ul>
               <li
@@ -79,31 +82,31 @@ export const Sidebar: React.FC<SidebarProps> = ({
               >
                 <IoReorderThreeOutline size={30} />
               </li>
-              <li className="sidebar-li" onClick={() => openSidebar("history")}>
+              <li className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700" onClick={() => openSidebar("history")}>
                 <LuHistory size={25} />
               </li>
-              <li className="sidebar-li" onClick={() => openSidebar("project")}>
+              <li className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700" onClick={() => openSidebar("project")}>
                 <LuLayers size={25} />
               </li>
               <li
-                className="sidebar-li"
+                className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700"
                 onClick={() => openSidebar("settings")}
               >
                 <IoSettingsOutline size={30} />
               </li>
-              <li className="sidebar-li" onClick={() => openSidebar("about")}>
+              <li className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700" onClick={() => openSidebar("about")}>
                 <MdOutlinePeopleAlt size={25} />
               </li>
             </ul>
           </nav>
         </div>
         <div className="w-full">
-          <nav className="style-none">
+          <nav className="style-none mb-2">
             <ul>
               <li className="sidebar-li">
                 <ThemeToggle />
               </li>
-              <li className="sidebar-li" onClick={() => openSidebar("profile")}>
+              <li className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700" onClick={() => openSidebar("profile")}>
                 {userImageUrl ? (
                   <img
                     className="size-30 rounded-b-full"

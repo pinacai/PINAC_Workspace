@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { LiveMarkdownStyle } from "../../components/LiveMarkdownStyle";
-import { MarkdownStyle } from "../../components/MarkdownStyle";
+import {
+  LiveMarkdownRenderer,
+  MarkdownRenderer,
+} from "../../components/MarkdownRenderer";
 
 // Icons
 import pinacLogo from "/icon/Round App Logo.svg";
@@ -84,12 +86,16 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
       )}
       <div className="w-full px-4 py-2 rounded-lg text-lg text-black dark:text-gray-200">
         {live ? (
-          <LiveMarkdownStyle
+          // <LiveMarkdownStyle
+          //   text={response}
+          //   setButtonsDisabled={setButtonsDisabled ? setButtonsDisabled : null}
+          // />
+          <LiveMarkdownRenderer
             text={response}
             setButtonsDisabled={setButtonsDisabled ? setButtonsDisabled : null}
           />
         ) : (
-          <MarkdownStyle text={response} />
+          <MarkdownRenderer text={response} />
         )}
         <div className="flex gap-1">
           {/*    Copy Button     */}

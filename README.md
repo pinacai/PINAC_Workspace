@@ -1,5 +1,5 @@
 > [!NOTE]  
-> This is the forthcoming **v2.1** iteration of the application, which is currently in the development phase. At this time, this version of the application have many UI issues and some functionalities are missing.
+> This is the forthcoming **v2.1** iteration of the application, which is currently in the development phase. At this time, this version of the application have be some functionalities are missing.
 
 <div align="center">
 
@@ -54,7 +54,7 @@ Overview of File Structure in Brief to Help You Get Started.
           │   ├── Sidebar.tsx
           │   ├── ThemeToggle.tsx
           │   └── styles/
-          │   
+          │
           ├── context/
           │   ├── Attachment.tsx
           │   ├── Authentication.tsx

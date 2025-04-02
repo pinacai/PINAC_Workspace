@@ -251,7 +251,7 @@ ipcMain.on("close", () => {
     // Destroy the window and quit the app in one go
     mainWindow.destroy();
     if (process.platform !== "darwin") {
-      app.quit(); // More immediate than app.quit()
+      app.exit(0); // More immediate than app.quit()
     }
   }
 });
