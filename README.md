@@ -1,5 +1,5 @@
 > [!NOTE]  
-> This is the forthcoming **v2.1** iteration of the application, which is currently in the development phase. At this time, this version of the application have be some functionalities are missing.
+> This is the upcoming **v2.1** iteration of the application, which is currently in the development phase. At this time, certain functionalities are still in progress and may be missing from this version.
 
 <div align="center">
 
@@ -18,8 +18,6 @@
 
 A privacy-first, cross-platform, open-source desktop AI assistant for all
 
-One Next-Gen AI Chat for all your needs.
-<br>
 <br>
 
 ![](https://skillicons.dev/icons?i=react,tailwindcss,typescript,vite,electron)
@@ -32,7 +30,7 @@ PINAC Workspace is a modern-looking _privacy-first_ AI chat for desktops, seamle
 
 ## Why PINAC Workspace ?
 
-PINAC Workspace simplifies AI use for everyone, allowing users to get high-quality results without complex prompts. Our easy-to-use beautiful desktop app allows you to express your needs in simple language and it applies the expert-level prompt on top of it after identifying the user's specific requirement so that users receive optimal outcomes. This empowers users to tap into powerful AI capabilities, saving time and boosting creativity across various fields.
+PINAC Workspace simplifies AI use for everyone, allowing users to get high-quality results without complex prompts. Our easy-to-use, beautiful desktop app allows you to express your needs in simple language and it applies the expert-level prompt on top of it after identifying the user's specific requirement so that users receive optimal outcomes. This empowers users to tap into powerful AI capabilities, saving time and boosting creativity across various fields.
 
 ## 📂 File Structure
 
@@ -49,11 +47,9 @@ Overview of File Structure in Brief to Help You Get Started.
           ├── components/
           │   ├── FrameHeader.tsx
           │   ├── GreetingText.tsx
-          │   ├── LiveMarkdownStyle.tsx
-          │   ├── MarkdownStyle.tsx
+          │   ├── MarkdownRenderer.tsx
           │   ├── Sidebar.tsx
-          │   ├── ThemeToggle.tsx
-          │   └── styles/
+          │   └── ThemeToggle.tsx
           │
           ├── context/
           │   ├── Attachment.tsx
@@ -82,7 +78,7 @@ Overview of File Structure in Brief to Help You Get Started.
 ## 🚀 Getting Started
 
 > [!TIP]
-> If you are facing any problem with authentication, you can switch to branch `minimal-version` to use the app without authentication(it uses development server), provided for testing ui.
+> If you are facing any problem with authentication, you can switch to branch `minimal-version` to use the app without authentication(it uses a development server), provided for testing ui.
 
 1. Clone the Repository
 
@@ -105,10 +101,10 @@ Overview of File Structure in Brief to Help You Get Started.
 
 We highly welcome contributions! Please follow the steps if you're interested.
 
-1. Star the repository
+1. Star this repository
 2. Fork the repository on GitHub.
 3. Clone the project to your machine.
-4. create you own branch.
+4. Create your own branch.
 5. Commit changes to your branch.
 6. Push your work back up to your fork.
 7. Submit a Pull request so that we can review your changes
