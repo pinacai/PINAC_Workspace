@@ -141,6 +141,13 @@ interface MarkdownRendererProps {
 }
 
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ text }) => {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = () => {
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
+  };
+
   return (
     <div className="markdown-content">
       <ReactMarkdown
@@ -149,20 +156,37 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ text }) => {
           code({ node, inline, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
             return !inline && match ? (
-              <SyntaxHighlighter
-                style={atomDark}
-                language={match[1]}
-                customStyle={{
-                  margin: "0",
-                  padding: "0",
-                  fontSize: "0.9rem",
-                  borderRadius: "0",
-                }}
-                PreTag="div"
-                {...props}
-              >
-                {String(children).replace(/\n$/, "")}
-              </SyntaxHighlighter>
+              <>
+                <SyntaxHighlighter
+                  style={atomDark}
+                  language={match[1]}
+                  customStyle={{
+                    margin: "0",
+                    fontSize: "0.9rem",
+                    borderRadius: "0",
+                  }}
+                  PreTag="div"
+                  {...props}
+                >
+                  {String(children).replace(/\n$/, "")}
+                </SyntaxHighlighter>
+                <div className="w-full pr-3 flex justify-end bg-tertiary-dark">
+                  <CopyToClipboard text={String(children)} onCopy={handleCopy}>
+                    <button className="m-0.5 px-1.5 py-0.5 flex text-gray-200 hover:bg-zinc-600 rounded-lg cursor-pointer">
+                      <span className="flex items-center justify-center mr-1">
+                        {isCopied ? (
+                          <FaCheck className="size-3" />
+                        ) : (
+                          <FiCopy className="size-3" />
+                        )}
+                      </span>
+                      <span className="text-sm">
+                        {isCopied ? "Copied!" : "Copy"}
+                      </span>
+                    </button>
+                  </CopyToClipboard>
+                </div>
+              </>
             ) : (
               <code className={`inline-code ${className || ""}`} {...props}>
                 {children}

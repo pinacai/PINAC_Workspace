@@ -6,7 +6,7 @@ import SecureTokenManager from "./utilis/tokenManager";
 import SecureMasterKeyManager from "./utilis/masterKeyManager";
 import { refreshIdToken } from "./utilis/authManager";
 import askLocalLLM from "./model/ollama";
-import applyPrompt from "./prompt";
+import applyPrompt from "./model/prompt";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
