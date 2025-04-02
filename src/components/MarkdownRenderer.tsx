@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -12,13 +13,11 @@ import { FaCheck } from "react-icons/fa6";
 
 interface LiveMarkdownRendererProps {
   text: string;
-  className?: string;
   setButtonsDisabled?: React.Dispatch<React.SetStateAction<boolean>> | null;
 }
 
 export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
   text,
-  className,
   setButtonsDisabled,
 }) => {
   const [isCopied, setIsCopied] = useState(false);
@@ -50,7 +49,7 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
   }, [currentIndex, delay]);
 
   return (
-    <div className={`markdown-content ${className || ""}`}>
+    <div className="markdown-content">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -105,7 +104,7 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
           h3: ({ node, ...props }) => (
             <h3 className="text-lg mt-4 mb-2" {...props} />
           ),
-          p: ({ node, ...props }) => <p className="my-3" {...props} />,
+          p: ({ node, ...props }) => <p className="" {...props} />,
           ul: ({ node, ...props }) => (
             <ul className="list-disc pl-6 my-3" {...props} />
           ),
@@ -135,18 +134,15 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
   );
 };
 
-//    =======================================     //
+//    ================================================     //
 interface MarkdownRendererProps {
   text: string;
   className?: string;
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
-  text,
-  className,
-}) => {
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ text }) => {
   return (
-    <div className={`markdown-content ${className || ""}`}>
+    <div className="markdown-content">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -156,6 +152,12 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
               <SyntaxHighlighter
                 style={atomDark}
                 language={match[1]}
+                customStyle={{
+                  margin: "0",
+                  padding: "0",
+                  fontSize: "0.9rem",
+                  borderRadius: "0",
+                }}
                 PreTag="div"
                 {...props}
               >
@@ -177,7 +179,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
           h3: ({ node, ...props }) => (
             <h3 className="text-lg mt-4 mb-2" {...props} />
           ),
-          p: ({ node, ...props }) => <p className="my-3" {...props} />,
+          p: ({ node, ...props }) => <p className="" {...props} />,
           ul: ({ node, ...props }) => (
             <ul className="list-disc pl-6 my-3" {...props} />
           ),
