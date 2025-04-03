@@ -8,7 +8,7 @@ import {
 import pinacLogo from "/icon/Round App Logo.svg";
 import { FiCopy } from "react-icons/fi";
 import { FaCheck } from "react-icons/fa6";
-import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import { BiLike, BiSolidLike, BiDislike, BiSolidDislike } from "react-icons/bi";
 import { GrPowerCycle } from "react-icons/gr";
 
 // ============================================================================ //
@@ -27,31 +27,28 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
   setButtonsDisabled,
 }) => {
   const [isCopied, setIsCopied] = useState(false);
-  // const [isLiked, setIsLiked] = useState(false);
-  // const [isDisliked, setIsDisliked] = useState(false);
-  const [isAvatarVisible, setIsAvatarVisible] = useState(
-    window.innerWidth > 576
-  );
+  const [isLike, setIsLike] = useState(false);
+  const [isDislike, setIsDislike] = useState(false);
 
   // Button
-  // const handleLike = () => {
-  //   if (isLiked) {
-  //     setIsLiked(false);
-  //     setIsDisliked(false);
-  //   } else {
-  //     setIsLiked(true);
-  //     setIsDisliked(false);
-  //   }
-  // };
-  // const handleDislike = () => {
-  //   if (isDisliked) {
-  //     setIsDisliked(false);
-  //     setIsLiked(false);
-  //   } else {
-  //     setIsDisliked(true);
-  //     setIsLiked(false);
-  //   }
-  // };
+  const handleLike = () => {
+    if (isLike) {
+      setIsLike(false);
+      setIsDislike(false);
+    } else {
+      setIsLike(true);
+      setIsDislike(false);
+    }
+  };
+  const handleDislike = () => {
+    if (isDislike) {
+      setIsDislike(false);
+      setIsLike(false);
+    } else {
+      setIsDislike(true);
+      setIsLike(false);
+    }
+  };
 
   const copyToClipboard = () => {
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
@@ -67,29 +64,14 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
     }
   };
 
-  // for UI responsiveness
-  useEffect(() => {
-    const updateAvatarVisibility = () => {
-      setIsAvatarVisible(window.innerWidth > 576);
-    };
-    window.addEventListener("resize", updateAvatarVisibility);
-    return () => window.removeEventListener("resize", updateAvatarVisibility);
-  }, []);
-
   // ---------------------------------- //
   return (
     <div className="flex justify-start mt-6">
-      {isAvatarVisible && (
-        <div className="size-[35px] mt-1 rounded-full dark:border-[1.5px] dark:border-gray-500 flex justify-center items-center">
-          <img src={pinacLogo} />
-        </div>
-      )}
+      <div className="size-[35px] mt-1 rounded-full dark:border-[1.5px] dark:border-gray-500 flex justify-center items-center">
+        <img src={pinacLogo} />
+      </div>
       <div className="w-full px-4 py-2 rounded-lg text-lg text-black dark:text-gray-200">
         {live ? (
-          // <LiveMarkdownStyle
-          //   text={response}
-          //   setButtonsDisabled={setButtonsDisabled ? setButtonsDisabled : null}
-          // />
           <LiveMarkdownRenderer
             text={response}
             setButtonsDisabled={setButtonsDisabled ? setButtonsDisabled : null}
@@ -120,7 +102,10 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
 
           {/*    Like & Dislike Buttons     */}
           <div className="flex mt-3 rounded-md border border-gray-300 dark:border-zinc-700">
-            <button className="relative p-1.5 pr-0.5 flex items-center justify-center group">
+            <button
+              onClick={handleLike}
+              className="relative p-1.5 pr-0.5 flex items-center justify-center group"
+            >
               <span
                 className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs text-gray-900 bg-gray-300 dark:text-gray-200 dark:bg-tertiary-dark rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
                 aria-hidden="true"
@@ -128,10 +113,17 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
                 Like
               </span>
               <span className="flex items-center justify-center text-gray-600 dark:text-gray-400">
-                <AiOutlineLike className="size-5" />
+                {isLike ? (
+                  <BiSolidLike className="size-5" />
+                ) : (
+                  <BiLike className="size-5" />
+                )}
               </span>
             </button>
-            <button className="relative p-1.5 pl-1 flex items-center justify-center group rounded-md">
+            <button
+              onClick={handleDislike}
+              className="relative p-1.5 pl-1 flex items-center justify-center group rounded-md"
+            >
               <span
                 className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs text-gray-900 bg-gray-300 dark:text-gray-200 dark:bg-tertiary-dark rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
                 aria-hidden="true"
@@ -139,7 +131,11 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
                 Dislike
               </span>
               <span className="flex items-center justify-center text-gray-600 dark:text-gray-400">
-                <AiOutlineDislike className="size-5" />
+                {isDislike ? (
+                  <BiSolidDislike className="size-5" />
+                ) : (
+                  <BiDislike className="size-5" />
+                )}
               </span>
             </button>
           </div>
@@ -169,21 +165,6 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
 //
 // Component similar to AiMessage and replaced as soon as we have the data.
 export const AiLoader: React.FC = () => {
-  const [isAvatarVisible, setIsAvatarVisible] = useState(
-    window.innerWidth > 576
-  );
-
-  // Handle window resize and update avatar visibility
-  useEffect(() => {
-    const updateAvatarVisibility = () => {
-      setIsAvatarVisible(window.innerWidth > 576);
-    };
-    window.addEventListener("resize", updateAvatarVisibility);
-    // Cleanup function to remove the event listener
-    return () => window.removeEventListener("resize", updateAvatarVisibility);
-  }, []);
-
-  //
   // Add the necessary keyframes and custom styles
   useEffect(() => {
     const style = document.createElement("style");
@@ -213,11 +194,9 @@ export const AiLoader: React.FC = () => {
   // ---------------------------------- //
   return (
     <div className="flex justify-start mt-6">
-      {isAvatarVisible && (
-        <div className="size-[35px] mt-1 rounded-full dark:border-[1.5px] dark:border-gray-500 flex justify-center items-center">
-          <img src={pinacLogo} />
-        </div>
-      )}
+      <div className="size-[35px] mt-1 rounded-full dark:border-[1.5px] dark:border-gray-500 flex justify-center items-center">
+        <img src={pinacLogo} />
+      </div>
       <div className="flex max-w-md px-4 py-2 text-lg font-exo font-medium text-gray-600 dark:text-gray-300">
         <div className="relative size-7 py-5 rounded-lg">
           {bars.map((bar, index) => (
