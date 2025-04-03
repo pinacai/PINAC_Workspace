@@ -31,7 +31,7 @@ const ChatHistory: React.FC = () => {
 
   return (
     <div
-      className="w-full h-full flex flex-col items-center justify-center overflow-y-auto
+      className="w-full h-full flex flex-col items-center justify-center scroolbar
       bg-primary dark:bg-primary-dark lg:bg-transparent dark:lg:bg-transparent"
     >
       <Header title="Chat History" page="history" />

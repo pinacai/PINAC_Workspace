@@ -15,7 +15,7 @@ interface ChatInputProps {
   setUserInput: (value: string) => void;
   buttonsDisabled: boolean;
   setButtonsDisabled: (value: boolean) => void;
-  textareaRef: React.RefObject<HTMLTextAreaElement>;
+  textareaRef: React.RefObject<HTMLTextAreaElement | null>;
   submit: (text: string) => void;
   setStop: (value: boolean) => void;
 }

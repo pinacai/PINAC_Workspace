@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { HashRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./context/Authentication.tsx";
 import { ModelSettingsProvider } from "./context/ModelSettings";
+import { ModalProvider } from "./context/Modal.tsx";
 import App from "./App.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -10,7 +11,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Router>
       <AuthProvider>
         <ModelSettingsProvider>
-          <App />
+          <ModalProvider>
+            <App />
+          </ModalProvider>
         </ModelSettingsProvider>
       </AuthProvider>
     </Router>

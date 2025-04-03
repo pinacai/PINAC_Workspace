@@ -67,6 +67,12 @@
   @apply bg-gray-500 dark:bg-zinc-500;
 }
 
+.blur {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  pointer-events: none;
+}
+
 /*  pages/Home.tsx   */
 .msgBox {
   width: 100%;
