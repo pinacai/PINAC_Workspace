@@ -32,12 +32,9 @@ const Profile: React.FC = () => {
 
   // ------------------------------------------------------ //
   return (
-    <div
-      className="w-full h-full flex flex-col items-center justify-center scroolbar
-    bg-primary dark:bg-primary-dark lg:bg-transparent dark:lg:bg-transparent"
-    >
+    <div className="w-full h-full flex flex-col items-center justify-center scroolbar">
       <Header title="Profile" page="profile" />
-      <div className="w-full lg:w-full md:w-[60%] sm:w-[90%] h-full my-4 flex flex-col justify-start items-center scroolbar">
+      <div className="w-full h-full my-4 flex flex-col justify-start items-center scroolbar">
         {/* ======= profile Image ======= */}
         <div className="size-24 rounded-full flex justify-center items-center">
           {imageUrl ? (
@@ -62,8 +59,7 @@ const Profile: React.FC = () => {
                 placeholder=" "
                 type="text"
                 className="peer w-full p-2.5 pb-5 outline-none rounded-xl transition-all duration-300
-                text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-tertiary-dark border-1 border-gray-300 dark:border-zinc-600
-                lg:text-gray-200 dark:lg:text-gray-200 lg:bg-gray-800 dark:lg:bg-primary-dark lg:border lg:border-gray-600 dark:lg:border-zinc-700 lg:shadow-md
+                text-gray-200 dark:text-gray-200 bg-gray-800 dark:bg-primary-dark border border-gray-600 dark:border-zinc-700 shadow-md
                 "
                 value={displayName}
                 onChange={(event) => {
@@ -84,8 +80,7 @@ const Profile: React.FC = () => {
                 placeholder=" "
                 type="email"
                 className="peer w-full p-2.5 pb-5 outline-none rounded-xl  transition-all duration-300
-                text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-tertiary-dark border-1 border-gray-300 dark:border-zinc-600
-                lg:text-gray-200 dark:lg:text-gray-200 lg:bg-gray-800 dark:lg:bg-primary-dark lg:border lg:border-gray-600 dark:lg:border-zinc-700 lg:shadow-md
+                text-gray-200 dark:text-gray-200 bg-gray-800 dark:bg-primary-dark border border-gray-600 dark:border-zinc-700 shadow-md
                 "
                 value={emailId}
                 onChange={(event) => {
@@ -104,8 +99,7 @@ const Profile: React.FC = () => {
               <textarea
                 placeholder="Tell Us about yourself"
                 className="w-full h-48 p-2.5 pb-5 outline-none rounded-xl shadow-md resize-none transition-all duration-300
-                text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-tertiary-dark border-1 border-gray-300 dark:border-zinc-600
-                lg:text-gray-200 dark:lg:text-gray-200 lg:bg-gray-800 dark:lg:bg-primary-dark lg:border lg:border-gray-600 dark:lg:border-zinc-700 lg:shadow-md
+                text-gray-200 dark:text-gray-200 bg-gray-800 dark:bg-primary-dark border border-gray-600 dark:border-zinc-700
                 "
                 value={bio}
                 onChange={(event) => {
@@ -116,7 +110,7 @@ const Profile: React.FC = () => {
 
             {/* ======= Submit Button ======= */}
             <button
-              className="w-full p-2.5 border-none rounded-xl outline-none lg:bg-blue-600 dark:lg:bg-blue-500 lg:text-white dark:lg:text-white lg:hover:bg-blue-700 dark:lg:hover:bg-blue-600
+              className="w-full p-2.5 border-none rounded-xl outline-none
               bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 hover:bg-gray-700 dark:hover:bg-gray-300"
               onClick={() => {
                 saveUserInfo();

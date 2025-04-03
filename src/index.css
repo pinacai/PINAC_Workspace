@@ -24,11 +24,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --breakpoint-*: initial;
-  --breakpoint-sm: 320px;
-  --breakpoint-md: 576px;
-  --breakpoint-lg: 768px;
-  --breakpoint-xl: 992px;
+  --breakpoint-lg: 992px;
 
   --font-nasa: "nasa", "Montserrat", sans-serif;
   --font-ai-text: "ai-text", "Montserrat", sans-serif;
@@ -44,7 +40,9 @@
   --color-tertiary-dark: #404045;
 
   --height-body-without-header: calc(100vh - 90px);
-  --height-230: 230px;
+  --width-main-body: calc(100vw - 72px);
+  --width-min-main-body: calc(100vw - 320px);
+  --width-max-main-body: calc(100vw - 384px);
 }
 
 /*    Global styles    */
@@ -280,7 +278,6 @@
   transform: translateX(20px);
 }
 
-
 /*    components/MarkdownRenderer.tsx     */
 
 .markdown-content {
@@ -293,7 +290,8 @@
   font-size: 85%;
   background-color: rgba(175, 184, 193, 0.2);
   border-radius: 6px;
-  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
+    Liberation Mono, monospace;
 }
 
 .markdown-content pre {

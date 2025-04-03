@@ -7,8 +7,7 @@ import { BsLightningChargeFill } from "react-icons/bs";
 const AboutUs: React.FC = () => {
   return (
     <div
-      className="w-full h-full flex flex-col items-center justify-center scroolbar
-      bg-primary dark:bg-primary-dark lg:bg-transparent dark:lg:bg-transparent"
+      className="w-full h-full flex flex-col items-center justify-center scroolbar"
     >
       <Header title="About Us" page="about" />
       <div className="w-full h-full my-4 flex flex-col items-center justify-center gap-3 scroolbar">

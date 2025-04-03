@@ -218,7 +218,7 @@ export const AiLoader: React.FC = () => {
           <img src={pinacLogo} />
         </div>
       )}
-      <div className="flex max-w-xs lg:max-w-md px-4 py-2 text-lg font-exo font-medium text-gray-600 dark:text-gray-300">
+      <div className="flex max-w-md px-4 py-2 text-lg font-exo font-medium text-gray-600 dark:text-gray-300">
         <div className="relative size-7 py-5 rounded-lg">
           {bars.map((bar, index) => (
             <div

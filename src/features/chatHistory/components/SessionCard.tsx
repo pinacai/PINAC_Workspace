@@ -52,11 +52,10 @@ export const SessionCard: React.FC<SessionCardProps> = ({
   return (
     <div
       className="w-full mb-2 p-3 pt-2 flex flex-col rounded-2xl cursor-pointer border
-      lg:bg-transparent dark:lg:bg-transparent lg:border-gray-700 dark:lg:border-primary-dark lg:hover:bg-gray-700 dark:lg:hover:bg-primary-dark
-      bg-gray-200 dark:bg-zinc-800 border-gray-300 hover:border-gray-400 dark:border-zinc-700 hover:bg-gray-300 dark:hover:bg-primary-dark"
+      bg-transparent dark:bg-transparent border-gray-700 dark:border-primary-dark hover:bg-gray-700 dark:hover:bg-primary-dark"
       onClick={fetchChat}
     >
-      <div className="w-full flex items-center justify-between text-xs text-gray-600 lg:text-gray-400 dark:text-zinc-500">
+      <div className="w-full flex items-center justify-between text-xs text-gray-400 dark:text-zinc-500">
         {date}
         <button className="cursor-pointer hover:bg-gray-800 dark:hover:bg-secondary-dark p-0.5 rounded-full">
           <IoIosMore size={20} />

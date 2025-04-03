@@ -64,6 +64,8 @@ const createMainWindow = () => {
   mainWindow = new BrowserWindow({
     width: width,
     height: height,
+    minWidth: 768,
+    minHeight: 600,
     frame: false,
     autoHideMenuBar: true,
     icon: "public/icon/Round App Logo.png",
