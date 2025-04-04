@@ -1,33 +1,13 @@
-import React from "react";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "../../database/db";
 import { Header } from "../header";
 import { SessionCard } from "./components/SessionCard";
-import { getAllSessions } from "../../database/db";
 
 // icons
 import { CiSearch } from "react-icons/ci";
 
 const ChatHistory: React.FC = () => {
-  const [sessions, setSessions] = React.useState<React.ReactElement[]>([]);
-
-  // get all sessions from DB
-  getAllSessions().then((sessions) => {
-    setSessions(
-      sessions.map((session) => (
-        <SessionCard
-          sessionId={session.id}
-          date={`${String(session.timestamp.getDate()).padStart(
-            2,
-            "0"
-          )}.${String(session.timestamp.getMonth() + 1).padStart(
-            2,
-            "0"
-          )}.${String(session.timestamp.getFullYear())}`}
-          title={session.title}
-          key={session.id}
-        />
-      ))
-    );
-  });
+  const sessions = useLiveQuery(() => db.chatSessions.toArray(), []);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center scroolbar">
@@ -46,10 +26,23 @@ const ChatHistory: React.FC = () => {
         </div>
       </div>
       <div className="w-full h-full py-1 px-3 lg:px-5 flex flex-col items-center scroolbar">
-        {sessions.length === 0 ? (
-          <span className="font-exo text-xl">No history</span>
+        {sessions?.length !== 0 ? (
+          sessions?.map((session) => (
+            <SessionCard
+              sessionId={session.id}
+              date={`${String(session.timestamp.getDate()).padStart(
+                2,
+                "0"
+              )}.${String(session.timestamp.getMonth() + 1).padStart(
+                2,
+                "0"
+              )}.${String(session.timestamp.getFullYear())}`}
+              title={session.title}
+              key={session.id}
+            />
+          ))
         ) : (
-          sessions.map((session) => session)
+          <span className="font-exo text-xl">No history</span>
         )}
       </div>
     </div>

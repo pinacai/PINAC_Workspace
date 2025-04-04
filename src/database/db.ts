@@ -26,7 +26,7 @@ class ChatDatabase extends Dexie {
   }
 }
 
-const db = new ChatDatabase();
+export const db = new ChatDatabase();
 
 // Database operations
 export const startNewSession = async (id: string, title: string) => {
