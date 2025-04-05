@@ -1,7 +1,7 @@
 {
   "name": "pinac-workspace",
   "version": "2.1",
-  "description": "AI-powered beautiful desktop app for effortless, high-quality results from simple prompts.",
+  "description": "A Must-Have Desktop AI App for Everyone",
   "author": "RajeshTechForge",
   "type": "module",
   "scripts": {
@@ -17,7 +17,9 @@
     "@types/react": "^19.0.12",
     "dexie": "^4.0.8",
     "dexie-react-hooks": "^1.1.7",
+    "electron-is-dev": "^3.0.1",
     "electron-store": "^10.0.1",
+    "find-free-port": "^2.0.0",
     "moment": "^2.30.1",
     "node-fetch": "^3.3.2",
     "ollama": "^0.5.14",

@@ -1,5 +1,6 @@
 import { app, BrowserWindow, screen, ipcMain, shell, dialog } from "electron";
 import { fileURLToPath } from "node:url";
+import { spawn } from "node:child_process";
 import path from "node:path";
 import * as fs from "fs";
 import SecureTokenManager from "./utilis/tokenManager";
@@ -7,6 +8,143 @@ import SecureMasterKeyManager from "./utilis/masterKeyManager";
 import { refreshIdToken } from "./utilis/authManager";
 import askLocalLLM from "./model/ollama";
 import applyPrompt from "./model/prompt";
+// @ts-ignore
+import findFreePort from "find-free-port";
+import isDev from "electron-is-dev";
+import { ChildProcessWithoutNullStreams } from "child_process";
+
+//
+// ====================================================== //
+//         Functions to Manage Python Backend             //
+// ====================================================== //
+
+let pythonProcess: ChildProcessWithoutNullStreams | null;
+// @ts-ignore
+let backendPort;
+
+const startPythonBackend = async () => {
+  try {
+    // Find an available port
+    const [port] = await findFreePort(5000);
+    backendPort = port;
+
+    console.log(`Starting Python backend on port ${port}`);
+
+    let pythonCommand;
+    let pythonArgs;
+    let pythonOptions;
+
+    if (isDev) {
+      // Development: Use the Python interpreter in the virtual environment
+      if (process.platform === "win32") {
+        // Windows
+        pythonCommand = path.join(
+          __dirname,
+          "..",
+          "backend",
+          "venv",
+          "Scripts",
+          "python.exe"
+        );
+      } else {
+        // macOS/Linux
+        pythonCommand = path.join(
+          __dirname,
+          "..",
+          "backend",
+          "venv",
+          "bin",
+          "python"
+        );
+      }
+
+      pythonArgs = [
+        path.join(__dirname, "..", "backend", "app.py"),
+        "--port",
+        port.toString(),
+      ];
+
+      pythonOptions = {
+        cwd: path.join(__dirname, "..", "backend"),
+      };
+    } else {
+      // Production: Use the packaged Python executable
+      if (process.platform === "win32") {
+        pythonCommand = path.join(
+          process.resourcesPath,
+          "backend",
+          "dist",
+          "app",
+          "app.exe"
+        );
+      } else {
+        pythonCommand = path.join(
+          process.resourcesPath,
+          "backend",
+          "dist",
+          "app",
+          "app"
+        );
+      }
+
+      pythonArgs = ["--port", port.toString()];
+
+      pythonOptions = {
+        cwd: path.join(process.resourcesPath, "backend"),
+      };
+    }
+
+    // Create environment variables - pass the port
+    const env = { ...process.env, PORT: port.toString() };
+    // @ts-ignore
+    pythonOptions.env = env;
+
+    // Spawn the Python process
+    pythonProcess = spawn(pythonCommand, pythonArgs, pythonOptions);
+
+    // Handle Python process output
+    pythonProcess.stdout.on("data", (data) => {
+      console.log(`Python backend: ${data}`);
+    });
+
+    pythonProcess.stderr.on("data", (data) => {
+      console.error(`Python backend error: ${data}`);
+    });
+
+    pythonProcess.on("close", (code) => {
+      console.log(`Python backend process exited with code ${code}`);
+      pythonProcess = null;
+    });
+
+    // Return the port for the frontend to use
+    return port;
+  } catch (error) {
+    console.error("Failed to start Python backend:", error);
+    app.quit();
+  }
+};
+
+//
+const stopPythonBackend = () => {
+  if (pythonProcess) {
+    console.log("Stopping Python backend");
+
+    if (process.platform === "win32") {
+      // On Windows, use taskkill to ensure all child processes are terminated
+      spawn("taskkill", ["/pid", String(pythonProcess.pid), "/f", "/t"]);
+    } else {
+      // On macOS/Linux, use the kill command
+      pythonProcess.kill();
+    }
+
+    pythonProcess = null;
+  }
+};
+
+//
+// ============================================================ //
+//          Creating Main Window and Initializing App           //
+// ============================================================ //
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -54,11 +192,14 @@ const saveSize = (width: number, height: number): void => {
 };
 
 //
-const createMainWindow = () => {
+const createMainWindow = async () => {
   const savedSize = getSavedSize();
   const defaultSize = getDefaultSize();
 
   const { width, height } = savedSize || defaultSize;
+
+  // Start Python backend first
+  // backendPort = await startPythonBackend();
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -252,6 +393,7 @@ ipcMain.on("close", () => {
     if (global.gc) global.gc();
     // Destroy the window and quit the app in one go
     mainWindow.destroy();
+    // stopPythonBackend();
     if (process.platform !== "darwin") {
       app.exit(0); // More immediate than app.quit()
     }
