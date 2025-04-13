@@ -21,7 +21,7 @@ const Profile: React.FC = () => {
 
   // Load user data on switching to this page
   useEffect(() => {
-    window.ipcRenderer.send("give-user-info");
+    window.ipcRenderer.send("get-user-info");
     window.ipcRenderer.once("backend-response", (_, response) => {
       setDisplayName(response.displayName || "");
       setEmailId(response.email || "");

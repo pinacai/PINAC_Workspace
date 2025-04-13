@@ -6,8 +6,6 @@ import * as fs from "fs";
 import SecureTokenManager from "./utilis/tokenManager";
 import SecureMasterKeyManager from "./utilis/masterKeyManager";
 import { refreshIdToken } from "./utilis/authManager";
-import askLocalLLM from "./model/ollama";
-import applyPrompt from "./model/prompt";
 // @ts-ignore
 import findFreePort from "find-free-port";
 import isDev from "electron-is-dev";
@@ -20,7 +18,7 @@ import { ChildProcessWithoutNullStreams } from "child_process";
 
 let pythonProcess: ChildProcessWithoutNullStreams | null;
 // @ts-ignore
-let backendPort;
+let backendPort: number | null;
 
 const startPythonBackend = async () => {
   try {
@@ -199,7 +197,7 @@ const createMainWindow = async () => {
   const { width, height } = savedSize || defaultSize;
 
   // Start Python backend first
-  // backendPort = await startPythonBackend();
+  await startPythonBackend();
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -304,12 +302,16 @@ ipcMain.on("check", (event) => {
   event.reply("auth-response", { status: status });
 });
 
+ipcMain.on("get-backend-port", (event) => {
+  event.reply("backend-port", { port: backendPort });
+});
+
 ipcMain.on("logout", () => {
   fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
   tokenManager.clearAllTokens();
 });
 
-ipcMain.on("give-user-info", (event) => {
+ipcMain.on("get-user-info", (event) => {
   fs.readFile(path.join(userDataPath, "user-info.json"), "utf8", (_, data) => {
     try {
       const userData = JSON.parse(data);
@@ -393,7 +395,7 @@ ipcMain.on("close", () => {
     if (global.gc) global.gc();
     // Destroy the window and quit the app in one go
     mainWindow.destroy();
-    // stopPythonBackend();
+    stopPythonBackend();
     if (process.platform !== "darwin") {
       app.exit(0); // More immediate than app.quit()
     }
@@ -405,7 +407,6 @@ ipcMain.on("close", () => {
 // ======================================================= //
 
 ipcMain.on("request-to-server", async (event, request) => {
-  //
   const sendResponse = (
     error: boolean,
     content?: string,
@@ -418,54 +419,41 @@ ipcMain.on("request-to-server", async (event, request) => {
     });
   };
   //
-  if (request.preferred_model_type == "Cloud LLM") {
-    try {
-      let response = await callRegularAiServer(request.user_query);
+  try {
+    let response = await callRegularAiServer(request.user_query);
 
-      if (response.assistant) {
-        sendResponse(false, response.assistant);
-        return;
-      }
+    if (response.assistant) {
+      sendResponse(false, response.assistant);
+      return;
+    }
 
-      if (response.code === "TOKEN_EXPIRED") {
-        try {
-          await refreshIdToken(tokenManager);
-          response = await callRegularAiServer(request.user_query);
+    if (response.code === "TOKEN_EXPIRED") {
+      try {
+        await refreshIdToken(tokenManager);
+        response = await callRegularAiServer(request.user_query);
 
-          if (response.assistant) {
-            sendResponse(false, response.assistant);
-            return;
-          }
-          sendResponse(true, undefined, response.message);
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-          if (error.message === "TOKEN_EXPIRED") {
-            sendResponse(
-              true,
-              undefined,
-              "You are logged out. Please login again."
-            );
-            return;
-          }
-          sendResponse(true, undefined, `${error}`);
+        if (response.assistant) {
+          sendResponse(false, response.assistant);
           return;
         }
+        sendResponse(true, undefined, response.message);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        if (error.message === "TOKEN_EXPIRED") {
+          sendResponse(
+            true,
+            undefined,
+            "You are logged out. Please login again."
+          );
+          return;
+        }
+        sendResponse(true, undefined, `${error}`);
+        return;
       }
-      sendResponse(true, undefined, response.message);
-    } catch (error) {
-      sendResponse(true, undefined, `${error}`);
     }
-  }
-  //
-  else if (request.preferred_model_type == "Private LLM") {
-    const prompt = request.prompt;
-    const finalPrompt = applyPrompt(prompt, request.user_query);
-    const response: object = await askLocalLLM(
-      request.preferred_model,
-      finalPrompt,
-      request.image_path
-    );
-    event.reply("server-response", response);
+    sendResponse(true, undefined, response.message);
+  } catch (error) {
+    sendResponse(true, undefined, `${error}`);
   }
 });
 

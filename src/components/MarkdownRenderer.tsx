@@ -24,6 +24,7 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
   const { stop, setStop } = useStopTextGeneration();
   const [currentText, setCurrentText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
   const delay = 10;
 
   const handleCopy = () => {
@@ -31,22 +32,50 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
     setTimeout(() => setIsCopied(false), 2000);
   };
 
+  // Reset rendering when text changes completely
+  useEffect(() => {
+    if (text !== currentText && currentIndex === 0) {
+      setCurrentText("");
+    }
+  }, [text]);
+
   // Handle typing effect for the entire Markdown content
   useEffect(() => {
-    if (currentIndex >= text.length - 5) {
-      setButtonsDisabled ? setButtonsDisabled(false) : null;
+    // If we're at the end of the text or very close to it
+    if (currentIndex >= text.length) {
+      if (!isComplete) {
+        setIsComplete(true);
+        setButtonsDisabled && setButtonsDisabled(false);
+      }
+      return;
     }
+
+    // If stop is requested
     if (stop) {
-      setButtonsDisabled ? setButtonsDisabled(false) : null;
+      setButtonsDisabled && setButtonsDisabled(false);
       setStop(false);
-    } else if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setCurrentText((prevText) => prevText + text[currentIndex]);
-        setCurrentIndex((prevIndex) => prevIndex + 1);
-      }, delay);
-      return () => clearTimeout(timeout);
+      setIsComplete(true);
+      setCurrentText(text); // Show full text when stopped
+      return;
     }
-  }, [currentIndex, delay]);
+
+    // Continue rendering
+    const timeout = setTimeout(() => {
+      setCurrentText((prevText) => prevText + text[currentIndex]);
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+    }, delay);
+
+    return () => clearTimeout(timeout);
+  }, [currentIndex, text, delay, stop, isComplete]);
+
+  // If text has changed, reset the current index and complete status
+  useEffect(() => {
+    if (text !== currentText && currentText.length >= text.length) {
+      setCurrentIndex(0);
+      setCurrentText("");
+      setIsComplete(false);
+    }
+  }, [text]);
 
   return (
     <div className="markdown-content">

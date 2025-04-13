@@ -1,6 +1,9 @@
 > [!NOTE]  
 > This is the upcoming **v2.1** iteration of the application, which is currently in the development phase. At this time, certain functionalities are still in progress and may be missing from this version.
 
+> We are working on _new powerfull python backend_, so, the cloud AI model is currently unavailable, so the app is operating on local **Ollama** models. Cloud models will be reinstated shortly.  
+> **NOTE**: _Make sure Ollama is running._
+
 <div align="center">
 
 <h1 style="border-bottom: none">
@@ -38,8 +41,13 @@ Overview of File Structure in Brief to Help You Get Started.
 
       .
       ├── index.html
-      ├── electron/
       ├── public/
+      ├── backend/
+      |   ├── app.py
+      |   ├── models/
+      |   ├── backend.spec
+      |   └── requirements.txt
+      ├── electron/
       └── src/
           ├── App.tsx
           ├── index.css
@@ -48,6 +56,7 @@ Overview of File Structure in Brief to Help You Get Started.
           │   ├── FrameHeader.tsx
           │   ├── GreetingText.tsx
           │   ├── MarkdownRenderer.tsx
+          │   ├── Modal.tsx
           │   ├── Sidebar.tsx
           │   └── ThemeToggle.tsx
           │
@@ -66,7 +75,7 @@ Overview of File Structure in Brief to Help You Get Started.
           │   ├── chatHistory/
           │   ├── chatInput/
           │   ├── header/
-          │   ├── msgBubble/
+          │   ├── chatMessage/
           │   ├── profile/
           │   └── settings/
           │
@@ -77,8 +86,8 @@ Overview of File Structure in Brief to Help You Get Started.
 
 ## 🚀 Getting Started
 
-> [!TIP]
-> If you are facing any problem with authentication, you can switch to branch `minimal-version` to use the app without authentication(it uses a development server), provided for testing ui.
+<!-- > [!TIP]
+> If you are facing any problem with authentication, you can switch to branch `minimal-version` to use the app without authentication(it uses a development server), provided for testing ui. -->
 
 1. Clone the Repository
 
@@ -92,7 +101,26 @@ Overview of File Structure in Brief to Help You Get Started.
    npm install
    ```
 
-3. Start the App
+3. Create Python Env for running backend
+
+   ```bash
+   cd backend && python -m venv venv
+   ```
+
+4. Install Python dependencies
+
+   ```bash
+   # Activate the virtual environment
+   # On Windows:
+   venv\Scripts\activate
+   # On macOS/Linux:
+   source venv/bin/activate
+
+   pip install -r requirements.txt
+   ```
+
+5. Start the App  
+   (For regular time usage, No need to start the python env or backend file seperately)
    ```bash
    npm run dev
    ```

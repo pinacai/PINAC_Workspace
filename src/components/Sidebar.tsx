@@ -49,7 +49,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   //
   useEffect(() => {
-    window.ipcRenderer.send("give-user-info");
+    window.ipcRenderer.send("get-user-info");
     window.ipcRenderer.once("backend-response", (_, response) => {
       setUserImageUrl(response.photoURL);
     });
@@ -82,10 +82,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
               >
                 <IoReorderThreeOutline size={30} />
               </li>
-              <li className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700" onClick={() => openSidebar("history")}>
+              <li
+                className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700"
+                onClick={() => openSidebar("history")}
+              >
                 <LuHistory size={25} />
               </li>
-              <li className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700" onClick={() => openSidebar("project")}>
+              <li
+                className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700"
+                onClick={() => openSidebar("project")}
+              >
                 <LuLayers size={25} />
               </li>
               <li
@@ -94,7 +100,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
               >
                 <IoSettingsOutline size={30} />
               </li>
-              <li className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700" onClick={() => openSidebar("about")}>
+              <li
+                className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700"
+                onClick={() => openSidebar("about")}
+              >
                 <MdOutlinePeopleAlt size={25} />
               </li>
             </ul>
@@ -106,7 +115,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <li className="sidebar-li">
                 <ThemeToggle />
               </li>
-              <li className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700" onClick={() => openSidebar("profile")}>
+              <li
+                className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700"
+                onClick={() => openSidebar("profile")}
+              >
                 {userImageUrl ? (
                   <img
                     className="size-30 rounded-b-full"

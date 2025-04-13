@@ -17,6 +17,7 @@ release
 # python backend
 venv
 build
+__pycache__
 
 # Editor directories and files
 .vscode/

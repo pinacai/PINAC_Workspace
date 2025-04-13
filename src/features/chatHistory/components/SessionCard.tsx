@@ -3,7 +3,7 @@ import { WelcomeTextContext } from "../../../context/WelcomeText";
 import { ChatMsgContext } from "../../../context/ChatMsg";
 import { getSession } from "../../../database/db";
 import { deleteSession } from "../../../database/db";
-import { SetChatBubble } from "../../msgBubble/SetChatBubble";
+import { SetChatBubble } from "../../chatMessage/SetChatBubble";
 
 // icons
 import { IoIosMore } from "react-icons/io";

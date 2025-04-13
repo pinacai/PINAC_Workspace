@@ -6,7 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 
 interface DropdownMenuProps {
-  defaultOption: string;
+  defaultOption: string | null;
   optionList: Array<string>;
   valueName:
     | "model-type"
