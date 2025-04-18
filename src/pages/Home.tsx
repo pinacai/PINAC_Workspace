@@ -37,6 +37,8 @@ const HomePage: React.FC = () => {
   };
 
   // Function to handle sending user input
+  // -------------------------------------
+  // Function to handle sending user input
   const SubmitUserInput = (inputText: string) => {
     if (/\S/.test(userInputText)) {
       setButtonsDisabled(true);
@@ -72,14 +74,12 @@ const HomePage: React.FC = () => {
         },
       ]);
 
-      // Create request payload for the streaming API
-      const requestData = {
-        prompt: inputText,
-        model: llmContext?.ollamaModelName,
-      };
-
       // Start streaming response with fetch
-      fetchStreamResponse(aiMessageKey, requestData);
+      // if (llmContext?.textModelType === "Cloud LLM") {
+      //   fetchCloudLLMResponse(aiMessageKey, inputText);
+      // } else {
+        fetchPrivateLLMResponse(aiMessageKey, inputText);
+      // }
 
       // clearing everything
       attachmentContext?.setAttachment(null);
@@ -90,13 +90,107 @@ const HomePage: React.FC = () => {
     }
   };
 
-  // Function to fetch streaming response from backend
-  const fetchStreamResponse = async (
+  // // Function to fetch streaming response from Cloud LLM
+  // // ---------------------------------------------------
+  // const fetchCloudLLMResponse = async (
+  //   aiMessageKey: number,
+  //   inputText: string
+  // ) => {
+  //   let responseText = "";
+
+  //   // Clean up previous listeners to avoid memory leaks
+  //   window.ipcRenderer.off("ai-stream-chunk", () => {});
+  //   window.ipcRenderer.off("ai-stream-complete", () => {});
+
+  //   // Setup listener for stream chunks
+  //   window.ipcRenderer.on("ai-stream-chunk", (_event, chunk: string) => {
+  //     try {
+  //       // Process SSE format - each event starts with "data: "
+  //       const lines = chunk.split("\n");
+
+  //       for (const line of lines) {
+  //         if (line.trim() && line.startsWith("data: ")) {
+  //           try {
+  //             const eventData = JSON.parse(line.substring(6));
+
+  //             // If we have a response field, add it to our text
+  //             if (eventData.response) {
+  //               responseText += eventData.response;
+  //               updateAIResponse(aiMessageKey, responseText, false);
+  //             }
+  //           } catch (parseError) {
+  //             // Skip incomplete JSON chunks
+  //             console.debug("Skipping incomplete JSON chunk");
+  //           }
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error processing stream chunk:", error);
+  //     }
+  //   });
+
+  //   // Setup listener for stream completion
+  //   window.ipcRenderer.on("ai-stream-complete", () => {
+  //     // Update UI with final response
+  //     updateAIResponse(aiMessageKey, responseText, true);
+  //     LogMessageToDatabase(aiMessageKey, "ai", responseText);
+  //     setButtonsDisabled(false);
+
+  //     // Remove listeners
+  //     window.ipcRenderer.off("ai-stream-chunk", () => {});
+  //     window.ipcRenderer.off("ai-stream-complete", () => {});
+  //   });
+
+  //   try {
+  //     // Send the request to the main process
+  //     const result = await window.ipcRenderer.invoke("stream-ai-response", {
+  //       inputText,
+  //     });
+
+  //     // Check for errors
+  //     if (!result.success) {
+  //       throw new Error(result.error || "Failed to get response");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error in streaming request:", error);
+
+  //     // Show error in UI
+  //     if (error instanceof Error) {
+  //       updateAIResponse(
+  //         aiMessageKey,
+  //         `**Error: ${error.message}**\nPlease try again.`,
+  //         true
+  //       );
+  //     } else {
+  //       updateAIResponse(
+  //         aiMessageKey,
+  //         "**Error: Something went wrong**\nPlease try again.",
+  //         true
+  //       );
+  //     }
+
+  //     // Reset UI state
+  //     setButtonsDisabled(false);
+
+  //     // Remove listeners
+  //     window.ipcRenderer.off("ai-stream-chunk", () => {});
+  //     window.ipcRenderer.off("ai-stream-complete", () => {});
+  //   }
+  // };
+
+  // Function to fetch streaming response from Ollama from backend
+  // -------------------------------------------------------------
+  const fetchPrivateLLMResponse = async (
     aiMessageKey: number,
-    requestData: any
+    inputText: string
   ) => {
     let responseText = "";
     const apiUrl = "http://localhost:5000/api/chat/ollama/stream";
+
+    const requestData = {
+      prompt: inputText,
+      model: llmContext?.ollamaModelName,
+    };
 
     // Cancel any ongoing request
     if (abortControllerRef.current) {
@@ -190,20 +284,23 @@ const HomePage: React.FC = () => {
         reader.cancel();
       }
     } catch (error) {
-      console.error("Stream request error:", error);
-      // Display error message only if it's not an aborted request
-      if (error.name !== "AbortError") {
-        updateAIResponse(
-          aiMessageKey,
-          `**Error: ${error.message}**\nTry again :(`,
-          true
-        );
+      if (error instanceof Error) {
+        console.error("Stream request error:", error);
+        // Display error message only if it's not an aborted request
+        if (error.name !== "AbortError") {
+          updateAIResponse(
+            aiMessageKey,
+            `**Error: ${error.message}**\nTry again :(`,
+            true
+          );
+        }
+        setButtonsDisabled(false);
       }
-      setButtonsDisabled(false);
     }
   };
 
   // Function to update AI response in the chat context
+  // --------------------------------------------------
   const updateAIResponse = (
     messageKey: number,
     content: string,
@@ -259,6 +356,7 @@ const HomePage: React.FC = () => {
   }, [isStop]);
 
   // Log message into the database
+  // -----------------------------
   const LogMessageToDatabase = (id: number, role: string, msgText: string) => {
     let currentSessionId = chatContext?.getCurrentSessionId() ?? null;
     if (currentSessionId == null) {

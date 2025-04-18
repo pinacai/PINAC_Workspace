@@ -1,8 +1,7 @@
 > [!NOTE]  
 > This is the upcoming **v2.1** iteration of the application, which is currently in the development phase. At this time, certain functionalities are still in progress and may be missing from this version.
 
-> We are working on _new powerfull python backend_, so, the cloud AI model is currently unavailable, so the app is operating on local **Ollama** models. Cloud models will be reinstated shortly.  
-> **NOTE**: _Make sure Ollama is running._
+> We are working on _new powerfull python backend_, so, the cloud AI model is currently unavailable, so the app is operating on local **Ollama** models. Cloud models will be reinstated shortly.
 
 <div align="center">
 
@@ -23,7 +22,7 @@ A privacy-first, cross-platform, open-source desktop AI assistant for all
 
 <br>
 
-![](https://skillicons.dev/icons?i=react,tailwindcss,typescript,vite,electron)
+![](https://skillicons.dev/icons?i=react,tailwindcss,typescript,vite,electron,python)
 
 </div>
 

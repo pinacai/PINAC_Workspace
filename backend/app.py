@@ -4,7 +4,7 @@ import os
 import sys
 import argparse
 from custom_types import ChatRequest
-from models.myOllama import generate_stream, modelList
+from models.useOllama import generate_stream, model_list, ensure_ollama_running
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for development
@@ -38,7 +38,7 @@ def status():
 
 
 @app.route("/api/chat/ollama/stream", methods=["POST"])
-def stream_chat():
+def stream_ollama():
     try:
         if not request.is_json:
             return jsonify({"error": "Content-Type must be application/json"}), 400
@@ -46,10 +46,7 @@ def stream_chat():
         data = request.get_json()
         chat_request = ChatRequest.from_json(data)
 
-        return Response(
-            generate_stream(chat_request),
-            mimetype="text/event-stream"
-        )
+        return Response(generate_stream(chat_request), mimetype="text/event-stream")
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -57,7 +54,7 @@ def stream_chat():
 @app.route("/api/ollama/models", methods=["GET"])
 def list_models():
     try:
-        ollama = modelList()
+        ollama = model_list()
         models = [model.model for model in ollama.models]
         return jsonify(models)
     except Exception as e:
@@ -65,7 +62,7 @@ def list_models():
 
 
 if __name__ == "__main__":
-    print(f"Starting Python backend on port {port}, debug mode: {debug}")
+    ensure_ollama_running()
 
     if debug:
         # Use Flask's development server for debugging

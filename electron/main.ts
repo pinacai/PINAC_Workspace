@@ -311,6 +311,12 @@ ipcMain.on("logout", () => {
   tokenManager.clearAllTokens();
 });
 
+// sending auth id token
+ipcMain.on("get-auth-token", (event) => {
+  const idToken = tokenManager.retrieveToken("idToken") || "";
+  event.reply("backend-response", { authToken: idToken });
+});
+
 ipcMain.on("get-user-info", (event) => {
   fs.readFile(path.join(userDataPath, "user-info.json"), "utf8", (_, data) => {
     try {
@@ -336,31 +342,6 @@ ipcMain.on("save-user-info", (event, userInfo) => {
     error: null,
   });
 });
-
-//  Keeping this code if their is any future use
-// ---------------------------------------------
-
-// ipcMain.on("upload-file", (event, request) => {
-//   const base64Data = request.file_data;
-//   const fileName = request.file_name;
-//   const filePath = `${userDataPath}/profileImg/${fileName}`;
-
-//   fs.writeFile(filePath, base64Data, "base64", (err) => {
-//     if (err) {
-//       event.reply("backend-response", {
-//         error_occurred: true,
-//         response: false,
-//         error: err,
-//       });
-//     } else {
-//       event.reply("backend-response", {
-//         error_occurred: false,
-//         response: true,
-//         error: null,
-//       });
-//     }
-//   });
-// });
 
 // Reload the app
 ipcMain.on("reload-app", () => {
