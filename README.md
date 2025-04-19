@@ -1,7 +1,5 @@
 > [!NOTE]  
-> This is the upcoming **v2.1** iteration of the application, which is currently in the development phase. At this time, certain functionalities are still in progress and may be missing from this version.
-
-> We are working on _new powerfull python backend_, so, the cloud AI model is currently unavailable, so the app is operating on local **Ollama** models. Cloud models will be reinstated shortly.
+> This is the application's upcoming **v2.1** iteration, which is currently in the development phase. At this time, certain functionalities are still in progress and may be missing from this version.
 
 <div align="center">
 
@@ -85,9 +83,6 @@ Overview of File Structure in Brief to Help You Get Started.
 
 ## 🚀 Getting Started
 
-<!-- > [!TIP]
-> If you are facing any problem with authentication, you can switch to branch `minimal-version` to use the app without authentication(it uses a development server), provided for testing ui. -->
-
 1. Clone the Repository
 
    ```bash
@@ -100,7 +95,7 @@ Overview of File Structure in Brief to Help You Get Started.
    npm install
    ```
 
-3. Create Python Env for running backend
+3. Create a Python Env for running backend
 
    ```bash
    cd backend && python -m venv venv
@@ -119,7 +114,7 @@ Overview of File Structure in Brief to Help You Get Started.
    ```
 
 5. Start the App  
-   (For regular time usage, No need to start the python env or backend file seperately)
+   (For regular time usage, no need to start the Python env or backend file separately)
    ```bash
    npm run dev
    ```
