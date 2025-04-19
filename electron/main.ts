@@ -269,29 +269,6 @@ const masterKey = SecureMasterKeyManager.getPersistentMasterKey();
 const derivedKey = SecureMasterKeyManager.deriveMasterKey(masterKey); // Derive an additional key for extra security
 const tokenManager = new SecureTokenManager(derivedKey);
 
-// ============================================= //
-//                 Cloud Server                  //
-// ============================================= //
-
-const callRegularAiServer = async (input: string) => {
-  const idToken = tokenManager.retrieveToken("idToken") || "";
-  const response = await fetch(
-    "https://pinacworkspace.pages.dev/api/chat/regular",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${idToken}`,
-      },
-      body: JSON.stringify({
-        messages: [],
-        userInput: input,
-      }),
-    }
-  );
-  return await response.json();
-};
-
 // ======================================================================== //
 //        frontend request to backend (for backend functionalities)          //
 // ======================================================================== //
@@ -311,10 +288,10 @@ ipcMain.on("logout", () => {
   tokenManager.clearAllTokens();
 });
 
-// sending auth id token
-ipcMain.on("get-auth-token", (event) => {
+// Change this from ipcMain.on to ipcMain.handle
+ipcMain.handle("get-auth-token", () => {
   const idToken = tokenManager.retrieveToken("idToken") || "";
-  event.reply("backend-response", { authToken: idToken });
+  return { authToken: idToken };
 });
 
 ipcMain.on("get-user-info", (event) => {
@@ -383,58 +360,146 @@ ipcMain.on("close", () => {
   }
 });
 
-// ======================================================= //
-//              Frontend request for Server                //
-// ======================================================= //
+// ======================================================== //
+//                 Requesting Cloud Server                  //
+// ======================================================== //
 
-ipcMain.on("request-to-server", async (event, request) => {
-  const sendResponse = (
-    error: boolean,
-    content?: string,
-    errorMessage?: string
-  ) => {
-    event.reply("server-response", {
-      error_occurred: error,
-      response: content ? { type: "others", content } : null,
-      error: errorMessage || null,
-    });
+ipcMain.handle("fetch-cloud-ai-stream", async (event, input: string) => {
+  const handleStreamError = (message: string) => {
+    console.error("Cloud AI request error:", message);
+    event.sender.send("cloud-ai-stream-error", message);
   };
-  //
-  try {
-    let response = await callRegularAiServer(request.user_query);
 
-    if (response.assistant) {
-      sendResponse(false, response.assistant);
-      return;
+  const makeStreamRequest = async (idToken: string) => {
+    try {
+      const response = await fetch(
+        "https://pinacworkspace.pages.dev/api/chat/regular",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${idToken}`,
+          },
+          body: JSON.stringify({
+            messages: [],
+            userInput: input,
+          }),
+        }
+      );
+
+      // Handle HTTP errors
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`Server error (${response.status}):`, errorText);
+
+        // Check specifically for auth/token errors
+        if (response.status === 401 || response.status === 403) {
+          return {
+            code: "TOKEN_EXPIRED",
+            message: "Authentication token expired",
+          };
+        }
+
+        return {
+          code: "SERVER_ERROR",
+          message: `Server error (${response.status}): ${errorText}`,
+        };
+      }
+
+      // For streaming responses
+      if (!response.body) {
+        return { code: "EMPTY_RESPONSE", message: "Response body is null" };
+      }
+
+      // Process the stream
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+
+          if (done) {
+            // If there's anything left in the buffer, send it
+            if (buffer.trim().length > 0) {
+              event.sender.send("cloud-ai-stream-chunk", buffer);
+            }
+
+            // Signal that streaming is complete
+            event.sender.send("cloud-ai-stream-done");
+            break;
+          }
+
+          // Decode the chunk and add it to our buffer
+          const chunk = decoder.decode(value, { stream: true });
+          buffer += chunk;
+
+          // Process complete SSE messages from the buffer
+          let newlineIndex;
+          while ((newlineIndex = buffer.indexOf("\n")) >= 0) {
+            const line = buffer.slice(0, newlineIndex);
+            buffer = buffer.slice(newlineIndex + 1);
+
+            if (line.trim().length > 0) {
+              event.sender.send("cloud-ai-stream-chunk", line);
+            }
+          }
+        }
+        return { code: "SUCCESS" };
+      } catch (error: any) {
+        return {
+          code: "STREAM_PROCESSING_ERROR",
+          message: error?.message || "Error processing stream data",
+        };
+      }
+    } catch (error: any) {
+      return {
+        code: "FETCH_ERROR",
+        message: error?.message || "Network error while contacting AI server",
+      };
     }
+  };
 
-    if (response.code === "TOKEN_EXPIRED") {
+  try {
+    // First attempt with existing token
+    let idToken = tokenManager.retrieveToken("idToken") || "";
+    let result = await makeStreamRequest(idToken);
+
+    // If token expired, try refreshing it
+    if (result.code === "TOKEN_EXPIRED") {
       try {
         await refreshIdToken(tokenManager);
-        response = await callRegularAiServer(request.user_query);
+        idToken = tokenManager.retrieveToken("idToken") || "";
 
-        if (response.assistant) {
-          sendResponse(false, response.assistant);
-          return;
+        if (!idToken) {
+          handleStreamError("Failed to refresh authentication token");
+          throw new Error("Failed to refresh authentication token");
         }
-        sendResponse(true, undefined, response.message);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
-        if (error.message === "TOKEN_EXPIRED") {
-          sendResponse(
-            true,
-            undefined,
-            "You are logged out. Please login again."
-          );
-          return;
+
+        // Try again with the new token
+        result = await makeStreamRequest(idToken);
+      } catch (refreshError: any) {
+        if (refreshError.message === "TOKEN_EXPIRED") {
+          handleStreamError("You are logged out. Please login again.");
+          throw new Error("You are logged out. Please login again.");
         }
-        sendResponse(true, undefined, `${error}`);
-        return;
+        handleStreamError(`Token refresh failed: ${refreshError.message}`);
+        throw refreshError;
       }
     }
-    sendResponse(true, undefined, response.message);
-  } catch (error) {
-    sendResponse(true, undefined, `${error}`);
+
+    // Handle any remaining errors from the request
+    if (result.code !== "SUCCESS") {
+      handleStreamError(result.message);
+      throw new Error(result.message);
+    }
+
+    return true;
+  } catch (error: any) {
+    // This catch handles any errors not already processed
+    handleStreamError(error.message || "Unknown error occurred");
+    throw error;
   }
 });
 

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
+import { IpcRendererEvent } from "electron";
 import { Sidebar } from "../components/Sidebar";
 import { GreetingText } from "../components/GreetingText";
 import { Header } from "../features/header/index";
@@ -74,12 +75,12 @@ const HomePage: React.FC = () => {
         },
       ]);
 
-      // Start streaming response with fetch
-      // if (llmContext?.textModelType === "Cloud LLM") {
-      //   fetchCloudLLMResponse(aiMessageKey, inputText);
-      // } else {
+      // Start streaming response with fetch based on model type
+      if (llmContext?.textModelType === "Cloud LLM") {
+        fetchCloudLLMResponse(aiMessageKey, inputText);
+      } else {
         fetchPrivateLLMResponse(aiMessageKey, inputText);
-      // }
+      }
 
       // clearing everything
       attachmentContext?.setAttachment(null);
@@ -90,93 +91,116 @@ const HomePage: React.FC = () => {
     }
   };
 
-  // // Function to fetch streaming response from Cloud LLM
-  // // ---------------------------------------------------
-  // const fetchCloudLLMResponse = async (
-  //   aiMessageKey: number,
-  //   inputText: string
-  // ) => {
-  //   let responseText = "";
+  // Function to fetch streaming response from Cloud server
+  const fetchCloudLLMResponse = async (
+    aiMessageKey: number,
+    inputText: string
+  ) => {
+    let responseText = "";
+    let hasProcessedAnyData = false;
 
-  //   // Clean up previous listeners to avoid memory leaks
-  //   window.ipcRenderer.off("ai-stream-chunk", () => {});
-  //   window.ipcRenderer.off("ai-stream-complete", () => {});
+    try {
+      // Setup listeners first before invoking the main process
+      const chunkListener = (_event: IpcRendererEvent, chunk: string) => {
+        // Safety check to ensure chunk is a string
+        if (typeof chunk !== "string") {
+          console.error("Received non-string chunk:", chunk);
+          return;
+        }
 
-  //   // Setup listener for stream chunks
-  //   window.ipcRenderer.on("ai-stream-chunk", (_event, chunk: string) => {
-  //     try {
-  //       // Process SSE format - each event starts with "data: "
-  //       const lines = chunk.split("\n");
+        const trimmedChunk = chunk.trim();
 
-  //       for (const line of lines) {
-  //         if (line.trim() && line.startsWith("data: ")) {
-  //           try {
-  //             const eventData = JSON.parse(line.substring(6));
+        // Skip empty chunks
+        if (trimmedChunk.length === 0) return;
 
-  //             // If we have a response field, add it to our text
-  //             if (eventData.response) {
-  //               responseText += eventData.response;
-  //               updateAIResponse(aiMessageKey, responseText, false);
-  //             }
-  //           } catch (parseError) {
-  //             // Skip incomplete JSON chunks
-  //             console.debug("Skipping incomplete JSON chunk");
-  //           }
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Error processing stream chunk:", error);
-  //     }
-  //   });
+        // Process the data - expecting "data: {json}" format
+        if (trimmedChunk.startsWith("data:")) {
+          const dataStr = trimmedChunk.substring(5).trim();
 
-  //   // Setup listener for stream completion
-  //   window.ipcRenderer.on("ai-stream-complete", () => {
-  //     // Update UI with final response
-  //     updateAIResponse(aiMessageKey, responseText, true);
-  //     LogMessageToDatabase(aiMessageKey, "ai", responseText);
-  //     setButtonsDisabled(false);
+          // Skip the [DONE] marker
+          if (dataStr === "[DONE]") return;
 
-  //     // Remove listeners
-  //     window.ipcRenderer.off("ai-stream-chunk", () => {});
-  //     window.ipcRenderer.off("ai-stream-complete", () => {});
-  //   });
+          try {
+            const parsedData = JSON.parse(dataStr);
 
-  //   try {
-  //     // Send the request to the main process
-  //     const result = await window.ipcRenderer.invoke("stream-ai-response", {
-  //       inputText,
-  //     });
+            // Handle the response chunk - looking for the response field
+            if (parsedData.response !== undefined) {
+              responseText += parsedData.response;
+              hasProcessedAnyData = true;
+              updateAIResponse(aiMessageKey, responseText, false);
+            }
+          } catch (parseError) {
+            console.error("Failed to parse data:", dataStr, parseError);
+          }
+        } else {
+          console.log("Received non-data chunk:", trimmedChunk);
+        }
+      };
 
-  //     // Check for errors
-  //     if (!result.success) {
-  //       throw new Error(result.error || "Failed to get response");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error in streaming request:", error);
+      const doneListener = () => {
+        if (hasProcessedAnyData) {
+          updateAIResponse(aiMessageKey, responseText, true);
+          LogMessageToDatabase(aiMessageKey, "ai", responseText);
+        } else {
+          updateAIResponse(
+            aiMessageKey,
+            "**Error: No valid content received**\nTry again :(",
+            true
+          );
+        }
 
-  //     // Show error in UI
-  //     if (error instanceof Error) {
-  //       updateAIResponse(
-  //         aiMessageKey,
-  //         `**Error: ${error.message}**\nPlease try again.`,
-  //         true
-  //       );
-  //     } else {
-  //       updateAIResponse(
-  //         aiMessageKey,
-  //         "**Error: Something went wrong**\nPlease try again.",
-  //         true
-  //       );
-  //     }
+        cleanupListeners();
+        setButtonsDisabled(false);
+      };
 
-  //     // Reset UI state
-  //     setButtonsDisabled(false);
+      const errorListener = (_event: any, errorMsg: any) => {
+        console.error("Stream error:", errorMsg);
+        updateAIResponse(
+          aiMessageKey,
+          `**Error: ${errorMsg}**\nTry again :(`,
+          true
+        );
 
-  //     // Remove listeners
-  //     window.ipcRenderer.off("ai-stream-chunk", () => {});
-  //     window.ipcRenderer.off("ai-stream-complete", () => {});
-  //   }
-  // };
+        cleanupListeners();
+        setButtonsDisabled(false);
+      };
+
+      const cleanupListeners = () => {
+        window.ipcRenderer.removeListener(
+          "cloud-ai-stream-chunk",
+          chunkListener
+        );
+        window.ipcRenderer.removeListener("cloud-ai-stream-done", doneListener);
+        window.ipcRenderer.removeListener(
+          "cloud-ai-stream-error",
+          errorListener
+        );
+      };
+
+      // Register the listeners
+      window.ipcRenderer.on("cloud-ai-stream-chunk", chunkListener);
+      window.ipcRenderer.on("cloud-ai-stream-done", doneListener);
+      window.ipcRenderer.on("cloud-ai-stream-error", errorListener);
+
+      // Start the stream
+      await window.ipcRenderer.invoke("fetch-cloud-ai-stream", inputText);
+    } catch (error) {
+      console.error("Cloud AI request error:", error);
+      updateAIResponse(
+        aiMessageKey,
+        `**Error: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }**\nTry again :(`,
+        true
+      );
+      setButtonsDisabled(false);
+
+      // Clean up listeners on error
+      window.ipcRenderer.removeAllListeners("cloud-ai-stream-chunk");
+      window.ipcRenderer.removeAllListeners("cloud-ai-stream-done");
+      window.ipcRenderer.removeAllListeners("cloud-ai-stream-error");
+    }
+  };
 
   // Function to fetch streaming response from Ollama from backend
   // -------------------------------------------------------------
