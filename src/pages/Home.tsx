@@ -39,7 +39,6 @@ const HomePage: React.FC = () => {
 
   // Function to handle sending user input
   // -------------------------------------
-  // Function to handle sending user input
   const SubmitUserInput = (inputText: string) => {
     if (/\S/.test(userInputText)) {
       setButtonsDisabled(true);
@@ -92,6 +91,7 @@ const HomePage: React.FC = () => {
   };
 
   // Function to fetch streaming response from Cloud server
+  // ------------------------------------------------------
   const fetchCloudLLMResponse = async (
     aiMessageKey: number,
     inputText: string
@@ -99,85 +99,80 @@ const HomePage: React.FC = () => {
     let responseText = "";
     let hasProcessedAnyData = false;
 
-    try {
-      // Setup listeners first before invoking the main process
-      const chunkListener = (_event: IpcRendererEvent, chunk: string) => {
-        // Safety check to ensure chunk is a string
-        if (typeof chunk !== "string") {
-          console.error("Received non-string chunk:", chunk);
-          return;
-        }
+    // Define cleanup function first
+    const cleanupListeners = () => {
+      window.ipcRenderer.removeListener("cloud-ai-stream-chunk", chunkListener);
+      window.ipcRenderer.removeListener("cloud-ai-stream-done", doneListener);
+      window.ipcRenderer.removeListener("cloud-ai-stream-error", errorListener);
+    };
 
-        const trimmedChunk = chunk.trim();
+    // Define listeners
+    const chunkListener = (_event: IpcRendererEvent, chunk: string) => {
+      // Safety check to ensure chunk is a string
+      if (typeof chunk !== "string") {
+        console.error("Received non-string chunk:", chunk);
+        return;
+      }
 
-        // Skip empty chunks
-        if (trimmedChunk.length === 0) return;
+      const trimmedChunk = chunk.trim();
+      // Skip empty chunks
+      if (trimmedChunk.length === 0) return;
 
-        // Process the data - expecting "data: {json}" format
-        if (trimmedChunk.startsWith("data:")) {
-          const dataStr = trimmedChunk.substring(5).trim();
+      if (trimmedChunk.startsWith("data:")) {
+        const dataStr = trimmedChunk.substring(5).trim();
 
-          // Skip the [DONE] marker
-          if (dataStr === "[DONE]") return;
+        // Skip the [DONE] marker
+        if (dataStr === "[DONE]") return;
+        try {
+          const parsedData = JSON.parse(dataStr);
 
-          try {
-            const parsedData = JSON.parse(dataStr);
-
-            // Handle the response chunk - looking for the response field
-            if (parsedData.response !== undefined) {
-              responseText += parsedData.response;
-              hasProcessedAnyData = true;
-              updateAIResponse(aiMessageKey, responseText, false);
-            }
-          } catch (parseError) {
-            console.error("Failed to parse data:", dataStr, parseError);
+          // Handle the response chunk - looking for the response field
+          if (parsedData.response !== undefined) {
+            responseText += parsedData.response;
+            hasProcessedAnyData = true;
+            updateAIResponse(aiMessageKey, responseText, false);
           }
-        } else {
-          console.log("Received non-data chunk:", trimmedChunk);
+        } catch (parseError) {
+          console.error("Failed to parse data:", dataStr, parseError);
         }
-      };
+      } else {
+        console.log("Received non-data chunk:", trimmedChunk);
+      }
+    };
 
-      const doneListener = () => {
-        if (hasProcessedAnyData) {
-          updateAIResponse(aiMessageKey, responseText, true);
-          LogMessageToDatabase(aiMessageKey, "ai", responseText);
-        } else {
-          updateAIResponse(
-            aiMessageKey,
-            "**Error: No valid content received**\nTry again :(",
-            true
-          );
-        }
-
-        cleanupListeners();
-        setButtonsDisabled(false);
-      };
-
-      const errorListener = (_event: any, errorMsg: any) => {
-        console.error("Stream error:", errorMsg);
+    const doneListener = () => {
+      if (hasProcessedAnyData) {
+        updateAIResponse(aiMessageKey, responseText, true);
+        LogMessageToDatabase(aiMessageKey, "ai", responseText);
+      } else {
         updateAIResponse(
           aiMessageKey,
-          `**Error: ${errorMsg}**\nTry again :(`,
+          "**Error: No valid content received**\nTry again :(",
           true
         );
+      }
+      cleanupListeners(); // Use the defined cleanup function
+      setButtonsDisabled(false);
+    };
 
-        cleanupListeners();
-        setButtonsDisabled(false);
-      };
+    const errorListener = (_event: any, errorMsg: any) => {
+      console.error("Stream error:", errorMsg);
+      updateAIResponse(
+        aiMessageKey,
+        `**Error: ${errorMsg}**\nTry again :(`,
+        true
+      );
+      cleanupListeners(); // Use the defined cleanup function
+      setButtonsDisabled(false);
+    };
 
-      const cleanupListeners = () => {
-        window.ipcRenderer.removeListener(
-          "cloud-ai-stream-chunk",
-          chunkListener
-        );
-        window.ipcRenderer.removeListener("cloud-ai-stream-done", doneListener);
-        window.ipcRenderer.removeListener(
-          "cloud-ai-stream-error",
-          errorListener
-        );
-      };
+    try {
+      // Ensure any previous listeners are removed before adding new ones
+      window.ipcRenderer.removeAllListeners("cloud-ai-stream-chunk");
+      window.ipcRenderer.removeAllListeners("cloud-ai-stream-done");
+      window.ipcRenderer.removeAllListeners("cloud-ai-stream-error");
 
-      // Register the listeners
+      // Register the listeners for the current request
       window.ipcRenderer.on("cloud-ai-stream-chunk", chunkListener);
       window.ipcRenderer.on("cloud-ai-stream-done", doneListener);
       window.ipcRenderer.on("cloud-ai-stream-error", errorListener);
@@ -194,11 +189,7 @@ const HomePage: React.FC = () => {
         true
       );
       setButtonsDisabled(false);
-
-      // Clean up listeners on error
-      window.ipcRenderer.removeAllListeners("cloud-ai-stream-chunk");
-      window.ipcRenderer.removeAllListeners("cloud-ai-stream-done");
-      window.ipcRenderer.removeAllListeners("cloud-ai-stream-error");
+      cleanupListeners();
     }
   };
 

@@ -178,6 +178,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             <button
               className="w-10 h-10 bg-gray-800 dark:bg-gray-100 rounded-full flex items-center justify-center
             text-gray-100 dark:text-gray-800 hover:bg-gray-700 dark:hover:bg-gray-300"
+              onClick={() => submit(userInput)}
             >
               <svg
                 className="w-5 h-5"
