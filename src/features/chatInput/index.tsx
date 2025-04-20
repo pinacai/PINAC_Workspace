@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react"; // Added useRef
 import { AttachmentContext } from "../../context/Attachment";
 
 // icons
@@ -20,6 +20,17 @@ interface ChatInputProps {
   setStop: (value: boolean) => void;
 }
 
+// Define the list of prompts
+const prompts = [
+  "Sample Prompt 1",
+  "Sample Prompt 2",
+  "Sample Prompt 3",
+  "Sample Prompt 4",
+  "Sample Prompt 5",
+  "Sample Prompt 6",
+  "Sample Prompt 7",
+];
+
 export const ChatInput: React.FC<ChatInputProps> = ({
   userInput,
   setUserInput,
@@ -30,6 +41,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({
 }) => {
   const attachmentContext = useContext(AttachmentContext);
   const [, setAttachment] = useState<boolean>(false);
+  const [isPromptMenuOpen, setIsPromptMenuOpen] = useState<boolean>(false);
+  const promptMenuRef = useRef<HTMLDivElement>(null); // Ref for the menu
+  const promptButtonRef = useRef<HTMLButtonElement>(null); // Ref for the prompt button
 
   // Handles attachment
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +79,34 @@ export const ChatInput: React.FC<ChatInputProps> = ({
       }
     }
   };
+
+  // Handles selecting a prompt from the menu
+  const handlePromptSelect = (promptText: string) => {
+    setUserInput(promptText); // Set the selected prompt text to the input
+    setIsPromptMenuOpen(false); // Close the menu
+    // Optionally focus the textarea after selecting a prompt
+    textareaRef.current?.focus();
+  };
+
+  // Effect for handling clicks outside the menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isPromptMenuOpen &&
+        promptMenuRef.current &&
+        !promptMenuRef.current.contains(event.target as Node) &&
+        promptButtonRef.current &&
+        !promptButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsPromptMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isPromptMenuOpen]); // Re-run effect when menu visibility changes
 
   // for managing the height of the textarea automatically
   useEffect(() => {
@@ -135,7 +177,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           required
         />
 
-        <div className="flex items-center justify-between pl-2">
+        <div className="flex items-center justify-between pl-2 relative">
+          {" "}
+          {/* Added relative positioning */}
           <div className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-gray-100">
             <label
               className="w-9 h-9 rounded-full flex items-center justify-center border-1 
@@ -158,13 +202,38 @@ export const ChatInput: React.FC<ChatInputProps> = ({
               <span>Deep Think</span>
             </button>
 
-            <button
-              className="flex items-center gap-2 px-4 py-2 rounded-full border-1 
-            border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 cursor-pointer"
-            >
-              <TbBulb size={20} />
-              <span>Prompt</span>
-            </button>
+            <div className="relative">
+              {" "}
+              {/* Wrapper for positioning the menu */}
+              <button
+                ref={promptButtonRef} // Assign ref to the button
+                className="flex items-center gap-2 px-4 py-2 rounded-full border-1
+              border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 cursor-pointer"
+                onClick={() => setIsPromptMenuOpen(!isPromptMenuOpen)} // Toggle menu
+              >
+                <TbBulb size={20} />
+                <span>Prompt</span>
+              </button>
+              {isPromptMenuOpen && (
+                <div
+                  ref={promptMenuRef} // Assign ref to the menu container
+                  className="absolute bottom-full left-0 mb-2 w-64 max-h-70 overflow-y-auto bg-gray-100 dark:bg-zinc-800 border border-gray-300 dark:border-zinc-600 rounded-lg shadow-lg z-10"
+                >
+                  {/* Menu Content */}
+                  <div className="p-2 text-gray-700 dark:text-gray-200">
+                    {prompts.map((prompt, index) => (
+                      <button
+                        key={index}
+                        className="block w-full text-left px-3 py-2 hover:bg-gray-200 dark:hover:bg-zinc-700 rounded"
+                        onClick={() => handlePromptSelect(prompt)} // Call handler on click
+                      >
+                        {prompt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
 
             <button
               className="w-9 h-9 rounded-full flex items-center justify-center border-1 
@@ -173,7 +242,6 @@ export const ChatInput: React.FC<ChatInputProps> = ({
               <IoIosMore size={20} />
             </button>
           </div>
-
           {!buttonsDisabled ? (
             <button
               className="w-10 h-10 bg-gray-800 dark:bg-gray-100 rounded-full flex items-center justify-center
@@ -184,7 +252,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                 className="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
-                viewBox="0 0 24 24"
+                viewBox="0  0 24 24"
               >
                 <path
                   strokeLinecap="round"
