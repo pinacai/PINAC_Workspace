@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react"; // Added useRef
 import { AttachmentContext } from "../../context/Attachment";
+import { promptsData } from "../../data/prompts"; // Import prompts data
 
 // icons
 import { PiSparkleLight } from "react-icons/pi";
@@ -20,17 +21,6 @@ interface ChatInputProps {
   setStop: (value: boolean) => void;
 }
 
-// Define the list of prompts
-const prompts = [
-  "Sample Prompt 1",
-  "Sample Prompt 2",
-  "Sample Prompt 3",
-  "Sample Prompt 4",
-  "Sample Prompt 5",
-  "Sample Prompt 6",
-  "Sample Prompt 7",
-];
-
 export const ChatInput: React.FC<ChatInputProps> = ({
   userInput,
   setUserInput,
@@ -42,6 +32,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   const attachmentContext = useContext(AttachmentContext);
   const [, setAttachment] = useState<boolean>(false);
   const [isPromptMenuOpen, setIsPromptMenuOpen] = useState<boolean>(false);
+  const [promptSearchQuery, setPromptSearchQuery] = useState<string>(""); // State for search query
   const promptMenuRef = useRef<HTMLDivElement>(null); // Ref for the menu
   const promptButtonRef = useRef<HTMLButtonElement>(null); // Ref for the prompt button
 
@@ -81,9 +72,11 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   };
 
   // Handles selecting a prompt from the menu
-  const handlePromptSelect = (promptText: string) => {
+  const handlePromptSelect = (promptKey: string) => {
+    const promptText = promptsData[promptKey]; // Get the prompt value using the key
     setUserInput(promptText); // Set the selected prompt text to the input
     setIsPromptMenuOpen(false); // Close the menu
+    setPromptSearchQuery(""); // Clear search query on selection
     // Optionally focus the textarea after selecting a prompt
     textareaRef.current?.focus();
   };
@@ -99,6 +92,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         !promptButtonRef.current.contains(event.target as Node)
       ) {
         setIsPromptMenuOpen(false);
+        setPromptSearchQuery(""); // Clear search query on close
       }
     };
 
@@ -132,6 +126,11 @@ export const ChatInput: React.FC<ChatInputProps> = ({
       }
     };
   }, [textareaRef]);
+
+  // Filter prompts based on search query
+  const filteredPromptKeys = Object.keys(promptsData).filter((key) =>
+    key.toLowerCase().includes(promptSearchQuery.toLowerCase())
+  );
 
   return (
     <div className="w-full mt-[10px] mb-[20px] flex items-center justify-center">
@@ -217,19 +216,42 @@ export const ChatInput: React.FC<ChatInputProps> = ({
               {isPromptMenuOpen && (
                 <div
                   ref={promptMenuRef} // Assign ref to the menu container
-                  className="absolute bottom-full left-0 mb-2 w-64 max-h-70 overflow-y-auto bg-gray-100 dark:bg-zinc-800 border border-gray-300 dark:border-zinc-600 rounded-lg shadow-lg z-10"
+                  className="absolute bottom-full left-0 mb-2 w-64 flex flex-col max-h-80 bg-gray-100 dark:bg-zinc-800 border border-gray-300 dark:border-zinc-600 rounded-lg shadow-lg z-10" // Added flex flex-col and max-h-80
                 >
+                  {/* Search Input */}
+                  <div className="p-2 border-b border-gray-300 dark:border-zinc-600">
+                    <input
+                      type="text"
+                      placeholder="Search prompts..."
+                      value={promptSearchQuery}
+                      onChange={(e) => setPromptSearchQuery(e.target.value)}
+                      className="w-full px-2 py-1 rounded border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      autoFocus // Automatically focus the search input when the menu opens
+                    />
+                  </div>
                   {/* Menu Content */}
-                  <div className="p-2 text-gray-700 dark:text-gray-200">
-                    {prompts.map((prompt, index) => (
-                      <button
-                        key={index}
-                        className="block w-full text-left px-3 py-2 hover:bg-gray-200 dark:hover:bg-zinc-700 rounded"
-                        onClick={() => handlePromptSelect(prompt)} // Call handler on click
-                      >
-                        {prompt}
-                      </button>
-                    ))}
+                  <div className="p-2 text-gray-700 dark:text-gray-200 overflow-y-auto">
+                    {" "}
+                    {/* Added overflow-y-auto */}
+                    {filteredPromptKeys.length > 0 ? (
+                      filteredPromptKeys.map(
+                        (
+                          promptKey // Iterate over filtered keys
+                        ) => (
+                          <button
+                            key={promptKey} // Use key as the React key
+                            className="block w-full text-left px-3 py-2 hover:bg-gray-200 dark:hover:bg-zinc-700 rounded"
+                            onClick={() => handlePromptSelect(promptKey)} // Pass the key to the handler
+                          >
+                            {promptKey} {/* Display the key (prompt name) */}
+                          </button>
+                        )
+                      )
+                    ) : (
+                      <div className="px-3 py-2 text-gray-500 dark:text-gray-400">
+                        No prompts found.
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
