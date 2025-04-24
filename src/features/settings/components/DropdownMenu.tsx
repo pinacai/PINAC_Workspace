@@ -8,12 +8,7 @@ import { IoIosArrowUp } from "react-icons/io";
 interface DropdownMenuProps {
   defaultOption: string | null;
   optionList: Array<string>;
-  valueName:
-    | "model-type"
-    | "text-model-type"
-    | "cloud-model-name"
-    | "ollama-model-name"
-    | "output-language";
+  valueName?: "model-type" | "pinac-cloud-model" | "ollama-model";
 }
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
@@ -27,6 +22,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
 
   const onClick = (option: string) => {
+    if (!valueName) return;
     modelContext?.setValue(valueName, option);
     setSelectedOption(option);
     setIsActive(false);
@@ -34,6 +30,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
 
   // At starting selecting model based on local storage
   useEffect(() => {
+    if (!valueName) return;
     const preferredOption = modelContext?.getValue(valueName);
     preferredOption != null && setSelectedOption(preferredOption);
   }, [modelContext, valueName]);

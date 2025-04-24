@@ -9,6 +9,8 @@ class ChatRequest:
     system_prompt: Optional[str] = None
     temperature: Optional[float] = 0.7
     top_p: Optional[float] = 0.95
+    top_k: Optional[int] = 40
+    max_tokens: Optional[int] = 4000
 
     @classmethod
     def from_json(cls, data):
@@ -18,4 +20,6 @@ class ChatRequest:
             system_prompt=data.get("system_prompt"),
             temperature=data.get("temperature", 0.7),
             top_p=data.get("top_p", 0.95),
+            top_k=data.get("top_k", 40),
+            max_tokens=data.get("max_tokens", 4000),
         )

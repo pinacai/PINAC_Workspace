@@ -20,11 +20,7 @@ const Settings: React.FC = () => {
           <div className="w-full text-lg pb-7 text-gray-200">
             Output Language
           </div>
-          <DropdownMenu
-            defaultOption="English"
-            optionList={["English"]}
-            valueName="output-language"
-          />
+          <DropdownMenu defaultOption="English" optionList={["English"]} />
         </div>
       </div>
     </div>

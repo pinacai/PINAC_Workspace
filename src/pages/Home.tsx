@@ -75,7 +75,7 @@ const HomePage: React.FC = () => {
       ]);
 
       // Start streaming response with fetch based on model type
-      if (llmContext?.textModelType === "Cloud LLM") {
+      if (llmContext?.modelType === "Pinac CLoud Model") {
         fetchCloudLLMResponse(aiMessageKey, inputText);
       } else {
         fetchPrivateLLMResponse(aiMessageKey, inputText);
@@ -204,7 +204,7 @@ const HomePage: React.FC = () => {
 
     const requestData = {
       prompt: inputText,
-      model: llmContext?.ollamaModelName,
+      model: llmContext?.ollamaModel,
     };
 
     // Cancel any ongoing request

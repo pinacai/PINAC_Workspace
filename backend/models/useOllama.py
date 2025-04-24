@@ -15,6 +15,8 @@ def generate_stream(chat_request: ChatRequest):
             "options": {
                 "temperature": chat_request.temperature,
                 "top_p": chat_request.top_p,
+                "top_k": chat_request.top_k,
+                "num_predict": chat_request.max_tokens,  # This is max output token
             },
         }
 

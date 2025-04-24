@@ -1,20 +1,16 @@
 import React, { createContext, useState, useEffect } from "react";
 
 export const ModelSettingsContext = createContext<{
-  modelType: string;
-  setModelType: React.Dispatch<React.SetStateAction<string>>;
-  imgModelName: string;
-  setImgModelName: React.Dispatch<React.SetStateAction<string>>;
-  textModelType: string;
-  setTextModelType: React.Dispatch<React.SetStateAction<string>>;
-  cloudModelName: string;
-  setCloudModelName: React.Dispatch<React.SetStateAction<string>>;
+  modelType: "Pinac CLoud Model" | "Ollama Model";
+  setModelType: React.Dispatch<
+    React.SetStateAction<"Pinac CLoud Model" | "Ollama Model">
+  >;
+  pinacCloudModel: "Base Model";
+  setPinacCloudModel: React.Dispatch<React.SetStateAction<"Base Model">>;
   deepthink: boolean;
   setDeepthink: React.Dispatch<React.SetStateAction<boolean>>;
-  ollamaModelName: string | null;
-  setOllamaModelName: React.Dispatch<React.SetStateAction<string | null>>;
-  outputLanguage: string;
-  setOutputLanguage: React.Dispatch<React.SetStateAction<string>>;
+  ollamaModel: string | null;
+  setOllamaModel: React.Dispatch<React.SetStateAction<string | null>>;
   setValue: (valueName: string, value: string) => void;
   getValue: (valueName: string) => string | null;
 } | null>(null);
@@ -27,104 +23,64 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
   children,
 }) => {
   const [modelType, setModelType] = useState(() => {
-    const choice = localStorage.getItem("model-type");
-    return choice ? choice : "Text Generation";
+    const choice = localStorage.getItem("model-type") as
+      | "Pinac CLoud Model"
+      | "Ollama Model";
+    return choice ? choice : "Pinac CLoud Model";
   });
 
-  const [imgModelName, setImgModelName] = useState(() => {
-    const choice = localStorage.getItem("img-model-name");
-    return choice ? choice : "Flux.1 Dev";
-  });
-
-  const [textModelType, setTextModelType] = useState(() => {
-    const choice = localStorage.getItem("text-model-type");
-    return choice ? choice : "Cloud LLM";
-  });
-
-  const [cloudModelName, setCloudModelName] = useState(() => {
-    const choice = localStorage.getItem("cloud-model-name");
+  const [pinacCloudModel, setPinacCloudModel] = useState(() => {
+    const choice = localStorage.getItem("pinac-cloud-model") as "Base Model";
     return choice ? choice : "Base Model";
   });
 
   const [deepthink, setDeepthink] = useState(false);
 
-  const [ollamaModelName, setOllamaModelName] = useState(() => {
-    const choice = localStorage.getItem("ollama-model-name");
+  const [ollamaModel, setOllamaModel] = useState(() => {
+    const choice = localStorage.getItem("ollama-model");
     return choice ? choice : null;
-  });
-
-  const [outputLanguage, setOutputLanguage] = useState(() => {
-    const choice = localStorage.getItem("output-language");
-    return choice ? choice : "English";
   });
 
   const setValue = (valueName: string, value: string) => {
     if (valueName === "model-type") {
-      setModelType(value);
-    } else if (valueName === "img-model-name") {
-      setImgModelName(value);
-    } else if (valueName === "text-model-type") {
-      setTextModelType(value);
-    } else if (valueName === "cloud-model-name") {
-      setCloudModelName(value);
-    } else if (valueName === "ollama-model-name") {
-      setOllamaModelName(value);
-    } else if (valueName === "output-language") {
-      setOutputLanguage(value);
+      const typedValue = value as "Pinac CLoud Model" | "Ollama Model";
+      setModelType(typedValue);
+    } else if (valueName === "pinac-cloud-model") {
+      const typedValue = value as "Base Model";
+      setPinacCloudModel(typedValue);
+    } else if (valueName === "ollama-model") {
+      setOllamaModel(value);
     }
   };
 
   const getValue = (valueName: string) => {
     if (valueName === "model-type") {
       return modelType;
-    } else if (valueName === "img-model-name") {
-      return imgModelName;
-    } else if (valueName === "text-model-type") {
-      return textModelType;
-    } else if (valueName === "cloud-model-name") {
-      return cloudModelName;
-    } else if (valueName === "ollama-model-name") {
-      return ollamaModelName;
-    } else if (valueName === "output-language") {
-      return outputLanguage;
+    } else if (valueName === "pinac-cloud-model") {
+      return pinacCloudModel;
+    } else if (valueName === "ollama-model") {
+      return ollamaModel;
     } else return null;
   };
 
   // Update localStorage on change
   useEffect(() => {
     localStorage.setItem("model-type", modelType);
-    localStorage.setItem("img-model-name", imgModelName);
-    localStorage.setItem("text-model-type", textModelType);
-    localStorage.setItem("cloud-model-name", cloudModelName);
-    ollamaModelName &&
-      localStorage.setItem("ollama-model-name", ollamaModelName);
-    localStorage.setItem("output-language", outputLanguage);
-  }, [
-    modelType,
-    imgModelName,
-    textModelType,
-    cloudModelName,
-    ollamaModelName,
-    outputLanguage,
-  ]);
+    localStorage.setItem("pinac-cloud-model", pinacCloudModel);
+    ollamaModel && localStorage.setItem("ollama-model", ollamaModel);
+  }, [modelType, pinacCloudModel, ollamaModel]);
 
   return (
     <ModelSettingsContext.Provider
       value={{
         modelType,
         setModelType,
-        imgModelName,
-        setImgModelName,
-        textModelType,
-        setTextModelType,
-        cloudModelName,
-        setCloudModelName,
+        pinacCloudModel,
+        setPinacCloudModel,
         deepthink,
         setDeepthink,
-        ollamaModelName,
-        setOllamaModelName,
-        outputLanguage,
-        setOutputLanguage,
+        ollamaModel,
+        setOllamaModel,
         setValue,
         getValue,
       }}
