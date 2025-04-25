@@ -76,7 +76,11 @@ const HomePage: React.FC = () => {
 
       // Start streaming response with fetch based on model type
       if (llmContext?.modelType === "Pinac CLoud Model") {
+        // if (llmContext?.webSearch) {
+        //   fetchWebSearchResponse(aiMessageKey, inputText);
+        // } else {
         fetchCloudLLMResponse(aiMessageKey, inputText);
+        // }
       } else {
         fetchPrivateLLMResponse(aiMessageKey, inputText);
       }

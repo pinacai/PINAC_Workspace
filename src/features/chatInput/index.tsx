@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useContext, useRef } from "react"; // Added useRef
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { ModelSettingsContext } from "../../context/ModelSettings";
 import { AttachmentContext } from "../../context/Attachment";
 import { promptsData } from "../../data/prompts"; // Import prompts data
 
 // icons
-import { PiSparkleLight } from "react-icons/pi";
+import { GoGlobe } from "react-icons/go";
+import { PiGlobeX } from "react-icons/pi";
 import { TbBulb } from "react-icons/tb";
 import { IoIosMore } from "react-icons/io";
 import { FiPlus } from "react-icons/fi";
@@ -29,6 +31,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   submit,
   setStop,
 }) => {
+  const modelContext = useContext(ModelSettingsContext);
   const attachmentContext = useContext(AttachmentContext);
   const [, setAttachment] = useState<boolean>(false);
   const [isPromptMenuOpen, setIsPromptMenuOpen] = useState<boolean>(false);
@@ -73,11 +76,10 @@ export const ChatInput: React.FC<ChatInputProps> = ({
 
   // Handles selecting a prompt from the menu
   const handlePromptSelect = (promptKey: string) => {
-    const promptText = promptsData[promptKey]; // Get the prompt value using the key
+    const promptText = promptsData[promptKey];
     setUserInput(promptText); // Set the selected prompt text to the input
-    setIsPromptMenuOpen(false); // Close the menu
+    setIsPromptMenuOpen(false);
     setPromptSearchQuery(""); // Clear search query on selection
-    // Optionally focus the textarea after selecting a prompt
     textareaRef.current?.focus();
   };
 
@@ -92,7 +94,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         !promptButtonRef.current.contains(event.target as Node)
       ) {
         setIsPromptMenuOpen(false);
-        setPromptSearchQuery(""); // Clear search query on close
+        setPromptSearchQuery("");
       }
     };
 
@@ -100,7 +102,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isPromptMenuOpen]); // Re-run effect when menu visibility changes
+  }, [isPromptMenuOpen]);
 
   // for managing the height of the textarea automatically
   useEffect(() => {
@@ -196,26 +198,33 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             <button
               className="flex items-center gap-2 px-4 py-2 rounded-full border-1 
             border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 cursor-pointer"
+              onClick={() =>
+                modelContext?.setWebSearch(!modelContext?.webSearch)
+              }
             >
-              <PiSparkleLight size={20} />
-              <span>Deep Think</span>
+              {modelContext?.webSearch ? (
+                <GoGlobe size={20} className="text-green-600" />
+              ) : (
+                <PiGlobeX size={20} />
+              )}
+              <span>Web</span>
             </button>
 
             <div className="relative">
               {" "}
               {/* Wrapper for positioning the menu */}
               <button
-                ref={promptButtonRef} // Assign ref to the button
+                ref={promptButtonRef}
                 className="flex items-center gap-2 px-4 py-2 rounded-full border-1
               border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 cursor-pointer"
-                onClick={() => setIsPromptMenuOpen(!isPromptMenuOpen)} // Toggle menu
+                onClick={() => setIsPromptMenuOpen(!isPromptMenuOpen)}
               >
                 <TbBulb size={20} />
                 <span>Prompt</span>
               </button>
               {isPromptMenuOpen && (
                 <div
-                  ref={promptMenuRef} // Assign ref to the menu container
+                  ref={promptMenuRef}
                   className="absolute bottom-full left-0 mb-2 w-64 flex flex-col max-h-80 bg-gray-100 dark:bg-zinc-800 border border-gray-300 dark:border-zinc-600 rounded-lg shadow-lg z-10" // Added flex flex-col and max-h-80
                 >
                   {/* Search Input */}
@@ -232,21 +241,16 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                   {/* Menu Content */}
                   <div className="p-2 text-gray-700 dark:text-gray-200 overflow-y-auto">
                     {" "}
-                    {/* Added overflow-y-auto */}
                     {filteredPromptKeys.length > 0 ? (
-                      filteredPromptKeys.map(
-                        (
-                          promptKey // Iterate over filtered keys
-                        ) => (
-                          <button
-                            key={promptKey} // Use key as the React key
-                            className="block w-full text-left px-3 py-2 hover:bg-gray-200 dark:hover:bg-zinc-700 rounded"
-                            onClick={() => handlePromptSelect(promptKey)} // Pass the key to the handler
-                          >
-                            {promptKey} {/* Display the key (prompt name) */}
-                          </button>
-                        )
-                      )
+                      filteredPromptKeys.map((promptKey) => (
+                        <button
+                          key={promptKey}
+                          className="block w-full text-left px-3 py-2 hover:bg-gray-200 dark:hover:bg-zinc-700 rounded"
+                          onClick={() => handlePromptSelect(promptKey)}
+                        >
+                          {promptKey}
+                        </button>
+                      ))
                     ) : (
                       <div className="px-3 py-2 text-gray-500 dark:text-gray-400">
                         No prompts found.

@@ -7,8 +7,8 @@ export const ModelSettingsContext = createContext<{
   >;
   pinacCloudModel: "Base Model";
   setPinacCloudModel: React.Dispatch<React.SetStateAction<"Base Model">>;
-  deepthink: boolean;
-  setDeepthink: React.Dispatch<React.SetStateAction<boolean>>;
+  webSearch: boolean;
+  setWebSearch: React.Dispatch<React.SetStateAction<boolean>>;
   ollamaModel: string | null;
   setOllamaModel: React.Dispatch<React.SetStateAction<string | null>>;
   setValue: (valueName: string, value: string) => void;
@@ -34,7 +34,7 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
     return choice ? choice : "Base Model";
   });
 
-  const [deepthink, setDeepthink] = useState(false);
+  const [webSearch, setWebSearch] = useState(false);
 
   const [ollamaModel, setOllamaModel] = useState(() => {
     const choice = localStorage.getItem("ollama-model");
@@ -77,8 +77,8 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
         setModelType,
         pinacCloudModel,
         setPinacCloudModel,
-        deepthink,
-        setDeepthink,
+        webSearch,
+        setWebSearch,
         ollamaModel,
         setOllamaModel,
         setValue,
