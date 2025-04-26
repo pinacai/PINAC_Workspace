@@ -390,7 +390,6 @@ ipcMain.handle("fetch-cloud-ai-stream", async (event, input: string) => {
       // Handle HTTP errors
       if (!response.ok) {
         const errorText = await response.text();
-        console.error(`Server error (${response.status}):`, errorText);
 
         // Check specifically for auth/token errors
         if (response.status === 401 || response.status === 403) {

@@ -356,6 +356,7 @@ const HomePage: React.FC = () => {
     });
   };
 
+  // ----------------------------------------------
   // Clean up abort controller on component unmount
   useEffect(() => {
     return () => {
