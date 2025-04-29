@@ -47,7 +47,7 @@ gradio_client==1.9.0
 greenlet==3.2.1
 grpcio==1.72.0
 grpcio-status==1.71.0
-h11==0.14.0
+h11==0.16.0
 h2==4.2.0
 hpack==4.1.0
 html5lib==1.1
