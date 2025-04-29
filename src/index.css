@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @tailwind utilities;
 
+/* Initialize theme from localStorage */
+:root {
+  color-scheme: light dark;
+}
+
 @font-face {
   font-family: "nasa";
   src: url("/font/nasalization-rg.otf");

@@ -1,22 +1,27 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { getStoredTheme, setStoredTheme } from "../context/themeManager";
 
-export const ThemeToggle: React.FC = () => {
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
+export const ThemeToggle = () => {
+  const [isDark, setIsDark] = useState(false);
 
-  const changeTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
-    document.documentElement.classList.toggle("dark");
+  useEffect(() => {
+    const theme = getStoredTheme();
+    setIsDark(theme === "dark");
+    setStoredTheme(theme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = isDark ? "light" : "dark";
+    setIsDark(!isDark);
+    setStoredTheme(newTheme);
   };
 
   return (
-    <div>
-      <input
-        type="checkbox"
-        className="toggle"
-        checked={isDarkTheme}
-        onChange={changeTheme}
-      />
-      <label htmlFor="toggle"></label>
-    </div>
+    <input
+      type="checkbox"
+      className="toggle"
+      checked={isDark}
+      onChange={toggleTheme}
+    />
   );
 };
