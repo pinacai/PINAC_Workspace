@@ -7,7 +7,6 @@ import { promptsData } from "../../data/prompts"; // Import prompts data
 import { GoGlobe } from "react-icons/go";
 import { PiGlobeX } from "react-icons/pi";
 import { TbBulb } from "react-icons/tb";
-import { IoIosMore } from "react-icons/io";
 import { FiPlus } from "react-icons/fi";
 import { FaRegStopCircle } from "react-icons/fa";
 import { FaRegFileLines } from "react-icons/fa6";
@@ -33,7 +32,6 @@ export const ChatInput: React.FC<ChatInputProps> = ({
 }) => {
   const modelContext = useContext(ModelSettingsContext);
   const attachmentContext = useContext(AttachmentContext);
-  const [, setAttachment] = useState<boolean>(false);
   const [isPromptMenuOpen, setIsPromptMenuOpen] = useState<boolean>(false);
   const [promptSearchQuery, setPromptSearchQuery] = useState<string>(""); // State for search query
   const promptMenuRef = useRef<HTMLDivElement>(null); // Ref for the menu
@@ -78,13 +76,18 @@ export const ChatInput: React.FC<ChatInputProps> = ({
     );
     if (filePath) {
       attachmentContext?.setAttachmentFile(filePath);
-      setAttachment(true);
     }
   };
 
   const handleCancelUpload = () => {
     attachmentContext?.setAttachment(null);
-    setAttachment(false);
+  };
+
+  const removeUsingAttachment = () => {
+    if (attachmentContext?.setUsingAttachment) {
+      attachmentContext.setUsingAttachment(false);
+      attachmentContext.setAttachment(null);
+    }
   };
 
   // Handles Enter key press for submitting messages
@@ -162,35 +165,60 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   );
 
   return (
-    <div className="w-full mt-[10px] mb-[20px] flex items-center justify-center">
+    <div className="w-full mt-[10px] mb-[20px] flex flex-col items-center justify-center">
+      {/* For showing currently under used attachment */}
+      {attachmentContext?.usingAttachment && attachmentContext?.attachment && (
+        <div className="w-[80%] lg:w-[60%] mb-3 p-2 bg-blue-100 dark:bg-blue-900/30 border border-blue-300 dark:border-blue-700 rounded-xl flex items-center justify-between text-sm">
+          <div className="flex items-center gap-2">
+            <FaRegFileLines
+              size={16}
+              className="text-blue-600 dark:text-blue-400"
+            />
+            <span className="text-gray-700 dark:text-gray-300">
+              Using document:{" "}
+              <span className="font-medium text-gray-800 dark:text-gray-100">
+                {attachmentContext?.attachment.name}
+              </span>
+            </span>
+          </div>
+          <button
+            className="text-red-500 hover:text-red-700"
+            onClick={removeUsingAttachment}
+          >
+            <AiOutlineClose size={16} />
+          </button>
+        </div>
+      )}
       <div
         className="rounded-3xl p-3 relative w-[80%] lg:w-[60%]
         bg-gray-200 dark:bg-tertiary-dark border-1 border-gray-300 dark:border-zinc-600
         "
       >
-        {attachmentContext?.attachment && (
-          <div className="mb-4 relative">
-            <div className="flex items-center gap-2 bg-gray-700 dark:bg-primary-dark p-2 pr-3 rounded-2xl w-fit">
-              <div className="bg-sky-500 p-2 rounded-lg">
-                <FaRegFileLines size={20} className="text-white" />
-              </div>
-              <div>
-                <div className="text-white">
-                  {attachmentContext?.attachment.nameWithoutExtension}
+        {/* For showing added attachment (Not in use) */}
+        {attachmentContext?.attachment &&
+          !attachmentContext?.usingAttachment && (
+            <div className="mb-4 relative">
+              <div className="flex items-center gap-2 bg-gray-700 dark:bg-primary-dark p-2 pr-3 rounded-2xl w-fit">
+                <div className="bg-sky-500 p-2 rounded-lg">
+                  <FaRegFileLines size={20} className="text-white" />
                 </div>
-                <div className="text-gray-400 text-sm">
-                  {attachmentContext?.attachment.extension}
+                <div>
+                  <div className="text-white">
+                    {attachmentContext?.attachment.nameWithoutExtension}
+                  </div>
+                  <div className="text-gray-400 text-sm">
+                    {attachmentContext?.attachment.extension}
+                  </div>
                 </div>
+                <button
+                  className="pl-2 rounded-full text-gray-400 hover:text-red-500"
+                  onClick={handleCancelUpload}
+                >
+                  <AiOutlineClose size={16} />
+                </button>
               </div>
-              <button
-                className="pl-2 rounded-full text-gray-400 hover:text-red-500"
-                onClick={handleCancelUpload}
-              >
-                <AiOutlineClose size={16} />
-              </button>
             </div>
-          </div>
-        )}
+          )}
 
         <textarea
           className={`chatInput placeholder:text-gray-500 dark:placeholder:text-zinc-400 ${
@@ -211,8 +239,14 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           <div className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-gray-100">
             <button
               onClick={handleFileUpload}
-              className="w-9 h-9 rounded-full flex items-center justify-center border-1 
-            border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 cursor-pointer"
+              className={`w-9 h-9 rounded-full flex items-center justify-center border-1 
+            border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 
+            ${
+              attachmentContext?.usingAttachment
+                ? "opacity-50 cursor-not-allowed"
+                : " cursor-pointer"
+            }`}
+              disabled={attachmentContext?.usingAttachment} // Disable button when a attachment is under use
             >
               <FiPlus size={20} />
             </button>
@@ -283,12 +317,12 @@ export const ChatInput: React.FC<ChatInputProps> = ({
               )}
             </div>
 
-            <button
+            {/* <button
               className="w-9 h-9 rounded-full flex items-center justify-center border-1 
             border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 cursor-pointer"
             >
               <IoIosMore size={20} />
-            </button>
+            </button> */}
           </div>
           {!buttonsDisabled ? (
             <button

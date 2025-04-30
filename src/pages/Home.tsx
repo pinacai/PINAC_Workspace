@@ -34,6 +34,10 @@ const HomePage: React.FC = () => {
     chatContext?.setCurrentSessionId(null);
     welcomeTextContext?.setIsWelcomeTextVisible(true);
     setButtonsDisabled(false);
+    if (attachmentContext?.setUsingAttachment) {
+      attachmentContext?.setUsingAttachment(false);
+      attachmentContext?.setAttachment(null);
+    }
     setUserInputText("");
   };
 
@@ -74,6 +78,13 @@ const HomePage: React.FC = () => {
         },
       ]);
 
+      if (
+        attachmentContext?.attachment &&
+        attachmentContext.setUsingAttachment
+      ) {
+        attachmentContext.setUsingAttachment(true);
+      }
+
       // Start streaming response with fetch based on model type
       if (llmContext?.modelType === "Pinac CLoud Model") {
         // if (llmContext?.webSearch) {
@@ -86,7 +97,6 @@ const HomePage: React.FC = () => {
       }
 
       // clearing everything
-      attachmentContext?.setAttachment(null);
       setUserInputText("");
       if (textareaRef.current) {
         textareaRef.current.style.height = "50px"; // Reset textarea height
