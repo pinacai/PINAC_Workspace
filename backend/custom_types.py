@@ -25,5 +25,5 @@ class ChatRequest:
             top_k=data.get("top_k", 40),
             max_tokens=data.get("max_tokens", 4000),
             rag=data.get("rag", False),
-            documents_path=data.get("document_path", None),
+            documents_path=data.get("documents_path", None),
         )

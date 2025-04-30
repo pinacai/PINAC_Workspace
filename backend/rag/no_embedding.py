@@ -1,19 +1,113 @@
 import PyPDF2
-from langchain.text_splitter import CharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+import os
+from docx import Document
+from pptx import Presentation
+import pandas as pd
 
 
-def extract_text_from_pdf(pdf_path):
+def extract_text_from_pdf(file_path):
     text = ""
-    with open(pdf_path, "rb") as f:
+    with open(file_path, "rb") as f:
         reader = PyPDF2.PdfReader(f)
         for page in reader.pages:
             text += page.extract_text() + "\n"
     return text
 
 
+def extract_text_from_docx(file_path):
+    text = ""
+    try:
+        doc = Document(file_path)
+        for para in doc.paragraphs:
+            text += para.text + "\n"
+    except Exception as e:
+        print(f"Error reading docx file {file_path}: {e}")
+    return text
+
+
+def extract_text_from_pptx(file_path):
+    text = ""
+    try:
+        prs = Presentation(file_path)
+        for slide in prs.slides:
+            for shape in slide.shapes:
+                if hasattr(shape, "text"):
+                    text += shape.text + "\n"
+    except Exception as e:
+        print(f"Error reading pptx file {file_path}: {e}")
+    return text
+
+
+def extract_text_from_plain(file_path):
+    text = ""
+    try:
+        with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+            text = f.read()
+    except Exception as e:
+        print(f"Error reading plain text file {file_path}: {e}")
+    return text
+
+
+def extract_text_from_excel(file_path):
+    text = ""
+    try:
+        # Read all sheets from the Excel file
+        excel_file = pd.ExcelFile(file_path)
+        for sheet_name in excel_file.sheet_names:
+            df = excel_file.parse(sheet_name)
+            # Convert entire sheet to string, handling potential NaN values
+            sheet_text = df.to_string(index=False, header=True, na_rep="")
+            text += f"Sheet: {sheet_name}\n{sheet_text}\n\n"
+    except Exception as e:
+        print(f"Error reading Excel file {file_path}: {e}")
+    return text
+
+
+def extract_text_from_file(file_path):
+    _, file_extension = os.path.splitext(file_path.lower())
+    text = ""
+
+    if file_extension == ".pdf":
+        text = extract_text_from_pdf(file_path)
+    elif file_extension == ".docx":
+        text = extract_text_from_docx(file_path)
+    elif file_extension == ".pptx":
+        text = extract_text_from_pptx(file_path)
+    #
+    # It's not working properly, so we will not use it for now
+    elif file_extension in [".xlsx", ".xls"]:
+        text = extract_text_from_excel(file_path)
+    elif file_extension in [
+        ".txt",
+        ".md",
+        ".py",
+        ".js",
+        ".ts",
+        ".jsx",
+        ".tsx",
+        ".c",
+        ".cpp",
+        ".java",
+        ".html",
+        ".css",
+    ]:
+        text = extract_text_from_plain(file_path)
+    else:
+        print(f"Unsupported file type: {file_extension}")
+        # Optionally, raise an error or return empty string
+        # raise ValueError(f"Unsupported file type: {file_extension}")
+
+    return text
+
+
 def split_text_to_chunks(text, chunk_size=1000, chunk_overlap=100):
-    text_splitter = CharacterTextSplitter(
-        chunk_size=chunk_size, chunk_overlap=chunk_overlap
+    text_splitter = RecursiveCharacterTextSplitter(
+        separators=["\n\n", "\n", ".", "!", "?", ",", " ", ""],
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap,
+        length_function=len,
+        is_separator_regex=False,
     )
     chunks = text_splitter.split_text(text)
     return chunks
@@ -32,7 +126,12 @@ def keyword_search(query, documents, top_k=3):
     return [doc for _, doc in scored_docs[:top_k]]
 
 
-def search_pdf_for_keywords(pdf_path, query, top_k=3, chunk_size=1000, chunk_overlap=100):
-    text = extract_text_from_pdf(pdf_path)
+# Renamed function
+def search_file_for_keywords(
+    file_path, query, top_k=3, chunk_size=1000, chunk_overlap=100
+):
+    text = extract_text_from_file(file_path)  # Use the new extraction function
+    if not text:
+        return []  # Return empty list if no text could be extracted
     chunks = split_text_to_chunks(text, chunk_size, chunk_overlap)
     return keyword_search(query, chunks, top_k)

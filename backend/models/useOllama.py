@@ -3,17 +3,21 @@ import json
 import subprocess
 import platform
 from custom_types import ChatRequest
-from rag.no_embedding import search_pdf_for_keywords
+from rag.no_embedding import search_file_for_keywords
 
 
 def generate_stream(chat_request: ChatRequest):
     try:
         # RAG
         if chat_request.rag:
+            if not chat_request.documents_path:
+                raise ValueError("Document path is required when RAG is enabled")
             documents = chat_request.documents_path
             query = chat_request.prompt
-            search_results = search_pdf_for_keywords(documents[0], query)
-            chat_request.prompt = f"Use the following context to answer the question:\n{search_results}\n\nQuestion: {query}"
+            search_results = search_file_for_keywords(documents, query)
+            if search_results:  # Only add context if results were found
+                chat_request.prompt = f"Use the following context to answer the question:\n{search_results}\n\nQuestion: {query}"
+            # else: Keep original prompt if no relevant context found
 
         # Configure the stream parameters
         stream_config = {

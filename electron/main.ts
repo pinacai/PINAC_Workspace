@@ -330,6 +330,28 @@ ipcMain.on("open-external-link", (_, url) => {
   shell.openExternal(url);
 });
 
+//
+// IPC listener to open the file dialog
+ipcMain.handle("open-file-dialog", async (_, acceptedFileTypes) => {
+  const filters = [];
+
+  if (acceptedFileTypes && acceptedFileTypes.length > 0) {
+    // Convert accepted types to dialog filters
+    filters.push(...acceptedFileTypes);
+  } else {
+    filters.push({ name: "All Files", extensions: ["*"] }); // Default filter
+  }
+
+  const result = await dialog.showOpenDialog({
+    properties: ["openFile"],
+    filters: filters,
+  });
+  if (!result.canceled) {
+    return result.filePaths[0]; // Full path to selected file
+  }
+  return null;
+});
+
 // to handle window controls
 ipcMain.on("minimize", () => {
   mainWindow?.minimize();

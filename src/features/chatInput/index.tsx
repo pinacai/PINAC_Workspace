@@ -39,11 +39,45 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   const promptMenuRef = useRef<HTMLDivElement>(null); // Ref for the menu
   const promptButtonRef = useRef<HTMLButtonElement>(null); // Ref for the prompt button
 
-  // Handles attachment
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      attachmentContext?.setAttachment(file);
+  // Handles adding attachment
+  const handleFileUpload = async () => {
+    let filters: { name: string; extensions: string[] }[] = [];
+
+    if (modelContext?.modelType === "Pinac CLoud Model") {
+      filters = [{ name: "Supported Files", extensions: ["pdf"] }];
+    } else {
+      filters = [
+        {
+          name: "Supported Files",
+          extensions: [
+            "pdf",
+            "docx",
+            "pptx",
+            // "xlsx",
+            // "xls",
+            "txt",
+            "md",
+            "py",
+            "js",
+            "ts",
+            "jsx",
+            "tsx",
+            "c",
+            "cpp",
+            "java",
+            "html",
+            "css",
+          ],
+        },
+      ];
+    }
+
+    const filePath = await window.ipcRenderer.invoke(
+      "open-file-dialog",
+      filters
+    );
+    if (filePath) {
+      attachmentContext?.setAttachmentFile(filePath);
       setAttachment(true);
     }
   };
@@ -52,13 +86,6 @@ export const ChatInput: React.FC<ChatInputProps> = ({
     attachmentContext?.setAttachment(null);
     setAttachment(false);
   };
-
-  function getFileName(filePath: string) {
-    const parts = filePath.split("/");
-    const fileNameWithExtension = parts.pop() || "";
-    const [fileName, extension] = fileNameWithExtension.split(".");
-    return [fileName, extension];
-  }
 
   // Handles Enter key press for submitting messages
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -149,10 +176,10 @@ export const ChatInput: React.FC<ChatInputProps> = ({
               </div>
               <div>
                 <div className="text-white">
-                  {getFileName(attachmentContext?.attachment.name)[0]}
+                  {attachmentContext?.attachment.nameWithoutExtension}
                 </div>
                 <div className="text-gray-400 text-sm">
-                  {getFileName(attachmentContext?.attachment.name)[1]}
+                  {attachmentContext?.attachment.extension}
                 </div>
               </div>
               <button
@@ -182,18 +209,13 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           {" "}
           {/* Added relative positioning */}
           <div className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-gray-100">
-            <label
+            <button
+              onClick={handleFileUpload}
               className="w-9 h-9 rounded-full flex items-center justify-center border-1 
             border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 cursor-pointer"
             >
               <FiPlus size={20} />
-              <input
-                type="file"
-                accept=".pdf, .jpg, .jpeg, .png"
-                className="hidden"
-                onChange={(e) => handleFileUpload(e)}
-              />
-            </label>
+            </button>
 
             <button
               className="flex items-center gap-2 px-4 py-2 rounded-full border-1 

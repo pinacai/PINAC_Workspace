@@ -16,11 +16,11 @@ import { ModelSettingsContext } from "../context/ModelSettings";
 import { AttachmentContext } from "../context/Attachment";
 
 const HomePage: React.FC = () => {
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState<boolean>(false);
   const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
   const llmContext = useContext(ModelSettingsContext);
   const attachmentContext = useContext(AttachmentContext);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState<boolean>(false);
   const [userInputText, setUserInputText] = useState<string>("");
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
   const [isStop, setIsStop] = useState<boolean>(false);
@@ -209,6 +209,10 @@ const HomePage: React.FC = () => {
     const requestData = {
       prompt: inputText,
       model: llmContext?.ollamaModel,
+      ...(attachmentContext?.attachment && {
+        rag: true,
+        documents_path: attachmentContext.attachment.path,
+      }),
     };
 
     // Cancel any ongoing request
