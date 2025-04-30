@@ -1,6 +1,3 @@
-> [!NOTE]  
-> This is the application's upcoming **v2.1** iteration, which is currently in the development phase. At this time, certain functionalities are still in progress and may be missing from this version.
-
 <div align="center">
 
 <h1 style="border-bottom: none">
@@ -60,6 +57,7 @@ Overview of File Structure in Brief to Help You Get Started.
           ├── context/
           │   ├── Attachment.tsx
           │   ├── Authentication.tsx
+          │   ├── ThemeManager.ts
           │   ├── ChatMsg.tsx
           │   ├── ModelSettings.tsx
           │   ├── StopTextGeneration.ts
@@ -68,13 +66,13 @@ Overview of File Structure in Brief to Help You Get Started.
           ├── database/
           |
           ├── features/
-          │   ├── aboutUs/
-          │   ├── chatHistory/
+          │   ├── aboutPage/
+          │   ├── historyPage/
           │   ├── chatInput/
           │   ├── header/
-          │   ├── chatMessage/
-          │   ├── profile/
-          │   └── settings/
+          │   ├── messageBubble/
+          │   ├── profilePage/
+          │   └── settingsPage/
           │
           └── pages/
               ├── Home.tsx
@@ -145,4 +143,4 @@ Thanks to our contributors, we have received huge support from the open-source c
 
 ## 📢 Announcement
 
-_We are also building the website for PINAC Workspace along with this app, where we are developing the backend api endpoints in it. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/pinac_web">**PINAC Web**</a>_
+We are also building the website for PINAC Workspace along with this app, where we are developing the backend api endpoints in it. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/pinac_web">**PINAC Web**</a>

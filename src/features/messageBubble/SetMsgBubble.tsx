@@ -1,6 +1,6 @@
 import React from "react";
-import { AiMsgBubble } from "./AiMsgBubble";
-import { UserMsgBubble } from "./UserMsgBubble";
+import { AiMsgBubble } from "./AiBubble";
+import { UserMsgBubble } from "./UserBubble";
 
 interface SetChatBubbleProps {
   role: string;

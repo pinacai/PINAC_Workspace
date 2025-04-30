@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ThemeToggle } from "./ThemeToggle";
-import Profile from "../features/profile";
-import ChatHistory from "../features/chatHistory";
-import Settings from "../features/settings";
-import AboutUs from "../features/aboutUs";
+import Profile from "../features/profilePage";
+import ChatHistory from "../features/historyPage";
+import Settings from "../features/settingsPage";
+import AboutUs from "../features/aboutPage";
 
 // Icons
 import { MdOutlinePeopleAlt } from "react-icons/md";
@@ -11,7 +11,6 @@ import { IoReorderThreeOutline, IoSettingsOutline } from "react-icons/io5";
 import { LuHistory, LuLayers } from "react-icons/lu";
 import { BiUserCircle } from "react-icons/bi";
 
-const BREAKPOINT = 768;
 type PageType = "profile" | "history" | "about" | "settings" | "project";
 
 interface SidebarProps {
@@ -23,7 +22,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isExpanded,
   setIsExpanded,
 }) => {
-  const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(false);
   const [userImageUrl, setUserImageUrl] = useState<string | null>(null);
   const [page, setPage] = useState<PageType>("history");
 
@@ -38,26 +36,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   //
   useEffect(() => {
-    const handleResize = () => {
-      setIsSidebarVisible(window.innerWidth >= BREAKPOINT);
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  });
-
-  //
-  useEffect(() => {
     window.ipcRenderer.send("get-user-info");
     window.ipcRenderer.once("backend-response", (_, response) => {
       setUserImageUrl(response.photoURL);
     });
   });
-
-  if (!isSidebarVisible && window.innerWidth < BREAKPOINT) {
-    return null;
-  }
 
   // --------------------------------------------------- //
   return (
