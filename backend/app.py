@@ -3,6 +3,7 @@ from flask_cors import CORS
 import os
 import sys
 import argparse
+from waitress import serve
 from custom_types import ChatRequest
 from models.useOllama import generate_stream, model_list, ensure_ollama_running
 
@@ -69,6 +70,4 @@ if __name__ == "__main__":
         app.run(host="127.0.0.1", port=port, debug=True)
     else:
         # Use waitress for better performance
-        from waitress import serve
-
         serve(app, host="127.0.0.1", port=port)

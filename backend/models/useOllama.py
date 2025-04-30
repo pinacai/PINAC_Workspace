@@ -3,10 +3,18 @@ import json
 import subprocess
 import platform
 from custom_types import ChatRequest
+from rag.no_embedding import search_pdf_for_keywords
 
 
 def generate_stream(chat_request: ChatRequest):
     try:
+        # RAG
+        if chat_request.rag:
+            documents = chat_request.documents_path
+            query = chat_request.prompt
+            search_results = search_pdf_for_keywords(documents[0], query)
+            chat_request.prompt = f"Use the following context to answer the question:\n{search_results}\n\nQuestion: {query}"
+
         # Configure the stream parameters
         stream_config = {
             "model": chat_request.model,
@@ -56,7 +64,6 @@ def ensure_ollama_running():
         system = platform.system()
 
         try:
-            # Different approaches based on OS
             if system == "Windows":
                 # Start Ollama on Windows
                 subprocess.Popen(
