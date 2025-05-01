@@ -51,6 +51,17 @@ const HomePage: React.FC = () => {
       const userMessageKey = chatContext?.chatMsg.length ?? 0;
       const aiMessageKey = (chatContext?.chatMsg.length ?? 0) + 1;
 
+      // --- Attachment Handling ---
+      let attachmentName: string | undefined = undefined;
+      let attachmentUsedInThisMessage = false;
+
+      // Check if an attachment exists and is being used for the first time in this interaction
+      if (attachmentContext?.attachment && !attachmentContext.usingAttachment) {
+        attachmentName = attachmentContext.attachment.name;
+        attachmentUsedInThisMessage = true; // Mark that attachment is used for this message bubble
+      }
+      // --- End Attachment Handling ---
+
       chatContext?.setChatMsg((prevChatHistory) => [
         ...prevChatHistory,
         {
@@ -59,11 +70,21 @@ const HomePage: React.FC = () => {
             userMessageKey,
             "user",
             inputText,
-            <UserMsgBubble response={inputText} key={userMessageKey} />,
+            <UserMsgBubble
+              response={inputText}
+              attachment={attachmentName}
+              key={userMessageKey}
+            />,
           ],
         },
       ]);
-      LogMessageToDatabase(userMessageKey, "user", inputText);
+
+      LogMessageToDatabase(
+        userMessageKey,
+        "user",
+        inputText,
+        attachmentUsedInThisMessage ? attachmentName : undefined
+      );
 
       chatContext?.setChatMsg((prevChatHistory) => [
         ...prevChatHistory,
@@ -78,9 +99,10 @@ const HomePage: React.FC = () => {
         },
       ]);
 
+      // Mark the attachment as 'in use
       if (
-        attachmentContext?.attachment &&
-        attachmentContext.setUsingAttachment
+        attachmentUsedInThisMessage &&
+        attachmentContext?.setUsingAttachment
       ) {
         attachmentContext.setUsingAttachment(true);
       }
@@ -391,18 +413,39 @@ const HomePage: React.FC = () => {
 
   // Log message into the database
   // -----------------------------
-  const LogMessageToDatabase = (id: number, role: string, msgText: string) => {
+  const LogMessageToDatabase = (
+    id: number,
+    role: string,
+    msgText: string,
+    attachmentName?: string // Add optional attachmentName parameter
+  ) => {
     let currentSessionId = chatContext?.getCurrentSessionId() ?? null;
     if (currentSessionId == null) {
-      chatContext?.setCurrentSessionId("newSession");
-      currentSessionId = chatContext?.getCurrentSessionId() ?? null;
+      // Generate a unique ID for the new session
+      const newSessionId = `session_${Date.now()}_${Math.random()
+        .toString(36)
+        .substring(2, 9)}`;
+      chatContext?.setCurrentSessionId(newSessionId);
+      currentSessionId = newSessionId; // Use the newly generated ID
 
       if (currentSessionId != null) {
         startNewSession(currentSessionId, msgText.slice(0, 50));
-        addMsgToSession(currentSessionId, id, role, msgText);
+        addMsgToSession(
+          currentSessionId,
+          id,
+          role,
+          msgText,
+          attachmentName // Pass attachment name here
+        );
       }
     } else {
-      addMsgToSession(currentSessionId, id, role, msgText);
+      addMsgToSession(
+        currentSessionId,
+        id,
+        role,
+        msgText,
+        attachmentName // Pass attachment name here
+      );
     }
   };
 

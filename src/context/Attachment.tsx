@@ -41,11 +41,18 @@ const AttachmentProvider: React.FC<AttachmentProviderProps> = ({
       nameWithoutExtension: nameWithoutExtension,
     };
     setAttachment(file);
+    setUsingAttachment(false);
   };
 
   return (
     <AttachmentContext.Provider
-      value={{ attachment, setAttachment, setAttachmentFile, usingAttachment, setUsingAttachment }}
+      value={{
+        attachment,
+        setAttachment,
+        setAttachmentFile,
+        usingAttachment,
+        setUsingAttachment,
+      }}
     >
       {children}
     </AttachmentContext.Provider>

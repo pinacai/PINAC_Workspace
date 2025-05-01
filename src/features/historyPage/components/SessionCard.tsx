@@ -40,7 +40,11 @@ export const SessionCard: React.FC<SessionCardProps> = ({
                   msg.id,
                   msg.role,
                   msg.text,
-                  <SetChatBubble role={msg.role} msg={msg.text} />,
+                  <SetChatBubble
+                    role={msg.role}
+                    msg={msg.text}
+                    attachment={msg.attachment}
+                  />,
                 ],
               };
             })
