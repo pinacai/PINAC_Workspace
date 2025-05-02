@@ -1,4 +1,3 @@
-import { useEffect, useState, useRef } from "react";
 import { RedButton } from "./components/RedButton";
 import { NewChatBtn } from "./components/NewChatBtn";
 
@@ -13,10 +12,6 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ title, page, clearChat }) => {
-
-
-  //
-  // --------------------------------------------------- //
   return (
     <>
       <div

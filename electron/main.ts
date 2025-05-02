@@ -33,7 +33,6 @@ const startPythonBackend = async () => {
     let pythonOptions;
 
     if (isDev) {
-      // Development: Use the Python interpreter in the virtual environment
       if (process.platform === "win32") {
         // Windows
         pythonCommand = path.join(
@@ -68,21 +67,9 @@ const startPythonBackend = async () => {
     } else {
       // Production: Use the packaged Python executable
       if (process.platform === "win32") {
-        pythonCommand = path.join(
-          process.resourcesPath,
-          "backend",
-          "dist",
-          "app",
-          "app.exe"
-        );
+        pythonCommand = path.join(process.resourcesPath, "backend", "app.exe");
       } else {
-        pythonCommand = path.join(
-          process.resourcesPath,
-          "backend",
-          "dist",
-          "app",
-          "app"
-        );
+        pythonCommand = path.join(process.resourcesPath, "backend", "app");
       }
 
       pythonArgs = ["--port", port.toString()];

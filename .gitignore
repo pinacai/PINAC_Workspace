@@ -18,6 +18,7 @@ release
 venv
 build
 __pycache__
+resources
 
 # Editor directories and files
 .vscode/

@@ -14,7 +14,7 @@ interface ChatMsgProviderProps {
 
 interface ChatMessage {
   key: number;
-  element: [number, string, string, JSX.Element]; // [ id, role, text, jsx ]
+  element: [number, string, string, React.ReactElement]; // [ id, role, text, jsx ]
 }
 
 export const ChatMsgProvider: React.FC<ChatMsgProviderProps> = ({

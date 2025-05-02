@@ -3,7 +3,7 @@ import { deleteAllSessions } from "../../../database/db";
 
 interface RedButtonProps {
   task: "logout" | "clear_history";
-  icon: JSX.Element;
+  icon: React.ReactElement;
 }
 
 export const RedButton: React.FC<RedButtonProps> = ({ task, icon }) => {

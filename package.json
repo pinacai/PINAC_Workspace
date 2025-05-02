@@ -1,14 +1,17 @@
 {
   "name": "pinac-workspace",
-  "version": "2.1",
+  "version": "2.1.0",
   "description": "A Must-Have Desktop AI App for Everyone",
   "author": "RajeshTechForge",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && electron-builder",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "electron-builder install-app-deps",
+    "build-electron": "tsc && vite build && electron-builder",
+    "build-python": "cd backend && python build_app.py",
+    "build": "npm run build-python && tsc && vite build && electron-builder"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.17",
