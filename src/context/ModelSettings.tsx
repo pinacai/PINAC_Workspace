@@ -7,8 +7,6 @@ export const ModelSettingsContext = createContext<{
   >;
   pinacCloudModel: "Base Model";
   setPinacCloudModel: React.Dispatch<React.SetStateAction<"Base Model">>;
-  webSearch: boolean;
-  setWebSearch: React.Dispatch<React.SetStateAction<boolean>>;
   ollamaModel: string | null;
   setOllamaModel: React.Dispatch<React.SetStateAction<string | null>>;
   setValue: (valueName: string, value: string) => void;
@@ -33,8 +31,6 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
     const choice = localStorage.getItem("pinac-cloud-model") as "Base Model";
     return choice ? choice : "Base Model";
   });
-
-  const [webSearch, setWebSearch] = useState(false);
 
   const [ollamaModel, setOllamaModel] = useState(() => {
     const choice = localStorage.getItem("ollama-model");
@@ -77,8 +73,6 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
         setModelType,
         pinacCloudModel,
         setPinacCloudModel,
-        webSearch,
-        setWebSearch,
         ollamaModel,
         setOllamaModel,
         setValue,

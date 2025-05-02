@@ -13,12 +13,14 @@ import { startNewSession, addMsgToSession } from "../database/db";
 import { ChatMsgContext } from "../context/ChatMsg";
 import { WelcomeTextContext } from "../context/WelcomeText";
 import { ModelSettingsContext } from "../context/ModelSettings";
+import { WebSearchContext } from "../context/WebSearch";
 import { AttachmentContext } from "../context/Attachment";
 
 const HomePage: React.FC = () => {
   const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
-  const llmContext = useContext(ModelSettingsContext);
+  const modelContext = useContext(ModelSettingsContext);
+  const webSearchContext = useContext(WebSearchContext);
   const attachmentContext = useContext(AttachmentContext);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState<boolean>(false);
   const [userInputText, setUserInputText] = useState<string>("");
@@ -108,8 +110,8 @@ const HomePage: React.FC = () => {
       }
 
       // Start streaming response with fetch based on model type
-      if (llmContext?.modelType === "Pinac CLoud Model") {
-        // if (llmContext?.webSearch) {
+      if (modelContext?.modelType === "Pinac CLoud Model") {
+        // if (modelContext?.webSearch) {
         //   fetchWebSearchResponse(aiMessageKey, inputText);
         // } else {
         fetchCloudLLMResponse(aiMessageKey, inputText);
@@ -240,10 +242,15 @@ const HomePage: React.FC = () => {
 
     const requestData = {
       prompt: inputText,
-      model: llmContext?.ollamaModel,
+      model: modelContext?.ollamaModel,
       ...(attachmentContext?.attachment && {
         rag: true,
         documents_path: attachmentContext.attachment.path,
+      }),
+      ...(webSearchContext?.webSearch && {
+        web_search: true,
+        quick_search: webSearchContext.quickSearch,
+        better_search: webSearchContext.betterSearch,
       }),
     };
 

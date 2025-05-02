@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { ModelSettingsContext } from "../../context/ModelSettings";
+import { WebSearchContext } from "../../context/WebSearch";
 import { AttachmentContext } from "../../context/Attachment";
-import { promptsData } from "../../data/prompts"; // Import prompts data
+import { promptsData } from "../../data/prompts"; // Prompts data
 
 // icons
 import { GoGlobe } from "react-icons/go";
@@ -11,6 +12,8 @@ import { FiPlus } from "react-icons/fi";
 import { FaRegStopCircle } from "react-icons/fa";
 import { FaRegFileLines } from "react-icons/fa6";
 import { AiOutlineClose } from "react-icons/ai";
+import { HiLightningBolt } from "react-icons/hi";
+// import { MdGraphicEq } from "react-icons/md";
 
 interface ChatInputProps {
   userInput: string;
@@ -31,14 +34,20 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   setStop,
 }) => {
   const modelContext = useContext(ModelSettingsContext);
+  const webSearchContext = useContext(WebSearchContext);
   const attachmentContext = useContext(AttachmentContext);
   const [isPromptMenuOpen, setIsPromptMenuOpen] = useState<boolean>(false);
   const [promptSearchQuery, setPromptSearchQuery] = useState<string>(""); // State for search query
-  const promptMenuRef = useRef<HTMLDivElement>(null); // Ref for the menu
+  const [isWebSearchMenuOpen, setIsWebSearchMenuOpen] =
+    useState<boolean>(false); // State for web search menu
+  const promptMenuRef = useRef<HTMLDivElement>(null); // Ref for the prompt menu
   const promptButtonRef = useRef<HTMLButtonElement>(null); // Ref for the prompt button
+  const webSearchMenuRef = useRef<HTMLDivElement>(null); // Ref for the web search menu
+  const webSearchButtonRef = useRef<HTMLButtonElement>(null); // Ref for the web search button
 
   // Handles adding attachment
   const handleFileUpload = async () => {
+    webSearchContext?.setIsWebSearch(false); // Close web search if open
     let filters: { name: string; extensions: string[] }[] = [];
 
     if (modelContext?.modelType === "Pinac CLoud Model") {
@@ -107,15 +116,16 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   // Handles selecting a prompt from the menu
   const handlePromptSelect = (promptKey: string) => {
     const promptText = promptsData[promptKey];
-    setUserInput(promptText); // Set the selected prompt text to the input
+    setUserInput(promptText);
     setIsPromptMenuOpen(false);
-    setPromptSearchQuery(""); // Clear search query on selection
+    setPromptSearchQuery("");
     textareaRef.current?.focus();
   };
 
-  // Effect for handling clicks outside the menu
+  // Effect for handling clicks outside the menus
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      // Close prompt menu
       if (
         isPromptMenuOpen &&
         promptMenuRef.current &&
@@ -126,13 +136,23 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         setIsPromptMenuOpen(false);
         setPromptSearchQuery("");
       }
+      // Close web search menu
+      if (
+        isWebSearchMenuOpen &&
+        webSearchMenuRef.current &&
+        !webSearchMenuRef.current.contains(event.target as Node) &&
+        webSearchButtonRef.current &&
+        !webSearchButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsWebSearchMenuOpen(false);
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isPromptMenuOpen]);
+  }, [isPromptMenuOpen, isWebSearchMenuOpen]); // Add isWebSearchMenuOpen dependency
 
   // for managing the height of the textarea automatically
   useEffect(() => {
@@ -251,24 +271,82 @@ export const ChatInput: React.FC<ChatInputProps> = ({
               <FiPlus size={20} />
             </button>
 
-            <button
-              className="flex items-center gap-2 px-4 py-2 rounded-full border-1 
-            border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 cursor-pointer"
-              onClick={() =>
-                modelContext?.setWebSearch(!modelContext?.webSearch)
-              }
-            >
-              {modelContext?.webSearch ? (
-                <GoGlobe size={20} className="text-green-600" />
-              ) : (
-                <PiGlobeX size={20} />
-              )}
-              <span>Web</span>
-            </button>
+            {!attachmentContext?.attachment && (
+              <div className="relative">
+                {" "}
+                {/* Wrapper for web search button and menu */}
+                <button
+                  ref={webSearchButtonRef}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full border-1
+                  border-gray-400 dark:border-zinc-500 cursor-pointer
+                  ${
+                    webSearchContext?.webSearch
+                      ? "bg-green-200 dark:bg-green-900/30 border-green-400 dark:border-green-600"
+                      : ""
+                  }`}
+                  onClick={() => setIsWebSearchMenuOpen(!isWebSearchMenuOpen)}
+                >
+                  {webSearchContext?.webSearch ? (
+                    <GoGlobe size={20} className="text-green-600" />
+                  ) : (
+                    <PiGlobeX size={20} />
+                  )}
+                  <span>
+                    {webSearchContext?.webSearch
+                      ? webSearchContext?.quickSearch
+                        ? "Quick Search"
+                        : "Better Search"
+                      : "Web"}
+                  </span>
+                </button>
+                {isWebSearchMenuOpen && (
+                  <div
+                    ref={webSearchMenuRef}
+                    className="absolute bottom-full left-0 mb-2 w-40 bg-gray-100 dark:bg-zinc-800 border border-gray-300 dark:border-zinc-600 rounded-lg shadow-lg z-10 p-2"
+                  >
+                    <button
+                      className="flex w-full text-left px-2 py-2 hover:bg-gray-200 dark:hover:bg-zinc-700 rounded text-gray-700 dark:text-gray-200"
+                      onClick={() => {
+                        webSearchContext?.setIsWebSearch(false);
+                        setIsWebSearchMenuOpen(false);
+                      }}
+                    >
+                      <PiGlobeX size={20} className="mr-2" />
+                      Off
+                    </button>
+                    <button
+                      className="flex w-full text-left px-2 py-2 hover:bg-gray-200 dark:hover:bg-zinc-700 rounded text-gray-700 dark:text-gray-200"
+                      onClick={() => {
+                        webSearchContext?.setIsWebSearch(true);
+                        webSearchContext?.setQuickSearch(true);
+                        setIsWebSearchMenuOpen(false);
+                      }}
+                    >
+                      <HiLightningBolt
+                        size={20}
+                        className="text-yellow-400 mr-2"
+                      />
+                      Quick Search
+                    </button>
+                    {/* <button
+                      className="flex w-full text-left px-2 py-2 hover:bg-gray-200 dark:hover:bg-zinc-700 rounded text-gray-700 dark:text-gray-200"
+                      onClick={() => {
+                        webSearchContext?.setIsWebSearch(true);
+                        webSearchContext?.setBetterSearch(true);
+                        setIsWebSearchMenuOpen(false);
+                      }}
+                    >
+                      <MdGraphicEq size={20} className="text-blue-400 mr-2" />
+                      Better Search
+                    </button> */}
+                  </div>
+                )}
+              </div>
+            )}
 
             <div className="relative">
               {" "}
-              {/* Wrapper for positioning the menu */}
+              {/* Wrapper for positioning the prompt menu */}
               <button
                 ref={promptButtonRef}
                 className="flex items-center gap-2 px-4 py-2 rounded-full border-1

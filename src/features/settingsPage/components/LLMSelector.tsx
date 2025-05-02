@@ -3,7 +3,7 @@ import { DropdownMenu } from "./DropdownMenu";
 import { ModelSettingsContext } from "../../../context/ModelSettings";
 
 export const LLMSelector: React.FC = () => {
-  const llmContext = useContext(ModelSettingsContext);
+  const modelContext = useContext(ModelSettingsContext);
   const [ollamaModelList, setOllamaModelList] = useState([]);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export const LLMSelector: React.FC = () => {
       />
       {/*    for selecting the LLM Name    */}
       {/* -------------------------------- */}
-      {llmContext?.modelType == "Pinac CLoud Model" ? (
+      {modelContext?.modelType == "Pinac CLoud Model" ? (
         <DropdownMenu
           defaultOption="Base Model"
           optionList={["Base Model"]}

@@ -4,20 +4,37 @@ import subprocess
 import platform
 from custom_types import ChatRequest
 from rag.no_embedding import search_file_for_keywords
+from web_scraper.duckDuckGo_search import duckDuckGo_search
 
 
-def generate_stream(chat_request: ChatRequest):
+def generate_response_stream(chat_request: ChatRequest):
     try:
-        # RAG
+        # Check for RAG
         if chat_request.rag:
             if not chat_request.documents_path:
                 raise ValueError("Document path is required when RAG is enabled")
             documents = chat_request.documents_path
             query = chat_request.prompt
             search_results = search_file_for_keywords(documents, query)
-            if search_results:  # Only add context if results were found
+            # Only add context if results were found
+            if search_results:
                 chat_request.prompt = f"Use the following context to answer the question:\n{search_results}\n\nQuestion: {query}"
-            # else: Keep original prompt if no relevant context found
+
+        # Check for quick web search
+        elif chat_request.quick_search:
+            search_result = duckDuckGo_search(chat_request.prompt)
+            chat_request.prompt = f"""
+            User query: {chat_request.prompt}
+
+            I've searched the web for information to help answer this query. Here are the search results:
+
+            {search_result}
+
+            Based on these search results, please provide a comprehensive and accurate answer to the user's query.
+            If the search results don't contain enough information, please say so and provide the best answer
+            based on your knowledge, clearly indicating what information comes from the search results and
+            what comes from your pre-existing knowledge.
+            """
 
         # Configure the stream parameters
         stream_config = {
@@ -28,7 +45,7 @@ def generate_stream(chat_request: ChatRequest):
                 "temperature": chat_request.temperature,
                 "top_p": chat_request.top_p,
                 "top_k": chat_request.top_k,
-                "num_predict": chat_request.max_tokens,  # This is max output token
+                "num_predict": chat_request.max_tokens,
             },
         }
 
@@ -41,7 +58,6 @@ def generate_stream(chat_request: ChatRequest):
         # Stream the response
         for chunk in ollama.chat(**stream_config):
             if "message" in chunk:
-                # Prepare the chunk data
                 response_chunk = {
                     "content": chunk["message"]["content"],
                     "done": chunk.get("done", False),
@@ -52,6 +68,42 @@ def generate_stream(chat_request: ChatRequest):
     except Exception as e:
         error_response = {"error": str(e), "done": True}
         yield f"data: {json.dumps(error_response)}\n\n"
+
+
+def generate_response(chat_request: ChatRequest):
+    try:
+        response = ollama.chat(
+            model=chat_request.model,
+            messages=[
+                {
+                    "role": "user",
+                    "content": chat_request.prompt,
+                },
+            ],
+        )
+        return response["message"]["content"]
+
+    except Exception as e:
+        return f"error {str(e)}"
+
+
+def generate_search_query(chat_request: ChatRequest):
+    try:
+        chat_request.prompt = f"Generate a search query for searching on internet, so that you can find relevent information to answer the user's prompt. (Just give the query in your response. Don't add quotation marks)\n\n User's Prompt: {chat_request.prompt}"
+
+        response = ollama.chat(
+            model=chat_request.model,
+            messages=[
+                {
+                    "role": "user",
+                    "content": chat_request.prompt,
+                },
+            ],
+        )
+        return response["message"]["content"]
+
+    except Exception as e:
+        return f"error {str(e)}"
 
 
 def model_list():
