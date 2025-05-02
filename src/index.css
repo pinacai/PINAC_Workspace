@@ -67,7 +67,10 @@
 
 .scroolbar::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  @apply bg-gray-500 dark:bg-zinc-500;
+  background-color: theme("colors.gray.500");
+  dark {
+    background-color: theme("colors.zinc.500");
+  }
 }
 
 .blur {
