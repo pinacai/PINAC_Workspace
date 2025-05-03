@@ -54,7 +54,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   return (
     <div className="w-full text-gray-200" ref={dropdownMenuRef}>
       <div
-        className="max-w-64 h-9 pl-2 flex items-center justify-between rounded-lg
+        className="w-64 h-9 pl-2 flex items-center justify-between rounded-lg
         bg-gray-700 dark:bg-tertiary-dark"
       >
         <span>{selectedOption}</span>

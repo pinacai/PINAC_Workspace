@@ -2,11 +2,9 @@ import React, { useState, useRef, useContext, useEffect } from "react";
 import { IpcRendererEvent } from "electron";
 import { Sidebar } from "../components/Sidebar";
 import { GreetingText } from "../components/GreetingText";
-import { Header } from "../features/header/index";
 import { AiMsgBubble, AiLoader } from "../features/messageBubble/AiBubble";
 import { UserMsgBubble } from "../features/messageBubble/UserBubble";
 import { ChatInput } from "../features/chatInput";
-import { StopTextGeneration } from "../context/StopTextGeneration";
 import { startNewSession, addMsgToSession } from "../database/db";
 
 // context
@@ -15,6 +13,7 @@ import { WelcomeTextContext } from "../context/WelcomeText";
 import { ModelSettingsContext } from "../context/ModelSettings";
 import { WebSearchContext } from "../context/WebSearch";
 import { AttachmentContext } from "../context/Attachment";
+import { StopTextGeneration } from "../context/StopTextGeneration";
 
 const HomePage: React.FC = () => {
   const welcomeTextContext = useContext(WelcomeTextContext);
@@ -467,6 +466,7 @@ const HomePage: React.FC = () => {
       <Sidebar
         isExpanded={isSidebarExpanded}
         setIsExpanded={setIsSidebarExpanded}
+        clearChat={InitializeNewChat}
       />
       <div
         className={`${
@@ -474,10 +474,9 @@ const HomePage: React.FC = () => {
             ? "w-min-main-body lg:w-max-main-body"
             : "w-main-body"
         }
-        w-full h-full flex flex-col justify-start items-center
+        w-full h-full flex justify-start items-center
         bg-primary dark:bg-primary-dark rounded-xl transition-all duration-300`}
       >
-        <Header title="PINAC" page="home" clearChat={InitializeNewChat} />
         <div
           className={`
             ${

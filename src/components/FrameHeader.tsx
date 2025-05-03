@@ -1,4 +1,4 @@
-// icons
+import Modal from "./Modal";
 import { FiMinus } from "react-icons/fi";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
@@ -52,6 +52,9 @@ export const FrameHeader: React.FC<FrameHeaderProps> = ({ children }) => {
           </button>
         </div>
       </div>
+      {/* ------ Modal ------- */}
+      <Modal />
+      {/* ------ Children ------- */}
       {children}
     </div>
   );

@@ -12,7 +12,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const checkInitialAuth = () => {
-    window.ipcRenderer.send("check");
+    window.ipcRenderer.send("check-auth-status");
     window.ipcRenderer.once("auth-response", (_, response) => {
       setIsAuthenticated(response.status);
     });

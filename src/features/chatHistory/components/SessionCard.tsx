@@ -76,7 +76,7 @@ export const SessionCard: React.FC<SessionCardProps> = ({
 
   return (
     <div
-      className="w-full mb-2 px-3 pt-1 pb-2 flex flex-col rounded-2xl border
+      className="w-full px-3 pt-1 pb-2 flex flex-col rounded-2xl border
       bg-transparent dark:bg-transparent border-gray-700 dark:border-primary-dark hover:bg-gray-700/20 dark:hover:bg-primary-dark/25"
     >
       <div className="relative w-full flex items-center justify-between text-xs text-gray-400 dark:text-zinc-500">

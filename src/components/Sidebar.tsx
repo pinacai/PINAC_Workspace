@@ -1,46 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { ThemeToggle } from "./ThemeToggle";
-import Profile from "../features/profilePage";
-import ChatHistory from "../features/historyPage";
-import Settings from "../features/settingsPage";
-import AboutUs from "../features/aboutPage";
+import { ChatHistory } from "../features/chatHistory";
+import { ModalContext } from "../context/Modal";
 
 // Icons
-import { MdOutlinePeopleAlt } from "react-icons/md";
-import { IoReorderThreeOutline, IoSettingsOutline } from "react-icons/io5";
-import { LuHistory, LuLayers } from "react-icons/lu";
-import { BiUserCircle } from "react-icons/bi";
-
-type PageType = "profile" | "history" | "about" | "settings" | "project";
+import { IoAddCircleOutline } from "react-icons/io5";
+import { LuHistory, LuLibraryBig } from "react-icons/lu";
+import { TbSettings } from "react-icons/tb";
+import appLogo from "/icon/Round App Logo.svg";
 
 interface SidebarProps {
   isExpanded: boolean;
   setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  clearChat?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
   isExpanded,
   setIsExpanded,
+  clearChat,
 }) => {
-  const [userImageUrl, setUserImageUrl] = useState<string | null>(null);
-  const [page, setPage] = useState<PageType>("history");
+  const modalContext = useContext(ModalContext);
 
-  const openSidebar = (givenPage: PageType) => {
-    setPage(givenPage);
-    if (givenPage == page) {
-      setIsExpanded(!isExpanded);
-    } else {
-      setIsExpanded(true);
-    }
+  const openSettingsModal = () => {
+    modalContext?.setModalContent("settings");
+    modalContext?.setIsOpen(true);
+    setIsExpanded(false);
   };
-
-  //
-  useEffect(() => {
-    window.ipcRenderer.send("get-user-info");
-    window.ipcRenderer.once("backend-response", (_, response) => {
-      setUserImageUrl(response.photoURL);
-    });
-  });
 
   // --------------------------------------------------- //
   return (
@@ -56,61 +42,40 @@ export const Sidebar: React.FC<SidebarProps> = ({
         className={`w-18 h-full flex flex-col items-center justify-between
         ${isExpanded && "border-r border-gray-700 dark:border-zinc-700"}`}
       >
+        {/* upper part */}
         <div className="w-18">
           <nav className="style-none w-full">
             <ul>
-              <li
-                className="w-full sidebar-li"
-                onClick={() => setIsExpanded(!isExpanded)}
-              >
-                <IoReorderThreeOutline size={30} />
+              <li className="w-full sidebar-li ">
+                <img src={appLogo} className="size-9" />
               </li>
-              <li
-                className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700"
-                onClick={() => openSidebar("history")}
-              >
-                <LuHistory size={25} />
-              </li>
-              <li
-                className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700"
-                onClick={() => openSidebar("project")}
-              >
-                <LuLayers size={25} />
-              </li>
-              <li
-                className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700"
-                onClick={() => openSidebar("settings")}
-              >
-                <IoSettingsOutline size={30} />
-              </li>
-              <li
-                className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700"
-                onClick={() => openSidebar("about")}
-              >
-                <MdOutlinePeopleAlt size={25} />
+              <li className="w-full sidebar-li" onClick={clearChat}>
+                <IoAddCircleOutline size={35} />
               </li>
             </ul>
           </nav>
         </div>
+        {/* lower part */}
         <div className="w-full">
           <nav className="style-none mb-2">
             <ul>
-              <li className="sidebar-li">
-                <ThemeToggle />
+              <li
+                className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60"
+                onClick={() => setIsExpanded(!isExpanded)}
+              >
+                <LuHistory size={25} />
+              </li>
+              <li className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60">
+                <LuLibraryBig size={25} />
               </li>
               <li
-                className="sidebar-li hover:bg-gray-700 dark:hover:bg-zinc-700"
-                onClick={() => openSidebar("profile")}
+                className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60"
+                onClick={openSettingsModal}
               >
-                {userImageUrl ? (
-                  <img
-                    className="size-30 rounded-b-full"
-                    src={userImageUrl}
-                    alt="User"
-                  />
-                ) : (
-                  <BiUserCircle size={30} />
-                )}
+                <TbSettings size={28} />
+              </li>
+              <li className="sidebar-li">
+                <ThemeToggle />
               </li>
             </ul>
           </nav>
@@ -121,11 +86,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         className={`w-[248px] lg:w-[312px] h-full
         ${isExpanded ? "flex" : "hidden"}`}
       >
-        {page === "profile" && <Profile />}
-        {page === "history" && <ChatHistory />}
-        {page === "project" && <></>}
-        {page === "settings" && <Settings />}
-        {page === "about" && <AboutUs />}
+        <ChatHistory />
       </div>
     </div>
   );

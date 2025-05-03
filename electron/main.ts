@@ -261,7 +261,7 @@ const tokenManager = new SecureTokenManager(derivedKey);
 // ======================================================================== //
 
 // Initial Auth Checking
-ipcMain.on("check", (event) => {
+ipcMain.on("check-auth-status", (event) => {
   const status = tokenManager.hasToken("idToken");
   event.reply("auth-response", { status: status });
 });
@@ -289,8 +289,8 @@ ipcMain.on("get-user-info", (event) => {
     } catch {
       const userData = {
         displayName: null,
+        nickname: null,
         email: null,
-        bio: null,
       };
       event.reply("backend-response", userData);
     }
@@ -573,8 +573,8 @@ const parseAuthDataFromUrl = (url: string) => {
     // ------------------- //
     const userInfo = {
       displayName: authData.displayName,
+      nickname: "",
       email: authData.email,
-      bio: "",
       photoURL: authData.photoUrl,
     };
     const userInfoJson = JSON.stringify(userInfo);
