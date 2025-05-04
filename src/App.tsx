@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext,useState } from "react";
 import { FrameHeader } from "./components/FrameHeader";
 
 // context
@@ -14,6 +14,7 @@ import HomePage from "./pages/Home";
 
 const App = () => {
   const isAuthenticated = useContext(AuthContext)?.isAuthenticated;
+  const isLoading = useContext(AuthContext)?.isLoading;
 
   // ---------------------------------------------------- //
   return (
@@ -23,7 +24,7 @@ const App = () => {
           {isAuthenticated ? (
             <FrameHeader children={<HomePage />} />
           ) : (
-            <FrameHeader children={<SignInPage />} />
+            <FrameHeader children={<SignInPage isLoading={isLoading} />} />
           )}
         </ChatMsgProvider>
       </AttachmentProvider>

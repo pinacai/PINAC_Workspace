@@ -82,6 +82,7 @@
 /*          Circles            */
 /* =========================== */
 
+
 .blueCircle {
   position: absolute;
   background: linear-gradient(180deg, #08b1f9, #056893);
@@ -101,4 +102,40 @@
   height: 200px;
   bottom: 170px;
   left: 720px;
+}
+
+/*          Loading Page            */
+/* =========================== */
+.loadingPage{
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #ececec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  height: 40px;
+  aspect-ratio: 1.5;
+  --c:no-repeat linear-gradient(#fff 0 0);
+  background: var(--c), var(--c), var(--c), var(--c);
+  background-size: 33.4% 50%;
+  animation: l3 2s infinite linear;
+}
+@keyframes l3 {
+  0%    {background-position:0 0,50% 0,0 100%,50% 100%}
+  12.5% {background-position:0 0,100% 0,0 100%,50% 100%}
+  25%   {background-position:50% 0,100% 0,0 100%,50% 100%}
+  37.5% {background-position:50% 0,100% 0,0 100%,100% 100%}
+  50%   {background-position:50% 0,100% 0,50% 100%,100% 100%}
+  62.5% {background-position:0 0,100% 0,50% 100%,100% 100%}
+  75%   {background-position:0 0,50% 0,50% 100%,100% 100%}
+  87.5% {background-position:0 0,50% 0,0 100%,100% 100%}
+  100%  {background-position:0 0,50% 0,0 100%,50% 100%}
 }
