@@ -23,11 +23,9 @@ A privacy-first, cross-platform, open-source desktop AI assistant for all
 
 <br />
 
-PINAC Workspace is a modern-looking _privacy-first_ AI chat for desktops, seamlessly blending Electron and React for a modern user experience. Unlock the full potential of AI with unparalleled simplicity and user-friendliness, while enjoying ultimate freedom and privacy.
-
 ## Why PINAC Workspace ?
 
-PINAC Workspace simplifies AI use for everyone, allowing users to get high-quality results without complex prompts. Our easy-to-use, beautiful desktop app allows you to express your needs in simple language and it applies the expert-level prompt on top of it after identifying the user's specific requirement so that users receive optimal outcomes. This empowers users to tap into powerful AI capabilities, saving time and boosting creativity across various fields.
+PINAC Workspace is a modern-looking _privacy-first_ AI chat for desktops, seamlessly blending Electron-React for a modern user experience with powerfully Python backend. Unlock the full potential of AI with unparalleled simplicity and user-friendliness, while enjoying ultimate freedom and privacy.
 
 ## 📂 File Structure
 
@@ -36,12 +34,17 @@ Overview of File Structure in Brief to Help You Get Started.
       .
       ├── index.html
       ├── public/
-      ├── backend/
-      |   ├── app.py
-      |   ├── models/
-      |   ├── backend.spec
-      |   └── requirements.txt
       ├── electron/
+      |
+      ├── backend/
+      |   ├── models/
+      |   ├── rag/
+      |   ├── web_scraper/
+      |   ├── app.py
+      |   ├── app.spec
+      |   ├── build_app.py
+      |   └── requirements.txt
+      |
       └── src/
           ├── App.tsx
           ├── index.css
@@ -57,22 +60,22 @@ Overview of File Structure in Brief to Help You Get Started.
           ├── context/
           │   ├── Attachment.tsx
           │   ├── Authentication.tsx
-          │   ├── ThemeManager.ts
           │   ├── ChatMsg.tsx
+          |   ├── Modal.tsx
           │   ├── ModelSettings.tsx
+          │   ├── OllamaSettings.tsx
+          │   ├── WebSearch.tsx
           │   ├── StopTextGeneration.ts
+          │   ├── ThemeManager.ts
           │   └── WelcomeText.tsx
           │
           ├── database/
           |
           ├── features/
-          │   ├── aboutPage/
-          │   ├── historyPage/
+          │   ├── appSettings/
+          │   ├── chatHistory/
           │   ├── chatInput/
-          │   ├── header/
-          │   ├── messageBubble/
-          │   ├── profilePage/
-          │   └── settingsPage/
+          │   └── messageBubble/
           │
           └── pages/
               ├── Home.tsx
