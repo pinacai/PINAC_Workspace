@@ -3,7 +3,6 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 from docx import Document
 from pptx import Presentation
-import pandas as pd
 
 
 def extract_text_from_pdf(file_path):
@@ -49,21 +48,6 @@ def extract_text_from_plain(file_path):
     return text
 
 
-def extract_text_from_excel(file_path):
-    text = ""
-    try:
-        # Read all sheets from the Excel file
-        excel_file = pd.ExcelFile(file_path)
-        for sheet_name in excel_file.sheet_names:
-            df = excel_file.parse(sheet_name)
-            # Convert entire sheet to string, handling potential NaN values
-            sheet_text = df.to_string(index=False, header=True, na_rep="")
-            text += f"Sheet: {sheet_name}\n{sheet_text}\n\n"
-    except Exception as e:
-        print(f"Error reading Excel file {file_path}: {e}")
-    return text
-
-
 def extract_text_from_file(file_path):
     _, file_extension = os.path.splitext(file_path.lower())
     text = ""
@@ -74,29 +58,13 @@ def extract_text_from_file(file_path):
         text = extract_text_from_docx(file_path)
     elif file_extension == ".pptx":
         text = extract_text_from_pptx(file_path)
-    #
-    # It's not working properly, so we will not use it for now
-    elif file_extension in [".xlsx", ".xls"]:
-        text = extract_text_from_excel(file_path)
     elif file_extension in [
         ".txt",
         ".md",
-        ".py",
-        ".js",
-        ".ts",
-        ".jsx",
-        ".tsx",
-        ".c",
-        ".cpp",
-        ".java",
-        ".html",
-        ".css",
     ]:
         text = extract_text_from_plain(file_path)
     else:
         print(f"Unsupported file type: {file_extension}")
-        # Optionally, raise an error or return empty string
-        # raise ValueError(f"Unsupported file type: {file_extension}")
 
     return text
 
@@ -126,12 +94,28 @@ def keyword_search(query, documents, top_k=3):
     return [doc for _, doc in scored_docs[:top_k]]
 
 
-# Renamed function
 def search_file_for_keywords(
     file_path, query, top_k=3, chunk_size=1000, chunk_overlap=100
 ):
-    text = extract_text_from_file(file_path)  # Use the new extraction function
+    _, file_extension = os.path.splitext(file_path.lower())
+    text = extract_text_from_file(file_path)
     if not text:
-        return []  # Return empty list if no text could be extracted
-    chunks = split_text_to_chunks(text, chunk_size, chunk_overlap)
-    return keyword_search(query, chunks, top_k)
+        return []
+
+    coding_extensions = [
+        ".py",
+        ".js",
+        ".ts",
+        ".jsx",
+        ".tsx",
+        ".c",
+        ".cpp",
+        ".java",
+        ".html",
+        ".css",
+    ]
+    if file_extension in coding_extensions:
+        return [text]
+    else:
+        chunks = split_text_to_chunks(text, chunk_size, chunk_overlap)
+        return keyword_search(query, chunks, top_k)

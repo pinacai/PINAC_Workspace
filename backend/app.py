@@ -53,21 +53,21 @@ def stream_ollama():
         data = request.get_json()
         chat_request = ChatRequest.from_json(data)
 
-        if chat_request.better_search:
-            search_query = generate_search_query(chat_request.prompt)
-            search_result = duckDuckGo_search(search_query)
-            chat_request.prompt = f"""
-            User query: {chat_request.prompt}
+        # if chat_request.better_search:
+        #     search_query = generate_search_query(chat_request.prompt)
+        #     search_result = duckDuckGo_search(search_query)
+        #     chat_request.prompt = f"""
+        #     User query: {chat_request.prompt}
 
-            I've searched the web for information to help answer this query. Here are the search results:
+        #     I've searched the web for information to help answer this query. Here are the search results:
 
-            {search_result}
+        #     {search_result}
 
-            Based on these search results, please provide a comprehensive and accurate answer to the user's query.
-            If the search results don't contain enough information, please say so and provide the best answer
-            based on your knowledge, clearly indicating what information comes from the search results and
-            what comes from your pre-existing knowledge.
-            """
+        #     Based on these search results, please provide a comprehensive and accurate answer to the user's query.
+        #     If the search results don't contain enough information, please say so and provide the best answer
+        #     based on your knowledge, clearly indicating what information comes from the search results and
+        #     what comes from your pre-existing knowledge.
+        #     """
 
         return Response(
             generate_response_stream(chat_request), mimetype="text/event-stream"
