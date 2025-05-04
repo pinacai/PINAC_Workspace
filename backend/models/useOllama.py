@@ -16,7 +16,7 @@ def generate_response_stream(chat_request: ChatRequest):
             documents = chat_request.documents_path
             query = chat_request.prompt
             rag_search_results = search_file_for_keywords(documents, query)
-            chat_request.prompt = f"Use the following context to answer the question:\n{rag_search_results or 'Nothing found releted to the question'}\n\nQuestion: {query}"
+            chat_request.prompt = f"Use the following context to answer the question:\n{rag_search_results or '(Nothing found releted to the question)'}\n\nQuestion: {query}"
 
         # Check for quick web search
         if chat_request.quick_search:

@@ -3,14 +3,65 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 from docx import Document
 from pptx import Presentation
+import json
+import threading
+from concurrent.futures import ThreadPoolExecutor  # Added for parallel PDF processing
+
+# Cache globals and lock
+CACHE_FILE = os.path.join(os.path.dirname(__file__), "extracted_cache.json")
+extracted_cache = {}
+cache_lock = threading.Lock()
+last_file_path = None
+
+# Load cache from file if it exists
+if os.path.exists(CACHE_FILE):
+    try:
+        with open(CACHE_FILE, "r", encoding="utf-8") as f:
+            extracted_cache = json.load(f)
+    except Exception as e:
+        print("Failed to load cache:", e)
+
+
+def save_cache():
+    with cache_lock:
+        try:
+            with open(CACHE_FILE, "w", encoding="utf-8") as f:
+                json.dump(extracted_cache, f)
+        except Exception as e:
+            print("Failed to save cache:", e)
+
+
+def get_cached_extracted_text(file_path):
+    global last_file_path
+    try:
+        file_mod_time = os.path.getmtime(file_path)
+    except Exception as e:
+        print("Failed to get modification time:", e)
+        file_mod_time = None
+    # Only use cache if file is same as previous
+    if last_file_path == file_path:
+        cache_entry = extracted_cache.get(file_path)
+        if cache_entry and cache_entry.get("mod_time") == file_mod_time:
+            return cache_entry.get("text", "")
+    # If new file or no valid cache, extract fresh and update last_file_path.
+    text = extract_text_from_file(file_path)
+    if last_file_path in extracted_cache:
+        del extracted_cache[last_file_path]
+    extracted_cache[file_path] = {"mod_time": file_mod_time, "text": text}
+    last_file_path = file_path
+    save_cache()
+    return text
 
 
 def extract_text_from_pdf(file_path):
     text = ""
     with open(file_path, "rb") as f:
         reader = PyPDF2.PdfReader(f)
-        for page in reader.pages:
-            text += page.extract_text() + "\n"
+        with ThreadPoolExecutor() as executor:
+            page_texts = list(
+                executor.map(lambda page: page.extract_text() or "", reader.pages)
+            )
+        text = "\n".join(page_texts)
     return text
 
 
@@ -97,8 +148,8 @@ def keyword_search(query, documents, top_k=3):
 def search_file_for_keywords(
     file_path, query, top_k=3, chunk_size=1000, chunk_overlap=100
 ):
-    _, file_extension = os.path.splitext(file_path.lower())
-    text = extract_text_from_file(file_path)
+    # Use cache to retrieve text if available
+    text = get_cached_extracted_text(file_path)
     if not text:
         return []
 
@@ -114,7 +165,7 @@ def search_file_for_keywords(
         ".html",
         ".css",
     ]
-    if file_extension in coding_extensions:
+    if os.path.splitext(file_path.lower())[1] in coding_extensions:
         return [text]
     else:
         chunks = split_text_to_chunks(text, chunk_size, chunk_overlap)

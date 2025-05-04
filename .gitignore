@@ -39,3 +39,6 @@ test.js
 test.ts
 test.jsx
 test.tsx
+
+# cache
+extracted_cache.json
