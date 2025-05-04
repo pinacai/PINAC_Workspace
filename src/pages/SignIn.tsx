@@ -4,7 +4,11 @@ import styles from "./styles/SignIn.module.css";
 // image
 import appLogo from "/icon/Full App Logo.svg";
 
-const SignInPage: React.FC = () => {
+type SignInPageProps = {
+  isLoading?: boolean;
+};
+
+const SignInPage: React.FC<SignInPageProps> = ({ isLoading }) => {
   const handleButtonClick = () => {
     window.ipcRenderer.send(
       "open-external-link",
@@ -19,6 +23,14 @@ const SignInPage: React.FC = () => {
     );
   };
 
+  if (isLoading) {
+    return (
+      <div className={styles.loadingPage}>
+        <div className={styles.loader}></div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
@@ -27,15 +39,12 @@ const SignInPage: React.FC = () => {
           <button className={styles.signupButton} onClick={handleButtonClick}>
             Sign Up
           </button>
-
           <div className={styles.signinText}>
             Already a user?
             <span className={styles.signinLink} onClick={handleLinkClick}>
-              {" "}
-              Sign In
+              {" "}Sign In
             </span>
           </div>
-
           <p className={styles.footerText}>
             This is an open-source project built with contributions from the
             community. We hope you enjoy using it.
