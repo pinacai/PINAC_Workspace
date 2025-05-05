@@ -42,7 +42,7 @@ export const Settings = () => {
   }, []);
 
   return (
-    <div className="w-[640px] flex bg-gray-500 dark:bg-primary-dark text-gray-100 border-[0.1px] border-gray-400 dark:border-zinc-600 rounded-2xl">
+    <div className="w-[710px] h-[500px] flex bg-gray-300 dark:bg-primary-dark text-gray-100 border-[0.1px] border-gray-400 dark:border-zinc-600 rounded-2xl">
       {/*       Sidebar       */}
       {/* ------------------- */}
       <div className="bg-secondary dark:bg-secondary-dark text-gray-100 p-6 rounded-l-2xl">
@@ -67,7 +67,7 @@ export const Settings = () => {
             className={`w-full text-left px-4 py-2 rounded-lg flex items-center ${
               activeTab === "app settings"
                 ? "bg-violet-700"
-                : "hover:bg-zinc-800"
+                : "hover:bg-gray-700/70 dark:hover:bg-zinc-700/60"
             }`}
           >
             AI Models
@@ -81,11 +81,11 @@ export const Settings = () => {
           //
           //         Profile Settings         //
           //----------------------------------//
-          <div className="w-md bg-secondary dark:bg-secondary-dark rounded-lg shadow-md p-6">
+          <div className="w-full h-full bg-secondary dark:bg-secondary-dark rounded-lg shadow-md p-6">
             <div className="flex justify-between items-center border-b pb-4 mb-6">
               <h2 className="text-xl font-semibold">Profile Settings</h2>
               <button
-                className="flex items-center px-4 py-2 bg-red-500 text-gray-100 rounded-lg hover:bg-red-600 cursor-pointer"
+                className="flex items-center px-4 py-2 bg-red-500 text-sm text-gray-100 rounded-lg hover:bg-red-600 cursor-pointer"
                 onClick={handleLogout}
               >
                 <IoLogOutOutline size={20} className="mr-1.5" />
@@ -94,7 +94,7 @@ export const Settings = () => {
             </div>
 
             {/* Profile Photo */}
-            <div className="mb-6 rounded-full flex items-center">
+            <div className="mb-7 rounded-full flex items-center">
               {imageUrl ? (
                 <img
                   src={imageUrl}
@@ -108,7 +108,7 @@ export const Settings = () => {
                   alt="Profile Picture"
                 />
               )}
-              <label className="ml-4 px-4 py-2 bg-violet-700 text-gray-100 rounded-lg hover:bg-violet-800 cursor-pointer flex items-center">
+              <label className="ml-4 px-4 py-2 text-sm bg-violet-700 text-gray-100 rounded-lg hover:bg-violet-800 cursor-pointer flex items-center">
                 <LuUpload size={18} className="mr-1.5" />
                 Upload Photo
                 <input type=".png, .jpg, .jpeg" className="hidden" />
@@ -118,55 +118,57 @@ export const Settings = () => {
             {/* Form Fields */}
             <div className="space-y-4">
               <form className="flex flex-col gap-3 w-full py-5 rounded-xl relative">
-                <label className="relative">
-                  <input
-                    required
-                    placeholder=" "
-                    type="text"
-                    className="peer w-full p-2.5 pb-5 outline-none rounded-xl transition-all duration-300
+                <div className="flex gap-3 w-full p-0 m-0">
+                  <label className="relative w-full">
+                    <input
+                      required
+                      placeholder=" "
+                      type="text"
+                      className="peer w-full p-2.5 pb-5 outline-none rounded-xl transition-all duration-300
                     text-gray-200 dark:text-gray-200 bg-gray-800 dark:bg-primary-dark border border-gray-600 dark:border-zinc-700 shadow-md
                     "
-                    value={displayName}
-                    onChange={(event) => {
-                      setDisplayName(event.target.value);
-                    }}
-                  />
-                  <span
-                    className="absolute left-2.5 top-4 text-gray-500 dark:text-zinc-500 text-sm cursor-text transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm 
+                      value={displayName}
+                      onChange={(event) => {
+                        setDisplayName(event.target.value);
+                      }}
+                    />
+                    <span
+                      className="absolute left-2.5 top-4 text-gray-500 dark:text-zinc-500 text-sm cursor-text transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm 
                     peer-focus:top-8 peer-focus:text-xs peer-focus:font-semibold peer-valid:top-8 peer-valid:text-xs peer-valid:font-semibold peer-valid:text-green-600"
-                  >
-                    Full Name
-                  </span>
-                </label>
+                    >
+                      Full Name
+                    </span>
+                  </label>
 
-                <label className="relative">
-                  <input
-                    required
-                    placeholder=" "
-                    type="text"
-                    className="peer w-full p-2.5 pb-5 outline-none rounded-xl  transition-all duration-300
-                    text-gray-200 dark:text-gray-200 bg-gray-800 dark:bg-primary-dark border border-gray-600 dark:border-zinc-700 shadow-md
+                  <label className="relative w-full">
+                    <input
+                      required
+                      placeholder=" "
+                      type="text"
+                      className="peer w-full p-2.5 pb-5 outline-none rounded-xl  transition-all duration-300
+                    text-gray-200 dark:text-gray-200 bg-gray-800 dark:bg-primary-dark border border-gray-600 dark:border-zinc-700
                     "
-                    value={nickname}
-                    onChange={(event) => {
-                      setNickname(event.target.value);
-                    }}
-                  />
-                  <span
-                    className="absolute left-2.5 top-4 text-gray-500 dark:text-zinc-500 text-sm cursor-text transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm 
+                      value={nickname}
+                      onChange={(event) => {
+                        setNickname(event.target.value);
+                      }}
+                    />
+                    <span
+                      className="absolute left-2.5 top-4 text-gray-500 dark:text-zinc-500 text-sm cursor-text transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm 
                     peer-focus:top-8 peer-focus:text-xs peer-focus:font-semibold peer-valid:top-8 peer-valid:text-xs peer-valid:font-semibold peer-valid:text-green-600"
-                  >
-                    What should I call You ?
-                  </span>
-                </label>
+                    >
+                      What should I call You ?
+                    </span>
+                  </label>
+                </div>
 
-                <label className="relative">
+                <label className="relative w-full">
                   <input
                     required
                     placeholder=" "
                     type="email"
                     className="peer w-full p-2.5 pb-5 outline-none rounded-xl  transition-all duration-300
-                    text-gray-200 dark:text-gray-200 bg-gray-800 dark:bg-primary-dark border border-gray-600 dark:border-zinc-700 shadow-md
+                    text-gray-200 dark:text-gray-200 bg-gray-800 dark:bg-primary-dark border border-gray-600 dark:border-zinc-700
                     "
                     value={emailId}
                     onChange={(event) => {
@@ -182,7 +184,7 @@ export const Settings = () => {
                 </label>
                 {/* Submit Button */}
                 <button
-                  className="w-full p-2.5 border-none rounded-xl outline-none cursor-pointer
+                  className="w-full p-3 border-none rounded-xl outline-none cursor-pointer
                   bg-violet-700 dark:bg-gray-100 text-gray-100 dark:text-gray-800 hover:bg-violet-800 dark:hover:bg-gray-300"
                   onClick={() => {
                     saveUserInfo();
@@ -196,7 +198,7 @@ export const Settings = () => {
         ) : (
           //         App Settings         //
           //------------------------------//
-          <div className="w-full h-full mb-5 flex flex-col scrollbar">
+          <div className="w-full h-full bg-secondary dark:bg-secondary-dark rounded-lg shadow-md p-6 scrollbar">
             {/*     Section 1 (Select LLM)      */}
             {/* =============================== */}
             <div className="w-full py-5 px-2 flex flex-col items-center">

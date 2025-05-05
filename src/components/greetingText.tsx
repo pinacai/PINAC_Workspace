@@ -26,7 +26,7 @@ export const GreetingText = () => {
   // ----------------------------------- //
   return (
     <div
-      className="w-full pb-6 flex flex-col items-center font-cormorant
+      className="w-full pb-5 flex flex-col items-center font-cormorant
        text-gray-900 dark:text-gray-200 lg:text-5xl text-4xl font-medium"
     >
       {" "}

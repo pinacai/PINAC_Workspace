@@ -245,10 +245,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           value={userInput}
           onChange={(event) => setUserInput(event.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Tell me your task..."
+          placeholder="Ask me anything..."
           disabled={buttonsDisabled}
           ref={textareaRef}
-          required
         />
 
         <div className="flex items-center justify-between pl-2 relative">

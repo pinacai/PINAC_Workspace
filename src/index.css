@@ -44,7 +44,7 @@
   --color-secondary-dark: #1b1c1d;
   --color-tertiary-dark: #404045;
 
-  --height-body-with-margin-b: calc(100vh - 45px);
+  --height-body-with-margin-b: calc(100vh - 60px);
   --width-main-body: calc(100vw - 72px);
   --width-min-main-body: calc(100vw - 320px);
   --width-max-main-body: calc(100vw - 384px);
@@ -82,10 +82,8 @@
 /*  pages/Home.tsx   */
 .msgBox {
   width: 100%;
-  /* height: 100%; */
   padding-left: 20%;
   padding-right: 20%;
-  padding-top: 30px;
   background: transparent;
   display: flex;
   flex-direction: column;

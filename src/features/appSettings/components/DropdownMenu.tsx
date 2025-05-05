@@ -69,14 +69,14 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
       <div
         className={
           isActive
-            ? "absolute w-48 lg:w-52 mt-2 rounded-xl bg-gray-700 dark:bg-tertiary-dark"
+            ? "absolute w-48 lg:w-52 mt-2 rounded-lg bg-gray-700 dark:bg-tertiary-dark border border-gray-500 dark:border-zinc-500 shadow-xl"
             : "hidden"
         }
       >
         <ul className="style-none">
           {optionList.map((option, index) => (
             <li
-              className="flex items-center justify-start p-2 rounded-xl
+              className="flex items-center justify-start p-2 rounded-lg
               hover:bg-gray-600 dark:hover:bg-zinc-600 cursor-pointer"
               key={index}
               onClick={() => onClick(option)}

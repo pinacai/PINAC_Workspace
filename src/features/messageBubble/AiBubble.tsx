@@ -206,8 +206,8 @@ export const AiLoader: React.FC<AiLoaderProps> = ({ modelName }) => {
       <div className="size-[35px] mt-1 rounded-full dark:border-[1.5px] dark:border-gray-500 flex justify-center items-center">
         <img src={pinacLogo} />
       </div>
-      <div className="flex flex-col max-w-md px-4 py-2 text-lg font-exo font-medium text-gray-600 dark:text-gray-300">
-        <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+      <div className="flex flex-col max-w-md px-4 text-lg font-exo font-medium text-gray-600 dark:text-gray-300">
+        <div className="text-sm text-gray-600 dark:text-gray-500 mb-3">
           {modelName}
         </div>
         <div className="flex">

@@ -51,7 +51,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <img src={appLogo} className="size-9" />
               </li>
               <Tooltip content="New Chat">
-                <li className="w-full sidebar-li" onClick={clearChat}>
+                <li className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60" onClick={clearChat}>
                   <IoAddCircleOutline size={35} />
                 </li>
               </Tooltip>
