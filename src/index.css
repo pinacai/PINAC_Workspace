@@ -133,7 +133,7 @@
   -webkit-app-region: drag;
 }
 
-/*   components/Sidebar.tsx   */
+/*   features/sidebar/index.tsx   */
 .sidebar-li {
   @apply w-full flex items-center justify-center rounded-xl py-[15px] cursor-pointer transition-all duration-500 ease-in-out;
 }

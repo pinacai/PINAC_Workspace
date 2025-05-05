@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { ThemeToggle } from "./ThemeToggle";
-import { ChatHistory } from "../features/chatHistory";
-import { ModalContext } from "../context/Modal";
+import { ThemeToggle } from "./components/ThemeToggle";
+import { ChatHistory } from "../chatHistory";
+import { ModalContext } from "../../context/Modal";
+import { Tooltip } from "./components/Tooltip";
 
 // Icons
 import { LuHistory } from "react-icons/lu";
@@ -49,9 +50,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <li className="w-full sidebar-li ">
                 <img src={appLogo} className="size-9" />
               </li>
-              <li className="w-full sidebar-li" onClick={clearChat}>
-                <IoAddCircleOutline size={35} />
-              </li>
+              <Tooltip content="New Chat">
+                <li className="w-full sidebar-li" onClick={clearChat}>
+                  <IoAddCircleOutline size={35} />
+                </li>
+              </Tooltip>
             </ul>
           </nav>
         </div>
@@ -59,21 +62,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="w-full">
           <nav className="style-none mb-2">
             <ul>
-              <li
-                className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60"
-                onClick={() => setIsExpanded(!isExpanded)}
-              >
-                <LuHistory size={27} />
-              </li>
-              <li className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60">
-                <BsChatLeftHeart size={25} />
-              </li>
-              <li
-                className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60"
-                onClick={openSettingsModal}
-              >
-                <IoSettingsOutline size={28} />
-              </li>
+              <Tooltip content="Chat History">
+                <li
+                  className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60"
+                  onClick={() => setIsExpanded(!isExpanded)}
+                >
+                  <LuHistory size={27} />
+                </li>
+              </Tooltip>
+              <Tooltip content="Prompts">
+                <li className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60">
+                  <BsChatLeftHeart size={25} />
+                </li>
+              </Tooltip>
+              <Tooltip content="Settings">
+                <li
+                  className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60"
+                  onClick={openSettingsModal}
+                >
+                  <IoSettingsOutline size={28} />
+                </li>
+              </Tooltip>
               <li className="sidebar-li">
                 <ThemeToggle />
               </li>

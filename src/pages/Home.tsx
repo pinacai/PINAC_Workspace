@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
 import { IpcRendererEvent } from "electron";
-import { Sidebar } from "../components/Sidebar";
+import { Sidebar } from "../features/sidebar";
 import { GreetingText } from "../components/GreetingText";
 import { AiMsgBubble, AiLoader } from "../features/messageBubble/AiBubble";
 import { UserMsgBubble } from "../features/messageBubble/UserBubble";
