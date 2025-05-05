@@ -345,7 +345,6 @@ const HomePage: React.FC = () => {
           }
         }
       }
-
       // If stream ended or was aborted
       if (isDone || signal.aborted) {
         reader.cancel();
@@ -362,6 +361,10 @@ const HomePage: React.FC = () => {
           );
         }
         setButtonsDisabled(false);
+      }
+    } finally {
+      if (abortControllerRef.current?.signal.aborted === false) {
+        abortControllerRef.current = null;
       }
     }
   };
@@ -415,13 +418,59 @@ const HomePage: React.FC = () => {
   }, []);
 
   // Effect to handle stopping text generation
+  // -----------------------------------------
   useEffect(() => {
-    if (isStop && abortControllerRef.current) {
-      abortControllerRef.current.abort();
+    if (isStop && buttonsDisabled) {
+      // Find the latest AI message key and content
+      const reversedChatMsg = chatContext?.chatMsg
+        ? [...chatContext.chatMsg].reverse()
+        : [];
+      const lastMessageRevIndex = reversedChatMsg.findIndex(
+        (msg) => msg.element[1] === "ai" || msg.element[1] === "aiLoader"
+      );
+      const lastMessageIndex =
+        lastMessageRevIndex !== -1
+          ? (chatContext?.chatMsg?.length ?? 0) - 1 - lastMessageRevIndex
+          : -1;
+
+      if (lastMessageIndex !== -1) {
+        const lastMessage = chatContext?.chatMsg[lastMessageIndex];
+        if (lastMessage) {
+          const aiMessageKey = lastMessage.key;
+          const partialContent = lastMessage.element[2] as string;
+
+          // Log the partial content if it exists
+          if (partialContent && partialContent.trim() !== "") {
+            LogMessageToDatabase(aiMessageKey, "ai", partialContent);
+          } else {
+            LogMessageToDatabase(
+              aiMessageKey,
+              "ai",
+              "[Stopped before response]"
+            );
+          }
+
+          // Signal main process to stop the cloud stream
+          if (modelContext?.modelType === "Pinac CLoud Model") {
+            window.ipcRenderer
+              .invoke("stop-cloud-ai-stream")
+              .catch((err) =>
+                console.error("Error invoking stop-cloud-ai-stream:", err)
+              );
+          } else if (abortControllerRef.current) {
+            // Abort the local fetch request
+            abortControllerRef.current.abort();
+            abortControllerRef.current = null;
+          }
+        }
+      } else {
+        console.log("Could not find the last AI message to log on stop.");
+      }
+
       setButtonsDisabled(false);
       setIsStop(false);
     }
-  }, [isStop]);
+  }, [isStop, buttonsDisabled, chatContext?.chatMsg, modelContext?.modelType]);
 
   // Log message into the database
   // -----------------------------
@@ -429,7 +478,7 @@ const HomePage: React.FC = () => {
     id: number,
     role: string,
     msgText: string,
-    attachmentName?: string // Add optional attachmentName parameter
+    attachmentName?: string
   ) => {
     let currentSessionId = chatContext?.getCurrentSessionId() ?? null;
     if (currentSessionId == null) {
@@ -438,7 +487,7 @@ const HomePage: React.FC = () => {
         .toString(36)
         .substring(2, 9)}`;
       chatContext?.setCurrentSessionId(newSessionId);
-      currentSessionId = newSessionId; // Use the newly generated ID
+      currentSessionId = newSessionId;
 
       if (currentSessionId != null) {
         startNewSession(currentSessionId, msgText.slice(0, 50));
