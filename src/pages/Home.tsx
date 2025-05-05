@@ -442,10 +442,24 @@ const HomePage: React.FC = () => {
 
       if (currentSessionId != null) {
         startNewSession(currentSessionId, msgText.slice(0, 50));
-        addMsgToSession(currentSessionId, id, role, msgText, getModelName(), attachmentName);
+        addMsgToSession(
+          currentSessionId,
+          id,
+          role,
+          msgText,
+          getModelName(),
+          attachmentName
+        );
       }
     } else {
-      addMsgToSession(currentSessionId, id, role, msgText, getModelName(), attachmentName);
+      addMsgToSession(
+        currentSessionId,
+        id,
+        role,
+        msgText,
+        getModelName(),
+        attachmentName
+      );
     }
   };
 
@@ -475,7 +489,7 @@ const HomePage: React.FC = () => {
           className={`
             ${
               !welcomeTextContext?.isWelcomeTextVisible
-                ? "h-body-without-header"
+                ? "h-body-with-margin-b"
                 : "h-full"
             }
             w-full flex flex-col justify-center items-center`}

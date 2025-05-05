@@ -183,7 +183,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   );
 
   return (
-    <div className="w-full mt-[10px] mb-[20px] flex flex-col items-center justify-center">
+    <div className="w-full mt-[10px] flex flex-col items-center justify-center">
       {/* For showing currently under used attachment */}
       {attachmentContext?.usingAttachment && attachmentContext?.attachment && (
         <div className="w-[80%] lg:w-[60%] mb-3 p-2 bg-blue-100 dark:bg-blue-900/30 border border-blue-300 dark:border-blue-700 rounded-xl flex items-center justify-between text-sm">

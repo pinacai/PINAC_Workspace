@@ -44,7 +44,7 @@
   --color-secondary-dark: #1b1c1d;
   --color-tertiary-dark: #404045;
 
-  --height-body-without-header: calc(100vh - 90px);
+  --height-body-with-margin-b: calc(100vh - 45px);
   --width-main-body: calc(100vw - 72px);
   --width-min-main-body: calc(100vw - 320px);
   --width-max-main-body: calc(100vw - 384px);
