@@ -4,7 +4,8 @@ interface ChatMessage {
   id: number;
   role: string;
   text: string;
-  attachment?: string; // Add optional attachment field
+  modelName: string;
+  attachment?: string;
 }
 
 interface ChatSession {
@@ -44,7 +45,8 @@ export const addMsgToSession = async (
   msgId: number,
   role: string,
   text: string,
-  attachment?: string // Add optional attachment parameter
+  modelName: string,
+  attachment?: string
 ): Promise<void> => {
   const session = await db.chatSessions.get(sessionId);
   if (session) {
@@ -52,6 +54,7 @@ export const addMsgToSession = async (
       id: msgId,
       role,
       text,
+      modelName,
     };
     if (attachment) {
       newMessage.attachment = attachment; // Assign attachment if provided

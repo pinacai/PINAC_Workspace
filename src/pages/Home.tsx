@@ -30,6 +30,7 @@ const HomePage: React.FC = () => {
   const abortControllerRef = useRef<AbortController | null>(null);
 
   // Function to start a new chat
+  // --------------------------------
   const InitializeNewChat = () => {
     chatContext?.setChatMsg([]);
     chatContext?.setCurrentSessionId(null);
@@ -40,6 +41,14 @@ const HomePage: React.FC = () => {
       attachmentContext?.setAttachment(null);
     }
     setUserInputText("");
+  };
+
+  // Getting currently usedAI Model name
+  // ----------------------
+  const getModelName = () => {
+    return modelContext?.modelType === "Pinac CLoud Model"
+      ? modelContext?.pinacCloudModel
+      : modelContext?.ollamaModel || "";
   };
 
   // Function to handle sending user input
@@ -95,7 +104,7 @@ const HomePage: React.FC = () => {
             aiMessageKey,
             "aiLoader",
             "",
-            <AiLoader key={aiMessageKey} />,
+            <AiLoader key={aiMessageKey} modelName={getModelName()} />,
           ],
         },
       ]);
@@ -291,7 +300,6 @@ const HomePage: React.FC = () => {
         const { value, done } = await reader.read();
 
         if (done) {
-          // Stream has ended
           isDone = true;
           setButtonsDisabled(false);
           break;
@@ -317,8 +325,6 @@ const HomePage: React.FC = () => {
 
               // Append new content to the response text
               responseText += eventData.content;
-
-              // Update the UI with the current accumulated response
               updateAIResponse(aiMessageKey, responseText, eventData.done);
 
               // Check if this is the last chunk
@@ -370,7 +376,6 @@ const HomePage: React.FC = () => {
     chatContext?.setChatMsg((prevChatHistory) => {
       // Create a new array with all previous messages
       const newHistory = [...prevChatHistory];
-
       // Find the index of the AI message we want to update
       const messageIndex = newHistory.findIndex(
         (msg) => msg.key === messageKey
@@ -387,6 +392,7 @@ const HomePage: React.FC = () => {
             <AiMsgBubble
               live={!isDone}
               response={content}
+              modelName={getModelName()}
               setButtonsDisabled={isDone ? setButtonsDisabled : undefined}
               key={messageKey}
             />,
@@ -398,8 +404,8 @@ const HomePage: React.FC = () => {
     });
   };
 
-  // ----------------------------------------------
   // Clean up abort controller on component unmount
+  // ----------------------------------------------
   useEffect(() => {
     return () => {
       if (abortControllerRef.current) {
@@ -436,22 +442,10 @@ const HomePage: React.FC = () => {
 
       if (currentSessionId != null) {
         startNewSession(currentSessionId, msgText.slice(0, 50));
-        addMsgToSession(
-          currentSessionId,
-          id,
-          role,
-          msgText,
-          attachmentName // Pass attachment name here
-        );
+        addMsgToSession(currentSessionId, id, role, msgText, getModelName(), attachmentName);
       }
     } else {
-      addMsgToSession(
-        currentSessionId,
-        id,
-        role,
-        msgText,
-        attachmentName // Pass attachment name here
-      );
+      addMsgToSession(currentSessionId, id, role, msgText, getModelName(), attachmentName);
     }
   };
 

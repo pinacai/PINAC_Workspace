@@ -20,7 +20,11 @@ export const LLMSelector: React.FC = () => {
         }
 
         const models = await response.json();
-        setOllamaModelList(models);
+        // Remove ":latest" suffix from model names
+        const processedModels = models.map((model: string) =>
+          model.replace(/:latest$/, "")
+        );
+        setOllamaModelList(processedModels);
       } catch (err) {
         console.error(err);
       }

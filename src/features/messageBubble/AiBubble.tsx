@@ -18,19 +18,21 @@ import { GrPowerCycle } from "react-icons/gr";
 interface AiMsgBubbleProps {
   live: boolean;
   response: string;
+  modelName: string;
   setButtonsDisabled?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
   live,
   response,
+  modelName,
   setButtonsDisabled,
 }) => {
   const [isCopied, setIsCopied] = useState(false);
   const [isLike, setIsLike] = useState(false);
   const [isDislike, setIsDislike] = useState(false);
 
-  // Button
+  // Buttons
   const handleLike = () => {
     if (isLike) {
       setIsLike(false);
@@ -70,7 +72,10 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
       <div className="size-[35px] mt-1 rounded-full dark:border-[1.5px] dark:border-gray-500 flex justify-center items-center">
         <img src={pinacLogo} />
       </div>
-      <div className="w-full px-4 py-2 rounded-lg text-lg text-black dark:text-gray-200">
+      <div className="w-full px-4 rounded-lg text-lg text-black dark:text-gray-200">
+        <div className="text-sm text-gray-600 dark:text-gray-500 mb-1">
+          {modelName}
+        </div>
         {live ? (
           <LiveMarkdownRenderer
             text={response}
@@ -162,10 +167,14 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
 //                        AI Response Loading Animation                         //
 // ============================================================================ //
 
+interface AiLoaderProps {
+  modelName: string;
+}
+
 //
 // Component similar to AiMessage and replaced as soon as we have the data.
-export const AiLoader: React.FC = () => {
-  // Add the necessary keyframes and custom styles
+export const AiLoader: React.FC<AiLoaderProps> = ({ modelName }) => {
+  // necessary keyframes and custom styles
   useEffect(() => {
     const style = document.createElement("style");
     style.innerHTML = `
@@ -197,21 +206,26 @@ export const AiLoader: React.FC = () => {
       <div className="size-[35px] mt-1 rounded-full dark:border-[1.5px] dark:border-gray-500 flex justify-center items-center">
         <img src={pinacLogo} />
       </div>
-      <div className="flex max-w-md px-4 py-2 text-lg font-exo font-medium text-gray-600 dark:text-gray-300">
-        <div className="relative size-7 py-5 rounded-lg">
-          {bars.map((bar, index) => (
-            <div
-              key={index}
-              className="w-[8%] h-[24%] bg-gray-700 dark:bg-zinc-400 absolute left-1/2 top-[30%] opacity-0 rounded-3xl shadow-sm"
-              style={{
-                transform: `rotate(${bar.rotation}deg) translate(0, -130%)`,
-                animation: `fade458 1s linear infinite`,
-                animationDelay: `${bar.delay}s`,
-              }}
-            />
-          ))}
+      <div className="flex flex-col max-w-md px-4 py-2 text-lg font-exo font-medium text-gray-600 dark:text-gray-300">
+        <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+          {modelName}
         </div>
-        <div className="pl-4">thinking...</div>
+        <div className="flex">
+          <div className="relative size-7 py-5 rounded-lg">
+            {bars.map((bar, index) => (
+              <div
+                key={index}
+                className="w-[8%] h-[24%] bg-gray-700 dark:bg-zinc-400 absolute left-1/2 top-[30%] opacity-0 rounded-3xl shadow-sm"
+                style={{
+                  transform: `rotate(${bar.rotation}deg) translate(0, -130%)`,
+                  animation: `fade458 1s linear infinite`,
+                  animationDelay: `${bar.delay}s`,
+                }}
+              />
+            ))}
+          </div>
+          <div className="pl-4">thinking...</div>
+        </div>
       </div>
     </div>
   );

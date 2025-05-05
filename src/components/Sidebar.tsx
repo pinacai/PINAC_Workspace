@@ -4,9 +4,9 @@ import { ChatHistory } from "../features/chatHistory";
 import { ModalContext } from "../context/Modal";
 
 // Icons
-import { IoAddCircleOutline } from "react-icons/io5";
-import { LuHistory, LuLibraryBig } from "react-icons/lu";
-import { TbSettings } from "react-icons/tb";
+import { LuHistory } from "react-icons/lu";
+import { IoAddCircleOutline, IoSettingsOutline } from "react-icons/io5";
+import { BsChatLeftHeart } from "react-icons/bs";
 import appLogo from "/icon/Round App Logo.svg";
 
 interface SidebarProps {
@@ -63,16 +63,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60"
                 onClick={() => setIsExpanded(!isExpanded)}
               >
-                <LuHistory size={25} />
+                <LuHistory size={27} />
               </li>
               <li className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60">
-                <LuLibraryBig size={25} />
+                <BsChatLeftHeart size={25} />
               </li>
               <li
                 className="sidebar-li hover:bg-gray-700/70 dark:hover:bg-zinc-700/60"
                 onClick={openSettingsModal}
               >
-                <TbSettings size={28} />
+                <IoSettingsOutline size={28} />
               </li>
               <li className="sidebar-li">
                 <ThemeToggle />

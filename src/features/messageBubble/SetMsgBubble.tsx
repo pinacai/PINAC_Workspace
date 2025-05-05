@@ -5,12 +5,14 @@ import { UserMsgBubble } from "./UserBubble";
 interface SetChatBubbleProps {
   role: string;
   msg: string;
+  modelName?: string;
   attachment?: string;
 }
 
 export const SetChatBubble: React.FC<SetChatBubbleProps> = ({
   role,
   msg,
+  modelName,
   attachment,
 }) => {
   return (
@@ -18,7 +20,7 @@ export const SetChatBubble: React.FC<SetChatBubbleProps> = ({
       {role === "user" ? (
         <UserMsgBubble response={msg} attachment={attachment} />
       ) : (
-        <AiMsgBubble live={false} response={msg} />
+        <AiMsgBubble live={false} response={msg} modelName={modelName || ""} />
       )}
     </>
   );
