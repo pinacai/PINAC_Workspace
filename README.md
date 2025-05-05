@@ -119,6 +119,8 @@ Overview of File Structure in Brief to Help You Get Started.
    ```bash
    npm run dev
    ```
+   
+   If want to build the app for production, just run `npm run build`
 
 ## 🎉 Contributing
 
