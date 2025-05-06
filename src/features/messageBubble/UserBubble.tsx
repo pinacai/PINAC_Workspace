@@ -12,7 +12,7 @@ export const UserMsgBubble: React.FC<UserMsgBubbleProps> = ({
   attachment,
 }) => {
   return (
-    <div className="flex flex-col items-end text-gray-900 dark:text-white">
+    <div className="flex flex-col items-end text-gray-900 dark:text-white mt-10">
       {attachment && (
         <div className="mb-2 relative">
           <div className="flex items-center gap-2 bg-gray-300 dark:bg-secondary-dark p-2 pr-3 rounded-2xl w-fit">

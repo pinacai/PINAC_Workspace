@@ -267,18 +267,12 @@ ipcMain.on("check-auth-status", (event) => {
 });
 
 ipcMain.on("get-backend-port", (event) => {
-  event.reply("backend-port", { port: backendPort });
+  event.reply("backend-port", backendPort);
 });
 
 ipcMain.on("logout", () => {
   fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
   tokenManager.clearAllTokens();
-});
-
-// Change this from ipcMain.on to ipcMain.handle
-ipcMain.handle("get-auth-token", () => {
-  const idToken = tokenManager.retrieveToken("idToken") || "";
-  return { authToken: idToken };
 });
 
 ipcMain.on("get-user-info", (event) => {
@@ -307,18 +301,6 @@ ipcMain.on("save-user-info", (event, userInfo) => {
   });
 });
 
-// Reload the app
-ipcMain.on("reload-app", () => {
-  mainWindow?.reload();
-});
-
-// IPC listener to open external links
-ipcMain.on("open-external-link", (_, url) => {
-  shell.openExternal(url);
-});
-
-//
-// IPC listener to open the file dialog
 ipcMain.handle("open-file-dialog", async (_, acceptedFileTypes) => {
   const filters = [];
 
@@ -337,6 +319,15 @@ ipcMain.handle("open-file-dialog", async (_, acceptedFileTypes) => {
     return result.filePaths[0]; // Full path to selected file
   }
   return null;
+});
+
+//
+ipcMain.on("reload-app", () => {
+  mainWindow?.reload();
+});
+
+ipcMain.on("open-external-link", (_, url) => {
+  shell.openExternal(url);
 });
 
 // to handle window controls
@@ -373,13 +364,13 @@ ipcMain.on("close", () => {
 //                 Requesting Cloud Server                  //
 // ======================================================== //
 
-ipcMain.handle("fetch-cloud-ai-stream", async (event, input: string) => {
+ipcMain.handle("fetch-cloud-ai-stream", async (event, requestData) => {
   const handleStreamError = (message: string) => {
     console.error("Cloud AI request error:", message);
     event.sender.send("cloud-ai-stream-error", message);
   };
 
-  const makeStreamRequest = async (idToken: string) => {
+  const makeStreamRequest = async (idToken: string, prompt: string) => {
     try {
       const response = await fetch(
         "https://pinacworkspace.pages.dev/api/chat/regular",
@@ -391,7 +382,7 @@ ipcMain.handle("fetch-cloud-ai-stream", async (event, input: string) => {
           },
           body: JSON.stringify({
             messages: [],
-            userInput: input,
+            userInput: prompt,
           }),
         }
       );
@@ -470,9 +461,46 @@ ipcMain.handle("fetch-cloud-ai-stream", async (event, input: string) => {
   };
 
   try {
+    if (requestData.rag) {
+      const response = await fetch(
+        `http://localhost:5000/api/rag/no-embedding`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prompt: requestData.prompt,
+            documents_path: requestData.documents_path,
+          }),
+        }
+      );
+      const context = await response.json();
+      requestData.prompt = `Use the following context to answer the question:\n${
+        context || "(Nothing found releted to the question)"
+      }\n\nQuestion: ${requestData.prompt}`;
+    }
+    //
+    else if (requestData.web_search && requestData.quick_search) {
+      const response = await fetch(
+        "http://localhost:5000/api/web/search/quick-search",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prompt: requestData.prompt,
+          }),
+        }
+      );
+      const searchResult = await response.json();
+      requestData.prompt = `User query: ${requestData.prompt}\n\nI've searched the web for information to help answer this query. Here are the search results:\n\n${searchResult}\n\nBased on these search results, please provide a comprehensive and accurate answer to the user's query.\nIf the search results don't contain enough information, please say so and provide the best answer based on your knowledge, clearly indicating what information comes from the search results and what comes from your pre-existing knowledge.`;
+    }
+
     // First attempt with existing token
     let idToken = tokenManager.retrieveToken("idToken") || "";
-    let result = await makeStreamRequest(idToken);
+    let result = await makeStreamRequest(idToken, requestData.prompt);
 
     // If token expired, try refreshing it
     if (result.code === "TOKEN_EXPIRED") {
@@ -486,7 +514,7 @@ ipcMain.handle("fetch-cloud-ai-stream", async (event, input: string) => {
         }
 
         // Try again with the new token
-        result = await makeStreamRequest(idToken);
+        result = await makeStreamRequest(idToken, requestData.prompt);
       } catch (refreshError: any) {
         if (refreshError.message === "TOKEN_EXPIRED") {
           handleStreamError("You are logged out. Please login again.");

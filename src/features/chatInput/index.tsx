@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { ModelSettingsContext } from "../../context/ModelSettings";
+// import { ModelSettingsContext } from "../../context/ModelSettings";
 import { WebSearchContext } from "../../context/WebSearch";
 import { AttachmentContext } from "../../context/Attachment";
 import { promptsData } from "../../data/prompts"; // Prompts data
@@ -8,7 +8,7 @@ import { promptsData } from "../../data/prompts"; // Prompts data
 import { GoGlobe } from "react-icons/go";
 import { PiGlobeX } from "react-icons/pi";
 import { TbBulb } from "react-icons/tb";
-import { FiPlus } from "react-icons/fi";
+// import { FiPlus } from "react-icons/fi";
 import { FaRegStopCircle } from "react-icons/fa";
 import { FaRegFileLines } from "react-icons/fa6";
 import { AiOutlineClose } from "react-icons/ai";
@@ -33,7 +33,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   submit,
   setStop,
 }) => {
-  const modelContext = useContext(ModelSettingsContext);
+  // const modelContext = useContext(ModelSettingsContext);
   const webSearchContext = useContext(WebSearchContext);
   const attachmentContext = useContext(AttachmentContext);
   const [isPromptMenuOpen, setIsPromptMenuOpen] = useState<boolean>(false);
@@ -45,46 +45,46 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   const webSearchMenuRef = useRef<HTMLDivElement>(null); // Ref for the web search menu
   const webSearchButtonRef = useRef<HTMLButtonElement>(null); // Ref for the web search button
 
-  // Handles adding attachment
-  const handleFileUpload = async () => {
-    webSearchContext?.setIsWebSearch(false); // Close web search if open
-    let filters: { name: string; extensions: string[] }[] = [];
+  // // Handles adding attachment
+  // const handleFileUpload = async () => {
+  // webSearchContext?.setIsWebSearch(false); // Close web search if open
+  // let filters: { name: string; extensions: string[] }[] = [];
 
-    if (modelContext?.modelType === "Pinac CLoud Model") {
-      filters = [{ name: "Supported Files", extensions: ["pdf"] }];
-    } else {
-      filters = [
-        {
-          name: "Supported Files",
-          extensions: [
-            "pdf",
-            "docx",
-            "pptx",
-            "txt",
-            "md",
-            "py",
-            "js",
-            "ts",
-            "jsx",
-            "tsx",
-            "c",
-            "cpp",
-            "java",
-            "html",
-            "css",
-          ],
-        },
-      ];
-    }
+  // if (modelContext?.modelType === "Pinac CLoud Model") {
+  //   filters = [{ name: "Supported Files", extensions: ["pdf"] }];
+  // } else {
+  //   filters = [
+  //     {
+  //       name: "Supported Files",
+  //       extensions: [
+  //         "pdf",
+  //         "docx",
+  //         "pptx",
+  //         "txt",
+  //         "md",
+  //         "py",
+  //         "js",
+  //         "ts",
+  //         "jsx",
+  //         "tsx",
+  //         "c",
+  //         "cpp",
+  //         "java",
+  //         "html",
+  //         "css",
+  //       ],
+  //     },
+  //   ];
+  // }
 
-    const filePath = await window.ipcRenderer.invoke(
-      "open-file-dialog",
-      filters
-    );
-    if (filePath) {
-      attachmentContext?.setAttachmentFile(filePath);
-    }
-  };
+  //   const filePath = await window.ipcRenderer.invoke(
+  //     "open-file-dialog",
+  //     filters
+  //   );
+  //   if (filePath) {
+  //     attachmentContext?.setAttachmentFile(filePath);
+  //   }
+  // };
 
   const handleCancelUpload = () => {
     attachmentContext?.setAttachment(null);
@@ -254,7 +254,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           {" "}
           {/* Added relative positioning */}
           <div className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-gray-100">
-            <button
+            {/* <button
               onClick={handleFileUpload}
               className={`w-9 h-9 rounded-full flex items-center justify-center border-1 
             border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 
@@ -262,11 +262,12 @@ export const ChatInput: React.FC<ChatInputProps> = ({
               attachmentContext?.usingAttachment
                 ? "opacity-50 cursor-not-allowed"
                 : " cursor-pointer"
-            }`}
+                }`
+              }
               disabled={attachmentContext?.usingAttachment} // Disable button when a attachment is under use
             >
               <FiPlus size={20} />
-            </button>
+            </button> */}
 
             {!attachmentContext?.attachment && (
               <div className="relative">

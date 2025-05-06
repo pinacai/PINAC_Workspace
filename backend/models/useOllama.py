@@ -19,7 +19,7 @@ def generate_response_stream(chat_request: ChatRequest):
             chat_request.prompt = f"Use the following context to answer the question:\n{rag_search_results or '(Nothing found releted to the question)'}\n\nQuestion: {query}"
 
         # Check for quick web search
-        if chat_request.quick_search:
+        elif chat_request.web_search and chat_request.quick_search:
             search_result = duckDuckGo_search(chat_request.prompt)
             chat_request.prompt = f"""
             User query: {chat_request.prompt}

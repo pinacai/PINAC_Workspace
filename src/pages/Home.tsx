@@ -109,7 +109,7 @@ const HomePage: React.FC = () => {
         },
       ]);
 
-      // Mark the attachment as 'in use
+      // Mark the attachment as 'in use'
       if (
         attachmentUsedInThisMessage &&
         attachmentContext?.setUsingAttachment
@@ -119,31 +119,39 @@ const HomePage: React.FC = () => {
 
       // Start streaming response with fetch based on model type
       if (modelContext?.modelType === "Pinac CLoud Model") {
-        // if (modelContext?.webSearch) {
-        //   fetchWebSearchResponse(aiMessageKey, inputText);
-        // } else {
-        fetchCloudLLMResponse(aiMessageKey, inputText);
-        // }
+        fetchPinacCloudResponse(aiMessageKey, inputText);
       } else {
-        fetchPrivateLLMResponse(aiMessageKey, inputText);
+        fetchOllamaResponse(aiMessageKey, inputText);
       }
 
       // clearing everything
       setUserInputText("");
       if (textareaRef.current) {
-        textareaRef.current.style.height = "50px"; // Reset textarea height
+        textareaRef.current.style.height = "50px";
       }
     }
   };
 
-  // Function to fetch streaming response from Cloud server
-  // ------------------------------------------------------
-  const fetchCloudLLMResponse = async (
+  // Function to fetch streaming response from Cloud
+  // -----------------------------------------------
+  const fetchPinacCloudResponse = async (
     aiMessageKey: number,
     inputText: string
   ) => {
     let responseText = "";
     let hasProcessedAnyData = false;
+    const requestData = {
+      prompt: inputText,
+      ...(attachmentContext?.attachment && {
+        rag: true,
+        documents_path: attachmentContext.attachment.path,
+      }),
+      ...(webSearchContext?.webSearch && {
+        web_search: true,
+        quick_search: webSearchContext.quickSearch,
+        better_search: webSearchContext.betterSearch,
+      }),
+    };
 
     // Define cleanup function first
     const cleanupListeners = () => {
@@ -197,7 +205,7 @@ const HomePage: React.FC = () => {
           true
         );
       }
-      cleanupListeners(); // Use the defined cleanup function
+      cleanupListeners();
       setButtonsDisabled(false);
     };
 
@@ -208,7 +216,7 @@ const HomePage: React.FC = () => {
         `**Error: ${errorMsg}**\nTry again :(`,
         true
       );
-      cleanupListeners(); // Use the defined cleanup function
+      cleanupListeners();
       setButtonsDisabled(false);
     };
 
@@ -224,7 +232,7 @@ const HomePage: React.FC = () => {
       window.ipcRenderer.on("cloud-ai-stream-error", errorListener);
 
       // Start the stream
-      await window.ipcRenderer.invoke("fetch-cloud-ai-stream", inputText);
+      await window.ipcRenderer.invoke("fetch-cloud-ai-stream", requestData);
     } catch (error) {
       console.error("Cloud AI request error:", error);
       updateAIResponse(
@@ -241,7 +249,7 @@ const HomePage: React.FC = () => {
 
   // Function to fetch streaming response from Ollama from backend
   // -------------------------------------------------------------
-  const fetchPrivateLLMResponse = async (
+  const fetchOllamaResponse = async (
     aiMessageKey: number,
     inputText: string
   ) => {

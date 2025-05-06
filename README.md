@@ -1,3 +1,6 @@
+> [!NOTE]
+> The **Attachment** button has been temporarily disabled due to issues with the RAG code not functioning as expected. We are actively working on resolving this and plan to restore the feature in an upcoming update.
+
 <div align="center">
 
 <h1 style="border-bottom: none">
@@ -53,9 +56,7 @@ Overview of File Structure in Brief to Help You Get Started.
           │   ├── FrameHeader.tsx
           │   ├── GreetingText.tsx
           │   ├── MarkdownRenderer.tsx
-          │   ├── Modal.tsx
-          │   ├── Sidebar.tsx
-          │   └── ThemeToggle.tsx
+          │   └── Modal.tsx
           │
           ├── context/
           │   ├── Attachment.tsx
@@ -73,6 +74,7 @@ Overview of File Structure in Brief to Help You Get Started.
           |
           ├── features/
           │   ├── appSettings/
+          │   ├── sidebar/
           │   ├── chatHistory/
           │   ├── chatInput/
           │   └── messageBubble/
