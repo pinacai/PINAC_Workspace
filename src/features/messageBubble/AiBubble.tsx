@@ -72,7 +72,7 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
       <div className="size-[35px] mt-1 rounded-full dark:border-[1.5px] dark:border-gray-500 flex justify-center items-center">
         <img src={pinacLogo} />
       </div>
-      <div className="w-full px-4 rounded-lg text-lg text-black dark:text-gray-200">
+      <div className="w-full px-4 rounded-lg text-base text-black dark:text-gray-200">
         <div className="text-sm text-gray-600 dark:text-gray-500 mb-1">
           {modelName}
         </div>
@@ -206,7 +206,7 @@ export const AiLoader: React.FC<AiLoaderProps> = ({ modelName }) => {
       <div className="size-[35px] mt-1 rounded-full dark:border-[1.5px] dark:border-gray-500 flex justify-center items-center">
         <img src={pinacLogo} />
       </div>
-      <div className="flex flex-col max-w-md px-4 text-lg font-exo font-medium text-gray-600 dark:text-gray-300">
+      <div className="flex flex-col max-w-md px-4 text-base font-medium text-gray-600 dark:text-gray-300">
         <div className="text-sm text-gray-600 dark:text-gray-500 mb-3">
           {modelName}
         </div>

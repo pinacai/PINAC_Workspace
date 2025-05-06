@@ -546,14 +546,14 @@ const HomePage: React.FC = () => {
           <div
             className={
               !welcomeTextContext?.isWelcomeTextVisible
-                ? "w-full h-full flex flex-col justify-start items-center"
-                : "w-full"
+                ? "@container w-full h-full flex flex-col justify-start items-center"
+                : "@container w-full"
             }
           >
             <StopTextGeneration.Provider
               value={{ stop: isStop, setStop: setIsStop }}
             >
-              <div className="msgBox">
+              <div className="msgBox scrollbar">
                 {welcomeTextContext?.isWelcomeTextVisible && <GreetingText />}
                 {chatContext?.chatMsg.map((item) => item.element[3])}
                 <div ref={scrollRef} />

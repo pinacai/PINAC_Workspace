@@ -22,12 +22,15 @@ export const FrameHeader: React.FC<FrameHeaderProps> = ({ children }) => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col bg-secondary dark:bg-secondary-dark">
+    <div
+      className="w-full h-screen flex flex-col bg-secondary dark:bg-secondary-dark
+                font-dmsans"
+    >
       {/* ------ Frame Header ------- */}
       <div className="w-full h-[30px] flex justify-end items-center text-gray-200">
         <div
           className="draggable-element
-            w-full h-full flex justify-center items-center font-exo"
+            w-full h-full flex justify-center items-center"
         >
           PINAC Workspace
         </div>

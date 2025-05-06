@@ -183,10 +183,10 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   );
 
   return (
-    <div className="w-full mt-[10px] flex flex-col items-center justify-center">
+    <div className="aline-with-msgBox mt-[10px] flex flex-col items-center justify-center">
       {/* For showing currently under used attachment */}
       {attachmentContext?.usingAttachment && attachmentContext?.attachment && (
-        <div className="w-[80%] lg:w-[60%] mb-3 p-2 bg-blue-100 dark:bg-blue-900/30 border border-blue-300 dark:border-blue-700 rounded-xl flex items-center justify-between text-sm">
+        <div className="w-full mb-3 p-2 bg-blue-100 dark:bg-blue-900/30 border border-blue-300 dark:border-blue-700 rounded-xl flex items-center justify-between text-sm">
           <div className="flex items-center gap-2">
             <FaRegFileLines
               size={16}
@@ -208,7 +208,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         </div>
       )}
       <div
-        className="rounded-3xl p-3 relative w-[80%] lg:w-[60%]
+        className="rounded-3xl p-3 relative w-full
         bg-gray-200 dark:bg-tertiary-dark border-1 border-gray-300 dark:border-zinc-600
         "
       >

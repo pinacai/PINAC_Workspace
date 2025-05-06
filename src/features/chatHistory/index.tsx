@@ -64,7 +64,7 @@ export const ChatHistory: React.FC = () => {
             />
           ))
         ) : (
-          <span className="font-exo text-xl">No history</span>
+          <span className="text-xl">No history</span>
         )}
       </div>
     </div>
