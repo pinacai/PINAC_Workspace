@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-// import { ModelSettingsContext } from "../../context/ModelSettings";
+import { ModelSettingsContext } from "../../context/ModelSettings";
 import { WebSearchContext } from "../../context/WebSearch";
+import { ModalContext } from "../../context/Modal";
+import { EmbeddingSettingsContext } from "../../context/EmbeddingSettings";
 import { AttachmentContext } from "../../context/Attachment";
 import { promptsData } from "../../data/prompts"; // Prompts data
 
@@ -8,7 +10,7 @@ import { promptsData } from "../../data/prompts"; // Prompts data
 import { GoGlobe } from "react-icons/go";
 import { PiGlobeX } from "react-icons/pi";
 import { TbBulb } from "react-icons/tb";
-// import { FiPlus } from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
 import { FaRegStopCircle } from "react-icons/fa";
 import { FaRegFileLines } from "react-icons/fa6";
 import { AiOutlineClose } from "react-icons/ai";
@@ -33,9 +35,11 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   submit,
   setStop,
 }) => {
-  // const modelContext = useContext(ModelSettingsContext);
-  const webSearchContext = useContext(WebSearchContext);
+  const modelContext = useContext(ModelSettingsContext);
+  const modalContext = useContext(ModalContext);
+  const embeddingContext = useContext(EmbeddingSettingsContext);
   const attachmentContext = useContext(AttachmentContext);
+  const webSearchContext = useContext(WebSearchContext);
   const [isPromptMenuOpen, setIsPromptMenuOpen] = useState<boolean>(false);
   const [promptSearchQuery, setPromptSearchQuery] = useState<string>(""); // State for search query
   const [isWebSearchMenuOpen, setIsWebSearchMenuOpen] =
@@ -45,46 +49,55 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   const webSearchMenuRef = useRef<HTMLDivElement>(null); // Ref for the web search menu
   const webSearchButtonRef = useRef<HTMLButtonElement>(null); // Ref for the web search button
 
-  // // Handles adding attachment
-  // const handleFileUpload = async () => {
-  // webSearchContext?.setIsWebSearch(false); // Close web search if open
-  // let filters: { name: string; extensions: string[] }[] = [];
+  // Handles adding attachment
+  const handleFileUpload = async () => {
+    webSearchContext?.setIsWebSearch(false); // Close web search if open
 
-  // if (modelContext?.modelType === "Pinac CLoud Model") {
-  //   filters = [{ name: "Supported Files", extensions: ["pdf"] }];
-  // } else {
-  //   filters = [
-  //     {
-  //       name: "Supported Files",
-  //       extensions: [
-  //         "pdf",
-  //         "docx",
-  //         "pptx",
-  //         "txt",
-  //         "md",
-  //         "py",
-  //         "js",
-  //         "ts",
-  //         "jsx",
-  //         "tsx",
-  //         "c",
-  //         "cpp",
-  //         "java",
-  //         "html",
-  //         "css",
-  //       ],
-  //     },
-  //   ];
-  // }
+    // Open file dialog if embedding model is downloaded
+    if (embeddingContext?.isDefaultModel) {
+      let filters: { name: string; extensions: string[] }[] = [];
 
-  //   const filePath = await window.ipcRenderer.invoke(
-  //     "open-file-dialog",
-  //     filters
-  //   );
-  //   if (filePath) {
-  //     attachmentContext?.setAttachmentFile(filePath);
-  //   }
-  // };
+      if (modelContext?.modelType === "Pinac CLoud Model") {
+        filters = [{ name: "Supported Files", extensions: ["pdf"] }];
+      } else {
+        filters = [
+          {
+            name: "Supported Files",
+            extensions: [
+              "pdf",
+              // "docx",
+              // "pptx",
+              // "txt",
+              // "md",
+              // "py",
+              // "js",
+              // "ts",
+              // "jsx",
+              // "tsx",
+              // "c",
+              // "cpp",
+              // "java",
+              // "html",
+              // "css",
+            ],
+          },
+        ];
+      }
+
+      const filePath = await window.ipcRenderer.invoke(
+        "open-file-dialog",
+        filters
+      );
+      if (filePath) {
+        attachmentContext?.setAttachmentFile(filePath);
+      }
+    }
+    // if embedding model is not downloaded, open downloader
+    else {
+      modalContext?.setModalContent("embedding-model-downloader");
+      modalContext?.setIsOpen(true);
+    }
+  };
 
   const handleCancelUpload = () => {
     attachmentContext?.setAttachment(null);
@@ -254,7 +267,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           {" "}
           {/* Added relative positioning */}
           <div className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-gray-100">
-            {/* <button
+            <button
               onClick={handleFileUpload}
               className={`w-9 h-9 rounded-full flex items-center justify-center border-1 
             border-gray-400 dark:border-zinc-500 hover:bg-gray-300 dark:hover:bg-zinc-600 
@@ -262,12 +275,11 @@ export const ChatInput: React.FC<ChatInputProps> = ({
               attachmentContext?.usingAttachment
                 ? "opacity-50 cursor-not-allowed"
                 : " cursor-pointer"
-                }`
-              }
+            }`}
               disabled={attachmentContext?.usingAttachment} // Disable button when a attachment is under use
             >
               <FiPlus size={20} />
-            </button> */}
+            </button>
 
             {!attachmentContext?.attachment && (
               <div className="relative">

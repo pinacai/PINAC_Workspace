@@ -1,10 +1,12 @@
 import os
 import PyPDF2
 import hashlib
+from pathlib import Path
 from typing import List
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
+from huggingface_hub import snapshot_download
 
 
 class DefaultRAG:
@@ -53,40 +55,29 @@ class DefaultRAG:
         store_path = self._get_vector_store_path(pdf_path)
 
         if self.last_processed_pdf_path == pdf_path and self.vector_store is not None:
-            print(
-                f"PDF '{pdf_path}' is already processed and vector store is in memory."
-            )
             return
 
         if os.path.exists(store_path):
-            print(f"Loading existing vector store for '{pdf_path}' from '{store_path}'")
             try:
                 self.vector_store = FAISS.load_local(
                     store_path, self.embeddings, allow_dangerous_deserialization=True
                 )
                 self.last_processed_pdf_path = pdf_path
-                print("Vector store loaded successfully from disk.")
                 return
             except Exception as e:
                 print(
-                    f"Error loading vector store from {store_path}: {e}. Reprocessing."
+                    f"Error loading vector store from {store_path}: {e}. Reprocessing.",
+                    flush=True,
                 )
 
-        print(f"Processing PDF: {pdf_path}")
         text = self.extract_text_from_pdf(pdf_path)
-        print(f"Extracted {len(text)} characters of text")
-
         chunks = self.split_text(text, chunk_size, chunk_overlap)
-        print(f"Split into {len(chunks)} chunks")
-
-        self.create_vector_store(chunks)  # This sets self.vector_store
-        print("Vector store created in memory.")
+        self.create_vector_store(chunks)
 
         try:
             self.vector_store.save_local(store_path)
-            print(f"Vector store saved to '{store_path}'")
         except Exception as e:
-            print(f"Error saving vector store to {store_path}: {e}")
+            print(f"Error saving vector store to {store_path}: {e}", flush=True)
 
         self.last_processed_pdf_path = pdf_path
 
@@ -95,19 +86,14 @@ class DefaultRAG:
     ) -> None:
         all_chunks = []
         for path in pdf_paths:
-            print(f"Processing PDF: {path}")
             text = self.extract_text_from_pdf(path)
             chunks = self.split_text(text, chunk_size, chunk_overlap)
             all_chunks.extend(chunks)
-            print(f"Added {len(chunks)} chunks from {path}")
 
         self.create_vector_store(all_chunks)
-        print(
-            f"Vector store created with {len(all_chunks)} chunks from {len(pdf_paths)} PDFs"
-        )
         self.last_processed_pdf_path = None
 
-    def similarity_search(self, query: str, k: int = 4) -> List[str]:
+    def similarity_search(self, query: str, k: int = 3) -> List[str]:
         if not self.vector_store:
             raise ValueError("Vector store not initialized. Process a PDF first.")
 
@@ -115,8 +101,42 @@ class DefaultRAG:
         return [doc.page_content for doc in documents]
 
 
-if __name__ == "__main__":
-    rag = DefaultRAG()
-    pdf_file_path = "C:/Users/KIIT/Downloads/smart material.pdf"
-    # Process a PDF - this will now auto-load from disk if available, or process and auto-save.
-    rag.process_pdf(pdf_file_path)
+# Check if the embedding model is downloaded
+def check_embedding_model(
+    model_name="sentence-transformers/all-mpnet-base-v2",
+):
+    home = Path.home()
+    cache_dir = str(home / ".cache" / "huggingface" / "hub")
+    try:
+        snapshot_download(
+            repo_id=model_name,
+            local_dir=None,  # Use default cache location
+            local_dir_use_symlinks=False,
+            revision="main",
+            repo_type="model",
+            cache_dir=cache_dir,
+            local_files_only=True,  # Only check local files, don't download
+        )
+        return True
+    except Exception:
+        return False
+
+
+# Download the embedding model
+def download_embedding_model(model_name="sentence-transformers/all-mpnet-base-v2"):
+    home = Path.home()
+    cache_dir = str(home / ".cache" / "huggingface" / "hub")
+    if check_embedding_model(model_name):
+        return {"status": "success"}
+    try:
+        snapshot_download(
+            repo_id=model_name,
+            local_dir=None,  # Use default cache location
+            local_dir_use_symlinks=False,
+            revision="main",
+            repo_type="model",
+            cache_dir=cache_dir,
+        )
+        return {"status": "success"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}

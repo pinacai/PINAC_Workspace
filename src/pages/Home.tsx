@@ -263,7 +263,7 @@ const HomePage: React.FC = () => {
         model: modelContext?.ollamaModel,
         ...(attachmentContext?.attachment && {
           rag: true,
-          documents_path: attachmentContext.attachment.path,
+          documents_path: "C:\\Users\\KIIT\\Downloads\\smart material.pdf",
         }),
         ...(webSearchContext?.webSearch && {
           web_search: true,
@@ -524,6 +524,7 @@ const HomePage: React.FC = () => {
   };
 
   // Auto-scroll effect for chat messages
+  // -------------------------------------
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [chatContext?.chatMsg.length]);

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { ModalContext } from "../context/Modal";
 import { Settings } from "../features/appSettings";
+import { EmbModelDownloader } from "../features/chatInput/embModelDownloader";
 
 const Modal: React.FC = () => {
   const modalContext = useContext(ModalContext);
@@ -18,6 +19,8 @@ const Modal: React.FC = () => {
     switch (modalContext?.modalContent) {
       case "settings":
         return <Settings />;
+      case "embedding-model-downloader":
+        return <EmbModelDownloader />;
       default:
         return null;
     }

@@ -1,6 +1,3 @@
-> [!NOTE]
-> The **Attachment** button has been temporarily disabled due to issues with the RAG code not functioning as expected. We are actively working on resolving this and plan to restore the feature in an upcoming update.
-
 <div align="center">
 
 <h1 style="border-bottom: none">

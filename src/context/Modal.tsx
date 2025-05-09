@@ -1,7 +1,7 @@
 import React, { createContext, useState, ReactNode } from "react";
 
 // types of content the modal can display
-export type ModalContentType = "settings" | "support" | null;
+export type ModalContentType = "settings" | "embedding-model-downloader" | null;
 
 export const ModalContext = createContext<{
   isOpen: boolean;

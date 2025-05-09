@@ -364,160 +364,183 @@ ipcMain.on("close", () => {
 //                 Requesting Cloud Server                  //
 // ======================================================== //
 
-ipcMain.handle("fetch-cloud-ai-stream", async (event, requestData) => {
-  const handleStreamError = (message: string) => {
-    console.error("Cloud AI request error:", message);
-    event.sender.send("cloud-ai-stream-error", message);
-  };
+ipcMain.handle(
+  "fetch-cloud-ai-stream",
+  async (event, requestData) => {
+    const handleStreamError = (message: string) => {
+      console.error("Cloud AI request error:", message);
+      event.sender.send("cloud-ai-stream-error", message);
+    };
 
-  const makeStreamRequest = async (idToken: string, prompt: string) => {
-    try {
-      const response = await fetch(
-        "https://pinacworkspace.pages.dev/api/chat/regular",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${idToken}`,
-          },
-          body: JSON.stringify({
-            messages: [],
-            userInput: prompt,
-          }),
-        }
-      );
+    const makeStreamRequest = async (idToken: string, prompt: string) => {
+      try {
+        const response = await fetch(
+          "https://pinacworkspace.pages.dev/api/chat/regular",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${idToken}`,
+            },
+            body: JSON.stringify({
+              messages: [],
+              userInput: prompt,
+            }),
+          }
+        );
 
-      // Handle HTTP errors
-      if (!response.ok) {
-        const errorText = await response.text();
+        // Handle HTTP errors
+        if (!response.ok) {
+          const errorText = await response.text();
 
-        // Check specifically for auth/token errors
-        if (response.status === 401 || response.status === 403) {
+          // Check specifically for auth/token errors
+          if (response.status === 401 || response.status === 403) {
+            return {
+              code: "TOKEN_EXPIRED",
+              message: "Authentication token expired",
+            };
+          }
+
           return {
-            code: "TOKEN_EXPIRED",
-            message: "Authentication token expired",
+            code: "SERVER_ERROR",
+            message: `Server error (${response.status}): ${errorText}`,
           };
         }
 
-        return {
-          code: "SERVER_ERROR",
-          message: `Server error (${response.status}): ${errorText}`,
-        };
-      }
-
-      // For streaming responses
-      if (!response.body) {
-        return { code: "EMPTY_RESPONSE", message: "Response body is null" };
-      }
-
-      // Process the stream
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
-
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-
-          if (done) {
-            // If there's anything left in the buffer, send it
-            if (buffer.trim().length > 0) {
-              event.sender.send("cloud-ai-stream-chunk", buffer);
-            }
-
-            // Signal that streaming is complete
-            event.sender.send("cloud-ai-stream-done");
-            break;
-          }
-
-          // Decode the chunk and add it to our buffer
-          const chunk = decoder.decode(value, { stream: true });
-          buffer += chunk;
-
-          // Process complete SSE messages from the buffer
-          let newlineIndex;
-          while ((newlineIndex = buffer.indexOf("\n")) >= 0) {
-            const line = buffer.slice(0, newlineIndex);
-            buffer = buffer.slice(newlineIndex + 1);
-
-            if (line.trim().length > 0) {
-              event.sender.send("cloud-ai-stream-chunk", line);
-            }
-          }
+        // For streaming responses
+        if (!response.body) {
+          return { code: "EMPTY_RESPONSE", message: "Response body is null" };
         }
-        return { code: "SUCCESS" };
+
+        // Process the stream
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+
+            if (done) {
+              // If there's anything left in the buffer, send it
+              if (buffer.trim().length > 0) {
+                event.sender.send("cloud-ai-stream-chunk", buffer);
+              }
+
+              // Signal that streaming is complete
+              event.sender.send("cloud-ai-stream-done");
+              break;
+            }
+
+            // Decode the chunk and add it to our buffer
+            const chunk = decoder.decode(value, { stream: true });
+            buffer += chunk;
+
+            // Process complete SSE messages from the buffer
+            let newlineIndex;
+            while ((newlineIndex = buffer.indexOf("\n")) >= 0) {
+              const line = buffer.slice(0, newlineIndex);
+              buffer = buffer.slice(newlineIndex + 1);
+
+              if (line.trim().length > 0) {
+                event.sender.send("cloud-ai-stream-chunk", line);
+              }
+            }
+          }
+          return { code: "SUCCESS" };
+        } catch (error: any) {
+          return {
+            code: "STREAM_PROCESSING_ERROR",
+            message: error?.message || "Error processing stream data",
+          };
+        }
       } catch (error: any) {
         return {
-          code: "STREAM_PROCESSING_ERROR",
-          message: error?.message || "Error processing stream data",
+          code: "FETCH_ERROR",
+          message: error?.message || "Network error while contacting AI server",
         };
       }
-    } catch (error: any) {
-      return {
-        code: "FETCH_ERROR",
-        message: error?.message || "Network error while contacting AI server",
-      };
-    }
-  };
+    };
 
-  try {
-    if (requestData.web_search && requestData.quick_search) {
-      const response = await fetch(
-        "http://localhost:5000/api/web/search/quick-search",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            prompt: requestData.prompt,
-          }),
-        }
-      );
-      const searchResult = await response.json();
-      requestData.prompt = `User query: ${requestData.prompt}\n\nI've searched the web for information to help answer this query. Here are the search results:\n\n${searchResult}\n\nBased on these search results, please provide a comprehensive and accurate answer to the user's query.\nIf the search results don't contain enough information, please say so and provide the best answer based on your knowledge, clearly indicating what information comes from the search results and what comes from your pre-existing knowledge.`;
-    }
-
-    // First attempt with existing token
-    let idToken = tokenManager.retrieveToken("idToken") || "";
-    let result = await makeStreamRequest(idToken, requestData.prompt);
-
-    // If token expired, try refreshing it
-    if (result.code === "TOKEN_EXPIRED") {
-      try {
-        await refreshIdToken(tokenManager);
-        idToken = tokenManager.retrieveToken("idToken") || "";
-
-        if (!idToken) {
-          handleStreamError("Failed to refresh authentication token");
-          throw new Error("Failed to refresh authentication token");
-        }
-
-        // Try again with the new token
-        result = await makeStreamRequest(idToken, requestData.prompt);
-      } catch (refreshError: any) {
-        if (refreshError.message === "TOKEN_EXPIRED") {
-          handleStreamError("You are logged out. Please login again.");
-          throw new Error("You are logged out. Please login again.");
-        }
-        handleStreamError(`Token refresh failed: ${refreshError.message}`);
-        throw refreshError;
+    try {
+      // check for RAG
+      if (requestData.rag) {
+        const response = await fetch(
+          `http://localhost:${backendPort}/api/rag/default-embedder`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              prompt: requestData.prompt,
+              rag: requestData.rag,
+              documents_path: requestData.documents_path,
+            }),
+          }
+        );
+        const context = await response.json();
+        requestData.prompt = `User query: ${requestData.prompt}\n\nAnswer the following question based on the provided context. If you cannot answer the question based on the context, say so.\n\nContext:\n${context}`;
       }
-    }
+      // check for Web search
+      else if (requestData.web_search && requestData.quick_search) {
+        const response = await fetch(
+          `http://localhost:${backendPort}/api/web/search/quick-search`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              prompt: requestData.prompt,
+            }),
+          }
+        );
+        const searchResult = await response.json();
+        requestData.prompt = `User query: ${requestData.prompt}\n\nI've searched the web for information to help answer this query. Here are the search results:\n\n${searchResult}\n\nBased on these search results, please provide a comprehensive and accurate answer to the user's query.\nIf the search results don't contain enough information, please say so and provide the best answer based on your knowledge, clearly indicating what information comes from the search results and what comes from your pre-existing knowledge.`;
+      }
 
-    // Handle any remaining errors from the request
-    if (result.code !== "SUCCESS") {
-      handleStreamError(result.message);
-      throw new Error(result.message);
-    }
+      // First attempt with existing token
+      let idToken = tokenManager.retrieveToken("idToken") || "";
+      let result = await makeStreamRequest(idToken, requestData.prompt);
 
-    return true;
-  } catch (error: any) {
-    // This catch handles any errors not already processed
-    handleStreamError(error.message || "Unknown error occurred");
-    throw error;
+      // If token expired, try refreshing it
+      if (result.code === "TOKEN_EXPIRED") {
+        try {
+          await refreshIdToken(tokenManager);
+          idToken = tokenManager.retrieveToken("idToken") || "";
+
+          if (!idToken) {
+            handleStreamError("Failed to refresh authentication token");
+            throw new Error("Failed to refresh authentication token");
+          }
+
+          // Try again with the new token
+          result = await makeStreamRequest(idToken, requestData.prompt);
+        } catch (refreshError: any) {
+          if (refreshError.message === "TOKEN_EXPIRED") {
+            handleStreamError("You are logged out. Please login again.");
+            throw new Error("You are logged out. Please login again.");
+          }
+          handleStreamError(`Token refresh failed: ${refreshError.message}`);
+          throw refreshError;
+        }
+      }
+
+      // Handle any remaining errors from the request
+      if (result.code !== "SUCCESS") {
+        handleStreamError(result.message);
+        throw new Error(result.message);
+      }
+
+      return true;
+    } catch (error: any) {
+      // This catch handles any errors not already processed
+      handleStreamError(error.message || "Unknown error occurred");
+      throw error;
+    }
   }
-});
+);
 
 // =========================================================================== //
 //                                                                             //
