@@ -253,128 +253,131 @@ const HomePage: React.FC = () => {
     aiMessageKey: number,
     inputText: string
   ) => {
-    let responseText = "";
-    const apiUrl = "http://localhost:5000/api/chat/ollama/stream";
+    window.ipcRenderer.send("get-backend-port");
+    window.ipcRenderer.once("backend-port", async (_, port) => {
+      let responseText = "";
+      const apiUrl = `http://localhost:${port}/api/chat/ollama/stream`;
 
-    const requestData = {
-      prompt: inputText,
-      model: modelContext?.ollamaModel,
-      ...(attachmentContext?.attachment && {
-        rag: true,
-        documents_path: attachmentContext.attachment.path,
-      }),
-      ...(webSearchContext?.webSearch && {
-        web_search: true,
-        quick_search: webSearchContext.quickSearch,
-        better_search: webSearchContext.betterSearch,
-      }),
-    };
+      const requestData = {
+        prompt: inputText,
+        model: modelContext?.ollamaModel,
+        ...(attachmentContext?.attachment && {
+          rag: true,
+          documents_path: attachmentContext.attachment.path,
+        }),
+        ...(webSearchContext?.webSearch && {
+          web_search: true,
+          quick_search: webSearchContext.quickSearch,
+          better_search: webSearchContext.betterSearch,
+        }),
+      };
 
-    // Cancel any ongoing request
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-
-    // Create a new AbortController for this request
-    abortControllerRef.current = new AbortController();
-    const signal = abortControllerRef.current.signal;
-
-    try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-        signal: signal,
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`HTTP error ${response.status}: ${errorText}`);
+      // Cancel any ongoing request
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
       }
 
-      // Get the response as a readable stream
-      const reader = response.body?.getReader();
-      if (!reader) {
-        throw new Error("Failed to get stream reader");
-      }
+      // Create a new AbortController for this request
+      abortControllerRef.current = new AbortController();
+      const signal = abortControllerRef.current.signal;
 
-      // Set up a TextDecoder to decode the stream chunks
-      const decoder = new TextDecoder();
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+          signal: signal,
+        });
 
-      let isDone = false;
-      while (!isDone && !signal.aborted) {
-        const { value, done } = await reader.read();
-
-        if (done) {
-          isDone = true;
-          setButtonsDisabled(false);
-          break;
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`HTTP error ${response.status}: ${errorText}`);
         }
 
-        // Decode the chunk
-        const chunk = decoder.decode(value, { stream: true });
+        // Get the response as a readable stream
+        const reader = response.body?.getReader();
+        if (!reader) {
+          throw new Error("Failed to get stream reader");
+        }
 
-        // Process SSE format - each event starts with "data: "
-        const eventChunks = chunk.split("\n\n");
+        // Set up a TextDecoder to decode the stream chunks
+        const decoder = new TextDecoder();
 
-        for (const eventChunk of eventChunks) {
-          if (eventChunk.startsWith("data: ")) {
-            try {
-              const eventData = JSON.parse(eventChunk.substring(6));
+        let isDone = false;
+        while (!isDone && !signal.aborted) {
+          const { value, done } = await reader.read();
 
-              if (eventData.error) {
-                responseText = `**Error: ${eventData.error}**\nTry again :(`;
-                updateAIResponse(aiMessageKey, responseText, true);
-                isDone = true;
-                break;
+          if (done) {
+            isDone = true;
+            setButtonsDisabled(false);
+            break;
+          }
+
+          // Decode the chunk
+          const chunk = decoder.decode(value, { stream: true });
+
+          // Process SSE format - each event starts with "data: "
+          const eventChunks = chunk.split("\n\n");
+
+          for (const eventChunk of eventChunks) {
+            if (eventChunk.startsWith("data: ")) {
+              try {
+                const eventData = JSON.parse(eventChunk.substring(6));
+
+                if (eventData.error) {
+                  responseText = `**Error: ${eventData.error}**\nTry again :(`;
+                  updateAIResponse(aiMessageKey, responseText, true);
+                  isDone = true;
+                  break;
+                }
+
+                // Append new content to the response text
+                responseText += eventData.content;
+                updateAIResponse(aiMessageKey, responseText, eventData.done);
+
+                // Check if this is the last chunk
+                if (eventData.done) {
+                  isDone = true;
+                  LogMessageToDatabase(aiMessageKey, "ai", responseText);
+                  setButtonsDisabled(false);
+                  break;
+                }
+              } catch (parseError) {
+                console.error(
+                  "Failed to parse event data:",
+                  parseError,
+                  "Raw data:",
+                  eventChunk
+                );
               }
-
-              // Append new content to the response text
-              responseText += eventData.content;
-              updateAIResponse(aiMessageKey, responseText, eventData.done);
-
-              // Check if this is the last chunk
-              if (eventData.done) {
-                isDone = true;
-                LogMessageToDatabase(aiMessageKey, "ai", responseText);
-                setButtonsDisabled(false);
-                break;
-              }
-            } catch (parseError) {
-              console.error(
-                "Failed to parse event data:",
-                parseError,
-                "Raw data:",
-                eventChunk
-              );
             }
           }
         }
-      }
-      // If stream ended or was aborted
-      if (isDone || signal.aborted) {
-        reader.cancel();
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error("Stream request error:", error);
-        // Display error message only if it's not an aborted request
-        if (error.name !== "AbortError") {
-          updateAIResponse(
-            aiMessageKey,
-            `**Error: ${error.message}**\nTry again :(`,
-            true
-          );
+        // If stream ended or was aborted
+        if (isDone || signal.aborted) {
+          reader.cancel();
         }
-        setButtonsDisabled(false);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error("Stream request error:", error);
+          // Display error message only if it's not an aborted request
+          if (error.name !== "AbortError") {
+            updateAIResponse(
+              aiMessageKey,
+              `**Error: ${error.message}**\nTry again :(`,
+              true
+            );
+          }
+          setButtonsDisabled(false);
+        }
+      } finally {
+        if (abortControllerRef.current?.signal.aborted === false) {
+          abortControllerRef.current = null;
+        }
       }
-    } finally {
-      if (abortControllerRef.current?.signal.aborted === false) {
-        abortControllerRef.current = null;
-      }
-    }
+    });
   };
 
   // Function to update AI response in the chat context

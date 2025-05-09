@@ -19,6 +19,7 @@ venv
 build
 __pycache__
 resources
+vector_stores
 
 # Editor directories and files
 .vscode/

@@ -3,23 +3,13 @@ import json
 import subprocess
 import platform
 from custom_types import ChatRequest
-from rag.no_embedding import search_file_for_keywords
 from web_scraper.duckDuckGo_search import duckDuckGo_search
 
 
 def generate_response_stream(chat_request: ChatRequest):
     try:
-        # Check for RAG
-        if chat_request.rag:
-            if not chat_request.documents_path:
-                raise ValueError("Document path is required when RAG is enabled")
-            documents = chat_request.documents_path
-            query = chat_request.prompt
-            rag_search_results = search_file_for_keywords(documents, query)
-            chat_request.prompt = f"Use the following context to answer the question:\n{rag_search_results or '(Nothing found releted to the question)'}\n\nQuestion: {query}"
-
         # Check for quick web search
-        elif chat_request.web_search and chat_request.quick_search:
+        if chat_request.web_search and chat_request.quick_search:
             search_result = duckDuckGo_search(chat_request.prompt)
             chat_request.prompt = f"""
             User query: {chat_request.prompt}

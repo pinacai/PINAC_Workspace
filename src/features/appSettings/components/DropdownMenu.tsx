@@ -57,7 +57,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         className="w-64 h-9 pl-2 flex items-center justify-between rounded-lg
         bg-gray-700 dark:bg-tertiary-dark"
       >
-        <span>{selectedOption}</span>
+        <span>{selectedOption || "Not Selected"}</span>
         <button
           className="h-full pl-2.5 pr-3 flex items-center justify-center rounded-r-lg
           hover:bg-gray-600 dark:hover:bg-zinc-600 cursor-pointer"

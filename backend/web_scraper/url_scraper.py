@@ -6,9 +6,6 @@ from urllib.parse import urlparse
 
 
 def extract_content_from_url(url, timeout=10):
-    """
-    Extract and clean content from a given URL
-    """
     try:
         # Add a user agent to avoid getting blocked
         headers = {
@@ -68,7 +65,6 @@ def extract_content_from_url(url, timeout=10):
 
 
 def clean_text(text):
-    """Clean extracted text by removing extra whitespace, etc."""
     import re
 
     # Remove multiple newlines
@@ -83,9 +79,6 @@ def clean_text(text):
 
 
 def get_contents_from_search_results(search_results, max_pages=3):
-    """
-    Extract content from the top search results
-    """
     contents = []
 
     for i, result in enumerate(search_results[:max_pages]):
@@ -109,7 +102,6 @@ def get_contents_from_search_results(search_results, max_pages=3):
 
 
 if __name__ == "__main__":
-    # Example usage
     url = "https://python.langchain.com/docs/integrations/providers/huggingface/"
     result = extract_content_from_url(url)
     print(result)

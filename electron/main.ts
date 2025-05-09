@@ -461,27 +461,7 @@ ipcMain.handle("fetch-cloud-ai-stream", async (event, requestData) => {
   };
 
   try {
-    if (requestData.rag) {
-      const response = await fetch(
-        `http://localhost:5000/api/rag/no-embedding`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            prompt: requestData.prompt,
-            documents_path: requestData.documents_path,
-          }),
-        }
-      );
-      const context = await response.json();
-      requestData.prompt = `Use the following context to answer the question:\n${
-        context || "(Nothing found releted to the question)"
-      }\n\nQuestion: ${requestData.prompt}`;
-    }
-    //
-    else if (requestData.web_search && requestData.quick_search) {
+    if (requestData.web_search && requestData.quick_search) {
       const response = await fetch(
         "http://localhost:5000/api/web/search/quick-search",
         {

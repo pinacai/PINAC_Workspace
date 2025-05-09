@@ -8,11 +8,10 @@ export const LLMSelector: React.FC = () => {
 
   useEffect(() => {
     window.ipcRenderer.send("get-backend-port");
-
-    window.ipcRenderer.on("backend-port", async (_, res) => {
+    window.ipcRenderer.once("backend-port", async (_, port) => {
       try {
         const response = await fetch(
-          `http://localhost:${res.port}/api/ollama/models`
+          `http://localhost:${port}/api/ollama/models`
         );
 
         if (!response.ok) {
