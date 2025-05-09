@@ -10,7 +10,7 @@ from huggingface_hub import snapshot_download
 
 
 class DefaultRAG:
-    def __init__(self, embedding_model="sentence-transformers/all-mpnet-base-v2"):
+    def __init__(self, embedding_model="sentence-transformers/all-MiniLM-L6-v2"):
         self.vector_store = None
         self.embedding_model = embedding_model
         # currently only cpu is supported
@@ -103,7 +103,7 @@ class DefaultRAG:
 
 # Check if the embedding model is downloaded
 def check_embedding_model(
-    model_name="sentence-transformers/all-mpnet-base-v2",
+    model_name="sentence-transformers/all-MiniLM-L6-v2",
 ):
     home = Path.home()
     cache_dir = str(home / ".cache" / "huggingface" / "hub")
@@ -123,7 +123,7 @@ def check_embedding_model(
 
 
 # Download the embedding model
-def download_embedding_model(model_name="sentence-transformers/all-mpnet-base-v2"):
+def download_embedding_model(model_name="sentence-transformers/all-MiniLM-L6-v2"):
     home = Path.home()
     cache_dir = str(home / ".cache" / "huggingface" / "hub")
     if check_embedding_model(model_name):
@@ -140,3 +140,8 @@ def download_embedding_model(model_name="sentence-transformers/all-mpnet-base-v2
         return {"status": "success"}
     except Exception as e:
         return {"status": "error", "message": str(e)}
+
+
+if __name__ == "__main__":
+    res = download_embedding_model()
+    print(res)

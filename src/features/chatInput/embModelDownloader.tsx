@@ -48,7 +48,7 @@ export const EmbModelDownloader = () => {
       <IoDocumentAttachOutline size={120} className="mt-8" />
       <div className="mt-20 flex flex-col  justify-start items-center text-center">
         To enable attachment functionality, you need to download the Base
-        Embedding Model (approx. 240MB). This model performs well across most
+        Embedding Model (approx. 90MB). This model performs well across most
         use cases.
         {isError && (
           <div className="mt-4 px-3 py-1 bg-red-500/10 text-red-500 border-[0.1px] border-red-500 rounded-lg">
