@@ -263,7 +263,7 @@ const HomePage: React.FC = () => {
         model: modelContext?.ollamaModel,
         ...(attachmentContext?.attachment && {
           rag: true,
-          documents_path: "C:\\Users\\KIIT\\Downloads\\smart material.pdf",
+          documents_path: attachmentContext.attachment.path,
         }),
         ...(webSearchContext?.webSearch && {
           web_search: true,

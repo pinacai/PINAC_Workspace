@@ -76,7 +76,7 @@ def default_embedder():
         contexts = rag.similarity_search(chat_request.prompt)
         return jsonify("\n\n".join(contexts))
     except Exception as e:
-        return jsonify({"app.py error": str(e)}), 500
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/api/web/search/quick-search", methods=["POST"])

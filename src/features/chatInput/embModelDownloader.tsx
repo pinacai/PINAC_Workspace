@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { ModalContext } from "../../context/Modal";
 import { EmbeddingSettingsContext } from "../../context/EmbeddingSettings";
 
 // icon
@@ -6,6 +7,7 @@ import { IoDocumentAttachOutline } from "react-icons/io5";
 import { FiDownloadCloud } from "react-icons/fi";
 
 export const EmbModelDownloader = () => {
+  const modalContext = useContext(ModalContext);
   const embeddibngContext = useContext(EmbeddingSettingsContext);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -26,7 +28,7 @@ export const EmbModelDownloader = () => {
         const res = await response.json();
         if (res.status == "success") {
           embeddibngContext?.setIsDefaultModel(true);
-          setIsDownloading(false);
+          modalContext?.setIsOpen(false);
         } else {
           setIsDownloading(false);
           setIsError(true);
@@ -48,8 +50,8 @@ export const EmbModelDownloader = () => {
       <IoDocumentAttachOutline size={120} className="mt-8" />
       <div className="mt-20 flex flex-col  justify-start items-center text-center">
         To enable attachment functionality, you need to download the Base
-        Embedding Model (approx. 90MB). This model performs well across most
-        use cases.
+        Embedding Model (approx. 90MB). This model performs well across most use
+        cases.
         {isError && (
           <div className="mt-4 px-3 py-1 bg-red-500/10 text-red-500 border-[0.1px] border-red-500 rounded-lg">
             {errorMessage}
