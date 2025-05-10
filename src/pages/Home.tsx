@@ -140,8 +140,19 @@ const HomePage: React.FC = () => {
   ) => {
     let responseText = "";
     let hasProcessedAnyData = false;
+
+    // Conversation history extraction
+    const history =
+      chatContext?.chatMsg
+        .filter((msg) => msg.element[1] === "user" || msg.element[1] === "ai")
+        .map((msg) => ({
+          role: msg.element[1] === "user" ? "user" : "assistant",
+          content: msg.element[2],
+        })) ?? [];
+
     const requestData = {
       prompt: inputText,
+      history: history,
       ...(attachmentContext?.attachment && {
         rag: true,
         documents_path: attachmentContext.attachment.path,
@@ -258,9 +269,19 @@ const HomePage: React.FC = () => {
       let responseText = "";
       const apiUrl = `http://localhost:${port}/api/chat/ollama/stream`;
 
+      // Conversation history extraction
+      const history =
+        chatContext?.chatMsg
+          .filter((msg) => msg.element[1] === "user" || msg.element[1] === "ai")
+          .map((msg) => ({
+            role: msg.element[1] === "user" ? "user" : "assistant",
+            content: msg.element[2],
+          })) ?? [];
+
       const requestData = {
         prompt: inputText,
         model: modelContext?.ollamaModel,
+        history: history,
         ...(attachmentContext?.attachment && {
           rag: true,
           documents_path: attachmentContext.attachment.path,

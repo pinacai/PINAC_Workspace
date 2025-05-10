@@ -21,10 +21,21 @@ def generate_response_stream(chat_request: ChatRequest):
             search_result = duckDuckGo_search(chat_request.prompt)
             chat_request.prompt = f"User query: {chat_request.prompt}\n\nI've searched the web for information to help answer this query. Here are the search results:\n\n{search_result}\n\nBased on these search results, please provide a comprehensive and accurate answer to the user's query. If the search results don't contain enough information, please say so and provide the best answer based on your knowledge."
 
+        messages = chat_request.history
+
+        # Add system prompt if provided
+        if chat_request.system_prompt:
+            messages.insert(
+                0, {"role": "system", "content": chat_request.system_prompt}
+            )
+
+        # Add the current user prompt
+        messages.append({"role": "user", "content": chat_request.prompt})
+
         # Configure the stream parameters
         stream_config = {
             "model": chat_request.model,
-            "messages": [{"role": "user", "content": chat_request.prompt}],
+            "messages": messages,
             "stream": True,
             "options": {
                 "temperature": chat_request.temperature,
@@ -33,12 +44,6 @@ def generate_response_stream(chat_request: ChatRequest):
                 "num_predict": chat_request.max_tokens,
             },
         }
-
-        # Add system prompt if provided
-        if chat_request.system_prompt:
-            stream_config["messages"].insert(
-                0, {"role": "system", "content": chat_request.system_prompt}
-            )
 
         # Stream the response
         for chunk in ollama.chat(**stream_config):
