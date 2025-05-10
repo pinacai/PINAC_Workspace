@@ -25,7 +25,7 @@ const SignInPage: React.FC<SignInPageProps> = ({ isLoading }) => {
 
   if (isLoading) {
     return (
-      <div className={styles.loadingPage}>
+      <div className="w-full h-screen flex items-center justify-center bg-primary dark:bg-primary-dark">
         <div className={styles.loader}></div>
       </div>
     );
