@@ -386,8 +386,6 @@ ipcMain.handle("fetch-cloud-ai-stream", async (event, requestData) => {
 
       // Handle HTTP errors
       if (!response.ok) {
-        const errorText = await response.text();
-
         // Check specifically for auth/token errors
         if (response.status === 401 || response.status === 403) {
           return {
@@ -395,10 +393,14 @@ ipcMain.handle("fetch-cloud-ai-stream", async (event, requestData) => {
             message: "Authentication token expired",
           };
         }
-
+        const responseBody = await response.json();
         return {
           code: "SERVER_ERROR",
-          message: `Server error (${response.status}): ${errorText}`,
+          message: `Status (${response.status}): ${
+            responseBody.message ||
+            responseBody.error ||
+            "INTERNAL SERVER ERROR"
+          }`,
         };
       }
 
