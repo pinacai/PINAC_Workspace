@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, { useState, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
+import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -10,6 +10,8 @@ import { useStopTextGeneration } from "../context/StopTextGeneration";
 // Icons
 import { FiCopy } from "react-icons/fi";
 import { FaCheck } from "react-icons/fa6";
+
+const MAX_LENGTH_FOR_SPECIAL_BOLD_STYLE = 150;
 
 interface LiveMarkdownRendererProps {
   text: string;
@@ -25,7 +27,7 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
   const [currentText, setCurrentText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
-  const delay = 10;
+  const delay = 10; // Typing effect delay
 
   const handleCopy = () => {
     setIsCopied(true);
@@ -78,10 +80,81 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
   }, [text]);
 
   return (
-    <div className="markdown-content">
-      <ReactMarkdown
+    <div className="markdown-content selection:bg-blue-500 selection:text-white">
+      <Markdown
         remarkPlugins={[remarkGfm]}
         components={{
+          h1: ({ node, ...props }) => (
+            <h1
+              className="text-gray-800 dark:text-gray-200 font-cormorant text-3xl lg:text-4xl font-bold mt-8 mb-6 pb-3 border-b border-gray-300 dark:border-zinc-700"
+              {...props}
+            />
+          ),
+          h2: ({ node, ...props }) => (
+            <h2
+              className="text-gray-800 dark:text-gray-200 font-cormorant text-3xl font-bold mt-10 mb-5 pb-2.5 border-b border-gray-300 dark:border-zinc-700"
+              {...props}
+            />
+          ),
+          h3: ({ node, ...props }) => (
+            <h3
+              className="text-gray-800 dark:text-gray-200 font-cormorant text-3xl font-bold mt-6 mb-4 pb-2 border-b border-gray-300 dark:border-zinc-700"
+              {...props}
+            />
+          ),
+          h4: ({ node, ...props }) => (
+            <h4
+              className="text-gray-800 dark:text-gray-200 font-cormorant text-3xl font-bold mt-6 mb-4 pb-2 border-b border-gray-300 dark:border-zinc-700"
+              {...props}
+            />
+          ),
+          p: ({ node, ...props }) => {
+            // Check if the paragraph node has children and the first child is a 'strong' element,
+            // and it's the *only* child of the paragraph and the 'strong' element itself only contains text.
+            if (
+              node &&
+              node.children &&
+              node.children.length === 1 &&
+              node.children[0].type === "element" &&
+              node.children[0].tagName === "strong" &&
+              node.children[0].children &&
+              node.children[0].children.length === 1 &&
+              node.children[0].children[0].type === "text"
+            ) {
+              const boldTextContent = node.children[0].children[0].value;
+              if (boldTextContent.length <= MAX_LENGTH_FOR_SPECIAL_BOLD_STYLE) {
+                return (
+                  <p
+                    className="text-gray-800 dark:text-gray-100 font-ptserif-bold text-2xl mt-6 mb-4 pb-2 border-b border-gray-300 dark:border-zinc-700"
+                    {...props}
+                  />
+                );
+              }
+            }
+            // Default paragraph style
+            return <p className="" {...props} />;
+          },
+          ul: ({ node, ...props }) => (
+            <ul className="list-disc pl-6 my-5 space-y-2" {...props} />
+          ),
+          ol: ({ node, ...props }) => (
+            <ol className="list-decimal pl-6 my-4 space-y-2" {...props} />
+          ),
+          li: ({ node, ...props }) => <li className="mb-1.5" {...props} />,
+          a: ({ node, ...props }) => (
+            <a
+              className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-150"
+              target="_blank"
+              rel="noopener noreferrer"
+              {...props}
+            />
+          ),
+          hr: ({ node, ...props }) => (
+            <hr
+              className="my-10 border-gray-300 dark:border-zinc-700"
+              {...props}
+            />
+          ),
           code({ node, inline, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
             return !inline && match ? (
@@ -92,15 +165,16 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
                   showLineNumbers
                   customStyle={{
                     margin: "0",
+                    marginTop: "24px",
                     fontSize: "0.9rem",
-                    borderRadius: "0",
+                    borderRadius: "8px 8px 0 0",
                   }}
                   PreTag="div"
                   {...props}
                 >
                   {String(children).replace(/\n$/, "")}
                 </SyntaxHighlighter>
-                <div className="w-full pr-3 flex justify-end bg-tertiary-dark">
+                <div className="w-full mb-6 pr-3 flex justify-end bg-tertiary-dark rounded-b-lg">
                   <CopyToClipboard text={String(children)} onCopy={handleCopy}>
                     <button className="m-0.5 px-1.5 py-0.5 flex text-gray-200 hover:bg-zinc-600 rounded-lg cursor-pointer">
                       <span className="flex items-center justify-center mr-1">
@@ -118,47 +192,48 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
                 </div>
               </>
             ) : (
-              <code className={`inline-code ${className || ""}`} {...props}>
+              <code
+                className="px-1.5 bg-gray-300/60 dark:bg-tertiary-dark/70 rounded-lg font-mono"
+                {...props}
+              >
                 {children}
               </code>
             );
           },
-          // Customize other elements as needed
-          h1: ({ node, ...props }) => (
-            <h1 className="text-2xl mt-5 mb-4" {...props} />
+          // for tables
+          table: ({ node, ...props }) => (
+            <div className="overflow-x-auto my-8">
+              <table
+                className="w-full border-collapse rounded-lg overflow-hidden"
+                {...props}
+              />
+            </div>
           ),
-          h2: ({ node, ...props }) => (
-            <h2 className="text-xl mt-5 mb-3" {...props} />
+          thead: ({ node, ...props }) => (
+            <thead className="bg-gray-300 dark:bg-tertiary-dark" {...props} />
           ),
-          h3: ({ node, ...props }) => (
-            <h3 className="text-lg mt-4 mb-2" {...props} />
+          tbody: ({ node, ...props }) => (
+            <tbody className="bg-primary dark:bg-primary-dark " {...props} />
           ),
-          p: ({ node, ...props }) => <p className="" {...props} />,
-          ul: ({ node, ...props }) => (
-            <ul className="list-disc pl-6 my-3" {...props} />
-          ),
-          ol: ({ node, ...props }) => (
-            <ol className="list-decimal pl-6 my-3" {...props} />
-          ),
-          li: ({ node, ...props }) => <li className="my-1" {...props} />,
-          blockquote: ({ node, ...props }) => (
-            <blockquote
-              className="border-l-4 border-gray-300 pl-4 italic my-3"
+          tr: ({ node, ...props }) => (
+            <tr
+              className="border-2 border-gray-300 dark:border-zinc-700"
               {...props}
             />
           ),
-          a: ({ node, ...props }) => (
-            <a
-              className="text-blue-500 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
+          th: ({ node, ...props }) => (
+            <th className="py-1 px-4 text-left font-bold" {...props} />
+          ),
+          td: ({ node, ...props }) => (
+            <td
+              className="py-2 px-4 border-2 border-gray-300 dark:border-zinc-700"
               {...props}
             />
           ),
         }}
       >
         {currentText}
-      </ReactMarkdown>
+      </Markdown>
     </div>
   );
 };
@@ -178,10 +253,81 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ text }) => {
   };
 
   return (
-    <div className="markdown-content">
-      <ReactMarkdown
+    <div className="markdown-content selection:bg-blue-500 selection:text-white">
+      <Markdown
         remarkPlugins={[remarkGfm]}
         components={{
+          h1: ({ node, ...props }) => (
+            <h1
+              className="text-gray-800 dark:text-gray-200 font-cormorant text-3xl lg:text-4xl font-bold mt-8 mb-6 pb-3 border-b border-gray-300 dark:border-zinc-700"
+              {...props}
+            />
+          ),
+          h2: ({ node, ...props }) => (
+            <h2
+              className="text-gray-800 dark:text-gray-200 font-cormorant text-3xl font-bold mt-10 mb-5 pb-2.5 border-b border-gray-300 dark:border-zinc-700"
+              {...props}
+            />
+          ),
+          h3: ({ node, ...props }) => (
+            <h3
+              className="text-gray-800 dark:text-gray-200 font-cormorant text-3xl font-bold mt-6 mb-4 pb-2 border-b border-gray-300 dark:border-zinc-700"
+              {...props}
+            />
+          ),
+          h4: ({ node, ...props }) => (
+            <h4
+              className="text-gray-800 dark:text-gray-200 font-cormorant text-3xl font-bold mt-6 mb-4 pb-2 border-b border-gray-300 dark:border-zinc-700"
+              {...props}
+            />
+          ),
+          p: ({ node, ...props }) => {
+            // Check if the paragraph node has children and the first child is a 'strong' element,
+            // and it's the *only* child of the paragraph and the 'strong' element itself only contains text.
+            if (
+              node &&
+              node.children &&
+              node.children.length === 1 &&
+              node.children[0].type === "element" &&
+              node.children[0].tagName === "strong" &&
+              node.children[0].children &&
+              node.children[0].children.length === 1 &&
+              node.children[0].children[0].type === "text"
+            ) {
+              const boldTextContent = node.children[0].children[0].value;
+              if (boldTextContent.length <= MAX_LENGTH_FOR_SPECIAL_BOLD_STYLE) {
+                return (
+                  <p
+                    className="text-gray-800 dark:text-gray-100 font-ptserif-bold text-2xl mt-6 mb-4 pb-2 border-b border-gray-300 dark:border-zinc-700"
+                    {...props}
+                  />
+                );
+              }
+            }
+            // Default paragraph style
+            return <p className="" {...props} />;
+          },
+          ul: ({ node, ...props }) => (
+            <ul className="list-disc pl-6 my-5 space-y-2" {...props} />
+          ),
+          ol: ({ node, ...props }) => (
+            <ol className="list-decimal pl-6 my-4 space-y-2" {...props} />
+          ),
+          li: ({ node, ...props }) => <li className="mb-1.5" {...props} />,
+          a: ({ node, ...props }) => (
+            <a
+              className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-150"
+              target="_blank"
+              rel="noopener noreferrer"
+              {...props}
+            />
+          ),
+          hr: ({ node, ...props }) => (
+            <hr
+              className="my-10 border-gray-300 dark:border-zinc-700"
+              {...props}
+            />
+          ),
           code({ node, inline, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
             return !inline && match ? (
@@ -189,17 +335,19 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ text }) => {
                 <SyntaxHighlighter
                   style={atomDark}
                   language={match[1]}
+                  showLineNumbers
                   customStyle={{
                     margin: "0",
+                    marginTop: "24px",
                     fontSize: "0.9rem",
-                    borderRadius: "0",
+                    borderRadius: "8px 8px 0 0",
                   }}
                   PreTag="div"
                   {...props}
                 >
                   {String(children).replace(/\n$/, "")}
                 </SyntaxHighlighter>
-                <div className="w-full pr-3 flex justify-end bg-tertiary-dark">
+                <div className="w-full mb-6 pr-3 flex justify-end bg-tertiary-dark rounded-b-lg">
                   <CopyToClipboard text={String(children)} onCopy={handleCopy}>
                     <button className="m-0.5 px-1.5 py-0.5 flex text-gray-200 hover:bg-zinc-600 rounded-lg cursor-pointer">
                       <span className="flex items-center justify-center mr-1">
@@ -217,47 +365,48 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ text }) => {
                 </div>
               </>
             ) : (
-              <code className={`inline-code ${className || ""}`} {...props}>
+              <code
+                className="px-1.5 bg-gray-300/60 dark:bg-tertiary-dark/70 rounded-lg font-mono"
+                {...props}
+              >
                 {children}
               </code>
             );
           },
-          // Customize other elements as needed
-          h1: ({ node, ...props }) => (
-            <h1 className="text-2xl mt-5 mb-4" {...props} />
+          // for tables
+          table: ({ node, ...props }) => (
+            <div className="overflow-x-auto my-8">
+              <table
+                className="w-full border-collapse rounded-lg overflow-hidden"
+                {...props}
+              />
+            </div>
           ),
-          h2: ({ node, ...props }) => (
-            <h2 className="text-xl mt-5 mb-3" {...props} />
+          thead: ({ node, ...props }) => (
+            <thead className="bg-gray-300 dark:bg-tertiary-dark" {...props} />
           ),
-          h3: ({ node, ...props }) => (
-            <h3 className="text-lg mt-4 mb-2" {...props} />
+          tbody: ({ node, ...props }) => (
+            <tbody className="bg-primary dark:bg-primary-dark " {...props} />
           ),
-          p: ({ node, ...props }) => <p className="" {...props} />,
-          ul: ({ node, ...props }) => (
-            <ul className="list-disc pl-6 my-3" {...props} />
-          ),
-          ol: ({ node, ...props }) => (
-            <ol className="list-decimal pl-6 my-3" {...props} />
-          ),
-          li: ({ node, ...props }) => <li className="my-1" {...props} />,
-          blockquote: ({ node, ...props }) => (
-            <blockquote
-              className="border-l-4 border-gray-300 pl-4 italic my-3"
+          tr: ({ node, ...props }) => (
+            <tr
+              className="border-2 border-gray-300 dark:border-zinc-700"
               {...props}
             />
           ),
-          a: ({ node, ...props }) => (
-            <a
-              className="text-blue-500 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
+          th: ({ node, ...props }) => (
+            <th className="py-1 px-4 text-left font-bold" {...props} />
+          ),
+          td: ({ node, ...props }) => (
+            <td
+              className="py-2 px-4 border-2 border-gray-300 dark:border-zinc-700"
               {...props}
             />
           ),
         }}
       >
         {text}
-      </ReactMarkdown>
+      </Markdown>
     </div>
   );
 };

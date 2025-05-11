@@ -72,7 +72,7 @@ export const AiMsgBubble: React.FC<AiMsgBubbleProps> = ({
       <div className="size-[35px] mt-1 rounded-full dark:border-[1.5px] dark:border-gray-500 flex justify-center items-center">
         <img src={pinacLogo} />
       </div>
-      <div className="w-full px-4 rounded-lg text-base text-black dark:text-gray-200">
+      <div className="w-full px-4 text-base text-black dark:text-gray-200">
         <div className="text-sm text-gray-600 dark:text-gray-500 mb-1">
           {modelName}
         </div>
@@ -211,7 +211,7 @@ export const AiLoader: React.FC<AiLoaderProps> = ({ modelName }) => {
           {modelName}
         </div>
         <div className="flex">
-          <div className="relative size-7 py-5 rounded-lg">
+          <div className="relative size-7 py-5">
             {bars.map((bar, index) => (
               <div
                 key={index}
