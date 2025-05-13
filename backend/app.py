@@ -10,13 +10,13 @@ import os
 import sys
 import argparse
 from custom_types import ChatRequest
-from web_scraper.duckDuckGo_search import duckDuckGo_search
+from web_search.duckDuckGo_search import duckDuckGo_search
 from rag.default_embedder import (
     DefaultRAG,
     check_embedding_model,
     download_embedding_model,
 )
-from models.useOllama import (
+from models.myOllama import (
     generate_response_stream,
     model_list,
     ensure_ollama_running,

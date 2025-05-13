@@ -4,7 +4,7 @@ import subprocess
 import platform
 from custom_types import ChatRequest
 from rag.default_embedder import DefaultRAG
-from web_scraper.duckDuckGo_search import duckDuckGo_search
+from web_search.duckDuckGo_search import duckDuckGo_search
 
 
 def generate_response_stream(chat_request: ChatRequest):
