@@ -4,23 +4,20 @@ In the backend files, normal `print("some text")` will not work.
 Use `print("some text", flush=True)` instead.
 """
 
-from flask import Flask, request, Response, jsonify
-from flask_cors import CORS
 import os
 import sys
 import argparse
+from flask import Flask, request, Response, jsonify
+from flask_cors import CORS
 from custom_types import ChatRequest
+from web_search.main import WebSearchAssistant
 from web_search.duckDuckGo_search import duckDuckGo_search
 from rag.default_embedder import (
     DefaultRAG,
     check_embedding_model,
     download_embedding_model,
 )
-from models.myOllama import (
-    generate_response_stream,
-    model_list,
-    ensure_ollama_running,
-)
+from models.ollamaModel import OllamaChatModel
 
 app = Flask(__name__)
 CORS(app)
@@ -44,6 +41,9 @@ else:
 
 port = int(os.environ.get("PORT", args.port))
 debug = os.environ.get("DEBUG", "False").lower() == "true" or args.debug
+
+# Initializing the chat model
+ollama_model = OllamaChatModel()
 
 
 @app.route("/api/status", methods=["GET"])
@@ -100,8 +100,20 @@ def stream_ollama():
 
         data = request.get_json()
         chat_request = ChatRequest.from_json(data)
+
+        if chat_request.web_search:
+            web = WebSearchAssistant(
+                model_provider=ollama_model,
+                model_name=chat_request.model,
+                conversation_history=chat_request.messages,
+            )
+            return Response(
+                web.process_query(chat_request.prompt), mimetype="text/event-stream"
+            )
+
+        chat_request.messages.append({"role": "user", "content": chat_request.prompt})
         return Response(
-            generate_response_stream(chat_request), mimetype="text/event-stream"
+            ollama_model._generate(chat_request), mimetype="text/event-stream"
         )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -110,7 +122,7 @@ def stream_ollama():
 @app.route("/api/ollama/models", methods=["GET"])
 def list_models():
     try:
-        ollama = model_list()
+        ollama = ollama_model.list_available_models()
         models = [model.model for model in ollama.models]
         return jsonify(models)
     except Exception as e:
@@ -118,7 +130,7 @@ def list_models():
 
 
 if __name__ == "__main__":
-    ensure_ollama_running()
+    ollama_model.ensure_ollama_running()
 
     if debug:
         # Use Flask's development server for debugging

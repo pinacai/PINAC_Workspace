@@ -275,14 +275,14 @@ const HomePage: React.FC = () => {
   // Function to fetch streaming response from Ollama from backend
   // -------------------------------------------------------------
   const fetchOllamaResponse = useCallback(
-    async (aiMessageKey: number, inputText: string) => {
+    async (aiMessageKey: number, prompt: string) => {
       window.ipcRenderer.send("get-backend-port");
       window.ipcRenderer.once("backend-port", async (_, port) => {
         let responseText = "";
         const apiUrl = `http://localhost:${port}/api/chat/ollama/stream`;
 
         // getting conversation history
-        const history =
+        const messages =
           chatContext?.chatMsg
             .filter(
               (msg) => msg.element[1] === "user" || msg.element[1] === "ai"
@@ -293,13 +293,14 @@ const HomePage: React.FC = () => {
             })) ?? [];
 
         const requestData = {
-          prompt: inputText,
+          prompt: prompt,
           model: modelContext?.ollamaModel,
-          history: history,
-          ...(attachmentContext?.attachment && {
-            rag: true,
-            documents_path: attachmentContext.attachment.path,
-          }),
+          messages: messages,
+          stream: true,
+          // ...(attachmentContext?.attachment && {
+          //   rag: true,
+          //   documents_path: attachmentContext.attachment.path,
+          // }),
           ...(webSearchContext?.webSearch && {
             web_search: true,
             quick_search: webSearchContext.quickSearch,

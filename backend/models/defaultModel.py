@@ -18,8 +18,9 @@ class DefaultChatModel:
         return "default_chat_model"
 
     def _process_streaming_response(self, response: Response):
-        """Process a streaming response and yield chunks as they arrive."""
-
+        """
+        Process a streaming response and yield chunks as they arrive.
+        """
         for line in response.iter_lines():
             if line:
                 # Decode the line and yield it

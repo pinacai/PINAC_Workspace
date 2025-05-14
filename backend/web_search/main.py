@@ -1,15 +1,22 @@
+from custom_types import ChatRequest
 from datetime import datetime
 import re
+from web_search.duckDuckGo_search import duckDuckGo_search
 
 
 class WebSearchAssistant:
     """Class for a web search-enabled conversational assistant"""
 
-    def __init__(self, chat_model=None, conversation_history=[], search_engine=None):
-        self.chat_model = chat_model
+    def __init__(
+        self,
+        model_provider=None,
+        model_name=None,
+        conversation_history=[]
+    ):
+        self.model_provider = model_provider
+        self.model_name = model_name
         self.conversation_history = conversation_history
         self.current_date = datetime.now().strftime("%B %d, %Y")
-        self.search_engine = search_engine
         # Initialize with system instruction
         self.conversation_history.insert(
             0,
@@ -119,7 +126,9 @@ class WebSearchAssistant:
             temp_history.append(search_instruction)
 
             # Generate the search query
-            generated_query = self.chat_model._generate(temp_history).strip()
+            generated_query = self.model_provider._generate(
+                ChatRequest(model=self.model_name, messages=temp_history)
+            ).strip()
 
             # Remove any quotation marks or prefixes like "Search query:" if present
             generated_query = re.sub(
@@ -149,11 +158,12 @@ class WebSearchAssistant:
         try:
             if self._should_search(query):
                 # Create search query using LLM
-                search_query = self._generate_llm_search_query(query)
+                search_query = self._create_search_query(query)
                 print(f"[DEBUG] Searching for: {search_query}", flush=True)
 
                 # Perform web search
-                search_results = self.search_engine(search_query)
+                search_results = duckDuckGo_search(search_query)
+                print(f"[DEBUG] Search results: {search_results}", flush=True)
 
                 if search_results:
                     # Add search results as context
@@ -162,15 +172,29 @@ class WebSearchAssistant:
                     temp_messages.append({"role": "system", "content": search_context})
 
                     # Generate response with search results
-                    answer = self.chat_model._generate(temp_messages)
+                    return self.model_provider._generate(
+                        ChatRequest(
+                            model=self.model_name, messages=temp_messages, stream=True
+                        )
+                    )
                 else:
                     # Fallback if search returned no results
-                    answer = self.chat_model._generate(self.conversation_history)
+                    return self.model_provider._generate(
+                        ChatRequest(
+                            model=self.model_name,
+                            messages=self.conversation_history,
+                            stream=True,
+                        )
+                    )
             else:
                 # No search needed
-                answer = self.chat_model._generate(self.conversation_history)
-
-            return answer
+                return self.model_provider._generate(
+                    ChatRequest(
+                        model=self.model_name,
+                        messages=self.conversation_history,
+                        stream=True,
+                    )
+                )
 
         except Exception as e:
             print(f"Error: {str(e)}", flush=True)
