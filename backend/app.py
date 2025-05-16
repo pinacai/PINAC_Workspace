@@ -7,11 +7,11 @@ Use `print("some text", flush=True)` instead.
 import os
 import sys
 import argparse
+from requests import post
+from dotenv import load_dotenv
 from flask import Flask, request, Response, jsonify
 from flask_cors import CORS
 from custom_types import ChatRequest
-from web_search.main import WebSearchAssistant
-from web_search.duckDuckGo_search import duckDuckGo_search
 from rag.default_embedder import (
     DefaultRAG,
     check_embedding_model,
@@ -42,6 +42,8 @@ else:
 port = int(os.environ.get("PORT", args.port))
 debug = os.environ.get("DEBUG", "False").lower() == "true" or args.debug
 
+# Set the environment variable for the server
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"))
 # Initializing the chat model
 ollama_model = OllamaChatModel()
 
@@ -79,19 +81,6 @@ def default_embedder():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/api/web/search/quick-search", methods=["POST"])
-def quick_search_result():
-    try:
-        if not request.is_json:
-            return jsonify({"error": "Content-Type must be application/json"}), 400
-
-        data = request.get_json()
-        chat_request = ChatRequest.from_json(data)
-        return jsonify(duckDuckGo_search(chat_request.prompt))
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
 @app.route("/api/chat/ollama/stream", methods=["POST"])
 def stream_ollama():
     try:
@@ -102,13 +91,15 @@ def stream_ollama():
         chat_request = ChatRequest.from_json(data)
 
         if chat_request.web_search:
-            web = WebSearchAssistant(
-                model_provider=ollama_model,
-                model_name=chat_request.model,
-                conversation_history=chat_request.messages,
+            response = post(
+                os.environ.get("DEVELOPMENT_WEB_SEARCH_SERVER"),
+                headers={"Content-Type": "application/json"},
+                json={"messages": chat_request.messages, "prompt": chat_request.prompt},
             )
+            final_msgs = response.json()
+            chat_request.messages.extend(final_msgs)
             return Response(
-                web.process_query(chat_request.prompt), mimetype="text/event-stream"
+                ollama_model._generate(chat_request), mimetype="text/event-stream"
             )
 
         chat_request.messages.append({"role": "user", "content": chat_request.prompt})
