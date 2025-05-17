@@ -15,7 +15,7 @@ duckduckgo_search==8.0.1
 faiss-cpu==1.11.0
 filelock==3.18.0
 Flask==3.1.1
-flask-cors==5.0.1
+flask-cors==6.0.0
 frozenlist==1.6.0
 fsspec==2025.3.2
 greenlet==3.2.1
