@@ -270,6 +270,21 @@ ipcMain.on("get-backend-port", (event) => {
   event.reply("backend-port", backendPort);
 });
 
+ipcMain.on("get-id-token", (event) => {
+  const idToken = tokenManager.retrieveToken("idToken");
+  event.reply("backend-response", idToken);
+});
+
+ipcMain.on("get-refresh-token", (event) => {
+  const refreshToken = tokenManager.retrieveToken("refreshToken");
+  event.reply("backend-response", refreshToken);
+});
+
+ipcMain.on("get-web-api-key", (event) => {
+  const webApiKey = tokenManager.retrieveToken("webApiKey");
+  event.reply("backend-response", webApiKey);
+});
+
 ipcMain.on("logout", () => {
   fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
   tokenManager.clearAllTokens();

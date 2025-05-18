@@ -57,7 +57,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
     if (embeddingContext?.isDefaultModel) {
       let filters: { name: string; extensions: string[] }[] = [];
 
-      if (modelContext?.modelType === "Pinac CLoud Model") {
+      if (modelContext?.modelType === "Pinac Cloud Model") {
         filters = [{ name: "Supported Files", extensions: ["pdf"] }];
       } else {
         filters = [

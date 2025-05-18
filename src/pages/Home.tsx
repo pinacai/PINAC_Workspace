@@ -53,7 +53,7 @@ const HomePage: React.FC = () => {
   // Getting currently used AI Model name
   // ------------------------------------
   const modelName = useMemo(() => {
-    return modelContext?.modelType === "Pinac CLoud Model"
+    return modelContext?.modelType === "Pinac Cloud Model"
       ? modelContext?.pinacCloudModel
       : modelContext?.ollamaModel || "";
   }, [
@@ -139,133 +139,168 @@ const HomePage: React.FC = () => {
 
   // Function to fetch streaming response from Cloud
   // -----------------------------------------------
-  const fetchPinacCloudResponse = useCallback(
-    async (aiMessageKey: number, inputText: string) => {
-      let responseText = "";
-      let hasProcessedAnyData = false;
+  const fetchCloudResponse = useCallback(
+    async (aiMessageKey: number, prompt: string) => {
+      window.ipcRenderer.send("get-backend-port");
+      window.ipcRenderer.once("backend-port", async (_, port) => {
+        let responseText = "";
+        const apiUrl = `http://localhost:${port}/api/chat/pinac-cloud/stream`;
 
-      // getting conversation history
-      const history =
-        chatContext?.chatMsg
-          .filter((msg) => msg.element[1] === "user" || msg.element[1] === "ai")
-          .map((msg) => ({
-            role: msg.element[1] === "user" ? "user" : "assistant",
-            content: msg.element[2],
-          })) ?? [];
+        // getting conversation history
+        const messages =
+          chatContext?.chatMsg
+            .filter(
+              (msg) => msg.element[1] === "user" || msg.element[1] === "ai"
+            )
+            .map((msg) => ({
+              role: msg.element[1] === "user" ? "user" : "assistant",
+              content: msg.element[2],
+            })) ?? [];
 
-      const requestData = {
-        prompt: inputText,
-        history: history,
-        ...(attachmentContext?.attachment && {
-          rag: true,
-          documents_path: attachmentContext.attachment.path,
-        }),
-        ...(webSearchContext?.webSearch && {
-          web_search: true,
-          quick_search: webSearchContext.quickSearch,
-          better_search: webSearchContext.betterSearch,
-        }),
-      };
+        const requestData = {
+          prompt: prompt,
+          messages: messages,
+          stream: true,
+          // ...(attachmentContext?.attachment && {
+          //   rag: true,
+          //   documents_path: attachmentContext.attachment.path,
+          // }),
+          ...(webSearchContext?.webSearch && {
+            web_search: true,
+            quick_search: webSearchContext.quickSearch,
+            better_search: webSearchContext.betterSearch,
+          }),
+        };
 
-      const cleanupListeners = () => {
-        window.ipcRenderer.removeListener(
-          "cloud-ai-stream-chunk",
-          chunkListener
-        );
-        window.ipcRenderer.removeListener("cloud-ai-stream-done", doneListener);
-        window.ipcRenderer.removeListener(
-          "cloud-ai-stream-error",
-          errorListener
-        );
-      };
-
-      const chunkListener = (_event: IpcRendererEvent, chunk: string) => {
-        // Safety check to ensure chunk is a string
-        if (typeof chunk !== "string") {
-          console.error("Received non-string chunk:", chunk);
-          return;
+        // Cancel any ongoing request
+        if (abortControllerRef.current) {
+          abortControllerRef.current.abort();
         }
 
-        const trimmedChunk = chunk.trim();
-        if (trimmedChunk.length === 0) return;
+        // Create a new AbortController for this request
+        abortControllerRef.current = new AbortController();
+        const signal = abortControllerRef.current.signal;
 
-        if (trimmedChunk.startsWith("data:")) {
-          const dataStr = trimmedChunk.substring(5).trim();
+        try {
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+            signal: signal,
+          });
 
-          // Skip the [DONE] marker
-          if (dataStr === "[DONE]") return;
-          try {
-            const parsedData = JSON.parse(dataStr);
-
-            // Handle the response chunk - looking for the response field
-            if (parsedData.response !== undefined) {
-              responseText += parsedData.response;
-              hasProcessedAnyData = true;
-              updateAIResponse(aiMessageKey, responseText, false);
-            }
-          } catch (parseError) {
-            console.error("Failed to parse data:", dataStr, parseError);
+          if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error ${response.status}: ${errorText}`);
           }
-        } else {
-          console.log("Received non-data chunk:", trimmedChunk);
+
+          // Process as a proper EventSource / SSE stream
+          const reader = response.body?.getReader();
+          if (!reader) {
+            throw new Error("Failed to get stream reader");
+          }
+
+          // Set up a TextDecoder to decode the stream chunks
+          const decoder = new TextDecoder();
+          let buffer = "";
+          let isDone = false;
+
+          while (!isDone && !signal.aborted) {
+            // Check for abort at the beginning of each loop
+            if (signal.aborted) {
+              console.log("Request was aborted");
+              reader.cancel();
+              break;
+            }
+
+            const { value, done } = await reader.read();
+
+            if (done) {
+              isDone = true;
+              setButtonsDisabled(false);
+              break;
+            }
+
+            // Append new data to buffer and process any complete events
+            buffer += decoder.decode(value, { stream: true });
+
+            // Process SSE format - look for complete events ending with double newlines
+            const eventChunks = buffer.split("\n\n");
+            buffer = eventChunks.pop() || ""; // Keep the incomplete chunk in buffer
+
+            for (const chunk of eventChunks) {
+              // Skip empty chunks
+              if (!chunk.trim()) continue;
+
+              // Parse SSE data
+              if (chunk.startsWith("data: ")) {
+                try {
+                  const data = JSON.parse(chunk.slice(6));
+                  // Check for content or done flag
+                  if (data.content) {
+                    responseText += data.content;
+                    updateAIResponse(aiMessageKey, responseText, false);
+                  }
+
+                  if (data.done) {
+                    isDone = true;
+                    break;
+                  }
+                } catch (error) {
+                  console.error(
+                    "Failed to parse SSE data:",
+                    error,
+                    "Raw:",
+                    chunk
+                  );
+                }
+              }
+            }
+
+            if (isDone) break;
+          }
+
+          // Final update and cleanup
+          if (responseText) {
+            updateAIResponse(aiMessageKey, responseText, true);
+            LogMessageToDatabase(aiMessageKey, "ai", responseText);
+          } else {
+            console.error("No response text received");
+            updateAIResponse(
+              aiMessageKey,
+              "No response received from server.",
+              true
+            );
+          }
+
+          setButtonsDisabled(false);
+        } catch (error) {
+          if (error instanceof Error) {
+            console.error("Stream request error:", error);
+            // Display error message only if it's not an aborted request
+            if (error.name !== "AbortError") {
+              updateAIResponse(
+                aiMessageKey,
+                `**Error: ${error.message}**\nTry again :(`,
+                true
+              );
+            } else {
+              console.log("Request aborted by user");
+            }
+          }
+          setButtonsDisabled(false);
+        } finally {
+          // Always clear the abort controller reference if it belongs to this request
+          if (abortControllerRef.current?.signal === signal) {
+            abortControllerRef.current = null;
+          }
         }
-      };
-
-      const doneListener = () => {
-        if (hasProcessedAnyData) {
-          updateAIResponse(aiMessageKey, responseText, true);
-          LogMessageToDatabase(aiMessageKey, "ai", responseText);
-        } else {
-          updateAIResponse(
-            aiMessageKey,
-            "**Error: No valid content received**\nTry again :(",
-            true
-          );
-        }
-        cleanupListeners();
-        setButtonsDisabled(false);
-      };
-
-      const errorListener = (_event: any, errorMsg: any) => {
-        console.error("Stream error:", errorMsg);
-        updateAIResponse(
-          aiMessageKey,
-          `**Error: ${errorMsg}**\nTry again :(`,
-          true
-        );
-        cleanupListeners();
-        setButtonsDisabled(false);
-      };
-
-      try {
-        // Ensure any previous listeners are removed before adding new ones
-        window.ipcRenderer.removeAllListeners("cloud-ai-stream-chunk");
-        window.ipcRenderer.removeAllListeners("cloud-ai-stream-done");
-        window.ipcRenderer.removeAllListeners("cloud-ai-stream-error");
-
-        // Register the listeners for the current request
-        window.ipcRenderer.on("cloud-ai-stream-chunk", chunkListener);
-        window.ipcRenderer.on("cloud-ai-stream-done", doneListener);
-        window.ipcRenderer.on("cloud-ai-stream-error", errorListener);
-
-        // Start the stream
-        await window.ipcRenderer.invoke("fetch-cloud-ai-stream", requestData);
-      } catch (error) {
-        console.error("Cloud AI request error:", error);
-        updateAIResponse(
-          aiMessageKey,
-          `**Error: ${
-            error instanceof Error ? error.message : "Unknown error"
-          }**\nTry again :(`,
-          true
-        );
-        setButtonsDisabled(false);
-        cleanupListeners();
-      }
+      });
     },
     [
       chatContext?.chatMsg,
-      attachmentContext?.attachment,
       webSearchContext,
       updateAIResponse,
       LogMessageToDatabase,
@@ -343,6 +378,13 @@ const HomePage: React.FC = () => {
 
           let isDone = false;
           while (!isDone && !signal.aborted) {
+            // Check for abort at the beginning of each loop
+            if (signal.aborted) {
+              console.log("Request was aborted");
+              reader.cancel();
+              break;
+            }
+
             const { value, done } = await reader.read();
 
             if (done) {
@@ -402,11 +444,13 @@ const HomePage: React.FC = () => {
                 `**Error: ${error.message}**\nTry again :(`,
                 true
               );
+            } else {
+              console.log("Request aborted by user");
             }
-            setButtonsDisabled(false);
           }
         } finally {
-          if (abortControllerRef.current?.signal.aborted === false) {
+          // Always clear the abort controller reference if it belongs to this request
+          if (abortControllerRef.current?.signal === signal) {
             abortControllerRef.current = null;
           }
         }
@@ -486,8 +530,8 @@ const HomePage: React.FC = () => {
     }
 
     // Start streaming response with fetch based on model type
-    if (modelContext?.modelType === "Pinac CLoud Model") {
-      fetchPinacCloudResponse(aiMessageKey, userInputText);
+    if (modelContext?.modelType === "Pinac Cloud Model") {
+      fetchCloudResponse(aiMessageKey, userInputText);
     } else {
       fetchOllamaResponse(aiMessageKey, userInputText);
     }
@@ -534,6 +578,8 @@ const HomePage: React.FC = () => {
           // Log the partial content if it exists
           if (partialContent && partialContent.trim() !== "") {
             LogMessageToDatabase(aiMessageKey, "ai", partialContent);
+            // Update the UI to show the response as complete
+            updateAIResponse(aiMessageKey, partialContent, true);
           } else {
             LogMessageToDatabase(
               aiMessageKey,
@@ -543,7 +589,14 @@ const HomePage: React.FC = () => {
           }
 
           // Signal main process to stop the cloud stream
-          if (modelContext?.modelType === "Pinac CLoud Model") {
+          if (modelContext?.modelType === "Pinac Cloud Model") {
+            // First terminate the local fetch
+            if (abortControllerRef.current) {
+              abortControllerRef.current.abort();
+              abortControllerRef.current = null;
+            }
+
+            // Then notify main process (which might need to terminate server-side processes)
             window.ipcRenderer
               .invoke("stop-cloud-ai-stream")
               .catch((err) =>
@@ -556,13 +609,20 @@ const HomePage: React.FC = () => {
           }
         }
       } else {
-        console.log("Could not find the last AI message to log on stop.");
+        console.error("Could not find the last AI message to log on stop.");
       }
 
       setButtonsDisabled(false);
       setIsStop(false);
     }
-  }, [isStop, buttonsDisabled, chatContext?.chatMsg, modelContext?.modelType]);
+  }, [
+    isStop,
+    buttonsDisabled,
+    chatContext?.chatMsg,
+    modelContext?.modelType,
+    LogMessageToDatabase,
+    updateAIResponse,
+  ]);
 
   // Auto-scroll effect for chat messages
   // -------------------------------------

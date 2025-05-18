@@ -37,13 +37,13 @@ export const LLMSelector: React.FC = () => {
       {/*     Dropdown menu for selecting the LLM type   */}
       {/* ---------------------------------------------- */}
       <DropdownMenu
-        defaultOption="Pinac CLoud Model"
-        optionList={["Pinac CLoud Model", "Ollama Model"]}
+        defaultOption="Pinac Cloud Model"
+        optionList={["Pinac Cloud Model", "Ollama Model"]}
         valueName="model-type"
       />
       {/*    for selecting the LLM Name    */}
       {/* -------------------------------- */}
-      {modelContext?.modelType == "Pinac CLoud Model" ? (
+      {modelContext?.modelType == "Pinac Cloud Model" ? (
         <DropdownMenu
           defaultOption="Base Model"
           optionList={["Base Model"]}

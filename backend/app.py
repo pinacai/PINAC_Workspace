@@ -17,6 +17,7 @@ from rag.default_embedder import (
     check_embedding_model,
     download_embedding_model,
 )
+from models.defaultModel import DefaultChatModel
 from models.ollamaModel import OllamaChatModel
 
 app = Flask(__name__)
@@ -45,6 +46,7 @@ debug = os.environ.get("DEBUG", "False").lower() == "true" or args.debug
 # Set the environment variable for the server
 load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"))
 # Initializing the chat model
+default_model = DefaultChatModel()
 ollama_model = OllamaChatModel()
 
 
@@ -81,6 +83,35 @@ def default_embedder():
         return jsonify({"error": str(e)}), 500
 
 
+@app.route("/api/chat/pinac-cloud/stream", methods=["POST"])
+def stream_pinac_cloud():
+    try:
+        if not request.is_json:
+            return jsonify({"error": "Content-Type must be application/json"}), 400
+
+        data = request.get_json()
+        chat_request = ChatRequest.from_json(data)
+
+        if chat_request.web_search:
+            response = post(
+                os.environ.get("DEVELOPMENT_WEB_SEARCH_SERVER"),
+                headers={"Content-Type": "application/json"},
+                json={"messages": chat_request.messages, "prompt": chat_request.prompt},
+            )
+            final_prompt = response.json()
+            chat_request.messages.extend(final_prompt)
+            return Response(
+                default_model._generate(chat_request), mimetype="text/event-stream"
+            )
+
+        chat_request.messages.append({"role": "user", "content": chat_request.prompt})
+        return Response(
+            default_model._generate(chat_request), mimetype="text/event-stream"
+        )
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route("/api/chat/ollama/stream", methods=["POST"])
 def stream_ollama():
     try:
@@ -96,8 +127,8 @@ def stream_ollama():
                 headers={"Content-Type": "application/json"},
                 json={"messages": chat_request.messages, "prompt": chat_request.prompt},
             )
-            final_msgs = response.json()
-            chat_request.messages.extend(final_msgs)
+            final_prompt = response.json()
+            chat_request.messages.extend(final_prompt)
             return Response(
                 ollama_model._generate(chat_request), mimetype="text/event-stream"
             )
