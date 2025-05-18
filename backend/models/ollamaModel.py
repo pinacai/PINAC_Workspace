@@ -88,7 +88,7 @@ class OllamaChatModel:
                 return response["message"]["content"]
 
         except Exception as e:
-            raise ValueError(f"Error generating chat completion: {e}", flush=True)
+            raise ValueError(f"Error generating chat completion: {e}")
 
     def list_available_models(self):
         """List available models from Ollama."""

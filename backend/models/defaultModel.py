@@ -11,7 +11,6 @@ class DefaultChatModel:
     def __init__(self):
         load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"))
         self.api_endpoint = os.environ.get("DEVELOPMENT_SERVER")
-        self.headers = {"Content-Type": "application/json"}
 
     @property
     def _llm_type(self) -> str:
@@ -30,13 +29,25 @@ class DefaultChatModel:
             "stream": chat_request.stream,
         }
 
+        # Add Authorization header with Bearer token if available
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {chat_request.id_token}",
+        }
+
         response = post(
             self.api_endpoint,
-            headers=self.headers,
+            headers=headers,
             json=request_body,
             stream=chat_request.stream,
         )
-        if response.status_code != 200:
+        if not response.ok:
+            if response.status_code == 403:
+                response_text = response.text
+                if 'Unauthorized: "exp" claim timestamp check failed' in response_text:
+                    raise ValueError("TOKEN_EXPIRED")
+
+                raise ValueError(response_text)
             raise ValueError(f"Error from custom chat API: {response.text}")
 
         try:
@@ -47,13 +58,11 @@ class DefaultChatModel:
                         if not line:
                             continue
 
-                        # Decode the line from bytes to string
                         try:
                             decoded_line = line.decode("utf-8")
                         except UnicodeDecodeError:
                             continue
 
-                        # Check if it's the stream end marker
                         if decoded_line.strip() == "[DONE]":
                             yield 'data: {"done": true}\n\n'
                             break
@@ -67,13 +76,12 @@ class DefaultChatModel:
 
                                 # Extract and format response for the frontend
                                 response_text = chunk.get("response", "")
-
-                                # Create a frontend-compatible SSE message
                                 if response_text:
                                     result = json.dumps(
                                         {"content": response_text, "done": False}
                                     )
                                     yield f"data: {result}\n\n"
+
                             except json.JSONDecodeError:
                                 continue
                         else:
@@ -81,12 +89,12 @@ class DefaultChatModel:
                                 # Try to parse as non-SSE JSON
                                 chunk = json.loads(decoded_line)
                                 response_text = chunk.get("response", "")
-
                                 if response_text:
                                     result = json.dumps(
                                         {"content": response_text, "done": False}
                                     )
                                     yield f"data: {result}\n\n"
+
                             except json.JSONDecodeError:
                                 continue
 

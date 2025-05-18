@@ -4,6 +4,7 @@ from typing import Optional, List, Dict
 
 @dataclass
 class ChatRequest:
+    id_token: Optional[str] = None
     prompt: Optional[str] = None
     messages: Optional[List[Dict[str, str]]] = field(default_factory=list)
     model: Optional[str] = None
