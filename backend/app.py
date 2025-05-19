@@ -7,8 +7,8 @@ Use `print("some text", flush=True)` instead.
 import os
 import sys
 import argparse
+from datetime import datetime
 from requests import post
-from dotenv import load_dotenv
 from flask import Flask, request, Response, jsonify
 from flask_cors import CORS
 from custom_types import ChatRequest
@@ -40,8 +40,6 @@ else:
 port = int(os.environ.get("PORT", args.port))
 debug = os.environ.get("DEBUG", "False").lower() == "true" or args.debug
 
-# Set the environment variable for the server
-load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"))
 # Initializing the chat model
 default_model = DefaultChatModel()
 ollama_model = OllamaChatModel()
@@ -74,10 +72,15 @@ def stream_pinac_cloud():
         chat_request = ChatRequest.from_json(data)
 
         if chat_request.web_search:
+            current_date = datetime.now().strftime("%B %d, %Y")
             response = post(
-                os.environ.get("DEVELOPMENT_WEB_SEARCH_SERVER"),
+                "http://pinac-oracle.pinacai.workers.dev",
                 headers={"Content-Type": "application/json"},
-                json={"messages": chat_request.messages, "prompt": chat_request.prompt},
+                json={
+                    "messages": chat_request.messages,
+                    "prompt": chat_request.prompt,
+                    "date": current_date,
+                },
             )
             final_prompt = response.json()
             chat_request.messages.extend(final_prompt)
@@ -128,10 +131,15 @@ def stream_ollama():
         chat_request = ChatRequest.from_json(data)
 
         if chat_request.web_search:
+            current_date = datetime.now().strftime("%B %d, %Y")
             response = post(
-                os.environ.get("DEVELOPMENT_WEB_SEARCH_SERVER"),
+                "http://pinac-oracle.pinacai.workers.dev",
                 headers={"Content-Type": "application/json"},
-                json={"messages": chat_request.messages, "prompt": chat_request.prompt},
+                json={
+                    "messages": chat_request.messages,
+                    "prompt": chat_request.prompt,
+                    "date": current_date,
+                },
             )
             final_prompt = response.json()
             chat_request.messages.extend(final_prompt)

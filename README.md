@@ -39,10 +39,10 @@ Overview of File Structure in Brief to Help You Get Started.
       ├── backend/
       |   ├── models/
       |   ├── rag/
-      |   ├── web_scraper/
       |   ├── app.py
       |   ├── app.spec
       |   ├── build_app.py
+      |   ├── custom_types.py
       |   └── requirements.txt
       |
       └── src/

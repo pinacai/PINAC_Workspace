@@ -14,13 +14,14 @@ class ChatRequest:
     temperature: Optional[float] = 0.7
     top_p: Optional[float] = 0.95
     top_k: Optional[int] = 40
-    max_tokens: Optional[int] = 4000
+    max_tokens: Optional[int] = 2096
     # extra contexts
     rag: Optional[bool] = False
     documents_path: Optional[str] = None
     web_search: Optional[bool] = False
     quick_search: Optional[bool] = False
     better_search: Optional[bool] = False
+    date: Optional[str] = None
 
     @classmethod
     def from_json(cls, data):

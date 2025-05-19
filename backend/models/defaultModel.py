@@ -1,7 +1,5 @@
-import os
 import json
 from requests import post
-from dotenv import load_dotenv
 from custom_types import ChatRequest
 
 
@@ -9,8 +7,7 @@ class DefaultChatModel:
     """A default chat model that uses a custom API for chat completions."""
 
     def __init__(self):
-        load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"))
-        self.api_endpoint = os.environ.get("DEVELOPMENT_SERVER")
+        self.api_endpoint = "https://pinac-nexus.pinacai.workers.dev"
 
     @property
     def _llm_type(self) -> str:
