@@ -1,9 +1,9 @@
 import React, { createContext, useState, useEffect } from "react";
 
 export const ModelSettingsContext = createContext<{
-  modelType: "Pinac CLoud Model" | "Ollama Model";
+  modelType: "Pinac Cloud Model" | "Ollama Model";
   setModelType: React.Dispatch<
-    React.SetStateAction<"Pinac CLoud Model" | "Ollama Model">
+    React.SetStateAction<"Pinac Cloud Model" | "Ollama Model">
   >;
   pinacCloudModel: "Base Model";
   setPinacCloudModel: React.Dispatch<React.SetStateAction<"Base Model">>;
@@ -22,9 +22,9 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
 }) => {
   const [modelType, setModelType] = useState(() => {
     const choice = localStorage.getItem("model-type") as
-      | "Pinac CLoud Model"
+      | "Pinac Cloud Model"
       | "Ollama Model";
-    return choice ? choice : "Pinac CLoud Model";
+    return choice ? choice : "Pinac Cloud Model";
   });
 
   const [pinacCloudModel, setPinacCloudModel] = useState(() => {
@@ -39,7 +39,7 @@ export const ModelSettingsProvider: React.FC<ModelSettingsProviderProps> = ({
 
   const setValue = (valueName: string, value: string) => {
     if (valueName === "model-type") {
-      const typedValue = value as "Pinac CLoud Model" | "Ollama Model";
+      const typedValue = value as "Pinac Cloud Model" | "Ollama Model";
       setModelType(typedValue);
     } else if (valueName === "pinac-cloud-model") {
       const typedValue = value as "Base Model";

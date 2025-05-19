@@ -11,7 +11,6 @@ import findFreePort from "find-free-port";
 import isDev from "electron-is-dev";
 import { ChildProcessWithoutNullStreams } from "child_process";
 
-//
 // ====================================================== //
 //         Functions to Manage Python Backend             //
 // ====================================================== //
@@ -126,7 +125,6 @@ const stopPythonBackend = () => {
   }
 };
 
-//
 // ============================================================ //
 //          Creating Main Window and Initializing App           //
 // ============================================================ //
@@ -270,6 +268,25 @@ ipcMain.on("get-backend-port", (event) => {
   event.reply("backend-port", backendPort);
 });
 
+ipcMain.on("get-backend-port-n-idToken", (event) => {
+  const idToken = tokenManager.retrieveToken("idToken");
+  event.reply("backend-port-n-idToken", {
+    port: backendPort,
+    idToken: idToken,
+  });
+});
+
+ipcMain.on("refresh-idToken", (event) => {
+  refreshIdToken(tokenManager)
+    .then(() => {
+      const idToken = tokenManager.retrieveToken("idToken");
+      event.reply("refreshed-idToken", idToken);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
+
 ipcMain.on("logout", () => {
   fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
   tokenManager.clearAllTokens();
@@ -346,7 +363,7 @@ ipcMain.on("maximize", () => {
 ipcMain.on("close", () => {
   if (mainWindow) {
     // Set a flag to skip any confirmation dialogs or save prompts
-    mainWindow.webContents.closeDevTools(); // Close any open DevTools which can slow down closure
+    mainWindow.webContents.closeDevTools();
     // For immediate visual feedback, hide the window first
     mainWindow.hide();
     // Force garbage collection of any resources
@@ -357,184 +374,6 @@ ipcMain.on("close", () => {
     if (process.platform !== "darwin") {
       app.exit(0); // More immediate than app.quit()
     }
-  }
-});
-
-// ======================================================== //
-//                 Requesting Cloud Server                  //
-// ======================================================== //
-
-ipcMain.handle("fetch-cloud-ai-stream", async (event, requestData) => {
-  const handleStreamError = (message: string) => {
-    console.error("Cloud AI request error:", message);
-    event.sender.send("cloud-ai-stream-error", message);
-  };
-
-  const makeStreamRequest = async (idToken: string) => {
-    try {
-      const response = await fetch(
-        "https://pinacworkspace.pages.dev/api/chat/regular",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${idToken}`,
-          },
-          body: JSON.stringify(requestData),
-        }
-      );
-
-      // Handle HTTP errors
-      if (!response.ok) {
-        // Check specifically for auth/token errors
-        if (response.status === 401 || response.status === 403) {
-          return {
-            code: "TOKEN_EXPIRED",
-            message: "Authentication token expired",
-          };
-        }
-        const responseBody = await response.json();
-        return {
-          code: "SERVER_ERROR",
-          message: `Status (${response.status}): ${
-            responseBody.message ||
-            responseBody.error ||
-            "INTERNAL SERVER ERROR"
-          }`,
-        };
-      }
-
-      // For streaming responses
-      if (!response.body) {
-        return { code: "EMPTY_RESPONSE", message: "Response body is null" };
-      }
-
-      // Process the stream
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
-
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-
-          if (done) {
-            // If there's anything left in the buffer, send it
-            if (buffer.trim().length > 0) {
-              event.sender.send("cloud-ai-stream-chunk", buffer);
-            }
-
-            // Signal that streaming is complete
-            event.sender.send("cloud-ai-stream-done");
-            break;
-          }
-
-          // Decode the chunk and add it to our buffer
-          const chunk = decoder.decode(value, { stream: true });
-          buffer += chunk;
-
-          // Process complete SSE messages from the buffer
-          let newlineIndex;
-          while ((newlineIndex = buffer.indexOf("\n")) >= 0) {
-            const line = buffer.slice(0, newlineIndex);
-            buffer = buffer.slice(newlineIndex + 1);
-
-            if (line.trim().length > 0) {
-              event.sender.send("cloud-ai-stream-chunk", line);
-            }
-          }
-        }
-        return { code: "SUCCESS" };
-      } catch (error: any) {
-        return {
-          code: "STREAM_PROCESSING_ERROR",
-          message: error?.message || "Error processing stream data",
-        };
-      }
-    } catch (error: any) {
-      return {
-        code: "FETCH_ERROR",
-        message: error?.message || "Network error while contacting AI server",
-      };
-    }
-  };
-
-  try {
-    // check for RAG
-    if (requestData.rag) {
-      const response = await fetch(
-        `http://localhost:${backendPort}/api/rag/default-embedder`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            prompt: requestData.prompt,
-            rag: requestData.rag,
-            documents_path: requestData.documents_path,
-          }),
-        }
-      );
-      const context = await response.json();
-      requestData.prompt = `User query: ${requestData.prompt}\n\nAnswer the following question based on the provided context. If you cannot answer the question based on the context, say so.\n\nContext:\n${context}`;
-    }
-    // check for Web search
-    else if (requestData.web_search && requestData.quick_search) {
-      const response = await fetch(
-        `http://localhost:${backendPort}/api/web/search/quick-search`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            prompt: requestData.prompt,
-          }),
-        }
-      );
-      const searchResult = await response.json();
-      requestData.prompt = `User query: ${requestData.prompt}\n\nI've searched the web for information to help answer this query. Here are the search results:\n\n${searchResult}\n\nBased on these search results, please provide a comprehensive and accurate answer to the user's query.\nIf the search results don't contain enough information, please say so and provide the best answer based on your knowledge, clearly indicating what information comes from the search results and what comes from your pre-existing knowledge.`;
-    }
-
-    // First attempt with existing token
-    let idToken = tokenManager.retrieveToken("idToken") || "";
-    let result = await makeStreamRequest(idToken);
-
-    // If token expired, try refreshing it
-    if (result.code === "TOKEN_EXPIRED") {
-      try {
-        await refreshIdToken(tokenManager);
-        idToken = tokenManager.retrieveToken("idToken") || "";
-
-        if (!idToken) {
-          handleStreamError("Failed to refresh authentication token");
-          throw new Error("Failed to refresh authentication token");
-        }
-
-        // Try again with the new token
-        result = await makeStreamRequest(idToken);
-      } catch (refreshError: any) {
-        if (refreshError.message === "TOKEN_EXPIRED") {
-          handleStreamError("You are logged out. Please login again.");
-          throw new Error("You are logged out. Please login again.");
-        }
-        handleStreamError(`Token refresh failed: ${refreshError.message}`);
-        throw refreshError;
-      }
-    }
-
-    // Handle any remaining errors from the request
-    if (result.code !== "SUCCESS") {
-      handleStreamError(result.message);
-      throw new Error(result.message);
-    }
-
-    return true;
-  } catch (error: any) {
-    // This catch handles any errors not already processed
-    handleStreamError(error.message || "Unknown error occurred");
-    throw error;
   }
 });
 

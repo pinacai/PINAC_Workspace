@@ -4,23 +4,18 @@ In the backend files, normal `print("some text")` will not work.
 Use `print("some text", flush=True)` instead.
 """
 
-from flask import Flask, request, Response, jsonify
-from flask_cors import CORS
 import os
 import sys
 import argparse
+from datetime import datetime
+from requests import post
+from flask import Flask, request, Response, jsonify
+from flask_cors import CORS
 from custom_types import ChatRequest
-from web_scraper.duckDuckGo_search import duckDuckGo_search
-from rag.default_embedder import (
-    DefaultRAG,
-    check_embedding_model,
-    download_embedding_model,
-)
-from models.useOllama import (
-    generate_response_stream,
-    model_list,
-    ensure_ollama_running,
-)
+from rag.functions import check_embedding_model, download_embedding_model
+from rag.default_embedder import DefaultRAG
+from models.defaultModel import DefaultChatModel
+from models.ollamaModel import OllamaChatModel
 
 app = Flask(__name__)
 CORS(app)
@@ -45,6 +40,10 @@ else:
 port = int(os.environ.get("PORT", args.port))
 debug = os.environ.get("DEBUG", "False").lower() == "true" or args.debug
 
+# Initializing the chat model
+default_model = DefaultChatModel()
+ollama_model = OllamaChatModel()
+
 
 @app.route("/api/status", methods=["GET"])
 def status():
@@ -63,31 +62,61 @@ def default_embedder_download():
     return jsonify(status)
 
 
-@app.route("/api/rag/default-embedder", methods=["POST"])
-def default_embedder():
+@app.route("/api/chat/pinac-cloud/stream", methods=["POST"])
+def stream_pinac_cloud():
     try:
         if not request.is_json:
             return jsonify({"error": "Content-Type must be application/json"}), 400
 
         data = request.get_json()
         chat_request = ChatRequest.from_json(data)
-        rag = DefaultRAG()
-        rag.process_pdf(chat_request.documents_path)
-        contexts = rag.similarity_search(chat_request.prompt)
-        return jsonify("\n\n".join(contexts))
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
+        if chat_request.web_search:
+            current_date = datetime.now().strftime("%B %d, %Y")
+            response = post(
+                "http://pinac-oracle.pinacai.workers.dev",
+                headers={"Content-Type": "application/json"},
+                json={
+                    "messages": chat_request.messages,
+                    "prompt": chat_request.prompt,
+                    "date": current_date,
+                },
+            )
+            final_prompt = response.json()
+            chat_request.messages.extend(final_prompt)
+            return Response(
+                default_model._generate(chat_request), mimetype="text/event-stream"
+            )
 
-@app.route("/api/web/search/quick-search", methods=["POST"])
-def quick_search_result():
-    try:
-        if not request.is_json:
-            return jsonify({"error": "Content-Type must be application/json"}), 400
+        elif chat_request.rag:
+            rag = DefaultRAG()
+            rag.process_pdf(chat_request.documents_path)
+            context_chunk = rag.similarity_search(chat_request.prompt)
+            context = "\n---\n".join(context_chunk)
+            chat_request.messages.append(
+                {
+                    "role": "system",
+                    "content": (
+                        "You are an expert assistant. Use ONLY the following context to give a clear, structured, comprehensive yet concise answer. "
+                        "If the answer is not present, reply: 'I couldn't find any relevant information.'\n\n"
+                        f'Context:\n"""\n{context}\n"""'
+                    ),
+                }
+            )
+            chat_request.messages.append(
+                {
+                    "role": "user",
+                    "content": chat_request.prompt,
+                }
+            )
+            return Response(
+                default_model._generate(chat_request), mimetype="text/event-stream"
+            )
 
-        data = request.get_json()
-        chat_request = ChatRequest.from_json(data)
-        return jsonify(duckDuckGo_search(chat_request.prompt))
+        chat_request.messages.append({"role": "user", "content": chat_request.prompt})
+        return Response(
+            default_model._generate(chat_request), mimetype="text/event-stream"
+        )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -100,8 +129,52 @@ def stream_ollama():
 
         data = request.get_json()
         chat_request = ChatRequest.from_json(data)
+
+        if chat_request.web_search:
+            current_date = datetime.now().strftime("%B %d, %Y")
+            response = post(
+                "http://pinac-oracle.pinacai.workers.dev",
+                headers={"Content-Type": "application/json"},
+                json={
+                    "messages": chat_request.messages,
+                    "prompt": chat_request.prompt,
+                    "date": current_date,
+                },
+            )
+            final_prompt = response.json()
+            chat_request.messages.extend(final_prompt)
+            return Response(
+                ollama_model._generate(chat_request), mimetype="text/event-stream"
+            )
+
+        elif chat_request.rag:
+            rag = DefaultRAG()
+            rag.process_pdf(chat_request.documents_path)
+            context_chunk = rag.similarity_search(chat_request.prompt)
+            context = "\n---\n".join(context_chunk)
+            chat_request.messages.append(
+                {
+                    "role": "system",
+                    "content": (
+                        "You are an expert assistant. Use ONLY the following context to give a clear, structured, comprehensive yet concise answer. "
+                        "If the answer is not present, reply: 'I couldn't find any relevant information.'\n\n"
+                        f'Context:\n"""\n{context}\n"""'
+                    ),
+                }
+            )
+            chat_request.messages.append(
+                {
+                    "role": "user",
+                    "content": chat_request.prompt,
+                }
+            )
+            return Response(
+                ollama_model._generate(chat_request), mimetype="text/event-stream"
+            )
+
+        chat_request.messages.append({"role": "user", "content": chat_request.prompt})
         return Response(
-            generate_response_stream(chat_request), mimetype="text/event-stream"
+            ollama_model._generate(chat_request), mimetype="text/event-stream"
         )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -110,7 +183,7 @@ def stream_ollama():
 @app.route("/api/ollama/models", methods=["GET"])
 def list_models():
     try:
-        ollama = model_list()
+        ollama = ollama_model.list_available_models()
         models = [model.model for model in ollama.models]
         return jsonify(models)
     except Exception as e:
@@ -118,7 +191,7 @@ def list_models():
 
 
 if __name__ == "__main__":
-    ensure_ollama_running()
+    ollama_model.ensure_ollama_running()
 
     if debug:
         # Use Flask's development server for debugging
