@@ -12,11 +12,8 @@ from dotenv import load_dotenv
 from flask import Flask, request, Response, jsonify
 from flask_cors import CORS
 from custom_types import ChatRequest
-from rag.default_embedder import (
-    DefaultRAG,
-    check_embedding_model,
-    download_embedding_model,
-)
+from rag.functions import check_embedding_model, download_embedding_model
+from rag.default_embedder import DefaultRAG
 from models.defaultModel import DefaultChatModel
 from models.ollamaModel import OllamaChatModel
 
@@ -67,22 +64,6 @@ def default_embedder_download():
     return jsonify(status)
 
 
-@app.route("/api/rag/default-embedder", methods=["POST"])
-def default_embedder():
-    try:
-        if not request.is_json:
-            return jsonify({"error": "Content-Type must be application/json"}), 400
-
-        data = request.get_json()
-        chat_request = ChatRequest.from_json(data)
-        rag = DefaultRAG()
-        rag.process_pdf(chat_request.documents_path)
-        contexts = rag.similarity_search(chat_request.prompt)
-        return jsonify("\n\n".join(contexts))
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
 @app.route("/api/chat/pinac-cloud/stream", methods=["POST"])
 def stream_pinac_cloud():
     try:
@@ -100,6 +81,31 @@ def stream_pinac_cloud():
             )
             final_prompt = response.json()
             chat_request.messages.extend(final_prompt)
+            return Response(
+                default_model._generate(chat_request), mimetype="text/event-stream"
+            )
+
+        elif chat_request.rag:
+            rag = DefaultRAG()
+            rag.process_pdf(chat_request.documents_path)
+            context_chunk = rag.similarity_search(chat_request.prompt)
+            context = "\n---\n".join(context_chunk)
+            chat_request.messages.append(
+                {
+                    "role": "system",
+                    "content": (
+                        "You are an expert assistant. Use ONLY the following context to give a clear, structured, comprehensive yet concise answer. "
+                        "If the answer is not present, reply: 'I couldn't find any relevant information.'\n\n"
+                        f'Context:\n"""\n{context}\n"""'
+                    ),
+                }
+            )
+            chat_request.messages.append(
+                {
+                    "role": "user",
+                    "content": chat_request.prompt,
+                }
+            )
             return Response(
                 default_model._generate(chat_request), mimetype="text/event-stream"
             )
@@ -129,6 +135,31 @@ def stream_ollama():
             )
             final_prompt = response.json()
             chat_request.messages.extend(final_prompt)
+            return Response(
+                ollama_model._generate(chat_request), mimetype="text/event-stream"
+            )
+
+        elif chat_request.rag:
+            rag = DefaultRAG()
+            rag.process_pdf(chat_request.documents_path)
+            context_chunk = rag.similarity_search(chat_request.prompt)
+            context = "\n---\n".join(context_chunk)
+            chat_request.messages.append(
+                {
+                    "role": "system",
+                    "content": (
+                        "You are an expert assistant. Use ONLY the following context to give a clear, structured, comprehensive yet concise answer. "
+                        "If the answer is not present, reply: 'I couldn't find any relevant information.'\n\n"
+                        f'Context:\n"""\n{context}\n"""'
+                    ),
+                }
+            )
+            chat_request.messages.append(
+                {
+                    "role": "user",
+                    "content": chat_request.prompt,
+                }
+            )
             return Response(
                 ollama_model._generate(chat_request), mimetype="text/event-stream"
             )

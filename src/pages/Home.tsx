@@ -250,10 +250,10 @@ const HomePage: React.FC = () => {
             messages: messages,
             stream: true,
             id_token: backendData.idToken,
-            // ...(attachmentContext?.attachment && {
-            //   rag: true,
-            //   documents_path: attachmentContext.attachment.path,
-            // }),
+            ...(attachmentContext?.attachment && {
+              rag: true,
+              documents_path: attachmentContext.attachment.path,
+            }),
             ...(webSearchContext?.webSearch && {
               web_search: true,
               quick_search: webSearchContext.quickSearch,
@@ -339,6 +339,7 @@ const HomePage: React.FC = () => {
     },
     [
       chatContext?.chatMsg,
+      attachmentContext?.attachment,
       webSearchContext,
       updateAIResponse,
       LogMessageToDatabase,
@@ -370,10 +371,10 @@ const HomePage: React.FC = () => {
           model: modelContext?.ollamaModel,
           messages: messages,
           stream: true,
-          // ...(attachmentContext?.attachment && {
-          //   rag: true,
-          //   documents_path: attachmentContext.attachment.path,
-          // }),
+          ...(attachmentContext?.attachment && {
+            rag: true,
+            documents_path: attachmentContext.attachment.path,
+          }),
           ...(webSearchContext?.webSearch && {
             web_search: true,
             quick_search: webSearchContext.quickSearch,
