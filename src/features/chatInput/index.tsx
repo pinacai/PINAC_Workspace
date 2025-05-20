@@ -252,9 +252,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           )}
 
         <textarea
-          className={`chatInput placeholder:text-gray-500 dark:placeholder:text-zinc-400 ${
-            buttonsDisabled && "cursor-none"
-          }`}
+          className={`h-[50px] max-h-[150px] w-full px-[10px] pt-[15px] pb-[10px] outline-none resize-none border-none bg-transparent flex-grow text-base font-sans
+         text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-zinc-400 placeholder:tracking-wider placeholder:font-sans 
+         ${buttonsDisabled && "cursor-none"}`}
           value={userInput}
           onChange={(event) => setUserInput(event.target.value)}
           onKeyDown={handleKeyDown}
