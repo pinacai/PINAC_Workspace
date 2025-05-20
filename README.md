@@ -1,16 +1,15 @@
 <div align="center">
 
-<h1 style="border-bottom: none">
-    <b><a href="https://pinacworkspace.pages.dev">PINAC Workspace</a></b>
-</h1>
-
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header.png" alt="header image">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header_2.jpg" alt="header image">
 
 <br>
 <br>
 
-![Star Badge](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
-![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
+<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/pinacai/PINAC_Workspace"/>
+<img alt="Github Last Commit" src="https://img.shields.io/github/last-commit/pinacai/PINAC_Workspace"/>
+<img alt="Github Contributors" src="https://img.shields.io/github/contributors/pinacai/PINAC_Workspace"/>
+<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/pinacai/PINAC_Workspace"/>
+
 [![View My Profile](https://img.shields.io/badge/View-My_Profile-green?logo=GitHub)](https://github.com/rajeshtechforge)
 
 A privacy-first, cross-platform, open-source desktop AI assistant for all
@@ -23,9 +22,29 @@ A privacy-first, cross-platform, open-source desktop AI assistant for all
 
 <br />
 
-## Why PINAC Workspace ?
+## PINAC Workspace
 
 PINAC Workspace is a modern-looking _privacy-first_ AI chat for desktops, seamlessly blending Electron-React for a modern user experience with powerfully Python backend. Unlock the full potential of AI with unparalleled simplicity and user-friendliness, while enjoying ultimate freedom and privacy.
+
+## ⭐ Features
+
+- **Freedom:** Pinac Workspace supports both local (Ollama) and our pinac-cloud model, providing you with the freedom to choose how you want to utilize the platform. 
+
+- **Privacy-first**: Use our app with complete peace of mind! We prioritize your privacy by ensuring that you can access all features without sharing any personal data. Plus, we do not store any data on our servers, making it a truly privacy-first experience.
+
+- **Local RAG**: Easily document attachments in your chat using our lightweight local RAG model. You also have the option to integrate and use your own RAG model for enhanced flexibility.
+
+- **Web Search**: Access real-time information with our web search feature, allowing you to quickly answer questions and stay updated. 
+
+- **Authentication**: Experience a secure Sign-in with Firebase Authentication and Sign-out, ensuring that your identity and data are protected.
+
+- **Chat History**: Easily access and review your chat history anytime, allowing you to revisit and refine your conversations. All chats are stored locally on your PC for enhanced privacy and convenience.
+
+- **Modern UI/UX**: Modern-looking AI chat interface for desktops, seamlessly blending Electron-React for a modern user experience with powerfully Python backend.
+
+## 🎨 UI-Design
+
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/UI-Design.jpg" alt="app screenshot">
 
 ## 📂 File Structure
 
