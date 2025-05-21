@@ -1,7 +1,6 @@
 import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "../../database/db";
+import { db, deleteAllSessions } from "../database/db";
 import { SessionCard } from "./components/SessionCard";
-import { deleteAllSessions } from "../../database/db";
 
 // icons
 import { CiSearch } from "react-icons/ci";

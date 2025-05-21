@@ -86,13 +86,12 @@ Overview of File Structure in Brief to Help You Get Started.
           │   ├── ThemeManager.ts
           │   └── WelcomeText.tsx
           │
-          ├── database/
-          |
           ├── features/
           │   ├── appSettings/
           │   ├── sidebar/
           │   ├── chatHistory/
           │   ├── chatInput/
+          │   ├── database/
           │   └── messageBubble/
           │
           └── pages/

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useRef } from "react";
-import { generateUUID } from "../database/UUID";
+import { generateUUID } from "../features/database/UUID";
 
 export const ChatMsgContext = createContext<{
   chatMsg: ChatMessage[];

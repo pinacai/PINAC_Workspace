@@ -11,7 +11,7 @@ import { GreetingText } from "../components/GreetingText";
 import { AiMsgBubble, AiLoader } from "../features/messageBubble/AiBubble";
 import { UserMsgBubble } from "../features/messageBubble/UserBubble";
 import { ChatInput } from "../features/chatInput";
-import { startNewSession, addMsgToSession } from "../database/db";
+import { startNewSession, addMsgToSession } from "../features/database/db";
 
 // context
 import { ChatMsgContext } from "../context/ChatMsg";

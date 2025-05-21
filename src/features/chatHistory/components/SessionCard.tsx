@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { WelcomeTextContext } from "../../../context/WelcomeText";
 import { ChatMsgContext } from "../../../context/ChatMsg";
-import { getSession } from "../../../database/db";
-import { deleteSession } from "../../../database/db";
+import { getSession, deleteSession } from "../../database/db";
 import { SetChatBubble } from "../../messageBubble/SetMsgBubble";
 
 // icons
