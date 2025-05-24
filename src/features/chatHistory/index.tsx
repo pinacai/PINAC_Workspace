@@ -8,7 +8,10 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { GoHistory } from "react-icons/go";
 
 export const ChatHistory: React.FC = () => {
-  const sessions = useLiveQuery(() => db.chatSessions.toArray(), []);
+  const sessions = useLiveQuery(
+    () => db.chatSessions.orderBy("timestamp").reverse().toArray(),
+    []
+  );
 
   const handleDeleteAllSessions = () => {
     deleteAllSessions().catch((error) => {
