@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header_2.jpg" alt="header image">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/header_2.png" alt="header image">
 
 <br>
 <br>
@@ -44,7 +44,7 @@ PINAC Workspace is a modern-looking _privacy-first_ AI chat for desktops, seamle
 
 ## 🎨 UI-Design
 
-<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/UI-Design.jpg" alt="app screenshot">
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/UI-Design.png" alt="app screenshot">
 
 ## 📂 File Structure
 
@@ -100,6 +100,9 @@ Overview of File Structure in Brief to Help You Get Started.
               └── styles/
 
 ## 🚀 Getting Started
+
+> [!NOTE]  
+> Make sure Ollama is installed in your system
 
 1. Clone the Repository
 
