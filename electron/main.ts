@@ -3,9 +3,6 @@ import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
 import path from "node:path";
 import * as fs from "fs";
-import SecureTokenManager from "./utilis/tokenManager";
-import SecureMasterKeyManager from "./utilis/masterKeyManager";
-import { refreshIdToken } from "./utilis/authManager";
 // @ts-ignore
 import findFreePort from "find-free-port";
 import isDev from "electron-is-dev";
@@ -246,76 +243,96 @@ app.whenReady().then(() => {
   createMainWindow();
 });
 
-// ================================================== //
-//      Initialize TokenManager with the key          //
-// ================================================== //
-
-const masterKey = SecureMasterKeyManager.getPersistentMasterKey();
-const derivedKey = SecureMasterKeyManager.deriveMasterKey(masterKey); // Derive an additional key for extra security
-const tokenManager = new SecureTokenManager(derivedKey);
-
 // ======================================================================== //
 //        frontend request to backend (for backend functionalities)          //
 // ======================================================================== //
 
-// Initial Auth Checking
-ipcMain.on("check-auth-status", (event) => {
-  const status = tokenManager.hasToken("idToken");
-  event.reply("auth-response", { status: status });
+// Initial Auth Checking - now delegates to backend
+ipcMain.on("check-auth-status", async (event) => {
+  try {
+    const response = await fetch(
+      `http://localhost:${backendPort}/api/auth/status`
+    );
+    const data = await response.json();
+    event.reply("auth-response", { status: data.authenticated });
+  } catch (error) {
+    event.reply("auth-response", { status: false });
+  }
 });
 
 ipcMain.on("get-backend-port", (event) => {
   event.reply("backend-port", backendPort);
 });
 
-ipcMain.on("get-backend-port-n-idToken", (event) => {
-  const idToken = tokenManager.retrieveToken("idToken");
-  event.reply("backend-port-n-idToken", {
-    port: backendPort,
-    idToken: idToken,
-  });
-});
-
-ipcMain.on("refresh-idToken", (event) => {
-  refreshIdToken(tokenManager)
-    .then(() => {
-      const idToken = tokenManager.retrieveToken("idToken");
-      event.reply("refreshed-idToken", idToken);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-});
-
-ipcMain.on("logout", () => {
-  fs.unlink(path.join(userDataPath, "user-info.json"), () => {});
-  tokenManager.clearAllTokens();
-});
-
-ipcMain.on("get-user-info", (event) => {
-  fs.readFile(path.join(userDataPath, "user-info.json"), "utf8", (_, data) => {
-    try {
-      const userData = JSON.parse(data);
-      event.reply("backend-response", userData);
-    } catch {
-      const userData = {
-        displayName: null,
-        nickname: null,
-        email: null,
-      };
-      event.reply("backend-response", userData);
+ipcMain.on("refresh-idToken", async (event) => {
+  try {
+    const response = await fetch(
+      `http://localhost:${backendPort}/api/auth/refresh`,
+      {
+        method: "POST",
+      }
+    );
+    const data = await response.json();
+    if (data.success) {
+      event.reply("refreshed-idToken", data.id_token);
+    } else {
+      console.error("Token refresh failed:", data.error);
     }
-  });
+  } catch (error) {
+    console.error("Token refresh error:", error);
+  }
 });
 
-ipcMain.on("save-user-info", (event, userInfo) => {
-  const userInfoJson = JSON.stringify(userInfo);
-  fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
-  event.reply("backend-response", {
-    error_occurred: false,
-    response: true,
-    error: null,
-  });
+ipcMain.on("logout", async () => {
+  try {
+    await fetch(`http://localhost:${backendPort}/api/auth/logout`, {
+      method: "POST",
+    });
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+});
+
+ipcMain.on("get-user-info", async (event) => {
+  try {
+    const response = await fetch(
+      `http://localhost:${backendPort}/api/auth/user-info`
+    );
+    const userData = await response.json();
+    event.reply("backend-response", userData);
+  } catch (error) {
+    const userData = {
+      displayName: null,
+      nickname: null,
+      email: null,
+    };
+    event.reply("backend-response", userData);
+  }
+});
+
+ipcMain.on("save-user-info", async (event, userInfo) => {
+  try {
+    const response = await fetch(
+      `http://localhost:${backendPort}/api/auth/user-info`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userInfo),
+      }
+    );
+    const result = await response.json();
+    event.reply("backend-response", {
+      error_occurred: !result.success,
+      response: result.success,
+      error: result.error || null,
+    });
+  } catch (error: any) {
+    event.reply("backend-response", {
+      error_occurred: true,
+      response: false,
+      error: error.message,
+    });
+  }
 });
 
 ipcMain.handle("open-file-dialog", async (_, acceptedFileTypes) => {
@@ -430,30 +447,33 @@ app.on("open-url", (event, url) => {
 //   Parse Auth data from URL   //
 // ============================ //
 
-const parseAuthDataFromUrl = (url: string) => {
+const parseAuthDataFromUrl = async (url: string) => {
   const urlObj = new URL(url);
   const encodedData = urlObj.searchParams.get("data");
   if (encodedData) {
-    const authData = JSON.parse(decodeURIComponent(encodedData));
-    //  Storing user-info  //
-    // ------------------- //
-    const userInfo = {
-      displayName: authData.displayName,
-      nickname: "",
-      email: authData.email,
-      photoURL: authData.photoUrl,
-    };
-    const userInfoJson = JSON.stringify(userInfo);
-    fs.writeFileSync(path.join(userDataPath, "user-info.json"), userInfoJson);
-    //    Storing TOKEN  //
-    // ----------------- //
     try {
-      tokenManager.storeToken("idToken", authData.idToken);
-      tokenManager.storeToken("refreshToken", authData.refreshToken);
-      tokenManager.storeToken("webApiKey", authData.webApiKey);
-      mainWindow?.reload(); // Reload the app
+      // Send auth data to backend instead of handling locally
+      const response = await fetch(
+        `http://localhost:${backendPort}/api/auth/deep-link`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ data: encodedData }),
+        }
+      );
+
+      const result = await response.json();
+      if (result.success) {
+        mainWindow?.reload(); // Reload the app
+      } else {
+        dialog.showErrorBox("Authentication Error", result.error);
+      }
     } catch (error) {
-      console.error("Token handling error:", error);
+      console.error("Deep link handling error:", error);
+      dialog.showErrorBox(
+        "Error",
+        "Something went wrong during authentication. Please try again."
+      );
     }
   } else {
     dialog.showErrorBox(

@@ -228,114 +228,103 @@ const HomePage: React.FC = () => {
       };
 
       // -----------------------------------------
-      window.ipcRenderer.send("get-backend-port-n-idToken");
-      window.ipcRenderer.once(
-        "backend-port-n-idToken",
-        async (_, backendData) => {
-          const apiUrl = `http://localhost:${backendData.port}/api/chat/pinac-cloud/stream`;
+      window.ipcRenderer.send("get-backend-port");
+      window.ipcRenderer.once("backend-port", async (_, backendPort) => {
+        const apiUrl = `http://localhost:${backendPort}/api/chat/pinac-cloud/stream`;
 
-          // getting conversation history
-          const messages =
-            chatContext?.chatMsg
-              .filter(
-                (msg) => msg.element[1] === "user" || msg.element[1] === "ai"
-              )
-              .map((msg) => ({
-                role: msg.element[1] === "user" ? "user" : "assistant",
-                content: msg.element[2],
-              })) ?? [];
+        // getting conversation history
+        const messages =
+          chatContext?.chatMsg
+            .filter(
+              (msg) => msg.element[1] === "user" || msg.element[1] === "ai"
+            )
+            .map((msg) => ({
+              role: msg.element[1] === "user" ? "user" : "assistant",
+              content: msg.element[2],
+            })) ?? [];
 
-          const requestData = {
-            prompt: prompt,
-            messages: messages,
-            stream: true,
-            id_token: backendData.idToken,
-            ...(attachmentContext?.attachment && {
-              rag: true,
-              documents_path: attachmentContext.attachment.path,
-            }),
-            ...(webSearchContext?.webSearch && {
-              web_search: true,
-              quick_search: webSearchContext.quickSearch,
-              better_search: webSearchContext.betterSearch,
-            }),
-          };
+        const requestData = {
+          prompt: prompt,
+          messages: messages,
+          stream: true,
+          ...(attachmentContext?.attachment && {
+            rag: true,
+            documents_path: attachmentContext.attachment.path,
+          }),
+          ...(webSearchContext?.webSearch && {
+            web_search: true,
+            quick_search: webSearchContext.quickSearch,
+            better_search: webSearchContext.betterSearch,
+          }),
+        };
 
-          // Cancel any ongoing request
-          if (abortControllerRef.current) {
-            abortControllerRef.current.abort();
+        // Cancel any ongoing request
+        if (abortControllerRef.current) {
+          abortControllerRef.current.abort();
+        }
+
+        // Create a new AbortController for this request
+        abortControllerRef.current = new AbortController();
+        const signal = abortControllerRef.current.signal;
+
+        try {
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+            signal: signal,
+          });
+
+          if (!response.ok) {
+            const resData = await response.json();
+
+            if (resData.error === "TOKEN_EXPIRED") {
+              // Handle token expiration silently without updating UI with error
+              window.ipcRenderer.send("refresh-idToken");
+              const newResponse = await fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestData),
+                signal: signal,
+              });
+
+              if (!newResponse.ok) {
+                const newResData = await newResponse.json();
+                throw new Error(newResData.error || "Unknown error");
+              }
+
+              streamResponse(signal, newResponse);
+              return; // Prevent throwing error for TOKEN_EXPIRED
+            }
+            throw new Error(resData.error || "Unknown error");
           }
-
-          // Create a new AbortController for this request
-          abortControllerRef.current = new AbortController();
-          const signal = abortControllerRef.current.signal;
-
-          try {
-            const response = await fetch(apiUrl, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(requestData),
-              signal: signal,
-            });
-
-            if (!response.ok) {
-              const resData = await response.json();
-
-              if (resData.error === "TOKEN_EXPIRED") {
-                // Handle token expiration silently without updating UI with error
-                window.ipcRenderer.send("refresh-idToken");
-                window.ipcRenderer.once(
-                  "refreshed-idToken",
-                  async (_, newIdToken) => {
-                    // Update the request headers with the new ID token
-                    requestData.id_token = newIdToken;
-                    const newResponse = await fetch(apiUrl, {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify(requestData),
-                      signal: signal,
-                    });
-
-                    if (!newResponse.ok) {
-                      const newResData = await newResponse.json();
-                      throw new Error(newResData.error || "Unknown error");
-                    }
-
-                    streamResponse(signal, newResponse);
-                  }
-                );
-                return; // Prevent throwing error for TOKEN_EXPIRED
-              }
-              throw new Error(resData.error || "Unknown error");
+          //
+          streamResponse(signal, response);
+        } catch (error) {
+          if (error instanceof Error) {
+            if (error.name !== "AbortError") {
+              console.error("Stream request error:", error.message);
+              updateAIResponse(
+                aiMessageKey,
+                `Error Occur: **${error.message}**\n\nTry again :(`,
+                true
+              );
+            } else {
+              console.log("Request aborted by user");
             }
-            //
-            streamResponse(signal, response);
-          } catch (error) {
-            if (error instanceof Error) {
-              if (error.name !== "AbortError") {
-                console.error("Stream request error:", error.message);
-                updateAIResponse(
-                  aiMessageKey,
-                  `Error Occur: **${error.message}**\n\nTry again :(`,
-                  true
-                );
-              } else {
-                console.log("Request aborted by user");
-              }
-            }
-            setButtonsDisabled(false);
-          } finally {
-            // Always clear the abort controller reference if it belongs to this request
-            if (abortControllerRef.current?.signal === signal) {
-              abortControllerRef.current = null;
-            }
+          }
+          setButtonsDisabled(false);
+        } finally {
+          // Always clear the abort controller reference if it belongs to this request
+          if (abortControllerRef.current?.signal === signal) {
+            abortControllerRef.current = null;
           }
         }
-      );
+      });
     },
     [
       chatContext?.chatMsg,

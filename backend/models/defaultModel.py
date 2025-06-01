@@ -7,14 +7,14 @@ class DefaultChatModel:
     """A default chat model that uses a custom API for chat completions."""
 
     def __init__(self):
-        self.api_endpoint = "https://pinac-nexus.pinacai.workers.dev"
+        self.api_endpoint = "https://api-gateway-r5japgvg7a-ew.a.run.app/api/ai"
 
     @property
     def _llm_type(self) -> str:
         """Return type of chat model."""
         return "default_chat_model"
 
-    def _generate(self, chat_request: ChatRequest):
+    def _generate(self, chat_request: ChatRequest, id_token: str):
         """Generate a chat completion using the custom API.
 
         Returns:
@@ -29,7 +29,7 @@ class DefaultChatModel:
         # Add Authorization header with Bearer token if available
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {chat_request.id_token}",
+            "Authorization": f"Bearer {id_token}",
         }
 
         response = post(
