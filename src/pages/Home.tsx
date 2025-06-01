@@ -279,30 +279,9 @@ const HomePage: React.FC = () => {
 
           if (!response.ok) {
             const resData = await response.json();
-
-            if (resData.error === "TOKEN_EXPIRED") {
-              // Handle token expiration silently without updating UI with error
-              window.ipcRenderer.send("refresh-idToken");
-              const newResponse = await fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(requestData),
-                signal: signal,
-              });
-
-              if (!newResponse.ok) {
-                const newResData = await newResponse.json();
-                throw new Error(newResData.error || "Unknown error");
-              }
-
-              streamResponse(signal, newResponse);
-              return; // Prevent throwing error for TOKEN_EXPIRED
-            }
             throw new Error(resData.error || "Unknown error");
           }
-          //
+          // Stream the response
           streamResponse(signal, response);
         } catch (error) {
           if (error instanceof Error) {

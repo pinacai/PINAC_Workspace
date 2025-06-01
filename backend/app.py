@@ -10,11 +10,11 @@ from json import dump, loads
 import argparse
 from datetime import datetime
 import urllib.parse
-from auth.auth_manager import AuthManager
-from requests import post
 from flask import Flask, request, Response, jsonify
 from flask_cors import CORS
 from custom_types import ChatRequest
+from auth.auth_manager import AuthManager
+from utils.api_client import APIClient
 from rag.functions import check_embedding_model, download_embedding_model
 from rag.default_embedder import DefaultRAG
 from models.defaultModel import DefaultChatModel
@@ -32,10 +32,8 @@ parser.add_argument("--debug", action="store_true", help="Run in debug mode")
 # and ignore arguments when running via PyInstaller
 if __name__ == "__main__":
     if getattr(sys, "frozen", False):
-        # Running as PyInstaller bundle
         args, _ = parser.parse_known_args()
     else:
-        # Running as script
         args = parser.parse_args()
 else:
     args = parser.parse_args([])
@@ -43,12 +41,15 @@ else:
 port = int(os.environ.get("PORT", args.port))
 debug = os.environ.get("DEBUG", "False").lower() == "true" or args.debug
 
+# Initialize auth manager
+auth_manager = AuthManager()
+
+# Initialize API client
+api_client = APIClient()
+
 # Initializing the chat model
 default_model = DefaultChatModel()
 ollama_model = OllamaChatModel()
-
-# Initialize auth manager
-auth_manager = AuthManager()
 
 
 @app.route("/api/status", methods=["GET"])
@@ -84,15 +85,6 @@ def handle_deep_link():
 def auth_status():
     is_authenticated = auth_manager.is_authenticated()
     return jsonify({"authenticated": is_authenticated})
-
-
-@app.route("/api/auth/refresh", methods=["POST"])
-def refresh_token():
-    result = auth_manager.refresh_id_token()
-    if result["success"]:
-        return jsonify({"success": True, "id_token": result["id_token"]})
-    else:
-        return jsonify({"error": result["error"]}), 400
 
 
 @app.route("/api/auth/user-info", methods=["GET"])
@@ -146,28 +138,27 @@ def stream_pinac_cloud():
         data = request.get_json()
         chat_request = ChatRequest.from_json(data)
 
-        id_token = auth_manager.get_id_token()
-        if not id_token:
-            return jsonify({"error": "No valid authentication token"}), 401
-
         if chat_request.web_search:
             current_date = datetime.now().strftime("%B %d, %Y")
-            response = post(
-                "https://api-gateway-r5japgvg7a-ew.a.run.app/api/search",
-                headers={
-                    "Content-Type": "application/json",
-                    "Authorization": f"Bearer {id_token}",
-                },
-                json={
-                    "messages": chat_request.messages,
-                    "prompt": chat_request.prompt,
-                    "date": current_date,
-                },
-            )
-            final_prompt = response.json()
-            chat_request.messages.extend(final_prompt)
+
+            search_data = {
+                "messages": chat_request.messages,
+                "prompt": chat_request.prompt,
+                "date": current_date,
+            }
+
+            try:
+                response = api_client.make_authenticated_request(
+                    "https://api-gateway-r5japgvg7a-ew.a.run.app/api/search",
+                    search_data,
+                )
+                final_prompt = response.json()
+                chat_request.messages.extend(final_prompt)
+            except ValueError as e:
+                return jsonify({"error": str(e)}), 401
+
             return Response(
-                default_model._generate(chat_request, id_token),
+                default_model._generate(chat_request),
                 mimetype="text/event-stream",
             )
 
@@ -193,13 +184,13 @@ def stream_pinac_cloud():
                 }
             )
             return Response(
-                default_model._generate(chat_request, id_token),
+                default_model._generate(chat_request),
                 mimetype="text/event-stream",
             )
 
         chat_request.messages.append({"role": "user", "content": chat_request.prompt})
         return Response(
-            default_model._generate(chat_request, id_token),
+            default_model._generate(chat_request),
             mimetype="text/event-stream",
         )
     except Exception as e:
@@ -216,25 +207,24 @@ def stream_ollama():
         chat_request = ChatRequest.from_json(data)
 
         if chat_request.web_search:
-            id_token = auth_manager.get_id_token()
-            if not id_token:
-                return jsonify({"error": "No valid authentication token"}), 401
-
             current_date = datetime.now().strftime("%B %d, %Y")
-            response = post(
-                "https://api-gateway-r5japgvg7a-ew.a.run.app/api/search",
-                headers={
-                    "Content-Type": "application/json",
-                    "Authorization": f"Bearer {id_token}",
-                },
-                json={
-                    "messages": chat_request.messages,
-                    "prompt": chat_request.prompt,
-                    "date": current_date,
-                },
-            )
-            final_prompt = response.json()
-            chat_request.messages.extend(final_prompt)
+
+            search_data = {
+                "messages": chat_request.messages,
+                "prompt": chat_request.prompt,
+                "date": current_date,
+            }
+
+            try:
+                response = api_client.make_authenticated_request(
+                    "https://api-gateway-r5japgvg7a-ew.a.run.app/api/search",
+                    search_data,
+                )
+                final_prompt = response.json()
+                chat_request.messages.extend(final_prompt)
+            except ValueError as e:
+                return jsonify({"error": str(e)}), 401
+
             return Response(
                 ollama_model._generate(chat_request), mimetype="text/event-stream"
             )

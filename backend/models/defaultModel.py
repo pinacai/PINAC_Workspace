@@ -1,6 +1,6 @@
 import json
-from requests import post
 from custom_types import ChatRequest
+from utils.api_client import APIClient
 
 
 class DefaultChatModel:
@@ -8,13 +8,14 @@ class DefaultChatModel:
 
     def __init__(self):
         self.api_endpoint = "https://api-gateway-r5japgvg7a-ew.a.run.app/api/ai"
+        self.api_client = APIClient()
 
     @property
     def _llm_type(self) -> str:
         """Return type of chat model."""
         return "default_chat_model"
 
-    def _generate(self, chat_request: ChatRequest, id_token: str):
+    def _generate(self, chat_request: ChatRequest, id_token: str = None):
         """Generate a chat completion using the custom API.
 
         Returns:
@@ -26,26 +27,9 @@ class DefaultChatModel:
             "stream": chat_request.stream,
         }
 
-        # Add Authorization header with Bearer token if available
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {id_token}",
-        }
-
-        response = post(
-            self.api_endpoint,
-            headers=headers,
-            json=request_body,
-            stream=chat_request.stream,
+        response = self.api_client.make_authenticated_request(
+            self.api_endpoint, request_body, stream=chat_request.stream
         )
-        if not response.ok:
-            if response.status_code == 403:
-                response_text = response.text
-                if 'Unauthorized: "exp" claim timestamp check failed' in response_text:
-                    raise ValueError("TOKEN_EXPIRED")
-
-                raise ValueError(response_text)
-            raise ValueError(f"Error from custom chat API: {response.text}")
 
         try:
             if chat_request.stream:
