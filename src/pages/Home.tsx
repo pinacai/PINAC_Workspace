@@ -12,6 +12,7 @@ import { AiMsgBubble, AiLoader } from "../features/messageBubble/AiBubble";
 import { UserMsgBubble } from "../features/messageBubble/UserBubble";
 import { ChatInput } from "../features/chatInput";
 import { startNewSession, addMsgToSession } from "../features/database/db";
+import { getBackendPort } from "../utils/backendPort";
 
 // context
 import { ChatMsgContext } from "../context/ChatMsg";
@@ -21,6 +22,7 @@ import { AttachmentContext } from "../context/Attachment";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 
 const HomePage: React.FC = () => {
+  const backendPort = getBackendPort();
   const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
   const modelContext = useContext(ModelSettingsContext);
@@ -226,80 +228,75 @@ const HomePage: React.FC = () => {
       };
 
       // -----------------------------------------
-      window.ipcRenderer.send("get-backend-port");
-      window.ipcRenderer.once("backend-port", async (_, backendPort) => {
-        const apiUrl = `http://localhost:${backendPort}/api/chat/pinac-cloud/stream`;
+      const apiUrl = `http://localhost:${backendPort}/api/chat/pinac-cloud/stream`;
 
-        // getting conversation history
-        const messages =
-          chatContext?.chatMsg
-            .filter(
-              (msg) => msg.element[1] === "user" || msg.element[1] === "ai"
-            )
-            .map((msg) => ({
-              role: msg.element[1] === "user" ? "user" : "assistant",
-              content: msg.element[2],
-            })) ?? [];
+      // getting conversation history
+      const messages =
+        chatContext?.chatMsg
+          .filter((msg) => msg.element[1] === "user" || msg.element[1] === "ai")
+          .map((msg) => ({
+            role: msg.element[1] === "user" ? "user" : "assistant",
+            content: msg.element[2],
+          })) ?? [];
 
-        const requestData = {
-          prompt: prompt,
-          messages: messages,
-          stream: true,
-          ...(attachmentContext?.attachment && {
-            rag: true,
-            documents_path: attachmentContext.attachment.path,
-          }),
-          ...(modelContext?.webSearch && {
-            web_search: true,
-          }),
-        };
+      const requestData = {
+        prompt: prompt,
+        messages: messages,
+        stream: true,
+        ...(attachmentContext?.attachment && {
+          rag: true,
+          documents_path: attachmentContext.attachment.path,
+        }),
+        ...(modelContext?.webSearch && {
+          web_search: true,
+        }),
+      };
 
-        // Cancel any ongoing request
-        if (abortControllerRef.current) {
-          abortControllerRef.current.abort();
+      // Cancel any ongoing request
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+
+      // Create a new AbortController for this request
+      abortControllerRef.current = new AbortController();
+      const signal = abortControllerRef.current.signal;
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+          signal: signal,
+        });
+
+        if (!response.ok) {
+          const resData = await response.json();
+          throw new Error(resData.error || "Unknown error");
         }
-
-        // Create a new AbortController for this request
-        abortControllerRef.current = new AbortController();
-        const signal = abortControllerRef.current.signal;
-
-        try {
-          const response = await fetch(apiUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestData),
-            signal: signal,
-          });
-
-          if (!response.ok) {
-            const resData = await response.json();
-            throw new Error(resData.error || "Unknown error");
-          }
-          // Stream the response
-          streamResponse(signal, response);
-        } catch (error) {
-          if (error instanceof Error) {
-            if (error.name !== "AbortError") {
-              console.error("Stream request error:", error.message);
-              updateAIResponse(
-                aiMessageKey,
-                `Error Occur: **${error.message}**\n\nTry again :(`,
-                true
-              );
-            } else {
-              console.log("Request aborted by user");
-            }
-          }
-          setButtonsDisabled(false);
-        } finally {
-          // Always clear the abort controller reference if it belongs to this request
-          if (abortControllerRef.current?.signal === signal) {
-            abortControllerRef.current = null;
+        // Stream the response
+        streamResponse(signal, response);
+      } catch (error) {
+        if (error instanceof Error) {
+          if (error.name !== "AbortError") {
+            console.error("Stream request error:", error.message);
+            updateAIResponse(
+              aiMessageKey,
+              `Error Occur: **${error.message}**\n\nTry again :(`,
+              true
+            );
+          } else {
+            console.log("Request aborted by user");
           }
         }
-      });
+        setButtonsDisabled(false);
+      } finally {
+        // Always clear the abort controller reference if it belongs to this request
+        if (abortControllerRef.current?.signal === signal) {
+          abortControllerRef.current = null;
+        }
+      }
     },
     [
       chatContext?.chatMsg,
@@ -314,148 +311,143 @@ const HomePage: React.FC = () => {
   // -------------------------------------------------------------
   const fetchOllamaResponse = useCallback(
     async (aiMessageKey: number, prompt: string) => {
-      window.ipcRenderer.send("get-backend-port");
-      window.ipcRenderer.once("backend-port", async (_, port) => {
-        let responseText = "";
-        const apiUrl = `http://localhost:${port}/api/chat/ollama/stream`;
+      let responseText = "";
+      const apiUrl = `http://localhost:${backendPort}/api/chat/ollama/stream`;
 
-        // getting conversation history
-        const messages =
-          chatContext?.chatMsg
-            .filter(
-              (msg) => msg.element[1] === "user" || msg.element[1] === "ai"
-            )
-            .map((msg) => ({
-              role: msg.element[1] === "user" ? "user" : "assistant",
-              content: msg.element[2],
-            })) ?? [];
+      // getting conversation history
+      const messages =
+        chatContext?.chatMsg
+          .filter((msg) => msg.element[1] === "user" || msg.element[1] === "ai")
+          .map((msg) => ({
+            role: msg.element[1] === "user" ? "user" : "assistant",
+            content: msg.element[2],
+          })) ?? [];
 
-        const requestData = {
-          prompt: prompt,
-          model: modelContext?.ollamaModel,
-          messages: messages,
-          stream: true,
-          ...(attachmentContext?.attachment && {
-            rag: true,
-            documents_path: attachmentContext.attachment.path,
-          }),
-          ...(modelContext?.webSearch && {
-            web_search: true,
-          }),
-        };
+      const requestData = {
+        prompt: prompt,
+        model: modelContext?.ollamaModel,
+        messages: messages,
+        stream: true,
+        ...(attachmentContext?.attachment && {
+          rag: true,
+          documents_path: attachmentContext.attachment.path,
+        }),
+        ...(modelContext?.webSearch && {
+          web_search: true,
+        }),
+      };
 
-        // Cancel any ongoing request
-        if (abortControllerRef.current) {
-          abortControllerRef.current.abort();
+      // Cancel any ongoing request
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+
+      // Create a new AbortController for this request
+      abortControllerRef.current = new AbortController();
+      const signal = abortControllerRef.current.signal;
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+          signal: signal,
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`HTTP error ${response.status}: ${errorText}`);
         }
 
-        // Create a new AbortController for this request
-        abortControllerRef.current = new AbortController();
-        const signal = abortControllerRef.current.signal;
+        // Get the response as a readable stream
+        const reader = response.body?.getReader();
+        if (!reader) {
+          throw new Error("Failed to get stream reader");
+        }
 
-        try {
-          const response = await fetch(apiUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestData),
-            signal: signal,
-          });
+        // Set up a TextDecoder to decode the stream chunks
+        const decoder = new TextDecoder();
 
-          if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`HTTP error ${response.status}: ${errorText}`);
+        let isDone = false;
+        while (!isDone && !signal.aborted) {
+          // Check for abort at the beginning of each loop
+          if (signal.aborted) {
+            console.log("Request was aborted");
+            reader.cancel();
+            break;
           }
 
-          // Get the response as a readable stream
-          const reader = response.body?.getReader();
-          if (!reader) {
-            throw new Error("Failed to get stream reader");
+          const { value, done } = await reader.read();
+
+          if (done) {
+            isDone = true;
+            setButtonsDisabled(false);
+            break;
           }
 
-          // Set up a TextDecoder to decode the stream chunks
-          const decoder = new TextDecoder();
+          const chunk = decoder.decode(value, { stream: true });
+          // Process SSE format - each event starts with "data: "
+          const eventChunks = chunk.split("\n\n");
 
-          let isDone = false;
-          while (!isDone && !signal.aborted) {
-            // Check for abort at the beginning of each loop
-            if (signal.aborted) {
-              console.log("Request was aborted");
-              reader.cancel();
-              break;
-            }
+          for (const eventChunk of eventChunks) {
+            if (eventChunk.startsWith("data: ")) {
+              try {
+                const eventData = JSON.parse(eventChunk.substring(6));
 
-            const { value, done } = await reader.read();
-
-            if (done) {
-              isDone = true;
-              setButtonsDisabled(false);
-              break;
-            }
-
-            const chunk = decoder.decode(value, { stream: true });
-            // Process SSE format - each event starts with "data: "
-            const eventChunks = chunk.split("\n\n");
-
-            for (const eventChunk of eventChunks) {
-              if (eventChunk.startsWith("data: ")) {
-                try {
-                  const eventData = JSON.parse(eventChunk.substring(6));
-
-                  if (eventData.error) {
-                    responseText = `**Error: ${eventData.error}**\nTry again :(`;
-                    updateAIResponse(aiMessageKey, responseText, true);
-                    isDone = true;
-                    break;
-                  }
-
-                  responseText += eventData.content;
-                  updateAIResponse(aiMessageKey, responseText, eventData.done);
-
-                  // Check if this is the last chunk
-                  if (eventData.done) {
-                    isDone = true;
-                    LogMessageToDatabase(aiMessageKey, "ai", responseText);
-                    setButtonsDisabled(false);
-                    break;
-                  }
-                } catch (parseError) {
-                  console.error(
-                    "Failed to parse event data:",
-                    parseError,
-                    "Raw data:",
-                    eventChunk
-                  );
+                if (eventData.error) {
+                  responseText = `**Error: ${eventData.error}**\nTry again :(`;
+                  updateAIResponse(aiMessageKey, responseText, true);
+                  isDone = true;
+                  break;
                 }
+
+                responseText += eventData.content;
+                updateAIResponse(aiMessageKey, responseText, eventData.done);
+
+                // Check if this is the last chunk
+                if (eventData.done) {
+                  isDone = true;
+                  LogMessageToDatabase(aiMessageKey, "ai", responseText);
+                  setButtonsDisabled(false);
+                  break;
+                }
+              } catch (parseError) {
+                console.error(
+                  "Failed to parse event data:",
+                  parseError,
+                  "Raw data:",
+                  eventChunk
+                );
               }
             }
           }
-          // If stream ended or was aborted
-          if (isDone || signal.aborted) {
-            reader.cancel();
-          }
-        } catch (error) {
-          if (error instanceof Error) {
-            // Display error message only if it's not an aborted request
-            if (error.name !== "AbortError") {
-              console.error("Stream request error:", error.message);
-              updateAIResponse(
-                aiMessageKey,
-                `Error Occur: **${error.message}**\n\nTry again :(`,
-                true
-              );
-            } else {
-              console.log("Request aborted by user");
-            }
-          }
-        } finally {
-          // Always clear the abort controller reference if it belongs to this request
-          if (abortControllerRef.current?.signal === signal) {
-            abortControllerRef.current = null;
+        }
+        // If stream ended or was aborted
+        if (isDone || signal.aborted) {
+          reader.cancel();
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          // Display error message only if it's not an aborted request
+          if (error.name !== "AbortError") {
+            console.error("Stream request error:", error.message);
+            updateAIResponse(
+              aiMessageKey,
+              `Error Occur: **${error.message}**\n\nTry again :(`,
+              true
+            );
+          } else {
+            console.log("Request aborted by user");
           }
         }
-      });
+      } finally {
+        // Always clear the abort controller reference if it belongs to this request
+        if (abortControllerRef.current?.signal === signal) {
+          abortControllerRef.current = null;
+        }
+      }
     },
     [
       chatContext?.chatMsg,

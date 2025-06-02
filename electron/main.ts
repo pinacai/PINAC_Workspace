@@ -3,23 +3,49 @@ import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
 import path from "node:path";
 import * as fs from "fs";
-// @ts-ignore
-import findFreePort from "find-free-port";
+import * as net from "net";
 import isDev from "electron-is-dev";
 import { ChildProcessWithoutNullStreams } from "child_process";
+
+// ====================================================== //
+//         Functions to Find Free Port for Backend        //
+// ====================================================== //
+
+const findFreePort = (startPort: number = 5000): Promise<number[]> => {
+  return new Promise((resolve, reject) => {
+    const server = net.createServer();
+
+    server.listen(startPort, () => {
+      const port = (server.address() as net.AddressInfo)?.port;
+      server.close(() => {
+        resolve([port]);
+      });
+    });
+
+    server.on("error", (err: any) => {
+      if (err.code === "EADDRINUSE") {
+        // Port is in use, try the next one
+        findFreePort(startPort + 1)
+          .then(resolve)
+          .catch(reject);
+      } else {
+        reject(err);
+      }
+    });
+  });
+};
 
 // ====================================================== //
 //         Functions to Manage Python Backend             //
 // ====================================================== //
 
 let pythonProcess: ChildProcessWithoutNullStreams | null;
-// @ts-ignore
 let backendPort: number | null;
 
 const startPythonBackend = async () => {
   try {
     // Find an available port
-    const [port] = await findFreePort(5000);
+    const [port] = await findFreePort();
     backendPort = port;
 
     console.log(`Starting Python backend on port ${port}`);
@@ -178,9 +204,6 @@ const createMainWindow = async () => {
 
   const { width, height } = savedSize || defaultSize;
 
-  // Start Python backend first
-  await startPythonBackend();
-
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: width,
@@ -204,6 +227,10 @@ const createMainWindow = async () => {
       "main-process-message",
       new Date().toLocaleString()
     );
+    // Send backend port immediately when window is ready
+    if (backendPort) {
+      mainWindow?.webContents.send("backend-port-initial", backendPort);
+    }
   });
 
   if (VITE_DEV_SERVER_URL) {
@@ -239,17 +266,15 @@ app.on("activate", () => {
   }
 });
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+  // Start Python backend first
+  await startPythonBackend();
   createMainWindow();
 });
 
 // ======================================================================== //
 //        frontend request to backend (for backend functionalities)          //
 // ======================================================================== //
-
-ipcMain.on("get-backend-port", (event) => {
-  event.reply("backend-port", backendPort);
-});
 
 ipcMain.on("get-user-info", async (event) => {
   try {

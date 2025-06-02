@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { getBackendPort } from "../utils/backendPort";
 
 export const AuthContext = React.createContext<{
   isAuthenticated: boolean;
@@ -9,29 +10,24 @@ export const AuthContext = React.createContext<{
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const backendPort = getBackendPort();
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   const checkInitialAuth = async () => {
-    window.ipcRenderer.send("get-backend-port");
-    window.ipcRenderer.once("backend-port", async (_, backendPort) => {
-      const response = await fetch(
-        `http://localhost:${backendPort}/api/auth/status`
-      );
-      response.json().then((data) => {
-        setIsAuthenticated(data.authenticated);
-      });
+    const response = await fetch(
+      `http://localhost:${backendPort}/api/auth/status`
+    );
+    response.json().then((data) => {
+      setIsAuthenticated(data.authenticated);
     });
   };
 
   const logout = async () => {
-    window.ipcRenderer.send("get-backend-port");
-    window.ipcRenderer.once("backend-port", async (_, backendPort) => {
-      const response = await fetch(
-        `http://localhost:${backendPort}/api/auth/logout`
-      );
-      response.json().then((data) => {
-        setIsAuthenticated(data.success);
-      });
+    const response = await fetch(
+      `http://localhost:${backendPort}/api/auth/logout`
+    );
+    response.json().then((data) => {
+      setIsAuthenticated(data.success);
     });
   };
 
