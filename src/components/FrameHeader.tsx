@@ -1,4 +1,4 @@
-import Modal from "./Modal";
+import Modal from "./ModalBox";
 import { FiMinus } from "react-icons/fi";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";

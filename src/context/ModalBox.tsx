@@ -3,26 +3,26 @@ import React, { createContext, useState, ReactNode } from "react";
 // types of content the modal can display
 export type ModalContentType = "settings" | "embedding-model-downloader" | null;
 
-export const ModalContext = createContext<{
+export const ModalBoxContext = createContext<{
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   modalContent: ModalContentType;
   setModalContent: React.Dispatch<React.SetStateAction<ModalContentType>>;
 } | null>(null);
 
-interface ModalProviderProps {
+interface ModalBoxProviderProps {
   children: ReactNode;
 }
 
-export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
+export const ModalBoxProvider: React.FC<ModalBoxProviderProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<ModalContentType>(null);
 
   return (
-    <ModalContext.Provider
+    <ModalBoxContext.Provider
       value={{ isOpen, setIsOpen, modalContent, setModalContent }}
     >
       {children}
-    </ModalContext.Provider>
+    </ModalBoxContext.Provider>
   );
 };

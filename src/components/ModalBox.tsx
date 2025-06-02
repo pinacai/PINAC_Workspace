@@ -1,22 +1,22 @@
 import React, { useContext } from "react";
-import { ModalContext } from "../context/Modal";
+import { ModalBoxContext } from "../context/ModalBox";
 import { Settings } from "../features/appSettings";
 import { EmbModelDownloader } from "../features/chatInput/embModelDownloader";
 
 const Modal: React.FC = () => {
-  const modalContext = useContext(ModalContext);
+  const modalBoxContext = useContext(ModalBoxContext);
 
-  if (!modalContext?.isOpen) return null;
+  if (!modalBoxContext?.isOpen) return null;
 
   const handleModalClose = () => {
-    if (modalContext) {
-      modalContext.setIsOpen(false);
-      modalContext.setModalContent(null);
+    if (modalBoxContext) {
+      modalBoxContext.setIsOpen(false);
+      modalBoxContext.setModalContent(null);
     }
   };
 
   const renderModalContent = () => {
-    switch (modalContext?.modalContent) {
+    switch (modalBoxContext?.modalContent) {
       case "settings":
         return <Settings />;
       case "embedding-model-downloader":

@@ -1,7 +1,7 @@
 const THEME_KEY = "preferred-theme";
 
 export const getStoredTheme = (): "light" | "dark" => {
-  return (localStorage.getItem(THEME_KEY) as "light" | "dark") || "light";
+  return (localStorage.getItem(THEME_KEY) as "light" | "dark") || "dark";
 };
 
 export const setStoredTheme = (theme: "light" | "dark") => {

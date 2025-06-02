@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { ChatHistory } from "../chatHistory";
-import { ModalContext } from "../../context/Modal";
+import { ModalBoxContext } from "../../context/ModalBox";
 import { Tooltip } from "./components/Tooltip";
 
 // Icons
@@ -21,11 +21,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
   setIsExpanded,
   clearChat,
 }) => {
-  const modalContext = useContext(ModalContext);
+  const modalBoxContext = useContext(ModalBoxContext);
 
   const openSettingsModal = () => {
-    modalContext?.setModalContent("settings");
-    modalContext?.setIsOpen(true);
+    modalBoxContext?.setModalContent("settings");
+    modalBoxContext?.setIsOpen(true);
     setIsExpanded(false);
   };
 

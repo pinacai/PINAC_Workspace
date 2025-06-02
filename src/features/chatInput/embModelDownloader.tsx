@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { ModalContext } from "../../context/Modal";
+import { ModalBoxContext } from "../../context/ModalBox";
 import { EmbeddingSettingsContext } from "../../context/EmbeddingSettings";
 
 // icon
@@ -7,8 +7,8 @@ import { IoDocumentAttachOutline } from "react-icons/io5";
 import { FiDownloadCloud } from "react-icons/fi";
 
 export const EmbModelDownloader = () => {
-  const modalContext = useContext(ModalContext);
-  const embeddibngContext = useContext(EmbeddingSettingsContext);
+  const modalBoxContext = useContext(ModalBoxContext);
+  const embeddingContext = useContext(EmbeddingSettingsContext);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
@@ -27,8 +27,8 @@ export const EmbModelDownloader = () => {
         }
         const res = await response.json();
         if (res.status == "success") {
-          embeddibngContext?.setIsDefaultModel(true);
-          modalContext?.setIsOpen(false);
+          embeddingContext?.setIsDefaultModel(true);
+          modalBoxContext?.setIsOpen(false);
         } else {
           setIsDownloading(false);
           setIsError(true);

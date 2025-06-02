@@ -17,7 +17,6 @@ import { startNewSession, addMsgToSession } from "../features/database/db";
 import { ChatMsgContext } from "../context/ChatMsg";
 import { WelcomeTextContext } from "../context/WelcomeText";
 import { ModelSettingsContext } from "../context/ModelSettings";
-import { WebSearchContext } from "../context/WebSearch";
 import { AttachmentContext } from "../context/Attachment";
 import { StopTextGeneration } from "../context/StopTextGeneration";
 
@@ -25,7 +24,6 @@ const HomePage: React.FC = () => {
   const welcomeTextContext = useContext(WelcomeTextContext);
   const chatContext = useContext(ChatMsgContext);
   const modelContext = useContext(ModelSettingsContext);
-  const webSearchContext = useContext(WebSearchContext);
   const attachmentContext = useContext(AttachmentContext);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState<boolean>(false);
   const [userInputText, setUserInputText] = useState<string>("");
@@ -251,10 +249,8 @@ const HomePage: React.FC = () => {
             rag: true,
             documents_path: attachmentContext.attachment.path,
           }),
-          ...(webSearchContext?.webSearch && {
+          ...(modelContext?.webSearch && {
             web_search: true,
-            quick_search: webSearchContext.quickSearch,
-            better_search: webSearchContext.betterSearch,
           }),
         };
 
@@ -308,7 +304,7 @@ const HomePage: React.FC = () => {
     [
       chatContext?.chatMsg,
       attachmentContext?.attachment,
-      webSearchContext,
+      modelContext?.webSearch,
       updateAIResponse,
       LogMessageToDatabase,
     ]
@@ -343,10 +339,8 @@ const HomePage: React.FC = () => {
             rag: true,
             documents_path: attachmentContext.attachment.path,
           }),
-          ...(webSearchContext?.webSearch && {
+          ...(modelContext?.webSearch && {
             web_search: true,
-            quick_search: webSearchContext.quickSearch,
-            better_search: webSearchContext.betterSearch,
           }),
         };
 
@@ -467,7 +461,7 @@ const HomePage: React.FC = () => {
       chatContext?.chatMsg,
       modelContext?.ollamaModel,
       attachmentContext?.attachment,
-      webSearchContext,
+      modelContext?.webSearch,
       updateAIResponse,
       LogMessageToDatabase,
     ]

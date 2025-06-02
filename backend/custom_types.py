@@ -18,8 +18,6 @@ class ChatRequest:
     rag: Optional[bool] = False
     documents_path: Optional[str] = None
     web_search: Optional[bool] = False
-    quick_search: Optional[bool] = False
-    better_search: Optional[bool] = False
     date: Optional[str] = None
 
     @classmethod
