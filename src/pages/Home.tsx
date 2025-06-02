@@ -7,7 +7,7 @@ import React, {
   useMemo,
 } from "react";
 import { Sidebar } from "../features/sidebar";
-import { GreetingText } from "../components/GreetingText";
+import { GreetingText } from "../components/greetingText";
 import { AiMsgBubble, AiLoader } from "../features/messageBubble/AiBubble";
 import { UserMsgBubble } from "../features/messageBubble/UserBubble";
 import { ChatInput } from "../features/chatInput";

@@ -247,50 +247,8 @@ app.whenReady().then(() => {
 //        frontend request to backend (for backend functionalities)          //
 // ======================================================================== //
 
-// Initial Auth Checking - now delegates to backend
-ipcMain.on("check-auth-status", async (event) => {
-  try {
-    const response = await fetch(
-      `http://localhost:${backendPort}/api/auth/status`
-    );
-    const data = await response.json();
-    event.reply("auth-response", { status: data.authenticated });
-  } catch (error) {
-    event.reply("auth-response", { status: false });
-  }
-});
-
 ipcMain.on("get-backend-port", (event) => {
   event.reply("backend-port", backendPort);
-});
-
-ipcMain.on("refresh-idToken", async (event) => {
-  try {
-    const response = await fetch(
-      `http://localhost:${backendPort}/api/auth/refresh`,
-      {
-        method: "POST",
-      }
-    );
-    const data = await response.json();
-    if (data.success) {
-      event.reply("refreshed-idToken", data.id_token);
-    } else {
-      console.error("Token refresh failed:", data.error);
-    }
-  } catch (error) {
-    console.error("Token refresh error:", error);
-  }
-});
-
-ipcMain.on("logout", async () => {
-  try {
-    await fetch(`http://localhost:${backendPort}/api/auth/logout`, {
-      method: "POST",
-    });
-  } catch (error) {
-    console.error("Logout error:", error);
-  }
 });
 
 ipcMain.on("get-user-info", async (event) => {

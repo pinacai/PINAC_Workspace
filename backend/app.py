@@ -108,13 +108,13 @@ def save_user_info():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/api/auth/logout", methods=["POST"])
+@app.route("/api/auth/logout", methods=["GET"])
 def logout():
     result = auth_manager.logout()
     if result["success"]:
         return jsonify({"success": True})
     else:
-        return jsonify({"error": result["error"]}), 500
+        return jsonify({"success": False, "error": result["error"]})
 
 
 @app.route("/api/rag/default-embedder/status", methods=["GET"])

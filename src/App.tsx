@@ -15,7 +15,6 @@ import HomePage from "./pages/Home";
 
 const App = () => {
   const isAuthenticated = useContext(AuthContext)?.isAuthenticated;
-  const isLoading = useContext(AuthContext)?.isLoading;
   const embeddingContext = useContext(EmbeddingSettingsContext);
 
   // check if default embedding model is downloaded
@@ -45,7 +44,7 @@ const App = () => {
           {isAuthenticated ? (
             <FrameHeader children={<HomePage />} />
           ) : (
-            <FrameHeader children={<SignInPage isLoading={isLoading} />} />
+            <FrameHeader children={<SignInPage />} />
           )}
         </ChatMsgProvider>
       </AttachmentProvider>
