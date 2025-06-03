@@ -56,6 +56,8 @@ Overview of File Structure in Brief to Help You Get Started.
       ├── electron/
       |
       ├── backend/
+      |   ├── auth/
+      |   ├── utils/
       |   ├── models/
       |   ├── rag/
       |   ├── app.py
@@ -72,18 +74,19 @@ Overview of File Structure in Brief to Help You Get Started.
           │   ├── FrameHeader.tsx
           │   ├── GreetingText.tsx
           │   ├── MarkdownRenderer.tsx
-          │   └── Modal.tsx
+          │   └── ModalBox.tsx
           │
           ├── context/
           │   ├── Attachment.tsx
           │   ├── Authentication.tsx
           │   ├── ChatMsg.tsx
-          |   ├── Modal.tsx
+          │   ├── EmbeddingSettings.tsx
+          |   ├── ModalBox.tsx
           │   ├── ModelSettings.tsx
           │   ├── OllamaSettings.tsx
-          │   ├── WebSearch.tsx
+          │   ├── SettingsProvider.ts
           │   ├── StopTextGeneration.ts
-          │   ├── ThemeManager.ts
+          │   ├── themeManager.ts
           │   └── WelcomeText.tsx
           │
           ├── features/
@@ -96,8 +99,7 @@ Overview of File Structure in Brief to Help You Get Started.
           │
           └── pages/
               ├── Home.tsx
-              ├── SignIn.tsx
-              └── styles/
+              └── SignIn.tsx
 
 ## 🚀 Getting Started
 
@@ -165,7 +167,3 @@ Thanks to our contributors, we have received huge support from the open-source c
 <a href="https://github.com/pinacai/PINAC_Workspace/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=pinacai/PINAC_Workspace" />
 </a>
-
-## 📢 Announcement
-
-We are also building the website for PINAC Workspace along with this app, where we are developing the backend api endpoints in it. If you want to contribute to it visit our repository <a href="https://github.com/pinacai/pinac_web">**PINAC Web**</a>
