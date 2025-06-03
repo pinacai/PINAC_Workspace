@@ -4,7 +4,6 @@ from typing import Optional, List, Dict
 
 @dataclass
 class ChatRequest:
-    id_token: Optional[str] = None
     prompt: Optional[str] = None
     messages: Optional[List[Dict[str, str]]] = field(default_factory=list)
     model: Optional[str] = None
@@ -19,8 +18,6 @@ class ChatRequest:
     rag: Optional[bool] = False
     documents_path: Optional[str] = None
     web_search: Optional[bool] = False
-    quick_search: Optional[bool] = False
-    better_search: Optional[bool] = False
     date: Optional[str] = None
 
     @classmethod

@@ -1,7 +1,6 @@
 import React from "react";
 import { ModelSettingsProvider } from "./ModelSettings";
 import { EmbeddingSettingsProvider } from "./EmbeddingSettings";
-import { WebSearchProvider } from "./WebSearch";
 
 const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -9,7 +8,7 @@ const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <ModelSettingsProvider>
       <EmbeddingSettingsProvider>
-        <WebSearchProvider>{children}</WebSearchProvider>
+        {children}
       </EmbeddingSettingsProvider>
     </ModelSettingsProvider>
   );

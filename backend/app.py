@@ -6,12 +6,15 @@ Use `print("some text", flush=True)` instead.
 
 import os
 import sys
+from json import dump, loads
 import argparse
 from datetime import datetime
-from requests import post
+import urllib.parse
 from flask import Flask, request, Response, jsonify
 from flask_cors import CORS
 from custom_types import ChatRequest
+from auth.auth_manager import AuthManager
+from utils.api_client import APIClient
 from rag.functions import check_embedding_model, download_embedding_model
 from rag.default_embedder import DefaultRAG
 from models.defaultModel import DefaultChatModel
@@ -29,16 +32,20 @@ parser.add_argument("--debug", action="store_true", help="Run in debug mode")
 # and ignore arguments when running via PyInstaller
 if __name__ == "__main__":
     if getattr(sys, "frozen", False):
-        # Running as PyInstaller bundle
         args, _ = parser.parse_known_args()
     else:
-        # Running as script
         args = parser.parse_args()
 else:
     args = parser.parse_args([])
 
 port = int(os.environ.get("PORT", args.port))
 debug = os.environ.get("DEBUG", "False").lower() == "true" or args.debug
+
+# Initialize auth manager
+auth_manager = AuthManager()
+
+# Initialize API client
+api_client = APIClient()
 
 # Initializing the chat model
 default_model = DefaultChatModel()
@@ -48,6 +55,66 @@ ollama_model = OllamaChatModel()
 @app.route("/api/status", methods=["GET"])
 def status():
     return jsonify({"status": "running", "port": port})
+
+
+@app.route("/api/auth/deep-link", methods=["POST"])
+def handle_deep_link():
+    try:
+        data = request.get_json()
+        encoded_data = data.get("data")
+
+        if not encoded_data:
+            return jsonify({"error": "No auth data provided"}), 400
+
+        # Decode the authentication data
+        auth_data = loads(urllib.parse.unquote(encoded_data))
+
+        # Store authentication data
+        result = auth_manager.store_auth_data(auth_data)
+
+        if result["success"]:
+            return jsonify({"success": True, "message": "Authentication successful"})
+        else:
+            return jsonify({"error": result["error"]}), 500
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/auth/status", methods=["GET"])
+def auth_status():
+    is_authenticated = auth_manager.is_authenticated()
+    return jsonify({"authenticated": is_authenticated})
+
+
+@app.route("/api/auth/user-info", methods=["GET"])
+def get_user_info():
+    user_info = auth_manager.get_user_info()
+    return jsonify(user_info)
+
+
+@app.route("/api/auth/user-info", methods=["POST"])
+def save_user_info():
+    try:
+        user_info = request.get_json()
+        user_data_dir = auth_manager.user_data_dir
+        user_info_file = os.path.join(user_data_dir, "user-info.json")
+
+        with open(user_info_file, "w") as f:
+            dump(user_info, f)
+
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/auth/logout", methods=["GET"])
+def logout():
+    result = auth_manager.logout()
+    if result["success"]:
+        return jsonify({"success": True})
+    else:
+        return jsonify({"success": False, "error": result["error"]})
 
 
 @app.route("/api/rag/default-embedder/status", methods=["GET"])
@@ -73,19 +140,26 @@ def stream_pinac_cloud():
 
         if chat_request.web_search:
             current_date = datetime.now().strftime("%B %d, %Y")
-            response = post(
-                "http://pinac-oracle.pinacai.workers.dev",
-                headers={"Content-Type": "application/json"},
-                json={
-                    "messages": chat_request.messages,
-                    "prompt": chat_request.prompt,
-                    "date": current_date,
-                },
-            )
-            final_prompt = response.json()
-            chat_request.messages.extend(final_prompt)
+
+            search_data = {
+                "messages": chat_request.messages,
+                "prompt": chat_request.prompt,
+                "date": current_date,
+            }
+
+            try:
+                response = api_client.make_authenticated_request(
+                    "https://api-gateway-r5japgvg7a-ew.a.run.app/api/search",
+                    search_data,
+                )
+                final_prompt = response.json()
+                chat_request.messages.extend(final_prompt)
+            except ValueError as e:
+                return jsonify({"error": str(e)}), 401
+
             return Response(
-                default_model._generate(chat_request), mimetype="text/event-stream"
+                default_model._generate(chat_request),
+                mimetype="text/event-stream",
             )
 
         elif chat_request.rag:
@@ -110,12 +184,14 @@ def stream_pinac_cloud():
                 }
             )
             return Response(
-                default_model._generate(chat_request), mimetype="text/event-stream"
+                default_model._generate(chat_request),
+                mimetype="text/event-stream",
             )
 
         chat_request.messages.append({"role": "user", "content": chat_request.prompt})
         return Response(
-            default_model._generate(chat_request), mimetype="text/event-stream"
+            default_model._generate(chat_request),
+            mimetype="text/event-stream",
         )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -132,17 +208,23 @@ def stream_ollama():
 
         if chat_request.web_search:
             current_date = datetime.now().strftime("%B %d, %Y")
-            response = post(
-                "http://pinac-oracle.pinacai.workers.dev",
-                headers={"Content-Type": "application/json"},
-                json={
-                    "messages": chat_request.messages,
-                    "prompt": chat_request.prompt,
-                    "date": current_date,
-                },
-            )
-            final_prompt = response.json()
-            chat_request.messages.extend(final_prompt)
+
+            search_data = {
+                "messages": chat_request.messages,
+                "prompt": chat_request.prompt,
+                "date": current_date,
+            }
+
+            try:
+                response = api_client.make_authenticated_request(
+                    "https://api-gateway-r5japgvg7a-ew.a.run.app/api/search",
+                    search_data,
+                )
+                final_prompt = response.json()
+                chat_request.messages.extend(final_prompt)
+            except ValueError as e:
+                return jsonify({"error": str(e)}), 401
+
             return Response(
                 ollama_model._generate(chat_request), mimetype="text/event-stream"
             )

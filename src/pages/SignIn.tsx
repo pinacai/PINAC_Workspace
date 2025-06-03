@@ -1,12 +1,7 @@
 import React from "react";
-// image
 import appLogo from "/icon/Full App Logo.svg";
 
-type SignInPageProps = {
-  isLoading?: boolean;
-};
-
-const SignInPage: React.FC<SignInPageProps> = ({ isLoading }) => {
+const SignInPage: React.FC = () => {
   const handleButtonClick = () => {
     window.ipcRenderer.send(
       "open-external-link",
@@ -20,14 +15,6 @@ const SignInPage: React.FC<SignInPageProps> = ({ isLoading }) => {
       "https://pinacworkspace.vercel.app/auth/sign-in/?app-auth=true"
     );
   };
-
-  if (isLoading) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center bg-[#090c13]">
-        <div className="h-10 rounded bg-white/90 aspect-[1.5] animate-[l3_2s_linear_infinite]"></div>
-      </div>
-    );
-  }
 
   return (
     <div className="h-screen w-full flex justify-center items-center bg-[#090c13] relative overflow-hidden">

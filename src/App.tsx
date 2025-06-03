@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { FrameHeader } from "./components/FrameHeader";
 import { EmbeddingSettingsContext } from "./context/EmbeddingSettings";
+import { getBackendPort, setBackendPort } from "./utils/backendPort";
 
 // context
 import { AuthContext } from "./context/Authentication";
@@ -15,13 +16,25 @@ import HomePage from "./pages/Home";
 
 const App = () => {
   const isAuthenticated = useContext(AuthContext)?.isAuthenticated;
-  const isLoading = useContext(AuthContext)?.isLoading;
   const embeddingContext = useContext(EmbeddingSettingsContext);
+
+  // Store backend port in localStorage when received
+  useEffect(() => {
+    const handleBackendPort = (_: any, port: number) => {
+      setBackendPort(port);
+    };
+
+    window.ipcRenderer.on("backend-port-initial", handleBackendPort);
+
+    return () => {
+      window.ipcRenderer.off("backend-port-initial", handleBackendPort);
+    };
+  }, []);
 
   // check if default embedding model is downloaded
   useEffect(() => {
-    window.ipcRenderer.send("get-backend-port");
-    window.ipcRenderer.once("backend-port", async (_, port) => {
+    const checkEmbeddingStatus = async () => {
+      const port = getBackendPort();
       try {
         const response = await fetch(
           `http://localhost:${port}/api/rag/default-embedder/status`
@@ -34,8 +47,10 @@ const App = () => {
       } catch (error) {
         console.error("Failed to fetch:", error);
       }
-    });
-  });
+    };
+
+    checkEmbeddingStatus();
+  }, []);
 
   // ---------------------------------------------------- //
   return (
@@ -45,7 +60,7 @@ const App = () => {
           {isAuthenticated ? (
             <FrameHeader children={<HomePage />} />
           ) : (
-            <FrameHeader children={<SignInPage isLoading={isLoading} />} />
+            <FrameHeader children={<SignInPage />} />
           )}
         </ChatMsgProvider>
       </AttachmentProvider>

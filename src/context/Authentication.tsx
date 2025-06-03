@@ -1,39 +1,43 @@
 import React, { useEffect, useState } from "react";
+import { getBackendPort } from "../utils/backendPort";
 
 export const AuthContext = React.createContext<{
   isAuthenticated: boolean;
   logout: () => void;
-  isLoading: boolean;
 } | null>(null);
 
 // Auth Provider
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading,setIsLoading]=useState(true);
+  const backendPort = getBackendPort();
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
-  const checkInitialAuth = () => {
-    window.ipcRenderer.send("check-auth-status");
-    window.ipcRenderer.once("auth-response", (_, response) => {
-      setIsAuthenticated(response.status);
-      setIsLoading(false);
+  const checkInitialAuth = async () => {
+    const response = await fetch(
+      `http://localhost:${backendPort}/api/auth/status`
+    );
+    response.json().then((data) => {
+      setIsAuthenticated(data.authenticated);
     });
   };
 
   const logout = async () => {
-    window.ipcRenderer.send("logout");
-    setIsAuthenticated(false);
-    setIsLoading(false);
+    const response = await fetch(
+      `http://localhost:${backendPort}/api/auth/logout`
+    );
+    response.json().then((data) => {
+      setIsAuthenticated(data.success);
+    });
   };
 
   // checking auth from main process
   useEffect(() => {
     checkInitialAuth();
-  }, []);
+  });
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated,isLoading, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,45 +1,44 @@
 import { useState, useContext } from "react";
-import { ModalContext } from "../../context/Modal";
+import { ModalBoxContext } from "../../context/ModalBox";
 import { EmbeddingSettingsContext } from "../../context/EmbeddingSettings";
+import { getBackendPort } from "../../utils/backendPort";
 
 // icon
 import { IoDocumentAttachOutline } from "react-icons/io5";
 import { FiDownloadCloud } from "react-icons/fi";
 
 export const EmbModelDownloader = () => {
-  const modalContext = useContext(ModalContext);
-  const embeddibngContext = useContext(EmbeddingSettingsContext);
+  const backendPort = getBackendPort();
+  const modalBoxContext = useContext(ModalBoxContext);
+  const embeddingContext = useContext(EmbeddingSettingsContext);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     setIsError(false);
     setIsDownloading(true);
-    window.ipcRenderer.send("get-backend-port");
-    window.ipcRenderer.once("backend-port", async (_, port) => {
-      try {
-        const response = await fetch(
-          `http://localhost:${port}/api/rag/default-embedder/download`
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error ${response.status}`);
-        }
-        const res = await response.json();
-        if (res.status == "success") {
-          embeddibngContext?.setIsDefaultModel(true);
-          modalContext?.setIsOpen(false);
-        } else {
-          setIsDownloading(false);
-          setIsError(true);
-          setErrorMessage(res.message);
-        }
-      } catch (error) {
+    try {
+      const response = await fetch(
+        `http://localhost:${backendPort}/api/rag/default-embedder/download`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
+      const res = await response.json();
+      if (res.status == "success") {
+        embeddingContext?.setIsDefaultModel(true);
+        modalBoxContext?.setIsOpen(false);
+      } else {
         setIsDownloading(false);
         setIsError(true);
-        setErrorMessage("Failed to download model." + error);
+        setErrorMessage(res.message);
       }
-    });
+    } catch (error) {
+      setIsDownloading(false);
+      setIsError(true);
+      setErrorMessage("Failed to download model." + error);
+    }
   };
 
   return (

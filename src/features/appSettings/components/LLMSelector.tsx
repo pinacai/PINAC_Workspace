@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import { DropdownMenu } from "./DropdownMenu";
 import { ModelSettingsContext } from "../../../context/ModelSettings";
+import { getBackendPort } from "../../../utils/backendPort";
 
 export const LLMSelector: React.FC = () => {
+  const backendPort = getBackendPort();
   const modelContext = useContext(ModelSettingsContext);
   const [ollamaModelList, setOllamaModelList] = useState([]);
 
   useEffect(() => {
-    window.ipcRenderer.send("get-backend-port");
-    window.ipcRenderer.once("backend-port", async (_, port) => {
+    const fetchOllamaModels = async () => {
       try {
         const response = await fetch(
-          `http://localhost:${port}/api/ollama/models`
+          `http://localhost:${backendPort}/api/ollama/models`
         );
 
         if (!response.ok) {
@@ -27,7 +28,9 @@ export const LLMSelector: React.FC = () => {
       } catch (err) {
         console.error(err);
       }
-    });
+    };
+
+    fetchOllamaModels();
   }, []);
 
   //
