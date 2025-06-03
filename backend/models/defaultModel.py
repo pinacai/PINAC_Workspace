@@ -27,7 +27,7 @@ class DefaultChatModel:
         }
 
         response = self.api_client.make_authenticated_request(
-            self.api_endpoint, request_body
+            self.api_endpoint, request_body, stream=True
         )
 
         try:
