@@ -2,16 +2,79 @@
 import React, { useState, useEffect } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import Prism from "prismjs";
+import "prismjs/themes/prism-solarizedlight.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useStopTextGeneration } from "../context/StopTextGeneration";
+
+// Import common languages
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-rust";
+import "prismjs/components/prism-go";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-c";
+import "prismjs/components/prism-csharp";
+import "prismjs/components/prism-cpp";
+import "prismjs/components/prism-css";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-sql";
 
 // Icons
 import { FiCopy } from "react-icons/fi";
 import { FaCheck } from "react-icons/fa6";
 
-const MAX_LENGTH_FOR_SPECIAL_BOLD_STYLE = 150;
+const MAX_LENGTH_FOR_SPECIAL_BOLD_STYLE = 120;
+
+// Custom syntax highlighter component
+const CustomSyntaxHighlighter: React.FC<{
+  language: string;
+  children: string;
+  showLineNumbers?: boolean;
+}> = ({ language, children, showLineNumbers = true }) => {
+  const [highlightedCode, setHighlightedCode] = useState("");
+
+  useEffect(() => {
+    try {
+      const highlighted = Prism.highlight(
+        children,
+        Prism.languages[language] || Prism.languages.text,
+        language
+      );
+      setHighlightedCode(highlighted);
+    } catch (error) {
+      setHighlightedCode(children);
+    }
+  }, [children, language]);
+
+  const lines = children.split("\n");
+
+  return (
+    <div className="w-full overflow-hidden relative">
+      <pre className="bg-transparent dark:bg-secondary-dark text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-none p-4 mb-10 rounded-b-lg overflow-x-auto text-sm font-mono">
+        <code>
+          {showLineNumbers ? (
+            <div className="flex">
+              <div className="select-none text-gray-500 pr-4 text-right min-w-[2rem]">
+                {lines.map((_, index) => (
+                  <div key={index}>{index + 1}</div>
+                ))}
+              </div>
+              <div
+                className="flex-1"
+                dangerouslySetInnerHTML={{ __html: highlightedCode }}
+              />
+            </div>
+          ) : (
+            <div dangerouslySetInnerHTML={{ __html: highlightedCode }} />
+          )}
+        </code>
+      </pre>
+    </div>
+  );
+};
 
 interface LiveMarkdownRendererProps {
   text: string;
@@ -120,7 +183,7 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
               if (boldTextContent.length <= MAX_LENGTH_FOR_SPECIAL_BOLD_STYLE) {
                 return (
                   <p
-                    className="text-gray-800 dark:text-gray-100 font-ptserif-bold text-2xl mt-6 mb-4 pb-2 border-b border-gray-300 dark:border-zinc-700"
+                    className="text-gray-800 dark:text-gray-200 font-ptserif-bold text-2xl mt-6 mb-4 pb-2 border-b border-gray-300 dark:border-zinc-700"
                     {...props}
                   />
                 );
@@ -154,24 +217,12 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
             const match = /language-(\w+)/.exec(className || "");
             return !inline && match ? (
               <>
-                <SyntaxHighlighter
-                  style={atomDark}
-                  language={match[1]}
-                  showLineNumbers
-                  customStyle={{
-                    margin: "0",
-                    marginTop: "24px",
-                    fontSize: "0.9rem",
-                    borderRadius: "8px 8px 0 0",
-                  }}
-                  PreTag="div"
-                  {...props}
-                >
-                  {String(children).replace(/\n$/, "")}
-                </SyntaxHighlighter>
-                <div className="w-full mb-6 pr-3 flex justify-end bg-tertiary-dark rounded-b-lg">
+                <div className="w-full pr-3 flex justify-between bg-gray-200 dark:bg-tertiary-dark/70 text-gray-700 dark:text-gray-200 mt-10 rounded-t-lg">
+                  <span className="text-sm font-mono px-2 py-1">
+                    {match[1]}
+                  </span>
                   <CopyToClipboard text={String(children)} onCopy={handleCopy}>
-                    <button className="m-0.5 px-1.5 py-0.5 flex text-gray-200 hover:bg-zinc-600 rounded-lg cursor-pointer">
+                    <button className="m-0.5 px-1.5 py-0.5 flex hover:bg-gray-300 dark:hover:bg-neutral-600/60 rounded-sm cursor-pointer">
                       <span className="flex items-center justify-center mr-1">
                         {isCopied ? (
                           <FaCheck className="size-3" />
@@ -180,15 +231,21 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
                         )}
                       </span>
                       <span className="text-sm">
-                        {isCopied ? "Copied!" : "Copy"}
+                        {isCopied ? "Copied" : "Copy"}
                       </span>
                     </button>
                   </CopyToClipboard>
                 </div>
+                <CustomSyntaxHighlighter
+                  language={match[1]}
+                  showLineNumbers={true}
+                >
+                  {String(children).replace(/\n$/, "")}
+                </CustomSyntaxHighlighter>
               </>
             ) : (
               <code
-                className="px-1.5 bg-gray-300/60 dark:bg-tertiary-dark/70 rounded-lg font-mono"
+                className="px-1.5 bg-gray-300/50 dark:bg-tertiary-dark/50 rounded-sm font-normal"
                 {...props}
               >
                 {children}
@@ -294,7 +351,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ text }) => {
               if (boldTextContent.length <= MAX_LENGTH_FOR_SPECIAL_BOLD_STYLE) {
                 return (
                   <p
-                    className="text-gray-800 dark:text-gray-100 font-ptserif-bold text-2xl mt-6 mb-4 pb-2 border-b border-gray-300 dark:border-zinc-700"
+                    className="text-gray-800 dark:text-gray-200 font-ptserif-bold text-2xl mt-6 mb-4 pb-2 border-b border-gray-300 dark:border-zinc-700"
                     {...props}
                   />
                 );
@@ -328,24 +385,12 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ text }) => {
             const match = /language-(\w+)/.exec(className || "");
             return !inline && match ? (
               <>
-                <SyntaxHighlighter
-                  style={atomDark}
-                  language={match[1]}
-                  showLineNumbers
-                  customStyle={{
-                    margin: "0",
-                    marginTop: "24px",
-                    fontSize: "0.9rem",
-                    borderRadius: "8px 8px 0 0",
-                  }}
-                  PreTag="div"
-                  {...props}
-                >
-                  {String(children).replace(/\n$/, "")}
-                </SyntaxHighlighter>
-                <div className="w-full mb-6 pr-3 flex justify-end bg-tertiary-dark rounded-b-lg">
+                <div className="w-full pr-3 flex justify-between bg-gray-200 dark:bg-tertiary-dark/70 text-gray-700 dark:text-gray-200 mt-10 rounded-t-lg">
+                  <span className="text-sm font-mono px-2 py-1">
+                    {match[1]}
+                  </span>
                   <CopyToClipboard text={String(children)} onCopy={handleCopy}>
-                    <button className="m-0.5 px-1.5 py-0.5 flex text-gray-200 hover:bg-zinc-600 rounded-lg cursor-pointer">
+                    <button className="m-0.5 px-1.5 py-0.5 flex hover:bg-gray-300 dark:hover:bg-neutral-600/60 rounded-sm cursor-pointer">
                       <span className="flex items-center justify-center mr-1">
                         {isCopied ? (
                           <FaCheck className="size-3" />
@@ -354,15 +399,21 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ text }) => {
                         )}
                       </span>
                       <span className="text-sm">
-                        {isCopied ? "Copied!" : "Copy"}
+                        {isCopied ? "Copied" : "Copy"}
                       </span>
                     </button>
                   </CopyToClipboard>
                 </div>
+                <CustomSyntaxHighlighter
+                  language={match[1]}
+                  showLineNumbers={true}
+                >
+                  {String(children).replace(/\n$/, "")}
+                </CustomSyntaxHighlighter>
               </>
             ) : (
               <code
-                className="px-1.5 bg-gray-300/60 dark:bg-tertiary-dark/70 rounded-lg font-mono"
+                className="px-1.5 bg-gray-300/50 dark:bg-tertiary-dark/50 rounded-sm font-normal"
                 {...props}
               >
                 {children}
