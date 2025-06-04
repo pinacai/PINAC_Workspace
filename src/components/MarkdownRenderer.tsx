@@ -87,10 +87,9 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
 }) => {
   const [isCopied, setIsCopied] = useState(false);
   const { stop, setStop } = useStopTextGeneration();
-  const [currentText, setCurrentText] = useState("");
+  const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
-  const delay = 10; // Typing effect delay
 
   const handleCopy = () => {
     setIsCopied(true);
@@ -99,8 +98,8 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
 
   // Reset rendering when text changes completely
   useEffect(() => {
-    if (text !== currentText && currentIndex === 0) {
-      setCurrentText("");
+    if (text !== displayText && currentIndex === 0) {
+      setDisplayText("");
     }
   }, [text]);
 
@@ -120,24 +119,20 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
       setButtonsDisabled && setButtonsDisabled(false);
       setStop(false);
       setIsComplete(true);
-      setCurrentText(text); // Show full text when stopped
+      setDisplayText(text); // Show full text when stopped
       return;
     }
 
     // Continue rendering
-    const timeout = setTimeout(() => {
-      setCurrentText((prevText) => prevText + text[currentIndex]);
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-    }, delay);
-
-    return () => clearTimeout(timeout);
-  }, [currentIndex, text, delay, stop, isComplete]);
+    setDisplayText((prevText) => prevText + text[currentIndex]);
+    setCurrentIndex((prevIndex) => prevIndex + 1);
+  }, [currentIndex, text, stop, isComplete]);
 
   // If text has changed, reset the current index and complete status
   useEffect(() => {
-    if (text !== currentText && currentText.length >= text.length) {
+    if (text !== displayText && displayText.length >= text.length) {
       setCurrentIndex(0);
-      setCurrentText("");
+      setDisplayText("");
       setIsComplete(false);
     }
   }, [text]);
@@ -289,13 +284,14 @@ export const LiveMarkdownRenderer: React.FC<LiveMarkdownRendererProps> = ({
           ),
         }}
       >
-        {currentText}
+        {displayText}
       </Markdown>
     </div>
   );
 };
 
 //    ================================================     //
+
 interface MarkdownRendererProps {
   text: string;
   className?: string;
