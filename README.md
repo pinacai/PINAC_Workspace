@@ -10,7 +10,7 @@
 <img alt="Github Contributors" src="https://img.shields.io/github/contributors/pinacai/PINAC_Workspace"/>
 <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/pinacai/PINAC_Workspace"/>
 
-[![View My Profile](https://img.shields.io/badge/View-My_Profile-green?logo=GitHub)](https://github.com/rajeshtechforge)
+[![View My Profile](https://img.shields.io/badge/View-My_Profile-blue?logo=GitHub)](https://github.com/rajeshtechforge)
 
 A privacy-first, cross-platform, open-source desktop AI assistant for all
 
@@ -26,25 +26,23 @@ A privacy-first, cross-platform, open-source desktop AI assistant for all
 
 PINAC Workspace is a modern-looking _privacy-first_ AI chat for desktops, seamlessly blending Electron-React for a modern user experience with powerfully Python backend. Unlock the full potential of AI with unparalleled simplicity and user-friendliness, while enjoying ultimate freedom and privacy.
 
-## ⭐ Features
+## ✨ Features
 
-- **Freedom:** Pinac Workspace supports both local (Ollama) and our pinac-cloud model, providing you with the freedom to choose how you want to utilize the platform. 
+- **Total Freedom:** Choose between local (Ollama) and cloud (Pinac-Cloud) AI models to suit your workflow and privacy needs.
+- **Privacy by Design:** No personal data is ever shared or stored on our servers. All features work fully offline, ensuring your data stays on your device.
+- **Local RAG Integration:** Attach documents directly in chat and leverage a lightweight, local Retrieval-Augmented Generation (RAG) model. Optionally, plug in your own RAG model for advanced use cases.
+- **Real-Time Web Search:** Instantly access up-to-date information from the web to answer questions and enhance conversations.
+- **Secure Authentication:** Sign in and out securely with Firebase Authentication, protecting your identity and access.
+- **Local Chat History:** All conversations are stored locally for your privacy and convenience. Easily revisit and refine past chats.
+- **Modern Desktop Experience:** Enjoy a sleek, responsive UI built with Electron and React, powered by a robust Python backend.
 
-- **Privacy-first**: Use our app with complete peace of mind! We prioritize your privacy by ensuring that you can access all features without sharing any personal data. Plus, we do not store any data on our servers, making it a truly privacy-first experience.
-
-- **Local RAG**: Easily document attachments in your chat using our lightweight local RAG model. You also have the option to integrate and use your own RAG model for enhanced flexibility.
-
-- **Web Search**: Access real-time information with our web search feature, allowing you to quickly answer questions and stay updated. 
-
-- **Authentication**: Experience a secure Sign-in with Firebase Authentication and Sign-out, ensuring that your identity and data are protected.
-
-- **Chat History**: Easily access and review your chat history anytime, allowing you to revisit and refine your conversations. All chats are stored locally on your PC for enhanced privacy and convenience.
-
-- **Modern UI/UX**: Modern-looking AI chat interface for desktops, seamlessly blending Electron-React for a modern user experience with powerfully Python backend.
-
-## 🎨 UI-Design
+## 🛹 UI-Design
 
 <img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/UI-Design.png" alt="app screenshot">
+
+## 🗼 System Design
+
+<img src="https://github.com/pinacai/PINAC_Workspace/blob/main/assets/system_architechture.png" alt="system design">
 
 ## 📂 File Structure
 
@@ -141,7 +139,7 @@ Overview of File Structure in Brief to Help You Get Started.
    ```bash
    npm run dev
    ```
-   
+
    If want to build the app for production, just run `npm run build`
 
 ## 🎉 Contributing
